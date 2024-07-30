@@ -406,45 +406,248 @@ $end_entry = min($offset + $limit, $total_rows);
   </div>
 </div>
 
-<!-- Modal for Viewing Details -->
-<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="viewModalLabel">Person Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="print-section">
-                <div id="modal-content">
-                    <!-- Details will be loaded here -->
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn" onclick="printElement('print-section')">Print</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal for Editing Details -->
+<!-- Edit Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Edit Person Details</h5>
+                <h5 class="modal-title" id="editModalLabel">Edit Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="editForm">
-                    <!-- Form fields -->
-                    <!-- ... -->
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <div class="row">
+                        <!-- Column 1 -->
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label">House Number:</label>
+                                <input type="text" class="form-control" id="editHouseNumber" name="house_number" placeholder="House Number">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Name:</label>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="editLastName" name="last_name" placeholder="Last Name">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="editFirstName" name="first_name" placeholder="First Name">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="editMiddleName" name="middle_name" placeholder="Middle Name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Street/Purok/Sitio/Subd.:</label>
+                                <input type="text" class="form-control" id="editStreet" name="street" placeholder="Street/Purok/Sitio/Subd.">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Municipality:</label>
+                                <select class="form-select" id="editMunicipality" name="municipality">
+                                    <option value="madridejos">Madridejos</option>
+                                    <option value="bantayan">Bantayan</option>
+                                    <option value="santafe">Santa Fe</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Barangay:</label>
+                                <select class="form-select" id="editBarangay" name="barangay">
+                                    <!-- Options will be populated based on selected municipality -->
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Province:</label>
+                                <input type="text" class="form-control" id="editProvince" name="province" placeholder="Province">
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label">Residence Status:</label>
+                                <select class="form-select" id="editResidenceStatus" name="residence_status">
+                                    <option value="owner">Owner</option>
+                                    <option value="boarder">Boarder/Rentee</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Length of Stay:</label>
+                                <input type="text" class="form-control" id="editLengthOfStay" name="length_of_stay" placeholder="Length of Stay">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Provincial Address:</label>
+                                <input type="text" class="form-control" id="editProvincialAddress" name="provincial_address" placeholder="(House/Block/Lot No.) (St./Purok/Sitio/Subd.) (Barangay) (City/Municipality) (Province)">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Sex:</label>
+                                <select class="form-select" id="editSex" name="sex">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Civil Status:</label>
+                                <select class="form-select" id="editCivilStatus" name="civil_status">
+                                    <option value="single">Single</option>
+                                    <option value="married">Married</option>
+                                    <option value="widower">Widow/er</option>
+                                    <option value="separated">Separated</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Column 3 -->
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label">Date of Birth:</label>
+                                <input type="date" class="form-control" id="editDateOfBirth" name="date_of_birth">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Place of Birth:</label>
+                                <input type="text" class="form-control" id="editPlaceOfBirth" name="place_of_birth" placeholder="Place of Birth">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Height and Weight:</label>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="number" step="0.01" class="form-control" id="editHeight" name="height" placeholder="Height (m)">
+                                    </div>
+                                    <div class="col">
+                                        <input type="number" step="0.1" class="form-control" id="editWeight" name="weight" placeholder="Weight (kg)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Contact Number:</label>
+                                <input type="text" class="form-control" id="editContactNumber" name="contact_number" placeholder="Contact Number" pattern="\d{11}" title="Please enter an 11-digit contact number" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Religion:</label>
+                                <input type="text" class="form-control" id="editReligion" name="religion" placeholder="Religion">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <h4>Educational Attainment:</h4>
+                            <div class="mb-3">
+                                <label class="form-label">Elementary:</label>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="editElementarySchool" name="elementary_school" placeholder="School">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="editElementaryAddress" name="elementary_address" placeholder="Address">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Highschool:</label>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="editHighschool" name="highschool" placeholder="School">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="editHighschoolAddress" name="highschool_address" placeholder="Address">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Vocational Course:</label>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="editVocationalSchool" name="vocational_school" placeholder="School">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="editVocationalAddress" name="vocational_address" placeholder="Address">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">College/Course:</label>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="editCollege" name="college" placeholder="School">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="editCollegeAddress" name="college_address" placeholder="Address">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <h4>Employment Record:</h4>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Duration:</label>
+                                    <input type="text" class="form-control" id="editEmploymentDuration" name="employment_duration" placeholder="Duration">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Name of Company/Employer:</label>
+                                    <input type="text" class="form-control" id="editEmployerName" name="employer_name" placeholder="Name of Company/Employer">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Address:</label>
+                                    <input type="text" class="form-control" id="editEmployerAddress" name="employer_address" placeholder="Address">
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <h4>Other House Occupants:</h4>
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label">Name (LN, FN, MI, QLFR):</label>
+                                            <input type="text" class="form-control" name="occupant_name" placeholder="Name">
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label">Position in the Family:</label>
+                                            <input type="text" class="form-control" name="occupant_position" placeholder="Position in the Family">
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label">Age:</label>
+                                            <input type="number" class="form-control" name="occupant_age" placeholder="Age">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label">Birth Date:</label>
+                                            <input type="date" class="form-control" name="occupant_birth_date">
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label">Civil Status:</label>
+                                            <select class="form-select" name="occupant_civil_status">
+                                                <option value="single">Single</option>
+                                                <option value="married">Married</option>
+                                                <option value="widower">Widow/er</option>
+                                                <option value="separated">Separated</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label">Occupation/Income:</label>
+                                            <input type="text" class="form-control" name="occupant_occupation" placeholder="Occupation/Income">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Save Changes Button -->
+                    <div class="row mt-4">
+                        <div class="col-12 text-end">
+                            <button type="button" id="saveChangesBtn" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+    
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -459,6 +662,91 @@ $end_entry = min($offset + $limit, $total_rows);
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function loadModalData(houseNumber) {
+    fetch('../fetch/fetch_details.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+            'house_number': houseNumber
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Populate edit modal fields
+        document.getElementById('editHouseNumber').value = data.house_number;
+        document.getElementById('editLastName').value = data.last_name;
+        document.getElementById('editFirstName').value = data.first_name;
+        document.getElementById('editMiddleName').value = data.middle_name;
+        document.getElementById('editStreet').value = data.street;
+        document.getElementById('editMunicipality').value = data.municipality;
+        document.getElementById('editBarangay').value = data.barangay;
+        document.getElementById('editProvince').value = data.province;
+        document.getElementById('editResidenceStatus').value = data.residence_status;
+        document.getElementById('editLengthOfStay').value = data.length_of_stay;
+        document.getElementById('editProvincialAddress').value = data.provincial_address;
+        document.getElementById('editSex').value = data.sex;
+        document.getElementById('editCivilStatus').value = data.civil_status;
+        document.getElementById('editDateOfBirth').value = data.date_of_birth;
+        document.getElementById('editPlaceOfBirth').value = data.place_of_birth;
+        document.getElementById('editHeight').value = data.height;
+        document.getElementById('editWeight').value = data.weight;
+        document.getElementById('editContactNumber').value = data.contact_number;
+        document.getElementById('editReligion').value = data.religion;
+        document.getElementById('editElementarySchool').value = data.elementary_school;
+        document.getElementById('editElementaryAddress').value = data.elementary_address;
+        document.getElementById('editHighschool').value = data.highschool;
+        document.getElementById('editHighschoolAddress').value = data.highschool_address;
+        document.getElementById('editVocationalSchool').value = data.vocational_school;
+        document.getElementById('editVocationalAddress').value = data.vocational_address;
+        document.getElementById('editCollege').value = data.college;
+        document.getElementById('editCollegeAddress').value = data.college_address;
+        document.getElementById('editEmploymentDuration').value = data.employment_duration;
+        document.getElementById('editEmployerName').value = data.employer_name;
+        document.getElementById('editEmployerAddress').value = data.employer_address;
+        document.getElementById('editOccupantName').value = data.occupant_name;
+        document.getElementById('editOccupantPosition').value = data.occupant_position;
+        document.getElementById('editOccupantAge').value = data.occupant_age;
+        document.getElementById('editOccupantBirthDate').value = data.occupant_birth_date;
+        document.getElementById('editOccupantCivilStatus').value = data.occupant_civil_status;
+        document.getElementById('editOccupantOccupation').value = data.occupant_occupation;
+
+        // Show the modal
+        new bootstrap.Modal(document.getElementById('editModal')).show();
+    })
+    .catch(error => console.error('Error loading data:', error));
+}
+
+    document.addEventListener('click', function(e) {
+            if (e.target.matches('.edit-btn')) {
+            const houseNumber = e.target.getAttribute('data-house-number');
+            loadModalData(houseNumber);
+            new bootstrap.Modal(document.getElementById('editModal')).show();
+        }
+    });
+
+    // Save changes in the edit modal
+    document.getElementById('saveChangesBtn').addEventListener('click', function() {
+        const formData = new FormData(document.getElementById('editForm'));
+        fetch('../action/update_record.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(result => {
+            alert(result);
+            new bootstrap.Modal(document.getElementById('editModal')).hide();
+            location.reload(); // Reload to reflect the changes
+        })
+        .catch(error => console.error('Error updating data:', error));
+    });
+});
+
+  </script>
+    
   <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Function to load and display data in the modal

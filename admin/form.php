@@ -231,11 +231,11 @@
                     <input type="text" class="form-control" name="occupant_occupation" placeholder="Occupation/Income">
                 </div>
             </div>
+
         </div>
     </div>
 
     
-
     <div class="row mt-4">
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Submit</button>
