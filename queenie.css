@@ -21,6 +21,7 @@
       scroll-behavior: smooth; /* Enables smooth scrolling */
       position: relative; /* Ensure relative positioning for absolute footer */
       animation: fadeIn 0.5s ease-out; /* Added fade-in animation */
+      /* as */
     }
         header {
   display: flex;
