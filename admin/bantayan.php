@@ -26,274 +26,8 @@ $end_entry = min($offset + $limit, $total_rows);
 ?>
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
      <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
-<style>
-    .highlight-term {
-        background-color: yellow;
-        font-weight: bold;
-    }
-    .table-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.search-container, .show-entries {
-    display: flex;
-    align-items: center;
-}
-
-.search-container {
-    margin-right: 20px;
-}
-
-.search-container input {
-    max-width: 500px; /* Adjust as needed */
-    height: 40px;
-    border-radius: 5px;
-    border: 1px solid #ced4da;
-    padding: 0 10px;
-}
-
-.show-entries {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Space between the label and the select element */
-}
-
-.show-entries label {
-    margin: 0;
-    font-weight: 500; /* Slightly bolder text */
-    color: #495057; /* Subtle dark color */
-    font-size: 1rem; /* Adjust size as needed */
-}
-
-.show-entries select {
-    height: 40px; /* Match the height of the input field for consistency */
-    border-radius: 5px;
-    border: 1px solid #ced4da;
-    font-size: 1rem;
-    padding: 0 10px;
-    background-color: #fff; /* Background color of the dropdown */
-    color: #495057; /* Text color inside the dropdown */
-}
-
-.show-entries select:focus {
-    border-color: #007bff; /* Highlight border color on focus */
-    outline: none; /* Remove default outline */
-}
-
-.footer-pagination {
-    display: flex;
-    justify-content: space-between; /* Distributes space between items */
-    align-items: center;
-    margin-top: 15px;
-}
-
-.footer-info {
-    font-size: 0.875rem;
-    color: #495057;
-}
-
-.pagination-wrapper {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.pagination {
-    margin: 0;
-}
-
-#printBtn {
-    background-color: #007bff; /* Bootstrap primary color */
-    color: #fff; /* White text color */
-    border: none; /* Remove default border */
-    border-radius: 4px; /* Rounded corners */
-    padding: 8px 16px; /* Add padding for size */
-    font-size: 16px; /* Adjust font size */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease; /* Smooth background color transition */
-}
-
-/* Hover state for the Print button */
-#printBtn:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-}
-
-/* Focus state for accessibility */
-#printBtn:focus {
-    outline: 2px solid #0056b3; /* Add a focus outline */
-    outline-offset: 2px; /* Offset the outline */
-}
-
-#modal-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    padding: 0;
-    border: 1px solid #000;
-    background-color: #FEFCFF;
-    border-radius: 8px;
-    position: relative; /* For the middle line */
-}
-
-#modal-content::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 1px;
-    background-color: #000;
-    display: block; /* Display the vertical line */
-}
-
-#modal-content h5 {
-    grid-column: span 2;
-    margin: 0;
-    font-weight: bold;
-    padding: 1rem;
-    text-align: center;
-    background-color: #f1f1f1;
-    border-bottom: none; /* Remove the bottom border from headers */
-}
-
-#modal-content p {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem;
-    margin: 0;
-    border-top: 1px solid #000;
-    background-color: #fff;
-}
-
-#modal-content p:nth-child(odd) {
-    border-right: none; /* Remove the right border */
-}
-
-#modal-content p:nth-child(even) {
-    border-left: none; /* Remove the left border */
-}
-
-#modal-content p strong {
-    min-width: 150px;
-    color: #495057;
-}
-
-#modal-content .section {
-    grid-column: span 2;
-    border-top: 1px solid #000; /* Add a horizontal line above each section */
-    padding: 0;
-    margin: 0;
-    background-color: #eaeaea;
-}
-
-#modal-content .section h5 {
-    padding: 1rem;
-    margin: 0;
-    text-align: left;
-    background-color: #f1f1f1;
-}
-
-#modal-content .form-section {
-    grid-column: span 2;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-#modal-content .form-group {
-    flex: 1 1 50%;
-    padding: 0;
-}
-
-#modal-content .form-group p {
-    border: none;
-    padding: 1rem;
-    margin: 0;
-}
-
-.modal-header, .modal-footer {
-    background-color: #007bff;
-    color: #fff;
-    border-radius: 8px 8px 0 0;
-    padding: 1rem;
-}
-
-.modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    padding: 1rem;
-}
-
-.modal-footer .btn-secondary {
-    background-color: #6c757d;
-    color: #fff;
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
-    border: none;
-}
-
-.modal-footer .btn-primary {
-    background-color: #007bff;
-    color: #fff;
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
-    border: none;
-    margin-left: 1rem;
-}
-
-/* Ensure the modal itself has no background color */
-
-
-.modal-header, .modal-body, .modal-footer {
-    background-color: white; /* No background color for header, body, and footer */
-    border: none; /* Remove borders if any */
-}
-
-.modal-footer .btn {
-    background-color: transparent; /* Button background color inside footer */
-    border: none; /* Remove border */
-}
-
-.modal-footer .btn-primary {
-    background-color: transparent; /* Primary button background color */
-    color: #007bff; /* Adjust text color if needed */
-}
-
-.modal-footer .btn-secondary {
-    background-color: gray; /* Secondary button background color */
-    color: #6c757d; /* Adjust text color if needed */
-}
-
-/* Optional: Adjust styles if needed for button borders and hover effects */
-.modal-footer .btn:hover {
-    background-color: rgba(0, 0, 0, 0.1); /* Subtle background on hover if needed */
-    border: none;
-}
-
-@media print {
-    body {
-        margin: 0;
-        padding: 0;
-    }
-    .print-content {
-        max-width: 100%;
-        margin: 0;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        background: #fff;
-        page-break-before: auto;
-        page-break-after: auto;
-        page-break-inside: avoid;
-    }
-    @page {
-        size: auto;
-        margin: 0;
-    }
-}
-
-</style>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+     <link href="assets/css/mark.css" rel="stylesheet">
 <main id="main" class="main">
 
 <div class="pagetitle">
@@ -342,7 +76,7 @@ $end_entry = min($offset + $limit, $total_rows);
                                 <td>{$row['fullname']}</td>
                                 <td>{$row['address']}</td>
                                    <td><a href='#' data-house-number='{$row['house_number']}' class='btn btn-primary view-btn'>View</a>
-                                    <a href='#' data-house-number='{$row['house_number']}' class='btn btn-warning edit-btn'>Edit</a>
+                                    <a href='#' data-house-number='{$row['house_number']}' class='btn btn-secondary edit-btn'>Edit</a>
                                     <a href='#' data-house-number='{$row['house_number']}' class='btn btn-danger delete-btn'>Delete</a>
                               </tr>";
                     }
@@ -378,12 +112,17 @@ $end_entry = min($offset + $limit, $total_rows);
                 </ul>
             </nav>
         </div>
+        
     </div>
 </div>
 
       </div>
     </div>
   </section>
+   <!-- Reports Button -->
+   <div class="text-end">
+   <a href="bantayanreports.php?print=true" class="btn btn-info">Reports</a>
+    </div>
 
 </main><!-- End #main -->
 <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
@@ -443,17 +182,11 @@ $end_entry = min($offset + $limit, $total_rows);
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Municipality:</label>
-                                <select class="form-select" id="editMunicipality" name="municipality">
-                                    <option value="madridejos">Madridejos</option>
-                                    <option value="bantayan">Bantayan</option>
-                                    <option value="santafe">Santa Fe</option>
-                                </select>
+                                <input type="text" class="form-control" id="editMunicipality" name="municipality" placeholder="Municipality">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Barangay:</label>
-                                <select class="form-select" id="editBarangay" name="barangay">
-                                    <!-- Options will be populated based on selected municipality -->
-                                </select>
+                                <input type="text" class="form-control" id="editBarangay" name="barangay" placeholder="Barangay">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Province:</label>
@@ -601,25 +334,25 @@ $end_entry = min($offset + $limit, $total_rows);
                                     <div class="row">
                                         <div class="col-md-4 mb-3">
                                             <label class="form-label">Name (LN, FN, MI, QLFR):</label>
-                                            <input type="text" class="form-control" name="occupant_name" placeholder="Name">
+                                            <input type="text" class="form-control" id="editOccupantName" name="occupant_name" placeholder="Name">
                                         </div>
                                         <div class="col-md-4 mb-3">
                                             <label class="form-label">Position in the Family:</label>
-                                            <input type="text" class="form-control" name="occupant_position" placeholder="Position in the Family">
+                                            <input type="text" class="form-control" id="editOccupantPosition" name="occupant_position" placeholder="Position in the Family">
                                         </div>
                                         <div class="col-md-4 mb-3">
                                             <label class="form-label">Age:</label>
-                                            <input type="number" class="form-control" name="occupant_age" placeholder="Age">
+                                            <input type="number" class="form-control" id="editOccupantAge" name="occupant_age" placeholder="Age">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4 mb-3">
                                             <label class="form-label">Birth Date:</label>
-                                            <input type="date" class="form-control" name="occupant_birth_date">
+                                            <input type="date" class="form-control" id="editOccupantBirthDate" name="occupant_birth_date">
                                         </div>
                                         <div class="col-md-4 mb-3">
                                             <label class="form-label">Civil Status:</label>
-                                            <select class="form-select" name="occupant_civil_status">
+                                            <select class="form-select" id="editOccupantCivilStatus" name="occupant_civil_status">
                                                 <option value="single">Single</option>
                                                 <option value="married">Married</option>
                                                 <option value="widower">Widow/er</option>
@@ -628,7 +361,7 @@ $end_entry = min($offset + $limit, $total_rows);
                                         </div>
                                         <div class="col-md-4 mb-3">
                                             <label class="form-label">Occupation/Income:</label>
-                                            <input type="text" class="form-control" name="occupant_occupation" placeholder="Occupation/Income">
+                                            <input type="text" class="form-control" id="editOccupantOccupation" name="occupant_occupation" placeholder="Occupation/Income">
                                         </div>
                                     </div>
                                 </div>
@@ -639,7 +372,7 @@ $end_entry = min($offset + $limit, $total_rows);
                     <!-- Save Changes Button -->
                     <div class="row mt-4">
                         <div class="col-12 text-end">
-                            <button type="button" id="saveChangesBtn" class="btn btn-primary">Save Changes</button>
+                            <button type="button" id="saveChangesBtn" class="btn btn-primary">Update</button>
                         </div>
                     </div>
                 </form>
@@ -647,8 +380,6 @@ $end_entry = min($offset + $limit, $total_rows);
         </div>
     </div>
 </div>
-    
-
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
@@ -663,90 +394,148 @@ $end_entry = min($offset + $limit, $total_rows);
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     function loadModalData(houseNumber) {
-    fetch('../fetch/fetch_details.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: new URLSearchParams({
-            'house_number': houseNumber
+        fetch('../fetch/fetch_update.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({
+                'house_number': houseNumber
+            })
         })
-    })
-    .then(response => response.json())
-    .then(data => {
-        // Populate edit modal fields
-        document.getElementById('editHouseNumber').value = data.house_number;
-        document.getElementById('editLastName').value = data.last_name;
-        document.getElementById('editFirstName').value = data.first_name;
-        document.getElementById('editMiddleName').value = data.middle_name;
-        document.getElementById('editStreet').value = data.street;
-        document.getElementById('editMunicipality').value = data.municipality;
-        document.getElementById('editBarangay').value = data.barangay;
-        document.getElementById('editProvince').value = data.province;
-        document.getElementById('editResidenceStatus').value = data.residence_status;
-        document.getElementById('editLengthOfStay').value = data.length_of_stay;
-        document.getElementById('editProvincialAddress').value = data.provincial_address;
-        document.getElementById('editSex').value = data.sex;
-        document.getElementById('editCivilStatus').value = data.civil_status;
-        document.getElementById('editDateOfBirth').value = data.date_of_birth;
-        document.getElementById('editPlaceOfBirth').value = data.place_of_birth;
-        document.getElementById('editHeight').value = data.height;
-        document.getElementById('editWeight').value = data.weight;
-        document.getElementById('editContactNumber').value = data.contact_number;
-        document.getElementById('editReligion').value = data.religion;
-        document.getElementById('editElementarySchool').value = data.elementary_school;
-        document.getElementById('editElementaryAddress').value = data.elementary_address;
-        document.getElementById('editHighschool').value = data.highschool;
-        document.getElementById('editHighschoolAddress').value = data.highschool_address;
-        document.getElementById('editVocationalSchool').value = data.vocational_school;
-        document.getElementById('editVocationalAddress').value = data.vocational_address;
-        document.getElementById('editCollege').value = data.college;
-        document.getElementById('editCollegeAddress').value = data.college_address;
-        document.getElementById('editEmploymentDuration').value = data.employment_duration;
-        document.getElementById('editEmployerName').value = data.employer_name;
-        document.getElementById('editEmployerAddress').value = data.employer_address;
-        document.getElementById('editOccupantName').value = data.occupant_name;
-        document.getElementById('editOccupantPosition').value = data.occupant_position;
-        document.getElementById('editOccupantAge').value = data.occupant_age;
-        document.getElementById('editOccupantBirthDate').value = data.occupant_birth_date;
-        document.getElementById('editOccupantCivilStatus').value = data.occupant_civil_status;
-        document.getElementById('editOccupantOccupation').value = data.occupant_occupation;
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error('Error loading data:', data.error);
+                return;
+            }
 
-        // Show the modal
-        new bootstrap.Modal(document.getElementById('editModal')).show();
-    })
-    .catch(error => console.error('Error loading data:', error));
-}
+            // Populate edit modal fields
+            document.getElementById('editHouseNumber').value = data.house_number;
+            document.getElementById('editLastName').value = data.last_name;
+            document.getElementById('editFirstName').value = data.first_name;
+            document.getElementById('editMiddleName').value = data.middle_name;
+            document.getElementById('editStreet').value = data.street;
+            document.getElementById('editMunicipality').value = data.municipality;
+            document.getElementById('editBarangay').value = data.barangay;
+            document.getElementById('editProvince').value = data.province;
+            document.getElementById('editResidenceStatus').value = data.residence_status;
+            document.getElementById('editLengthOfStay').value = data.length_of_stay;
+            document.getElementById('editProvincialAddress').value = data.provincial_address;
+            document.getElementById('editSex').value = data.sex;
+            document.getElementById('editCivilStatus').value = data.civil_status;
+            document.getElementById('editDateOfBirth').value = data.date_of_birth;
+            document.getElementById('editPlaceOfBirth').value = data.place_of_birth;
+            document.getElementById('editHeight').value = data.height;
+            document.getElementById('editWeight').value = data.weight;
+            document.getElementById('editContactNumber').value = data.contact_number;
+            document.getElementById('editReligion').value = data.religion;
+            document.getElementById('editElementarySchool').value = data.elementary_school;
+            document.getElementById('editElementaryAddress').value = data.elementary_address;
+            document.getElementById('editHighschool').value = data.highschool;
+            document.getElementById('editHighschoolAddress').value = data.highschool_address;
+            document.getElementById('editVocationalSchool').value = data.vocational_school;
+            document.getElementById('editVocationalAddress').value = data.vocational_address;
+            document.getElementById('editCollege').value = data.college;
+            document.getElementById('editCollegeAddress').value = data.college_address;
+            document.getElementById('editEmploymentDuration').value = data.employment_duration;
+            document.getElementById('editEmployerName').value = data.employer_name;
+            document.getElementById('editEmployerAddress').value = data.employer_address;
+            document.getElementById('editOccupantName').value = data.occupant_name;
+            document.getElementById('editOccupantPosition').value = data.occupant_position;
+            document.getElementById('editOccupantAge').value = data.occupant_age;
+            document.getElementById('editOccupantBirthDate').value = data.occupant_birth_date;
+            document.getElementById('editOccupantCivilStatus').value = data.occupant_civil_status;
+            document.getElementById('editOccupantOccupation').value = data.occupant_occupation;
+
+            // Show the modal
+            new bootstrap.Modal(document.getElementById('editModal')).show();
+        })
+        .catch(error => console.error('Error loading data:', error));
+    }
 
     document.addEventListener('click', function(e) {
-            if (e.target.matches('.edit-btn')) {
+        if (e.target.matches('.edit-btn')) {
             const houseNumber = e.target.getAttribute('data-house-number');
             loadModalData(houseNumber);
-            new bootstrap.Modal(document.getElementById('editModal')).show();
         }
     });
 
-    // Save changes in the edit modal
     document.getElementById('saveChangesBtn').addEventListener('click', function() {
-        const formData = new FormData(document.getElementById('editForm'));
-        fetch('../action/update_record.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(result => {
-            alert(result);
-            new bootstrap.Modal(document.getElementById('editModal')).hide();
-            location.reload(); // Reload to reflect the changes
-        })
-        .catch(error => console.error('Error updating data:', error));
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Do you want to save the changes?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, save it!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Show loading state
+            Swal.fire({
+                title: 'Saving...',
+                text: 'Please wait while we save your changes.',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Collect form data and send it to the server
+            const formData = new FormData(document.getElementById('editForm'));
+            fetch('../action/update_record.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(responseText => {
+                console.log('Update response:', responseText);
+
+                // Close the loading state and show success message
+                Swal.fire({
+                    title: 'Updated!',
+                    text: 'Your record has been updated successfully.',
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6'
+                }).then(() => {
+                    // Hide the modal
+                    new bootstrap.Modal(document.getElementById('editModal')).hide();
+                    
+                    // Optionally, refresh the modal data or table
+                    const houseNumber = document.getElementById('editHouseNumber').value;
+                    loadModalData(houseNumber);
+                    
+                    // Refresh the table data (replace with AJAX call as suggested above)
+                    location.reload(true);
+                });
+            })
+            .catch(error => {
+                console.error('Error updating data:', error);
+
+                // Close the loading state and show error message
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'There was a problem updating your record.',
+                    icon: 'error',
+                    confirmButtonColor: '#3085d6'
+                });
+            });
+        }
+    });
+});
+
+    // Add event listener for municipality change
+    document.getElementById('editMunicipality').addEventListener('change', function() {
+        const selectedMunicipality = this.value.toLowerCase();
+        populateBarangays(selectedMunicipality, '');
     });
 });
 
   </script>
-    
   <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Function to load and display data in the modal
@@ -989,6 +778,7 @@ function printElement(elementId) {
     }
 }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>
