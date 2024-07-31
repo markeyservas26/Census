@@ -33,11 +33,6 @@
     </style>
 </head>
 <body>
-
-    <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search by name or house number" />
-    </div>
-
     <!-- Table with stripped rows -->
     <table class="table datatable">
         <thead>
@@ -45,7 +40,6 @@
                 <th>House Number</th>
                 <th>Fullname</th>
                 <th>Address</th>
-                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -102,7 +96,7 @@
                     </style>
                 </head>
                 <body>
-                    <h1>Printable Report</h1>
+                    <h1>Bantayan List</h1>
                     ${tableHtml}
                 </body>
                 </html>
