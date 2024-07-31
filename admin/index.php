@@ -196,7 +196,7 @@ margin-left:13%;
 <section class="section dashboard">
         <div class="container">
             <div class="row">
-            <h5 class="card-title su" style="margin-left: 37px;">Overall Total </h5>
+            <h5 class="card-title su" style="margin-left: 37px;">Overall Totals </h5>
                 <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
                     <div class="card-box bg-blue">
                         <div class="inner">
