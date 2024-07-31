@@ -1090,7 +1090,7 @@ function printElement(elementId) {
             // Create a new window to print the table
             var printWindow = window.open('', '_blank');
             printWindow.document.open();
-            printWindow.document.write('<html><head><title>Print Report</title>');
+            printWindow.document.write('<html><head><title>Print</title>');
             printWindow.document.write('<style media="print">body{font-family:Arial,sans-serif;}table{width:100%;border-collapse:collapse;margin-bottom:1em;}th,td{border:1px solid #000;padding:8px;}th{background-color:#f2f2f2;}h2{text-align:center;}</style>');
             printWindow.document.write('</head><body>');
             printWindow.document.write('<h2>Madridejos List</h2>');
