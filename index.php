@@ -269,10 +269,6 @@
                         <div class="hero-content">
                             <h3>Welcome to the Bantayan Island Census!</h3>
                             <p>Help us shape the future of our community by participating in the census. Your input is crucial for better planning and services. Thank you for being involved!</p>
-                            <!-- Get Started Button -->
-                            <a href="#" id="getStartedBtn" class="btn btn-primary">
-        <i class="fas fa-rocket"></i> Get Started
-    </a>
                         </div>
                     </div>
                     <!-- Right Column: Logo Design -->
