@@ -41,10 +41,10 @@ $stmt->bind_param('ssssssssssssssssssssssssssssssssssss',
 
 // Execute the statement
 if (!$stmt->execute()) {
-    header('Location: ../staff/form.php?status=error');
+    header('Location: ../admin/form.php?status=error');
     exit();
 }
 
 // Redirect to the form page with success status
-header('Location: ../staff/form.php?status=success');
+header('Location: ../admin/form.php?status=success');
 ?>
