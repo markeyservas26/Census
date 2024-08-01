@@ -40,8 +40,6 @@
             <div class="mb-3">
                 <label class="form-label">Municipality:</label>
                 <select class="form-select" name="municipality">
-                    <option value="madridejos">Madridejos</option>
-                    <option value="bantayan">Bantayan</option>
                     <option value="santafe">Santa Fe</option>
                 </select>
             </div>
@@ -310,15 +308,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Define barangay options for each municipality
     const barangayOptions = {
-        bantayan: [
-            'Atop-Atop', 'Bigad', 'Bantigue', 'Baod', 'Binaobao', 'Botigues', 'Doong', 'Guiwanon', 'Hilotongan',
-            'Kabac', 'Kabangbang', 'Kampingganon', 'Kangkaibe', 'Lipayran', 'Luyongbaybay', 'Mojon',
-            'Oboob', 'Patao', 'Putian', 'Sillion', 'Suba', 'Sulangan', 'Sungko', 'Tamiao', 'Ticad'
-        ],
-        madridejos: [
-            'Poblacion', 'Mancilang', 'Malbago', 'Kaongkod', 'San Agustin', 'Kangwayan', 'Pili', 'Kodia',
-            'Tabagak', 'Bunakan', 'Maalat', 'Tugas', 'Tarong', 'Talangnan'
-        ],
         santafe: [
             'Balidbid', 'Hagdan', 'Hilantagaan', 'Kinatarkan', 'Langub', 'Marikaban', 'Okoy', 'Poblacion',
             'Pooc', 'Talisay'
