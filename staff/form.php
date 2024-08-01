@@ -10,7 +10,7 @@
 
 <main id="main" class="main">
     <div class="container">
-        <h1 class="text-center mb-4">Bantayan Island Census Form123</h1>
+        <h1 class="text-center mb-4">Bantayan Island Census Form</h1>
         <form method="post" action="../staff/census_mad.php">
     <div class="row">
         <!-- Column 1 -->
