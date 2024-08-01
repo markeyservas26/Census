@@ -11,7 +11,7 @@
 <main id="main" class="main">
     <div class="container">
         <h1 class="text-center mb-4">Bantayan Island Census Form</h1>
-        <form method="post" action="../staffaction/census.php">
+        <form method="post" action="../staff/census_mad.php">
     <div class="row">
         <!-- Column 1 -->
         <div class="col-md-4">
@@ -303,7 +303,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const municipalitySelect = document.querySelector('select[name="municipality"]');
     const barangaySelect = document.getElementById('barangay');
 
     // Define barangay options for each municipality
