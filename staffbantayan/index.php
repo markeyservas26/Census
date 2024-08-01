@@ -120,32 +120,6 @@ if (!isset($_SESSION['user_id'])) {
         <h1>Dashboard</h1>
     </div><!-- End Page Title -->
 <br>
-    <section class="section dashboard">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
-                    <div class="card-box bg-blue">
-                        <div class="inner">
-                        <h3 class="total-barangay">13436</h3>
-                            <p><b>Total Barangay</b></p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa fa-university" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
-                    <div class="card-box bg-green">
-                        <div class="inner">
-                        <h3 class="total-houses">185358</h3>
-                            <p><b>Total Houses</b></p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa fa-house" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
                     <div class="card-box bg-orange">
