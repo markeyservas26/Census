@@ -26,6 +26,8 @@ $end_entry = min($offset + $limit, $total_rows);
 ?>
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
      <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
      <link href="assets/css/mark.css" rel="stylesheet">
      <style>
         .highlight-term {
@@ -429,8 +431,11 @@ body {
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn" onclick="printElement('print-section')">Print</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-primary text-white" style="background-color: blue;" onclick="printElement('print-section')">
+    <i class="fas fa-print"></i> Print
+</button>
+
+        <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
