@@ -11,7 +11,7 @@
 <main id="main" class="main">
     <div class="container">
         <h1 class="text-center mb-4">Bantayan Island Census Form</h1>
-        <form method="post" action="../action/census.php">
+        <form method="post" action="../staffaction/census.php">
     <div class="row">
         <!-- Column 1 -->
         <div class="col-md-4">
