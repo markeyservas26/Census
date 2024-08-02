@@ -78,7 +78,7 @@ if (!isset($_SESSION['userid'])) {
 
 
 
-</li>
+</li><!-- End Notification Nav -->
 
 
         <li class="nav-item dropdown pe-3">
