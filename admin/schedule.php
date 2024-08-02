@@ -1,21 +1,22 @@
 <?php include 'header.php'; ?>
+
 <style>
-  /* Custom CSS to position modal on the right side */
   .container {
     display: flex;
-    justify-content: flex-end; /* Aligns children (the button) to the right */
-    padding: 0 15px; /* Optional: Adds some padding for better alignment */
+    justify-content: flex-end; /* Aligns button to the right */
+    padding: 0 15px; /* Optional: Adds padding for better alignment */
   }
 
   body.modal-open {
     overflow: auto !important;
     padding-right: 0 !important;
-}
+  }
 
-.modal-backdrop {
-    display: none !important;
-}
+  .modal-backdrop {
+    display: none !important; /* Prevents backdrop display */
+  }
 </style>
+
 <main id="main" class="main">
   
   <!-- Modal -->
@@ -27,8 +28,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <!-- No Labels Form -->
-          <form id="schedule" class="row g-3" method="POST" action="../action/manage-schedule.php">
+          <form id="scheduleForm" class="row g-3" method="POST" action="../action/manage-schedule.php">
             <div class="col-md-12">
               <select class="form-select" id="municipalityInput" name="municipality" required>
                 <option value="" disabled selected>Select Municipality</option>
@@ -38,20 +38,20 @@
               </select>
             </div>
             <div class="col-md-12">
-              <span>Start Census Date</span>
-              <input type="date" class="form-control" id="startCensusInput" name="start_census" placeholder="Start Census Date" required>
+              <label for="startCensusInput">Start Census Date</label>
+              <input type="date" class="form-control" id="startCensusInput" name="start_census" required>
             </div>
             <div class="col-md-12">
-            <span>End Census Date</span>
-              <input type="date" class="form-control" id="endCensusInput" name="end_census" placeholder="End Census Date" required>
+              <label for="endCensusInput">End Census Date</label>
+              <input type="date" class="form-control" id="endCensusInput" name="end_census" required>
             </div>
             <div class="col-md-12">
-            <span>Start Census Time</span>
-              <input type="time" class="form-control" id="startTimeInput" name="start_time" placeholder="Start Time" required>
+              <label for="startTimeInput">Start Census Time</label>
+              <input type="time" class="form-control" id="startTimeInput" name="start_time" required>
             </div>
             <div class="col-md-12">
-            <span>End Census Time</span>
-              <input type="time" class="form-control" id="endTimeInput" name="end_time" placeholder="End Time" required>
+              <label for="endTimeInput">End Census Time</label>
+              <input type="time" class="form-control" id="endTimeInput" name="end_time" required>
             </div>
             <div class="text-center">
               <button type="submit" class="btn btn-primary">Submit</button>
@@ -66,7 +66,7 @@
   <div class="pagetitle">
     <h1>Schedule List</h1>
   </div><!-- End Page Title -->
-  
+
   <div class="container">
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
       Add Schedule
@@ -82,36 +82,36 @@
             <table id="scheduleTable" class="table datatable">
               <thead>
                 <tr>
-                <th>Municipality</th>
+                  <th>Municipality</th>
                   <th>Census Date</th>
                   <th>Census Time</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-              <?php
-    include '../database/db_connect.php';
-    $sql = "SELECT id, municipality, start_census, end_census, start_time, end_time FROM schedule";
-    $result = $conn->query($sql);
+                <?php
+                  include '../database/db_connect.php';
+                  $sql = "SELECT id, municipality, start_census, end_census, start_time, end_time FROM schedule";
+                  $result = $conn->query($sql);
 
-    if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-            $censusDate = date("F d, Y", strtotime($row["start_census"])) . " to " . date("F d, Y", strtotime($row["end_census"]));
-            $censusTime = date("h:i A", strtotime($row["start_time"])) . " to " . date("h:i A", strtotime($row["end_time"]));
-            echo "<tr>
-                    <td>" . $row["municipality"]. "</td>
-                    <td>" . $censusDate . "</td>
-                    <td>" . $censusTime . "</td>
-                    <td>
-                        <button class='btn btn-danger btn-sm' onclick='deleteSchedule(" . $row["id"] . ")'>Delete</button>
-                    </td>
-                  </tr>";
-        }
-    } else {
-        echo "<tr><td colspan='4'>No schedules found</td></tr>";
-    }
-    $conn->close();
-    ?>
+                  if ($result->num_rows > 0) {
+                      while($row = $result->fetch_assoc()) {
+                          $censusDate = date("F d, Y", strtotime($row["start_census"])) . " to " . date("F d, Y", strtotime($row["end_census"]));
+                          $censusTime = date("h:i A", strtotime($row["start_time"])) . " to " . date("h:i A", strtotime($row["end_time"]));
+                          echo "<tr>
+                                  <td>" . htmlspecialchars($row["municipality"]) . "</td>
+                                  <td>" . htmlspecialchars($censusDate) . "</td>
+                                  <td>" . htmlspecialchars($censusTime) . "</td>
+                                  <td>
+                                      <button class='btn btn-danger btn-sm' onclick='deleteSchedule(" . intval($row["id"]) . ")'>Delete</button>
+                                  </td>
+                                </tr>";
+                      }
+                  } else {
+                      echo "<tr><td colspan='4'>No schedules found</td></tr>";
+                  }
+                  $conn->close();
+                ?>
               </tbody>
             </table>
             <!-- End Table with stripped rows -->
@@ -127,37 +127,32 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    const scheduleForm = document.getElementById('scheduleForm');
+    scheduleForm.addEventListener('submit', function(event) {
+        event.preventDefault();
 
-    const closeButtons = document.querySelectorAll('[data-bs-dismiss="modal"]');
-    closeButtons.forEach(button => {
-        button.addEventListener('click', forceCloseModal);
-    });
-
-    document.getElementById('schedule').addEventListener('submit', function(event) {
-        event.preventDefault(); 
-
-        var formData = new FormData(this);
+        const formData = new FormData(this);
 
         fetch(this.action, {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json()) // Ensure the response is in JSON format
+        .then(response => response.json())
         .then(data => {
             if (data.success) {
-    Swal.fire({
-        icon: 'success',
-        title: 'Success!',
-        text: 'Schedule added successfully.',
-        showConfirmButton: false,
-        timer: 1500
-    }).then(() => {
-        updateScheduleTable();
-        forceCloseModal();
-    });
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Schedule added successfully.',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(() => {
+                    updateScheduleTable();
+                    closeModal();
+                });
 
-    this.reset();
-} else {
+                this.reset();
+            } else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -176,29 +171,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-function forceCloseModal() {
-    // Hide the modal
-    const modalElement = document.getElementById('exampleModal');
-    modalElement.style.display = 'none';
-    modalElement.classList.remove('show');
-    modalElement.setAttribute('aria-hidden', 'true');
-    modalElement.removeAttribute('aria-modal');
-    
-    // Remove the backdrop
-    const backdrop = document.querySelector('.modal-backdrop');
-    if (backdrop) {
-        backdrop.remove();
-    }
-    
-    // Clean up the body
-    document.body.classList.remove('modal-open');
-    document.body.style.removeProperty('padding-right');
-    document.body.style.removeProperty('overflow');
-    
-    // If there's any remaining overlay, remove it
-    const overlay = document.querySelector('.modal-backdrop');
-    if (overlay) {
-        overlay.remove();
+function closeModal() {
+    const modal = document.getElementById('exampleModal');
+    const modalInstance = bootstrap.Modal.getInstance(modal);
+    if (modalInstance) {
+        modalInstance.hide();
     }
 }
 
@@ -247,7 +224,7 @@ function deleteSchedule(id) {
 }
 
 function updateScheduleTable() {
-    fetch('../action/get_schedules.php')
+    fetch('../action/fetch_schedules.php')
         .then(response => response.json())
         .then(data => {
             const tableBody = document.querySelector('#scheduleTable tbody');
@@ -287,8 +264,8 @@ function formatTime(timeString) {
     const [hours, minutes] = timeString.split(':');
     return new Date(0, 0, 0, hours, minutes).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 }
-
-
 </script>
+
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <?php include 'footer.php'; ?>
