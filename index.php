@@ -267,11 +267,10 @@
                     <!-- Left Column: Welcome Text and Paragraph -->
                     <div class="col-lg-6">
                         <div class="hero-content">
-                            <h3>Welcome to the Bantayan Island Census!</h3>
+                            <h3>Welcome to the Bantayan Island Census! bogo</h3>
                             <p>Help us shape the future of our community by participating in the census. Your input is crucial for better planning and services. Thank you for being involved!</p>
                         </div>
                     </div>
-                    <!-- Right Column: Logo Design -->
                     <div class="col-lg-6">
                         <div class="hero-image text-center">
                             <!-- Use a container to maintain the size -->
