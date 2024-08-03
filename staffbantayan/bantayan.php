@@ -299,7 +299,7 @@ body {
   color: white; /* Text color */
   border: none; /* Remove default border */
   border-radius: 20%; /* Circular shape */
-  width: 70px; /* Width of the button */
+  width: 80px; /* Width of the button */
   height: 40px; /* Height of the button */
   display: flex; /* Center content */
   align-items: center; /* Center content vertically */
