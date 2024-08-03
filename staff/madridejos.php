@@ -295,16 +295,33 @@ body {
 }
 
 .btn-cancel {
-  background-color: blue; /* Example cancel color */
-  border: 1px solid #ec971f;  /* Example border color */
+  background: linear-gradient(135deg, #ff6f61, #d62d2a); /* Gradient background */
+  color: white; /* Text color */
+  border: none; /* Remove default border */
+  border-radius: 20%; /* Circular shape */
+  width: 80px; /* Width of the button */
+  height: 40px; /* Height of the button */
+  display: flex; /* Center content */
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
+  font-size: 20px; /* Size of the close icon */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
 }
 
 .btn-cancel:hover {
-  background-color: #ec971f; /* Darker shade for hover effect */
+  background: linear-gradient(135deg, #d62d2a, #ff6f61); /* Inverted gradient on hover */
+  transform: scale(1.1); /* Slightly larger on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
 }
 
 .btn-cancel:focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5); /* Focus shadow effect */
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 4px rgba(255, 105, 135, 0.5); /* Custom focus shadow */
+}
+
+.btn-cancel span {
+  font-size: 24px; /* Larger close icon */
 }
      </style>
      <style media="print">

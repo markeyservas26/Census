@@ -295,6 +295,36 @@ body {
     margin: 0;
 }
 }
+
+.btn-cancel {
+  background: linear-gradient(135deg, #ff6f61, #d62d2a); /* Gradient background */
+  color: white; /* Text color */
+  border: none; /* Remove default border */
+  border-radius: 20%; /* Circular shape */
+  width: 80px; /* Width of the button */
+  height: 40px; /* Height of the button */
+  display: flex; /* Center content */
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
+  font-size: 20px; /* Size of the close icon */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.btn-cancel:hover {
+  background: linear-gradient(135deg, #d62d2a, #ff6f61); /* Inverted gradient on hover */
+  transform: scale(1.1); /* Slightly larger on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+}
+
+.btn-cancel:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 4px rgba(255, 105, 135, 0.5); /* Custom focus shadow */
+}
+
+.btn-cancel span {
+  font-size: 24px; /* Larger close icon */
+}
      </style>
      <style media="print">
     /* Define print-specific styles here */
@@ -423,7 +453,6 @@ body {
     <div class="modal-content" >
       <div class="modal-header">
         <h5 class="modal-title" id="viewModalLabel" >Person Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="print-section">
         <div id="modal-content">
@@ -435,7 +464,7 @@ body {
     <i class="fas fa-print"></i> Print
 </button>
 
-        <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Close</button>
+<button type="button" class="btn-cancel" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
