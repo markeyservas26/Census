@@ -167,6 +167,12 @@ if (!isset($_SESSION['userid'])) {
           <span>Manage Staff</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed " href="manage-admin.php">
+          <i class="bi bi-people"></i>
+          <span>Manage Admin</span>
+        </a>
+      </li>
       
 <!-- add lng dir -->
 
