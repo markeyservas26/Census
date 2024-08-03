@@ -293,6 +293,19 @@ body {
     margin: 0;
 }
 }
+
+.btn-cancel {
+  background-color: #f0ad4e; /* Example cancel color */
+  border: 1px solid #ec971f;  /* Example border color */
+}
+
+.btn-cancel:hover {
+  background-color: #ec971f; /* Darker shade for hover effect */
+}
+
+.btn-cancel:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5); /* Focus shadow effect */
+}
      </style>
      <style media="print">
     /* Define print-specific styles here */
@@ -418,7 +431,7 @@ body {
     <div class="modal-content" >
       <div class="modal-header">
         <h5 class="modal-title" id="viewModalLabel" >Person Details</h5>
-        <button type="button" class="btn btn-info" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-cancel" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="print-section">
         <div id="modal-content">
