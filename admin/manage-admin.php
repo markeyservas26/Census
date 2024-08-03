@@ -163,9 +163,6 @@ $result = $stmt->get_result();
     </div>
   </div>
 
-  <div class="pagetitle">
-    <h1>Staff List</h1>
-  </div>
   
   <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-3">
