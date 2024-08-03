@@ -1220,7 +1220,7 @@ function printElement(elementId) {
                printWindow.document.write('<h5>REPUBLIC OF THE PHILIPPINES</h5>');
                printWindow.document.write('<h5>PROVINCE OF CEBU</h5>');
                printWindow.document.write('<h5>MUNICIPALITY OF SANTAFE</h5>');
-               printWindow.document.write('<h4>SANTAFE LIST</h4>');
+               printWindow.document.write('<h4>SANTA FE LIST</h4>');
                printWindow.document.write('</div>');
 
                // Add the table to the print window
