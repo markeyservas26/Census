@@ -54,7 +54,7 @@ session_start();
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center custom-header">
     <div class="d-flex align-items-center justify-content-between">
-      <img src="../assets/img/logo.png" class="custom-logo"> <!-- Adjusted the width and height -->
+      <img src="../assets/img/trasparlogo.png" class="custom-logo"> <!-- Adjusted the width and height -->
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
