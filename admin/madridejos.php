@@ -299,7 +299,7 @@ body {
   background: linear-gradient(135deg, #ff6f61, #d62d2a); /* Gradient background */
   color: white; /* Text color */
   border: none; /* Remove default border */
-  border-radius: 10px; /* Circular shape */
+  border-radius: 5px; /* Circular shape */
   width: 80px; /* Width of the button */
   height: 40px; /* Height of the button */
   display: flex; /* Center content */
