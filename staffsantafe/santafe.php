@@ -295,7 +295,7 @@ body {
 }
 
 .btn-cancel {
-  background-color: #f0ad4e; /* Example cancel color */
+  background-color: blue; /* Example cancel color */
   border: 1px solid #ec971f;  /* Example border color */
 }
 
