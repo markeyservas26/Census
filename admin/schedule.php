@@ -1,4 +1,5 @@
 <?php include 'header.php'; ?>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 <style>
   .container {
@@ -80,40 +81,41 @@
           <div class="card-body">
             <!-- Table with stripped rows -->
             <table id="scheduleTable" class="table datatable">
-              <thead>
-                <tr>
-                  <th>Municipality</th>
-                  <th>Census Date</th>
-                  <th>Census Time</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                  include '../database/db_connect.php';
-                  $sql = "SELECT id, municipality, start_census, end_census, start_time, end_time FROM schedule";
-                  $result = $conn->query($sql);
+  <thead>
+    <tr>
+      <th>Municipality</th>
+      <th>Census Date</th>
+      <th>Census Time</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php
+      include '../database/db_connect.php';
+      $sql = "SELECT id, municipality, start_census, end_census, start_time, end_time FROM schedule";
+      $result = $conn->query($sql);
 
-                  if ($result->num_rows > 0) {
-                      while($row = $result->fetch_assoc()) {
-                          $censusDate = date("F d, Y", strtotime($row["start_census"])) . " to " . date("F d, Y", strtotime($row["end_census"]));
-                          $censusTime = date("h:i A", strtotime($row["start_time"])) . " to " . date("h:i A", strtotime($row["end_time"]));
-                          echo "<tr>
-                                  <td>" . htmlspecialchars($row["municipality"]) . "</td>
-                                  <td>" . htmlspecialchars($censusDate) . "</td>
-                                  <td>" . htmlspecialchars($censusTime) . "</td>
-                                  <td>
-                                      <button class='btn btn-danger btn-sm' onclick='deleteSchedule(" . intval($row["id"]) . ")'>Delete</button>
-                                  </td>
-                                </tr>";
-                      }
-                  } else {
-                      echo "<tr><td colspan='4'>No schedules found</td></tr>";
-                  }
-                  $conn->close();
-                ?>
-              </tbody>
-            </table>
+      if ($result->num_rows > 0) {
+          while($row = $result->fetch_assoc()) {
+              $censusDate = date("F d, Y", strtotime($row["start_census"])) . " to " . date("F d, Y", strtotime($row["end_census"]));
+              $censusTime = date("h:i A", strtotime($row["start_time"])) . " to " . date("h:i A", strtotime($row["end_time"]));
+              echo "<tr>
+                      <td>" . htmlspecialchars($row["municipality"]) . "</td>
+                      <td>" . htmlspecialchars($censusDate) . "</td>
+                      <td>" . htmlspecialchars($censusTime) . "</td>
+                      <td>
+                          <button class='btn btn-primary btn-sm' onclick='editSchedule(" . intval($row["id"]) . ")'>Edit</button>
+                          <button class='btn btn-danger btn-sm' onclick='deleteSchedule(" . intval($row["id"]) . ")'>Delete</button>
+                      </td>
+                    </tr>";
+          }
+      } else {
+          echo "<tr><td colspan='4'>No schedules found</td></tr>";
+      }
+      $conn->close();
+    ?>
+  </tbody>
+</table>
             <!-- End Table with stripped rows -->
           </div>
         </div>
@@ -122,106 +124,60 @@
   </section>
 </main><!-- End #main -->
 
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Edit Schedule</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editScheduleForm">
+          <input type="hidden" id="editId" name="id">
+          <div class="mb-3">
+            <label for="editMunicipalityInput" class="form-label">Municipality</label>
+            <select class="form-select" id="editMunicipalityInput" name="municipality" required>
+              <option value="Madridejos">Madridejos</option>
+              <option value="Bantayan">Bantayan</option>
+              <option value="Santafe">Santafe</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="editStartCensusInput" class="form-label">Start Census Date</label>
+            <input type="date" class="form-control" id="editStartCensusInput" name="start_census" required>
+          </div>
+          <div class="mb-3">
+            <label for="editEndCensusInput" class="form-label">End Census Date</label>
+            <input type="date" class="form-control" id="editEndCensusInput" name="end_census" required>
+          </div>
+          <div class="mb-3">
+            <label for="editStartTimeInput" class="form-label">Start Census Time</label>
+            <input type="time" class="form-control" id="editStartTimeInput" name="start_time" required>
+          </div>
+          <div class="mb-3">
+            <label for="editEndTimeInput" class="form-label">End Census Time</label>
+            <input type="time" class="form-control" id="editEndTimeInput" name="end_time" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="saveChanges()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const scheduleForm = document.getElementById('scheduleForm');
-    scheduleForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const formData = new FormData(this);
-
-        fetch(this.action, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success!',
-                    text: 'Schedule added successfully.',
-                    showConfirmButton: false,
-                    timer: 1500
-                }).then(() => {
-                    updateScheduleTable();
-                    closeModal();
-                });
-
-                this.reset();
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: data.message || 'Something went wrong! Please try again later.',
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong! Please try again later.',
-            });
-        });
-    });
+    updateScheduleTable();
 });
-
-function closeModal() {
-    const modal = document.getElementById('exampleModal');
-    const modalInstance = bootstrap.Modal.getInstance(modal);
-    if (modalInstance) {
-        modalInstance.hide();
-    }
-}
-
-function deleteSchedule(id) {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            fetch('../action/delete_schedule.php?id=' + id)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Deleted!',
-                            text: 'Schedule has been deleted.',
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then(() => {
-                            updateScheduleTable();
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error!',
-                            text: data.message || 'There was a problem deleting the schedule.',
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: 'There was a problem deleting the schedule.',
-                    });
-                });
-        }
-    });
-}
 
 function updateScheduleTable() {
     fetch('../action/fetch_schedules.php')
@@ -230,40 +186,134 @@ function updateScheduleTable() {
             const tableBody = document.querySelector('#scheduleTable tbody');
             tableBody.innerHTML = '';
 
-            if (data.length > 0) {
-                data.forEach(row => {
-                    const startDate = new Date(row.start_census);
-                    const endDate = new Date(row.end_census);
-                    const censusDate = `${startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} to ${endDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
-                    const censusTime = `${formatTime(row.start_time)} to ${formatTime(row.end_time)}`;
-                    
-                    tableBody.innerHTML += `<tr>
-                        <td>${row.municipality}</td>
-                        <td>${censusDate}</td>
-                        <td>${censusTime}</td>
+            data.forEach(schedule => {
+                const row = `
+                    <tr>
+                        <td>${schedule.municipality}</td>
+                        <td>${formatDate(schedule.start_census)} to ${formatDate(schedule.end_census)}</td>
+                        <td>${formatTime(schedule.start_time)} to ${formatTime(schedule.end_time)}</td>
                         <td>
-                            <button class='btn btn-danger btn-sm' onclick='deleteSchedule(${row.id})'>Delete</button>
+                            <button class="btn btn-primary btn-sm" onclick="editSchedule(${schedule.id})">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteSchedule(${schedule.id})">Delete</button>
                         </td>
-                    </tr>`;
-                });
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            });
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function editSchedule(id) {
+    console.log('Edit function called with ID:', id);
+    fetch(`../action/fetch_schedules.php?id=${id}`)
+        .then(response => {
+            console.log('Response status:', response.status);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Fetched data:', data);
+            if (data && !data.error) {
+                document.getElementById('editId').value = data.id;
+                document.getElementById('editMunicipalityInput').value = data.municipality;
+                document.getElementById('editStartCensusInput').value = data.start_census;
+                document.getElementById('editEndCensusInput').value = data.end_census;
+                document.getElementById('editStartTimeInput').value = data.start_time;
+                document.getElementById('editEndTimeInput').value = data.end_time;
+
+                const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+                editModal.show();
+                console.log('Modal should be visible now with populated data');
             } else {
-                tableBody.innerHTML = "<tr><td colspan='4'>No schedules found</td></tr>";
+                console.error('Received empty or invalid data:', data.error);
+                alert('Error: Could not fetch schedule details.');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching schedule details:', error);
+            alert('Error: Could not fetch schedule details. Please try again.');
+        });
+}
+
+function saveChanges() {
+    const form = document.getElementById('editScheduleForm');
+    const formData = new FormData(form);
+
+    fetch('../action/update_schedule.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Close modal
+            bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
+            // Show success message using SweetAlert2
+            Swal.fire({
+                title: 'Success!',
+                text: 'Schedule updated successfully.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                // Update table
+                updateScheduleTable();
+            });
+        } else {
+            // Show error message using SweetAlert2
+            Swal.fire({
+                title: 'Error!',
+                text: 'There was an error updating the schedule. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Show error message using SweetAlert2
+        Swal.fire({
+            title: 'Error!',
+            text: 'There was an error updating the schedule. Please try again.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    });
+}
+
+
+function deleteSchedule(id) {
+    if (confirm('Are you sure you want to delete this schedule?')) {
+        fetch(`../action/delete_schedule.php?id=${id}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                updateScheduleTable();
+                // Show success message
+            } else {
+                // Show error message
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'There was a problem fetching the schedule data.',
-            });
+            // Show error message
         });
+    }
+}
+
+function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
 }
 
 function formatTime(timeString) {
-    const [hours, minutes] = timeString.split(':');
-    return new Date(0, 0, 0, hours, minutes).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    return new Date(`1970-01-01T${timeString}`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
+
 </script>
 
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
