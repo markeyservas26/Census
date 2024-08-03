@@ -1,5 +1,5 @@
 <?php include 'header.php'; ?>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
 
 <style>
   .container {
@@ -29,7 +29,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="scheduleForm" class="row g-3" method="POST" action="../action/manage-schedule.php">
+        <form id="scheduleForm" class="row g-3" method="POST" action="../action/manage-schedule.php" onsubmit="event.preventDefault(); addSchedule();">
             <div class="col-md-12">
               <select class="form-select" id="municipalityInput" name="municipality" required>
                 <option value="" disabled selected>Select Municipality</option>
@@ -173,11 +173,71 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     updateScheduleTable();
 });
+
+function addSchedule() {
+    // Show SweetAlert confirmation dialog
+    Swal.fire({
+        title: 'Confirm Add Schedule',
+        text: 'Are you sure you want to add this schedule?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Add it!',
+        cancelButtonText: 'Cancel',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Serialize the form data
+            const form = document.getElementById('scheduleForm');
+            const formData = new FormData(form);
+
+            // Submit the form via AJAX
+            fetch('../action/manage-schedule.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show success message
+                    Swal.fire({
+                        title: 'Success!',
+                        text: data.message,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        // Close the modal
+                        const scheduleModal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
+                        scheduleModal.hide();
+                        // Update the schedule table
+                        updateScheduleTable();
+                    });
+                } else {
+                    // Show error message
+                    Swal.fire({
+                        title: 'Error!',
+                        text: data.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Show error message
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'There was an error adding the schedule. Please try again.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
+        }
+    });
+}
 
 function updateScheduleTable() {
     fetch('../action/fetch_schedules.php')
@@ -203,6 +263,8 @@ function updateScheduleTable() {
         })
         .catch(error => console.error('Error:', error));
 }
+
+
 
 function editSchedule(id) {
     console.log('Edit function called with ID:', id);
@@ -285,24 +347,52 @@ function saveChanges() {
 
 
 function deleteSchedule(id) {
-    if (confirm('Are you sure you want to delete this schedule?')) {
-        fetch(`../action/delete_schedule.php?id=${id}`, {
-            method: 'DELETE'
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                updateScheduleTable();
-                // Show success message
-            } else {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this schedule!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, keep it',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(`../action/delete_schedule.php?id=${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    updateScheduleTable();
+                    // Show success message
+                    Swal.fire({
+                        title: 'Deleted!',
+                        text: 'Schedule has been deleted.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                } else {
+                    // Show error message
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'There was an error deleting the schedule. Please try again.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
                 // Show error message
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            // Show error message
-        });
-    }
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'There was an error deleting the schedule. Please try again.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
+        }
+    });
 }
 
 function formatDate(dateString) {
