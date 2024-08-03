@@ -412,9 +412,6 @@ body {
       </div>
     </div>
   </section>
-  <div class="center-button">
-        <button id="printButton" class="btn btn-info">Reports</button>
-    </div>
 </main><!-- End #main -->
 <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -429,7 +426,6 @@ body {
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn" onclick="printElement('print-section')">Print</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
@@ -996,118 +992,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 </script>
-<script>
-function printElement(elementId) {
-    var element = document.getElementById(elementId);
-    var width = 800;
-    var height = 600;
-
-    // Calculate the position for centering the window
-    var left = (window.innerWidth / 2) - (width / 2);
-    var top = (window.innerHeight / 2) - (height / 2);
-
-    var printWindow = window.open('', '', `height=${height},width=${width},top=${top},left=${left}`);
-
-    // Check if the window opened successfully
-    if (printWindow) {
-        printWindow.document.open();
-        printWindow.document.write('<html><head><title>Print</title>');
-
-        // Add CSS for print
-        printWindow.document.write('<style>');
-        var styles = document.querySelectorAll('style, link[rel="stylesheet"]');
-        styles.forEach(function(style) {
-            printWindow.document.write(style.innerHTML || '<link rel="stylesheet" href="' + style.href + '">');
-        });
-
-        // Add custom print styles to center content and remove unwanted elements
-        printWindow.document.write(`
-            @media print {
-                body {
-                    margin: 0;
-                    padding: 0;
-                }
-                .print-content {
-                    max-width: 100%;
-                    margin: 0;
-                    padding: 20px;
-                    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-                    background: #fff;
-                    page-break-before: auto;
-                    page-break-after: auto;
-                    page-break-inside: avoid;
-                }
-                @page {
-                    size: auto;
-                    margin: 0;
-                }
-            }
-        `);
-
-        printWindow.document.write('</style></head><body>');
-
-        // Add the content to the print window
-        printWindow.document.write('<div class="print-content">');
-        printWindow.document.write(element.innerHTML);
-        printWindow.document.write('</div>');
-
-        printWindow.document.write('</body></html>');
-        printWindow.document.close(); // Complete the document
-
-        // Ensure the content is loaded before printing
-        printWindow.focus(); // Focus on the print window
-        printWindow.onload = function() {
-            printWindow.print();
-        };
-
-        // Close the window after printing
-        printWindow.onafterprint = function() {
-            printWindow.close();
-        };
-    } else {
-        console.error('Failed to open print window.');
-    }
-}
-
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    document.getElementById('printButton').addEventListener('click', function() {
-        var table = document.getElementById('dataTable');
-        console.log("Table found: ", table !== null); // Debugging: Check if table is found
-
-        if (table) {
-            // Clone the table to preserve the original
-            var clonedTable = table.cloneNode(true);
-
-            // Remove the last column (Action column) from each row
-            var rows = clonedTable.getElementsByTagName('tr');
-            for (var i = 0; i < rows.length; i++) {
-                rows[i].deleteCell(-1); // Delete last cell (Action column)
-            }
-
-            // Create a new window to print the table
-            var printWindow = window.open('', '_blank');
-            printWindow.document.open();
-            printWindow.document.write('<html><head><title>Print Report</title>');
-            printWindow.document.write('<style media="print">body{font-family:Arial,sans-serif;}table{width:100%;border-collapse:collapse;margin-bottom:1em;}th,td{border:1px solid #000;padding:8px;}th{background-color:#f2f2f2;}h2{text-align:center;}</style>');
-            printWindow.document.write('</head><body>');
-            printWindow.document.write('<h2>Santa Fe List</h2>');
-            printWindow.document.write(clonedTable.outerHTML);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-
-            // Wait for the document to be ready before printing
-            printWindow.onload = function() {
-                printWindow.print();
-                printWindow.close();
-            };
-        } else {
-            alert('No data to print.');
-        }
-    });
-</script>
 
 
 </body>
