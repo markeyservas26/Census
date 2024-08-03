@@ -413,10 +413,8 @@ body {
       </div>
     </div>
   </section>
-  <div class="center-button">
-  <button type="button" class="btn btn-primary text-white" style="background-color: blue;">
-    <i class="fas fa-print"></i> Reports
-</button>
+  <<div class="center-button">
+        <button id="printButton" class="btn btn-primary text-white"> <i class="fas fa-print"></i>Reports</button>
     </div>
 </main><!-- End #main -->
 <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
