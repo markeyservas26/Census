@@ -1,8 +1,8 @@
 <?php
-session_start();
+session_start(); // Start session if not already started
 include '../database/db_connect.php';
 
-header('Content-Type: application/json');
+header('Content-Type: application/json'); // Set header to JSON
 
 $response = array();
 
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
-
+    
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
         $stored_password = $row['password'];
@@ -38,15 +38,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verify the hashed password
         if (password_verify($password, $stored_password)) {
             // Passwords match, log in user
-            $_SESSION['user_id'] = $row['id']; // Update or set user ID in session
-            $_SESSION['user_name'] = $row['name']; // Update or set user name in session
-            $_SESSION['user_municipality'] = $row['municipality']; // Update or set user municipality in session
+            $_SESSION['user_id'] = $row['id']; // Store user ID in session
+            $_SESSION['user_name'] = $row['name']; // Store user name in session
+            $_SESSION['user_municipality'] = $row['municipality']; // Store user municipality in session
 
             // Prepare the response for successful login
             $response['success'] = true;
             $response['redirect'] = ($row['municipality'] == 'Madridejos') ? '../staff/madridejos.php' :
                                     (($row['municipality'] == 'Bantayan') ? '../staffbantayan/bantayan.php' :
                                     (($row['municipality'] == 'Santafe') ? '../staffsantafe/santafe.php' : 'error.php'));
+
         } else {
             // Passwords do not match
             $response['success'] = false;
@@ -63,6 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     $response['success'] = false;
     $response['message'] = 'Invalid request.';
+    echo json_encode($response);
+    exit();
 }
 
 echo json_encode($response);
