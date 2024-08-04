@@ -1,6 +1,5 @@
 <?php 
 include 'header.php'; 
-$status = $_GET['status'] ?? '';
 ?>
 <style>
     body{
@@ -36,9 +35,6 @@ $status = $_GET['status'] ?? '';
         <div class="mb-3">
                         <label class="form-label">House Number:</label>
                         <input type="text" class="form-control" name="house_number" placeholder="House Number">
-                        <?php if ($status === 'house_number_exists'): ?>
-                            <div class="error-message">House number already exists. Please use a different house number.</div>
-                        <?php endif; ?>
                     </div>
             <div class="mb-3">
                 <label class="form-label">Name:</label>
@@ -371,19 +367,6 @@ document.addEventListener('DOMContentLoaded', function() {
     updateBarangayOptions(municipalitySelect.value);
 });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        <?php if ($status && $status !== 'house_number_exists'): ?>
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: '<?php echo $status; ?>'
-        });
-        <?php endif; ?>
-    });
-</script>
-
 <?php 
 include 'footer.php';
 ?>

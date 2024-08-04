@@ -38,11 +38,9 @@
                 <input type="text" class="form-control" name="street" placeholder="Street/Purok/Sitio/Subd.">
             </div>
             <div class="mb-3">
-                <label class="form-label">Municipality:</label>
-                <select class="form-select" name="municipality">
-                    <option value="santafe">Santa Fe</option>
-                </select>
-            </div>
+    <label class="form-label">Municipality:</label>
+    <p class="form-control-static">Santa Fe</p>
+</div>
             <div class="mb-3">
                         <label class="form-label">Barangay:</label>
                         <select class="form-select" name="barangay" id="barangay">

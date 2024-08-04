@@ -39,7 +39,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Municipality:</label>
-                    <option value="madridejos">Madridejos</option>
+                    <option value="madridejos" >Madridejos</option>
             </div>
             <div class="mb-3">
                         <label class="form-label">Barangay:</label>
