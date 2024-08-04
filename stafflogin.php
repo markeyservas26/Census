@@ -8,13 +8,13 @@ if (isset($_SESSION['user_id'])) {
     
     switch ($municipality) {
         case 'Madridejos':
-            header("Location: ../staff/madridejos.php");
+            header("Location:staff/madridejos.php");
             break;
         case 'Bantayan':
-            header("Location: ../staffbantayan/bantayan.php");
+            header("Location:staffbantayan/bantayan.php");
             break;
         case 'Santa Fe':
-            header("Location: ../staffsantafe/santafe.php");
+            header("Location:staffsantafe/santafe.php");
             break;
         default:
             header("Location: ../error.php"); // Fallback page
