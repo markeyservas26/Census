@@ -1,4 +1,10 @@
 <?php 
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location:../stafflogin.php"); // Redirect to login page if not logged in
+    exit();
+}
 include 'header.php'; 
 include '../database/db_connect.php';
 
