@@ -1,4 +1,7 @@
-<?php include 'header.php'; ?>
+<?php 
+include 'header.php'; 
+$status = $_GET['status'] ?? '';
+?>
 <style>
     body{
         background-color: #faf9f6;
@@ -6,18 +9,36 @@
     .form-control {
         background-color: #FEFCFF;
     }
+    .error-message {
+        color: red;
+        font-size: 0.875em;
+    }
+    .alert-label {
+        display: inline-block;
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin-bottom: 10px;
+        font-weight: bold;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
 </style>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <main id="main" class="main">
     <div class="container">
         <h1 class="text-center mb-4">Bantayan Island Census Form</h1>
-        <form method="post" action="../staff/census_mad.php">
+        <form method="post" action="../staffaction/census_mad.php">
     <div class="row">
         <!-- Column 1 -->
         <div class="col-md-4">
         <div class="mb-3">
                         <label class="form-label">House Number:</label>
                         <input type="text" class="form-control" name="house_number" placeholder="House Number">
+                        <?php if ($status === 'house_number_exists'): ?>
+                            <div class="error-message">House number already exists. Please use a different house number.</div>
+                        <?php endif; ?>
                     </div>
             <div class="mb-3">
                 <label class="form-label">Name:</label>
@@ -38,9 +59,9 @@
                 <input type="text" class="form-control" name="street" placeholder="Street/Purok/Sitio/Subd.">
             </div>
             <div class="mb-3">
-                <label class="form-label">Municipality:</label>
-                    <option value="madridejos" >Madridejos</option>
-            </div>
+    <label class="form-label">Municipality:</label>
+    <p class="form-control">Madridejos</p>
+</div>
             <div class="mb-3">
                         <label class="form-label">Barangay:</label>
                         <select class="form-select" name="barangay" id="barangay">
@@ -303,40 +324,42 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const barangaySelect = document.getElementById('barangay');
 
-    // Define barangay options for each municipality
-    const barangayOptions = {
-        madridejos: [
-            'Poblacion', 'Mancilang', 'Malbago', 'Kaongkod', 'San Agustin', 'Kangwayan', 'Pili', 'Kodia',
+    // Define all barangays
+    const allBarangays = [
+        'Poblacion', 'Mancilang', 'Malbago', 'Kaongkod', 'San Agustin', 'Kangwayan', 'Pili', 'Kodia',
             'Tabagak', 'Bunakan', 'Maalat', 'Tugas', 'Tarong', 'Talangnan'
-        ]
-    };
+    ];
 
-    // Function to update barangay options
-    function updateBarangayOptions(municipality) {
+    // Function to populate barangay options
+    function populateBarangayOptions() {
         // Clear existing options
         barangaySelect.innerHTML = '';
 
         // Add new options
-        if (barangayOptions[municipality]) {
-            barangayOptions[municipality].forEach(barangay => {
-                const option = document.createElement('option');
-                option.value = barangay.toLowerCase().replace(/\s+/g, '_'); // Use underscore for option value
-                option.textContent = barangay;
-                barangaySelect.appendChild(option);
-            });
-        }
+        allBarangays.forEach(barangay => {
+            const option = document.createElement('option');
+            option.value = barangay.toLowerCase().replace(/\s+/g, '_'); // Use underscore for option value
+            option.textContent = barangay;
+            barangaySelect.appendChild(option);
+        });
     }
 
-    // Event listener for municipality select change
-    municipalitySelect.addEventListener('change', function() {
-        updateBarangayOptions(this.value);
-    });
-
-    // Initialize with the first selected municipality
-    updateBarangayOptions(municipalitySelect.value);
+    // Initialize with all barangays
+    populateBarangayOptions();
 });
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        <?php if ($status && $status !== 'house_number_exists'): ?>
+        Swal.fire({
+            icon: 'success',
+            title: 'The form has been submitted successfully!',
+            text: ''
+        });
+        <?php endif; ?>
+    });
+</script>
 <?php 
 include 'footer.php';
 ?>

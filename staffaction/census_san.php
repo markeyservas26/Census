@@ -1,6 +1,22 @@
 <?php 
 include '../database/db_connect.php';
 
+// Check if house number already exists
+$house_number = $_POST['house_number'];
+$check_sql = "SELECT COUNT(*) FROM barangay_census WHERE house_number = ?";
+$check_stmt = $conn->prepare($check_sql);
+$check_stmt->bind_param('s', $house_number);
+$check_stmt->execute();
+$check_stmt->bind_result($count);
+$check_stmt->fetch();
+$check_stmt->close();
+
+if ($count > 0) {
+    // House number already exists
+    header('Location: ../admin/form.php?status=house_number_exists');
+    exit();
+}
+
 // Prepare the SQL statement
 $sql = "INSERT INTO barangay_census (
     house_number, first_name, last_name, middle_name, street, barangay, municipality, province, 

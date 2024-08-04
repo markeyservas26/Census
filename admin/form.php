@@ -367,6 +367,19 @@ document.addEventListener('DOMContentLoaded', function() {
     updateBarangayOptions(municipalitySelect.value);
 });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        <?php if ($status && $status !== 'house_number_exists'): ?>
+        Swal.fire({
+            icon: 'success',
+            title: 'The form has been submitted successfully!',
+            text: ''
+        });
+        <?php endif; ?>
+    });
+</script>
+
 <?php 
 include 'footer.php';
 ?>
