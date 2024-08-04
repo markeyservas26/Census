@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $response['success'] = true;
             $response['redirect'] = ($row['municipality'] == 'Madridejos') ? '../staff/madridejos.php' :
                                     (($row['municipality'] == 'Bantayan') ? '../staffbantayan/bantayan.php' :
-                                    (($row['municipality'] == 'Santafe') ? '../staffsantafe/santafe.php' : 'error.php'));
+                                    (($row['municipality'] == 'Santa Fe') ? '../staffsantafe/santafe.php' : '../error.php'));
         } else {
             // Passwords do not match
             $response['success'] = false;
@@ -63,8 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     $response['success'] = false;
     $response['message'] = 'Invalid request.';
-    echo json_encode($response);
-    exit();
 }
 
 echo json_encode($response);
