@@ -1,28 +1,16 @@
-
 <?php
 session_start();
 
 // Check if the user is logged in
 if (isset($_SESSION['user_id'])) {
-    // Redirect based on the user's municipality
-    $municipality = $_SESSION['user_municipality'];
-    
-    switch ($municipality) {
-        case 'Bantayan':
-            header("Location: staffbantayan/bantayan.php");
-            break;
-        case 'Madridejos':
-            header("Location: staff/madridejos.php");
-            break;
-        case 'Santa Fe':
-            header("Location: staffsantafe/santafe.php");
-            break;
-        default:
-            break;
-    }
+    // Redirect to a specific page, e.g., staff/madridejos.php
+    header("Location: staff/madridejos.php");
+    header("Location: staffbantayan/bantayan.php");
+    header("Location: staffsantafe/santafe.php");
     exit();
 }
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
