@@ -7,6 +7,14 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script>
+(function() {
+    window.history.pushState(null, document.title, window.location.href);
+    window.addEventListener('popstate', function() {
+        window.history.pushState(null, document.title, window.location.href);
+    });
+})();
+</script>
 
 </body>
 
