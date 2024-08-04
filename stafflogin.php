@@ -3,16 +3,7 @@ session_start();
 
 // Check if the user is logged in
 if (isset($_SESSION['user_id'])) {
-    // Redirect based on the user's municipality
-    $municipality = $_SESSION['user_municipality'];
-
-    if ($municipality == 'Bantayan') {
-        header("Location: staffbantayan/bantayan.php");
-    } elseif ($municipality == 'Madridejos') {
-        header("Location: staff/madridejos.php");
-    } else ($municipality == 'Santafe') {
-        header("Location: staffsantafe/santafe.php");
-    } 
+        header("Location: staff/madridejos.php"); // Fallback page
     exit();
 }
 ?>
