@@ -1,11 +1,5 @@
-<?php
-session_start();
 
-if (!isset($_SESSION['user_id']) || $_SESSION['user_municipality'] != 'Madridejos') {
-    header("Location: ../staffaction/login.php"); 
-    exit();
-}
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,7 +56,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_municipality'] != 'Madridejo
                 <h5 class="card-title text-center pb-0 fs-4">STAFF | Login </h5>
               </div>
 
-              <form class="row g-3 needs-validation" novalidate action="staffaction/login.php" method="POST">
+              <form class="row g-3 needs-validation" novalidate action="../staffaction/login.php" method="POST">
   <div class="col-12">
     <label for="yourEmail" class="form-label">Email</label>
     <div class="input-group has-validation">
@@ -71,7 +65,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_municipality'] != 'Madridejo
       <div class="invalid-feedback">Please enter your email.</div>
     </div>
   </div>
-<!-- asd -->
+
   <div class="col-12">
     <label for="yourPassword" class="form-label">Password</label>
     <div class="input-group">
