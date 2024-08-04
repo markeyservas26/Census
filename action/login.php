@@ -5,22 +5,17 @@ include '../database/db_connect.php';
 
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
     // Validate input
     if (empty($username) || empty($password)) {
-        header('Location: ../admin/login.php?error=empty'); // Redirect with error message
+        echo "Please enter both username and password.";
         exit;
     }
 
     // Prepare and bind
     $stmt = $conn->prepare("SELECT id, name, password FROM users WHERE username = ?");
-    if ($stmt === false) {
-        header('Location: ../admin/login.php?error=db'); // Redirect with database error message
-        exit;
-    }
-
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $stmt->store_result();
@@ -35,21 +30,61 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['userid'] = $id;
             $_SESSION['name'] = $name;
 
-            // Redirect to dashboard or protected page
-            header('Location: ../admin/index.php');
-            exit;
+            // SweetAlert for successful login
+            echo '<script>
+                    setTimeout(function() {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Login Successfully",
+                            text: "Welcome, ' . $name . '!",
+                            confirmButtonColor: "#3085d6",
+                            confirmButtonText: "OK"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "../admin/index.php"; // Redirect to dashboard or protected page
+                            }
+                        });
+                    }, 100);
+                  </script>';
         } else {
-            // Invalid password, redirect with error
-            header('Location: ../admin/login.php?error=invalid'); // Redirect with invalid credentials message
-            exit;
+            // Invalid password, show SweetAlert
+            echo '<script>
+                    setTimeout(function() {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Invalid Login",
+                            text: "Username or password is incorrect!",
+                            confirmButtonColor: "#3085d6",
+                            confirmButtonText: "OK"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "../admin/login.php"; // Redirect back to login page
+                            }
+                        });
+                    }, 100);
+                  </script>';
         }
     } else {
-        // No user found, redirect with error
-        header('Location: ../admin/login.php?error=invalid'); // Redirect with invalid credentials message
-        exit;
+        // No user found, show SweetAlert
+        echo '<script>
+                setTimeout(function() {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Invalid Login",
+                        text: "Username or password is incorrect!",
+                        confirmButtonColor: "#3085d6",
+                        confirmButtonText: "OK"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "../admin/login.php"; // Redirect back to login page
+                        }
+                    });
+                }, 100);
+              </script>';
     }
 
     $stmt->close();
     $conn->close();
 }
 ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
