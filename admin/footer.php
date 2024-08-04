@@ -1,11 +1,10 @@
-  <!-- Vendor JS Files -->
-  <script>
-(function() {
-    window.history.pushState(null, document.title, window.location.href);
-    window.addEventListener('popstate', function() {
-        window.history.pushState(null, document.title, window.location.href);
-    });
-})();
+<script>
+    // This script will reload the page if accessed from the back button
+    window.onpageshow = function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };
 </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
