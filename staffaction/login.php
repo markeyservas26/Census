@@ -1,8 +1,8 @@
 <?php
-session_start(); // Start session if not already started
+session_start();
 include '../database/db_connect.php';
 
-header('Content-Type: application/json'); // Set header to JSON
+header('Content-Type: application/json');
 
 $response = array();
 
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
         $stored_password = $row['password'];
@@ -38,15 +38,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verify the hashed password
         if (password_verify($password, $stored_password)) {
             // Passwords match, log in user
-            $_SESSION['user_id'] = $row['id']; // Example: Store user ID in session
-            $_SESSION['user_name'] = $row['name']; // Example: Store user name in session
+            $_SESSION['user_id'] = $row['id'];
+            $_SESSION['user_name'] = $row['name'];
+            $_SESSION['user_municipality'] = $row['municipality']; // Store municipality in session
 
             // Prepare the response for successful login
             $response['success'] = true;
             $response['redirect'] = ($row['municipality'] == 'Madridejos') ? '../staff/madridejos.php' :
                                     (($row['municipality'] == 'Bantayan') ? '../staffbantayan/bantayan.php' :
                                     (($row['municipality'] == 'Santafe') ? '../staffsantafe/santafe.php' : 'error.php'));
-
         } else {
             // Passwords do not match
             $response['success'] = false;
