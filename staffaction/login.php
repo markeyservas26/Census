@@ -60,7 +60,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $stmt->close();
     $conn->close();
-} 
+} else {
+    $response['success'] = false;
+    $response['message'] = 'Invalid request.';
+}
 
 echo json_encode($response);
 ?>
