@@ -38,8 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verify the hashed password
         if (password_verify($password, $stored_password)) {
             // Passwords match, log in user
-            $_SESSION['user_id'] = $row['id']; // Example: Store user ID in session
-            $_SESSION['user_name'] = $row['name']; // Example: Store user name in session
+            $_SESSION['user_id'] = $row['id']; // Store user ID in session
+            $_SESSION['user_name'] = $row['name']; // Store user name in session
+            $_SESSION['user_municipality'] = $row['municipality']; // Store user municipality in session
 
             // Prepare the response for successful login
             $response['success'] = true;

@@ -251,7 +251,7 @@
                 <ul class="dropdown-menu" aria-labelledby="loginDropdown">
                     <li><a class="dropdown-item" href="admin/login.php">Admin</a></li>
                     <hr>
-                    <li><a class="dropdown-item" href="staff/login.php">Staff</a></li>
+                    <li><a class="dropdown-item" href="stafflogin.php">Staff</a></li>
                 </ul>
             </div>
         </div>
