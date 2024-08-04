@@ -3,7 +3,7 @@ session_start();
 
 // Check if the user is logged in
 if (isset($_SESSION['userid'])) {
-        header("Location: index.php"); // Fallback page
+    header("Location: index.php"); // Redirect to the protected page
     exit();
 }
 ?>

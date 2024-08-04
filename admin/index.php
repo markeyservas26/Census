@@ -1,5 +1,13 @@
 <?php
 
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['userid'])) {
+    header("Location: login.php"); // Redirect to the login page
+    exit();
+}
+
 include 'header.php';
 include '../database/db_connect.php';
 
