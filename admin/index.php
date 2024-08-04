@@ -2,7 +2,7 @@
 include 'header.php';
 include '../database/db_connect.php';
 
-// Prepare the SQL statement to get municipality counts
+// Prepare SQL to get municipality counts
 $sql = "SELECT municipality, COUNT(*) as count FROM barangay_census 
         WHERE municipality IN ('madridejos', 'bantayan', 'santafe')
         GROUP BY municipality";
@@ -20,10 +20,10 @@ if ($result->num_rows > 0) {
     }
 }
 
-// Prepare the SQL statement to get house_number counts
-$sqlHouseNumbers = "SELECT municipality, house_number, COUNT(*) as count FROM barangay_census 
+// Prepare SQL to get house number counts
+$sqlHouseNumbers = "SELECT municipality, COUNT(DISTINCT house_number) as count FROM barangay_census 
                     WHERE municipality IN ('madridejos', 'bantayan', 'santafe')
-                    GROUP BY municipality, house_number";
+                    GROUP BY municipality";
 
 $resultHouseNumbers = $conn->query($sqlHouseNumbers);
 
@@ -33,12 +33,36 @@ $houseValues = [];
 
 if ($resultHouseNumbers->num_rows > 0) {
     while ($row = $resultHouseNumbers->fetch_assoc()) {
-        $houseLabels[] = $row['municipality'] . ' - ' . $row['house_number'];
+        $houseLabels[] = $row['municipality'];
         $houseValues[] = $row['count'];
     }
 }
 
-// Fetch total count of house_number records (for Residence)
+// Prepare SQL to get occupant name counts
+$sqlOccupants = "SELECT municipality, COUNT(*) as count FROM barangay_census 
+                 WHERE municipality IN ('madridejos', 'bantayan', 'santafe')
+                 GROUP BY municipality";
+
+$resultOccupants = $conn->query($sqlOccupants);
+
+$occupantData = [];
+$occupantLabels = [];
+$occupantValues = [];
+
+if ($resultOccupants->num_rows > 0) {
+    while ($row = $resultOccupants->fetch_assoc()) {
+        $occupantLabels[] = $row['municipality'];
+        $occupantValues[] = $row['count'];
+    }
+}
+
+// Combine house numbers and occupant names
+$totalCombinedCounts = [];
+foreach ($houseLabels as $key => $municipality) {
+    $totalCombinedCounts[$municipality] = $houseValues[$key] + $occupantValues[$key];
+}
+
+// Fetch total count of house number records (for Residence)
 $sqlTotalHouseNumbers = "SELECT municipality, COUNT(DISTINCT house_number) as count FROM barangay_census 
                          WHERE municipality IN ('madridejos', 'bantayan', 'santafe')
                          GROUP BY municipality";
@@ -57,7 +81,10 @@ $data = [
     'values' => $values,
     'houseLabels' => $houseLabels,
     'houseValues' => $houseValues,
-    'totalHouseNumbers' => $totalHouseNumbers
+    'occupantLabels' => $occupantLabels,
+    'occupantValues' => $occupantValues,
+    'totalHouseNumbers' => $totalHouseNumbers,
+    'totalCombinedCounts' => $totalCombinedCounts
 ];
 
 // PHP code to count barangays for each municipality
@@ -84,6 +111,13 @@ foreach ($barangays as $municipality => $barangayList) {
 
 // Calculate the total number of barangays
 $totalBarangayCount = array_sum($totalBarangays);
+
+// Update totalCombinedCounts to reflect the total residence count
+$totalCombinedCounts = [];
+foreach ($houseLabels as $key => $municipality) {
+    // Assuming 'occupantValues' is the count of total occupants per municipality
+    $totalCombinedCounts[$municipality] = $houseValues[$key] + $occupantValues[$key];
+}
 ?>
 <main id="main" class="main">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
@@ -261,7 +295,7 @@ margin-left:13%;
                 <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
                     <div class="card-box bg-red">
                         <div class="inner">
-                        <h3 class="total-residence"><?php echo array_sum($data['totalHouseNumbers']); ?></h3>
+                        <h3 class="total-residence"><?php echo array_sum($totalCombinedCounts); ?></h3>
                             <p><b>Total Residence</b></p>
                         </div>
                         <div class="icon">
@@ -378,53 +412,53 @@ margin-left:13%;
                 </script>
             </div>
 
-            <!-- Doughnut Chart for Residences -->
-            <div class="col-lg-6 mb-4">
-                <h5 class="card-title text-center">Residence Count Every Municipalities</h5>
-                <canvas id="residenceChart" style="max-height: 400px;"></canvas>
-                <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                        new Chart(document.querySelector('#residenceChart'), {
-                            type: 'doughnut',
-                            data: {
-                                labels: <?php echo json_encode(array_keys($totalHouseNumbers)); ?>,
-                                datasets: [{
-                                    label: 'Residences',
-                                    data: <?php echo json_encode(array_values($totalHouseNumbers)); ?>,
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 0.5)',
-                                        'rgba(75, 192, 192, 0.5)',
-                                        'rgba(255, 205, 86, 0.5)'
-                                    ],
-                                    borderColor: [
-                                       'rgba(255, 99, 132, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(255, 205, 86, 1)'
-                                    ],
-                                    borderWidth: 1,
-                                    hoverOffset: 4
-                                }]
-                            },
-                            options: {
-                                plugins: {
-                                    tooltip: {
-                                        callbacks: {
-                                            label: function(tooltipItem) {
-                                                const label = tooltipItem.label || '';
-                                                const value = tooltipItem.raw || 0;
-                                                return `${label}: ${value} Residences`;
+             <!-- Doughnut Chart for Residences -->
+             <div class="col-lg-6 mb-4">
+                    <h5 class="card-title text-center">Residence Count Every Municipalities</h5>
+                    <canvas id="residenceChart" style="max-height: 400px;"></canvas>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", () => {
+                            new Chart(document.querySelector('#residenceChart'), {
+                                type: 'doughnut',
+                                data: {
+                                    labels: <?php echo json_encode(array_keys($totalCombinedCounts)); ?>,
+                                    datasets: [{
+                                        label: 'Residences',
+                                        data: <?php echo json_encode(array_values($totalCombinedCounts)); ?>,
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.5)',
+                                            'rgba(75, 192, 192, 0.5)',
+                                            'rgba(255, 205, 86, 0.5)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(255, 205, 86, 1)'
+                                        ],
+                                        borderWidth: 1,
+                                        hoverOffset: 4
+                                    }]
+                                },
+                                options: {
+                                    plugins: {
+                                        tooltip: {
+                                            callbacks: {
+                                                label: function(tooltipItem) {
+                                                    const label = tooltipItem.label || '';
+                                                    const value = tooltipItem.raw || 0;
+                                                    return `${label}: ${value} Residences`;
+                                                }
                                             }
                                         }
                                     }
                                 }
-                            }
+                            });
                         });
-                    });
-                </script>
+                    </script>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </main><!-- End #main -->
 
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
