@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+        header("Location: login.php"); // Fallback page
+    exit();
+}
 include 'header.php';
 include '../database/db_connect.php';
 
