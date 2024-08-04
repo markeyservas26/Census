@@ -1,5 +1,11 @@
-
-
+<?php
+session_start();
+if (isset($_SESSION['user_id'])) {
+    // Redirect the logged-in user based on their municipality or another page
+    header("Location: stafflogin.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
