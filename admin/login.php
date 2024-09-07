@@ -7,7 +7,7 @@ if (isset($_SESSION['userid'])) {
     exit;
 }
 ?>
-<!--<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -146,4 +146,4 @@ if (isset($_SESSION['userid'])) {
 
 </body>
 
-</html>-->
+</html>
