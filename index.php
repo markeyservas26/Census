@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -255,9 +255,9 @@
             </div>
         </div>
     </div>
-</header>
+</header>-->
 
-<main class="main">
+<!--<main class="main">
     <!-- Hero Section -->
     <section id="hero" class="hero section">
         <div class="row">
@@ -283,11 +283,11 @@
         </div>
     </section>
 </main>
-
+-->
 
 
    <!-- Bantayan Section -->
-<section id="bantayan" class="bantayan-content section">
+<!--<section id="bantayan" class="bantayan-content section">
     <div class="container">
        
     <div class="image-container">
@@ -471,10 +471,10 @@
             </div>
         </div>
     </div>
-</section>
+</section>-->
 
 <!-- About Section -->
-<section id="about" class="about-content section">
+<!--<section id="about" class="about-content section">
     <div class="overlay"></div> <!-- Dark overlay -->
     <div class="container">
         <!-- Section Header -->
@@ -503,11 +503,11 @@
                             <img src="assets/img/logo.png" class="img-fluid animated" alt="" style="border-radius: 300px; margin-bottom: 30px; margin-right: 50px; width: 80%;">
                             </div>
                         </div>
-                    </div>
+                    </div>-->
         
 
         <!-- Mission and Vision -->
-            <div class="col-lg-6">
+      <!--      <div class="col-lg-6">
                 <div class="mission-vision">
                     <div class="mission">
                         <h3>Our Mission</h3>
@@ -530,7 +530,7 @@
             </div>
         </div>
     </div>
-</section>
+</section>-->
 
 
 
