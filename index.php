@@ -243,7 +243,7 @@
                 </ul>
             </nav>
             
-           <<div class="dropdown flex-md-shrink-0 hey">
+           <div class="dropdown flex-md-shrink-0 hey">
                 <button class="btn btn-primarys dropdown-toggle" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     Login
                <!-- </button>
