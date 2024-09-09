@@ -246,13 +246,13 @@
            <div class="dropdown flex-md-shrink-0 hey">
                 <button class="btn btn-primarys dropdown-toggle" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     Login
-               <!-- </button>
+              </button>
                 <ul class="dropdown-menu" aria-labelledby="loginDropdown">
                     <li><a class="dropdown-item" href="admin/login.php">Admin</a></li>
                     <hr>
                     <li><a class="dropdown-item" href="stafflogin.php">Staff</a></li>
                 </ul>
-            </div>-->
+            </div>
         </div>
     </div>
 </header>
