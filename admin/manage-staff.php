@@ -26,6 +26,7 @@ $result = $stmt->get_result();
 ?>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-QfU7+rwg2rZ5spmt6No5y46/6vY9PVetMzU78vIzYq6G9qkcY0lUkH1COHt0dj5iIw4B5BnLxVKw1VcAVKxvrw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <style>
   /* Custom CSS to position modal on the right side */
   .container {
@@ -146,48 +147,47 @@ $result = $stmt->get_result();
 <main id="main" class="main">
   
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-end">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Staff</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- No Labels Form -->
-        <form id="addStaffForm" class="row g-3" method="POST" action="../staffaction/manage-staff.php">
-          <div class="col-md-12">
-            <input type="text" class="form-control" id="nameInput" name="nameInput" placeholder="Name" required>
-          </div>
-          <div class="col-md-6">
-            <input type="email" class="form-control" id="emailInput" name="emailInput" placeholder="Email" required>
-          </div>
-          <div class="col-md-6">
-          <div class="password-container">
-    <input type="password" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password" required>
-    <span class="eye" onclick="togglePasswordVisibility()">
-        <i id="eyeIcon" class="fas fa-eye"></i>
-    </span>
-</div>
-
-
-          </div>
-          <div class="col-6">
-            <label for="municipalityInput" class="form-label">Municipality</label>
-            <select id="municipalityInput" name="municipalityInput" class="form-select" required>
-              <option value="" disabled selected>Select Municipality</option>
-              <option value="Madridejos">Madridejos</option>
-              <option value="Bantayan">Bantayan</option>
-              <option value="Santafe">Santafe</option>
-            </select>
-          </div>  
-          <div class="text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-          </div>
-        </form><!-- End No Labels Form -->
-      </div>
+    <div class="modal-dialog modal-dialog-end">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Staff</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form -->
+                <form id="addStaffForm" class="row g-3" method="POST" action="../staffaction/manage-staff.php" novalidate>
+                    <div class="col-md-12">
+                        <input type="text" class="form-control" id="nameInput" name="nameInput" placeholder="Name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="email" class="form-control" id="emailInput" name="emailInput" placeholder="Username (@gmail.com only)" required>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="password-container">
+                            <input type="password" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password" required>
+                            <span class="eye" onclick="togglePasswordVisibility()">
+                                <i id="eyeIcon" class="fas fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label for="municipalityInput" class="form-label">Municipality</label>
+                        <select id="municipalityInput" name="municipalityInput" class="form-select" required>
+                            <option value="" disabled selected>Select Municipality</option>
+                            <option value="Madridejos">Madridejos</option>
+                            <option value="Bantayan">Bantayan</option>
+                            <option value="Santafe">Santafe</option>
+                        </select>
+                    </div>  
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+                <!-- End Form -->
+            </div>
+        </div>
     </div>
-  </div>
 </div><!-- End Modal --
 
   <div class="pagetitle">
@@ -320,7 +320,7 @@ $result = $stmt->get_result();
             <input type="text" class="form-control" id="editNameInput" name="nameInput" placeholder="Name" required>
           </div>
           <div class="col-md-6">
-            <input type="email" class="form-control" id="editEmailInput" name="emailInput" placeholder="Email" required>
+            <input type="email" class="form-control" id="editEmailInput" name="emailInput" placeholder="Username" required>
           </div>
           <div class="col-md-6">
           <div class="password-container">
@@ -350,7 +350,7 @@ $result = $stmt->get_result();
   </div>
 </div><!-- End Edit Modal -->
 
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const table = document.getElementById('staffTable');
@@ -482,46 +482,59 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  document.getElementById('addStaffForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+  document.getElementById("addStaffForm").addEventListener("submit", function(event) {
+    event.preventDefault();
     
-    Swal.fire({
-      title: 'Adding new staff...',
-      text: 'Please wait',
-      allowOutsideClick: false,
-      showConfirmButton: false,
-      didOpen: () => {
-        Swal.showLoading();
-      }
-    });
+    const emailInput = document.getElementById("emailInput");
+    const emailValue = emailInput.value;
+    const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
+    // Check if the email matches the @gmail.com pattern
+    if (!gmailPattern.test(emailValue)) {
+        Swal.fire({
+            icon: "error",
+            title: "Validation Error",
+            text: "Username must have an @gmail.com."
+        });
+        return; // Stop form submission
+    }
+
+    // If validation passes, proceed with form submission
+    const formData = new FormData(this);
 
     fetch(this.action, {
-      method: 'POST',
-      body: new FormData(this)
+        method: "POST",
+        body: formData
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-      Swal.close();
-      if (data.success) {
-        Swal.fire('Success!', 'New staff added successfully.', 'success')
-        .then(() => {
-          location.reload();
-        });
-      } else {
-        Swal.fire('Error!', data.message || 'There was a problem adding the new staff.', 'error');
-      }
+        if (data.success) {
+            Swal.fire({
+                icon: "success",
+                title: "Success",
+                text: "New staff added successfully!"
+            }).then(() => {
+                location.reload();
+            });
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: data.message || "There was a problem adding the new staff."
+            });
+        }
     })
     .catch(error => {
-      Swal.close();
-      console.error('Error:', error);
-      Swal.fire('Error!', 'There was a problem adding the new staff. Please check the console for more details.', 'error');
+        console.error("Error:", error);
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "An error occurred while adding the new staff."
+        });
     });
 });
+
+
 
 document.getElementById('editStaffForm').addEventListener('submit', function(e) {
     e.preventDefault();
