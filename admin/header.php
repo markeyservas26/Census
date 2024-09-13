@@ -168,9 +168,9 @@ if (!isset($_SESSION['userid'])) {
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed " href="manage-staff.php">
+        <a class="nav-link collapsed " href="manage-admin.php">
           <i class="bi bi-people"></i>
-          <span>Admin</span>
+          <span>Administrator</span>
         </a>
       </li>
       
