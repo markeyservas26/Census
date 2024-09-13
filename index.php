@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -244,10 +243,10 @@
                 </ul>
             </nav>
             
-            <div class="dropdown flex-md-shrink-0 hey">
+           <div class="dropdown flex-md-shrink-0 hey">
                 <button class="btn btn-primarys dropdown-toggle" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     Login
-                </button>
+              </button>
                 <ul class="dropdown-menu" aria-labelledby="loginDropdown">
                     <li><a class="dropdown-item" href="admin/login.php">Admin</a></li>
                     <hr>
@@ -258,7 +257,7 @@
     </div>
 </header>
 
-<main class="main">
+<!--<main class="main">
     <!-- Hero Section -->
     <section id="hero" class="hero section">
         <div class="row">
@@ -508,7 +507,7 @@
         
 
         <!-- Mission and Vision -->
-            <div class="col-lg-6">
+       <div class="col-lg-6">
                 <div class="mission-vision">
                     <div class="mission">
                         <h3>Our Mission</h3>
