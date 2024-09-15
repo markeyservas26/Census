@@ -1,6 +1,9 @@
 <?php 
 include 'header.php'; 
 $status = $_GET['status'] ?? '';
+
+// Capture POST data to retain values on error
+$postData = $_POST ?? [];
 ?>
 <style>
     body{
@@ -30,14 +33,14 @@ $status = $_GET['status'] ?? '';
     <div class="container">
         <h1 class="text-center mb-4">Bantayan Island Census Form</h1>
         <form method="post" action="../action/census.php">
-    <div class="row">
-        <!-- Column 1 -->
-        <div class="col-md-4">
-        <div class="mb-3">
+            <div class="row">
+                <!-- Column 1 -->
+                <div class="col-md-4">
+                    <div class="mb-3">
                         <label class="form-label">House Number:</label>
-                        <input type="text" class="form-control" name="house_number" placeholder="House Number">
+                        <input type="text" class="form-control" name="house_number" value="<?php echo htmlspecialchars($postData['house_number'] ?? '', ENT_QUOTES); ?>" placeholder="House Number">
                         <?php if ($status === 'house_number_exists'): ?>
-                            <div class="error-message">House number already exists. Please use a different house number.</div>
+                            <div class="error-message"></div>
                         <?php endif; ?>
                     </div>
             <div class="mb-3">
@@ -353,35 +356,43 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Add new options
         if (barangayOptions[municipality]) {
-            barangayOptions[municipality].forEach(barangay => {
+            barangayOptions[municipality].forEach(function(barangay) {
                 const option = document.createElement('option');
-                option.value = barangay.toLowerCase().replace(/\s+/g, '_'); // Use underscore for option value
+                option.value = barangay.toLowerCase().replace(/\s+/g, '_');
                 option.textContent = barangay;
                 barangaySelect.appendChild(option);
             });
         }
     }
 
-    // Event listener for municipality select change
+    // Initialize barangay options based on the current municipality
+    updateBarangayOptions(municipalitySelect.value);
+
+    // Update barangay options when municipality changes
     municipalitySelect.addEventListener('change', function() {
         updateBarangayOptions(this.value);
     });
-
-    // Initialize with the first selected municipality
-    updateBarangayOptions(municipalitySelect.value);
 });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        <?php if ($status && $status !== 'house_number_exists'): ?>
+   document.addEventListener('DOMContentLoaded', function() {
+    const status = new URLSearchParams(window.location.search).get('status');
+    
+    if (status === 'house_number_exists') {
+        Swal.fire({
+            icon: 'error',
+            title: 'House Number Exists',
+            text: 'The house number you entered already exists. Please use a different one.'
+        });
+    } else if (status === 'success') {
         Swal.fire({
             icon: 'success',
-            title: 'The form has been submitted successfully!',
-            text: ''
+            title: 'Success',
+            text: 'The form has been submitted successfully!'
         });
-        <?php endif; ?>
-    });
+    }
+});
 </script>
 
 <?php 
