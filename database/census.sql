@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2024 at 09:58 PM
+-- Generation Time: Sep 17, 2024 at 05:55 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -64,19 +64,20 @@ CREATE TABLE `barangay_census` (
   `occupant_age` int(11) DEFAULT NULL,
   `occupant_birth_date` date DEFAULT NULL,
   `occupant_civil_status` enum('single','married','widower','separated') DEFAULT NULL,
-  `occupant_occupation` varchar(255) DEFAULT NULL
+  `occupant_occupation` varchar(255) DEFAULT NULL,
+  `location` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `barangay_census`
 --
 
-INSERT INTO `barangay_census` (`id`, `house_number`, `last_name`, `first_name`, `middle_name`, `street`, `barangay`, `municipality`, `province`, `residence_status`, `length_of_stay`, `provincial_address`, `sex`, `civil_status`, `date_of_birth`, `place_of_birth`, `height`, `weight`, `contact_number`, `religion`, `elementary_school`, `elementary_address`, `highschool`, `highschool_address`, `vocational_school`, `vocational_address`, `college`, `college_address`, `employment_duration`, `employer_name`, `employer_address`, `occupant_name`, `occupant_position`, `occupant_age`, `occupant_birth_date`, `occupant_civil_status`, `occupant_occupation`) VALUES
-(14, '123456', 'awdwd', 'awdadwa', 'awd', 'awdadad', 'adadad', 'bantayan', 'adadadawd', 'boarder', 'adwadadawd', 'adadadad', 'male', 'single', '2024-07-21', 'awdadadawd', 223.00, 9999.9, '352434234234', 'adawdada', 'awdadad', 'adadawa', 'adadawda', 'wdadadad', 'dadada', 'dadawd', 'dadawdada', 'adada', 'adadw', 'dadadad', 'awdadadawd', 'adadadad', 'adadadad', 23, '2024-07-16', 'single', 'awdawdada'),
-(15, '2323232', 'adawd', 'adadaw', 'ada', 'adadaw', 'adawd', 'madridejos', 'adadawd', 'owner', 'dadadad', 'dadada', 'female', 'single', '2024-07-03', 'awdadwadaw', 121.00, 31.0, '123123123', 'wadwa', '', '', '', '', '', '', '', '', 'adadawdwa', 'adadada', 'adadadawd', 'adadawdad', 'awdadwad', 12, '2024-07-11', 'single', 'adawdadaw'),
-(16, '343434', 'awdada', 'awdadad', 'adadad', 'adadawd', 'awdadawdaawd', 'santafe', 'adadad', 'owner', 'adadawdad', 'awdadadawd', 'male', 'single', '2024-07-10', 'adadawdawd', 213.00, 72.0, 'wadadawdaw', 'awdadawdawd', 'awdadawd', 'adad', 'wdawdad', 'adada', 'adawdaw', 'dadawd', 'wdad', 'awdawda', 'awdadawd', 'awdadwad', 'awdadwad', 'adadawd', 'awdawdada', 21, '2024-07-24', 'single', 'awdadadawd'),
-(17, '55234234', 'Jubay', 'John Rey', 'N/A', 'adadaw', 'mancilang', 'madridejos', 'cebu', 'owner', 'none', 'dawdadawd', 'male', 'single', '2024-07-18', 'adadawdawd', 213.00, 414.0, '09382296605', 'awdadadw', 'awdadadw', 'adadawdawd', 'awdadawd', 'adadwdawd', 'awdadad', 'adawdawda', 'adadawd', 'adadad', 'adawdd', 'adadawd', 'adadwada', 'awdadawd', 'adadwadawd', 12, '2024-07-03', 'single', 'awdadadawd'),
-(18, '111', 'batasinin', 'mark', 'servas', 'Purok Rose , Tarong Madridejos, Cebu', 'Tarong', 'madridejos', 'cebu', 'owner', 'asd', 'Purok Rose , Tarong Madridejos, Cebu', 'male', 'single', '2024-07-02', 'asdasd', 0.08, 0.7, '09668049106', '', 'sdss', 'dsfgd', 'fdgdggd', 'fdgdgfg', 'fddgdVHVH', 'YGYGGYG', 'VBVBB', 'Buu', 'uhuh', 'hhihih', 'hhihihi', 'iiibibib', 'bubbib', 1111, '2024-07-01', 'single', 'asdasd');
+INSERT INTO `barangay_census` (`id`, `house_number`, `last_name`, `first_name`, `middle_name`, `street`, `barangay`, `municipality`, `province`, `residence_status`, `length_of_stay`, `provincial_address`, `sex`, `civil_status`, `date_of_birth`, `place_of_birth`, `height`, `weight`, `contact_number`, `religion`, `elementary_school`, `elementary_address`, `highschool`, `highschool_address`, `vocational_school`, `vocational_address`, `college`, `college_address`, `employment_duration`, `employer_name`, `employer_address`, `occupant_name`, `occupant_position`, `occupant_age`, `occupant_birth_date`, `occupant_civil_status`, `occupant_occupation`, `location`) VALUES
+(14, '123456', 'awdwd', 'awdadwa', 'awd', 'awdadad', 'adadad', 'bantayan', 'adadadawd', 'boarder', 'adwadadawd', 'adadadad', 'male', 'single', '2024-07-21', 'awdadadawd', 223.00, 9999.9, '352434234234', 'adawdada', 'awdadad', 'adadawa', 'adadawda', 'wdadadad', 'dadada', 'dadawd', 'dadawdada', 'adada', 'adadw', 'dadadad', 'awdadadawd', 'adadadad', 'adadadad', 23, '2024-07-16', 'single', 'awdawdada', ''),
+(15, '2323232', 'adawd', 'adadaw', 'ada', 'adadaw', 'adawd', 'madridejos', 'adadawd', 'owner', 'dadadad', 'dadada', 'female', 'single', '2024-07-03', 'awdadwadaw', 121.00, 31.0, '123123123', 'wadwa', '', '', '', '', '', '', '', '', 'adadawdwa', 'adadada', 'adadadawd', 'adadawdad', 'awdadwad', 12, '2024-07-11', 'single', 'adawdadaw', ''),
+(16, '343434', 'awdada', 'awdadad', 'adadad', 'adadawd', 'awdadawdaawd', 'santafe', 'adadad', 'owner', 'adadawdad', 'awdadadawd', 'male', 'single', '2024-07-10', 'adadawdawd', 213.00, 72.0, 'wadadawdaw', 'awdadawdawd', 'awdadawd', 'adad', 'wdawdad', 'adada', 'adawdaw', 'dadawd', 'wdad', 'awdawda', 'awdadawd', 'awdadwad', 'awdadwad', 'adadawd', 'awdawdada', 21, '2024-07-24', 'single', 'awdadadawd', ''),
+(17, '55234234', 'Jubay', 'John Rey', 'N/A', 'adadaw', 'mancilang', 'madridejos', 'cebu', 'owner', 'none', 'dawdadawd', 'male', 'single', '2024-07-18', 'adadawdawd', 213.00, 414.0, '09382296605', 'awdadadw', 'awdadadw', 'adadawdawd', 'awdadawd', 'adadwdawd', 'awdadad', 'adawdawda', 'adadawd', 'adadad', 'adawdd', 'adadawd', 'adadwada', 'awdadawd', 'adadwadawd', 12, '2024-07-03', 'single', 'awdadadawd', ''),
+(18, '111', 'batasinin', 'mark', 'servas', 'Purok Rose , Tarong Madridejos, Cebu', 'Tarong', 'madridejos', 'cebu', 'owner', 'asd', 'Purok Rose , Tarong Madridejos, Cebu', 'male', 'single', '2024-07-02', 'asdasd', 0.08, 0.7, '09668049106', '', 'sdss', 'dsfgd', 'fdgdggd', 'fdgdgfg', 'fddgdVHVH', 'YGYGGYG', 'VBVBB', 'Buu', 'uhuh', 'hhihih', 'hhihihi', 'iiibibib', 'bubbib', 1111, '2024-07-01', 'single', 'asdasd', '');
 
 -- --------------------------------------------------------
 
@@ -184,16 +185,19 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `OTP` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `username`, `password`) VALUES
-(1, 'Queenie', 'admin', '$2y$10$nNzwdh5nZZCnR5zQ6TJSC.sO4aXo2PVM8wYfWvW9A6cm9i4FRSmLK'),
-(2, 'Johnskie', 'john', '$2y$10$/nwBqOuhozfCjfD2SpCIHOsFfIMnMDwYPHnq1Ez9hl7zUjMkt13le');
+INSERT INTO `users` (`id`, `name`, `username`, `password`, `OTP`) VALUES
+(1, 'Queenie', 'admin', '$2y$10$nNzwdh5nZZCnR5zQ6TJSC.sO4aXo2PVM8wYfWvW9A6cm9i4FRSmLK', ''),
+(2, 'Johnskie', 'john', '$2y$10$/nwBqOuhozfCjfD2SpCIHOsFfIMnMDwYPHnq1Ez9hl7zUjMkt13le', ''),
+(3, 'johnrey', 'johnrey@gmail.com', '$2y$10$J8kV9Xa50NmQokoC0GzRjuo7.KMrIgbaxz/qqpkDfNu0nF5t6jjzO', ''),
+(6, 'Johnskie', 'johnreyjubay315@gmail.com', '$2y$10$UsarisP6jBWkaP.1xcFuquzXBnGBzF3amxCloEA.6m1hg5dcJCxdS', '0');
 
 --
 -- Indexes for dumped tables
@@ -239,7 +243,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `barangay_census`
 --
 ALTER TABLE `barangay_census`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `census_data`
@@ -263,7 +267,7 @@ ALTER TABLE `staff`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
