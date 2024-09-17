@@ -32,7 +32,7 @@ $con = mysqli_connect('127.0.0.1', 'u510162695_bantayanisland', '1Bantayan', 'u5
             $run_query =  mysqli_query($con, $insert_code);
             if($run_query){
                 $subject = "Reset Password Notification";
-                $message = "<h2>windale Hardware inc.</h2>
+                $message = "<h2>Bantayan Island Census with Locator</h2>
                 <p>This is your OTP code:  <b>$code</b> <br><br>
                     Please use this code to set your new password.<br><br>
                     If you didn't request this code, you can disregard this message.
@@ -63,7 +63,7 @@ $con = mysqli_connect('127.0.0.1', 'u510162695_bantayanisland', '1Bantayan', 'u5
         $mail->Port = 465;                                   
 
         //Send Email
-        $mail->setFrom('johnreyjubay315@gmail.com', 'Windale Hardware Inc.');
+        $mail->setFrom('johnreyjubay315@gmail.com', 'Bantayan Island Census with Locator');
         
         //Recipients
         $mail->addAddress($email);              
