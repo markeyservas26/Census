@@ -1,12 +1,3 @@
-<?php
-include '../session.php';
-
-// Check if the user is logged in
-if (isset($_SESSION['userid'])) {
-    header("Location:index.php");
-    exit;
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,71 +37,67 @@ if (isset($_SESSION['userid'])) {
 <body>
 
   <main>
-  <div class="container">
-  <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
     <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
-          <div class="card mb-3">
+              <div class="card mb-3">
 
-            <div class="card-body">
+                <div class="card-body">
 
-              <div class="d-flex justify-content-center py-4">
-                <img src="../assets/img/trasparlogo.png" alt="" style="height: 150px; width: 200px;">
-              </div><!-- End Logo -->
-              <div class="pt-4 pb-2">
-                <h5 class="card-title text-center pb-0 fs-4"> Admin | Login</h5>
+                  <div class="d-flex justify-content-center py-4">
+                    <img src="../assets/img/trasparlogo.png" alt="" style="height: 150px; width: 200px;">
+                  </div><!-- End Logo -->
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4"> Admin | Login</h5>
+                  </div>
+
+                  <form id="loginForm" class="row g-3 needs-validation" novalidate action="../action/login.php" method="POST">
+
+                    <div class="col-12">
+                      <label for="yourUsername" class="form-label">Username</label>
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <input type="text" name="username" class="form-control" id="yourUsername" required>
+                        <div class="invalid-feedback">Please enter your username.</div>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourPassword" class="form-label">Password</label>
+                      <div class="input-group">
+                        <input type="password" name="password" class="form-control" id="yourPassword" required>
+                        <span class="input-group-text" id="togglePassword">
+                          <i class="fas fa-eye"></i>
+                        </span>
+                        <div class="invalid-feedback">Please enter your password!</div>
+                      </div>
+                      <!-- Add the back to website link below the password field -->
+                    </div>
+
+                    <div class="col-12 d-flex align-items-center">
+                      <a href="../forgotpassword/forgot-password.php" style="float:right;"> Forgot password?</a>
+                      <!-- Move the link to the right side of the remember me checkbox -->
+                      <a href="../index.php" class="back-to-website d-none d-md-block" style="margin-left: 90px; color:black;">Back to Website</a>
+                    </div>
+                    
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit">Login</button>
+                    </div>
+                    <!-- <div class="col-12">
+                      <p class="small mb-0">Don't have account? <a href="register.php">Create an account</a></p>
+                    </div> -->
+                  </form>
+
+                </div>
               </div>
-
-              <form class="row g-3 needs-validation" novalidate action="../action/login.php" method="POST">
-
-                <div class="col-12">
-                  <label for="yourUsername" class="form-label">Username</label>
-                  <div class="input-group has-validation">
-                    <span class="input-group-text" id="inputGroupPrepend">@</span>
-                    <input type="text" name="username" class="form-control" id="yourUsername" required>
-                    <div class="invalid-feedback">Please enter your username.</div>
-                  </div>
-                </div>
-
-                <div class="col-12">
-                  <label for="yourPassword" class="form-label">Password</label>
-                  <div class="input-group">
-                    <input type="password" name="password" class="form-control" id="yourPassword" required>
-                    <span class="input-group-text" id="togglePassword">
-                      <i class="fas fa-eye"></i>
-                    </span>
-                    <div class="invalid-feedback">Please enter your password!</div>
-                  </div>
-                  <!-- Add the back to website link below the password field -->
-                </div>
-
-                <div class="col-12 d-flex align-items-center">
-                  <div class="form-check me-3">
-                    <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                    <label class="form-check-label" for="rememberMe">Remember me</label>
-                  </div>
-                  <!-- Move the link to the right side of the remember me checkbox -->
-                  <a href="../index.php" class="back-to-website d-none d-md-block" style="margin-left: 90px; color:black;">Back to Website</a>
-                </div>
-                
-                <div class="col-12">
-                  <button class="btn btn-primary w-100" type="submit">Login</button>
-                </div>
-                <!-- <div class="col-12">
-                  <p class="small mb-0">Don't have account? <a href="register.php">Create an account</a></p>
-                </div> -->
-              </form>
-
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
-  </section>
-</div>
-
   </main><!-- End #main -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -129,20 +116,37 @@ if (isset($_SESSION['userid'])) {
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const togglePassword = document.querySelector('#togglePassword');
-    const passwordField = document.querySelector('#yourPassword');
+    document.addEventListener('DOMContentLoaded', function() {
+      const togglePassword = document.querySelector('#togglePassword');
+      const passwordField = document.querySelector('#yourPassword');
 
-    togglePassword.addEventListener('click', function() {
-      // Toggle the type attribute
-      const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-      passwordField.setAttribute('type', type);
+      togglePassword.addEventListener('click', function() {
+        // Toggle the type attribute
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
 
-      // Toggle the eye icon
-      this.querySelector('i').classList.toggle('fa-eye-slash');
+        // Toggle the eye icon
+        this.querySelector('i').classList.toggle('fa-eye-slash');
+      });
     });
-  });
-</script>
+
+    // Validation for the login form
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      const usernameInput = document.getElementById('yourUsername');
+      const usernameValue = usernameInput.value;
+      const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
+      // Check if the username matches the @gmail.com pattern
+      if (!gmailPattern.test(usernameValue)) {
+        event.preventDefault(); // Prevent form submission
+        Swal.fire({
+          icon: 'error',
+          title: 'Validation Error',
+          text: 'Username must have an @gmail.com.'
+        });
+      }
+    });
+  </script>
 
 </body>
 
