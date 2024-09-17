@@ -16,7 +16,7 @@ $errors = array();
 
 
 //connect to database
-$con = mysqli_connect('127.0.0.1', 'u510162695_bantayanisland', '1Bantayan', 'u510162695_bantayanisland');
+$con = mysqli_connect('localhost', 'root', '', 'census');
 
 //for verified email
 
