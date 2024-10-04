@@ -1,4 +1,4 @@
-<?php 
+        <?php 
 include 'header.php'; 
 include '../database/db_connect.php';
 
@@ -518,7 +518,7 @@ body {
                             </div>
                         </div>
 
-                        <!-- Column 2 -->
+                        <!-- Column 2 -->   
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Residence Status:</label>
