@@ -99,7 +99,50 @@
       </section>
     </div>
   </main><!-- End #main -->
-
+  <script>
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  var formData = new FormData(this);
+  
+  fetch('../action/login.php', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.text())
+  .then(data => {
+    try {
+      var result = JSON.parse(data);
+      Swal.fire({
+        icon: result.icon,
+        title: result.title,
+        text: result.text,
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "OK"
+      }).then((swalResult) => {
+        if (swalResult.isConfirmed && result.redirect) {
+          window.location.href = result.redirect;
+        }
+      });
+    } catch (error) {
+      console.error('Error parsing JSON:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+      });
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong!',
+    });
+  });
+});
+</script>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
