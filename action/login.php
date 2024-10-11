@@ -15,7 +15,7 @@ function sendSecurityAlert($message) {
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
         $mail->Username   = 'bosskira41@gmail.com';  // Replace with your email
-        $mail->Password   = 'teranovakira00000';     // Replace with your app-specific password
+        $mail->Password   = 'teranovakira1010';     // Replace with your app-specific password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
     
