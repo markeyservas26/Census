@@ -5,38 +5,38 @@ require 'vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// Function to send the email alert
-function sendSecurityAlert($alertMessage) {
-    $mail = new PHPMailer(true);
-    
-    try {
-        // Server settings
-        $mail->isSMTP();
-        $mail->Host       = 'smtp.gmail.com'; // Gmail SMTP server
-        $mail->SMTPAuth   = true;
-        $mail->Username   = 'bosskira41@gmail.com'; // Your Gmail address
-        $mail->Password   = 'teranovakira1010'; // App-specific password from Gmail
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port       = 587;
+<?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-        // Debugging
-        $mail->SMTPDebug = 2; // Enable debug (optional)
-        $mail->Debugoutput = 'html'; // Output debug to HTML
-        
-        $mail->setFrom('bosskira41@gmail.com', 'Security Alert');
-        $mail->addAddress('bosskira41@gmail.com');  // Send alert to yourself
+// Load Composer's autoloader
+require 'vendor/autoload.php';
 
-        // Content
-        $mail->isHTML(true);
-        $mail->Subject = 'Security Alert: Multiple Failed Login Attempts';
-        $mail->Body    = $alertMessage;
+$mail = new PHPMailer(true);
 
-        // Send the email
-        $mail->send();
-        echo 'Alert email sent!';
-    } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-    }
+try {
+    // Server settings
+    $mail->isSMTP();
+    $mail->Host       = 'smtp.gmail.com';
+    $mail->SMTPAuth   = true;
+    $mail->Username   = 'johnreyjubay315@gmail.com';  // Replace with your email
+    $mail->Password   = 'jubayjohnrey0000';     // Replace with your app-specific password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port       = 587;
+
+    // Recipients
+    $mail->setFrom('bosskira41@gmail.com', 'Mailer');
+    $mail->addAddress('bosskira41@gmail.com', 'Joe User');  // Replace with recipient's email
+
+    // Content
+    $mail->isHTML(true);
+    $mail->Subject = 'Test Email from PHPMailer';
+    $mail->Body    = 'This is a test email sent using PHPMailer with Gmail SMTP!';
+
+    $mail->send();
+    echo 'Message has been sent';
+} catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
 
 // Function to check login attempts
