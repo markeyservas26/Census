@@ -80,7 +80,7 @@
                     <div class="col-12 d-flex align-items-center">
                       <a href="../forgotpassword/forgot-password.php" style="float:right;"> Forgot password?</a>
                       <!-- Move the link to the right side of the remember me checkbox -->
-                      <a href="#" class="back-to-website d-none d-md-block" style="margin-left: 90px; color:black;">Back to Website</a>
+                      <a href="http://www.bantayanislandcensus.com" class="back-to-website d-none d-md-block" style="margin-left: 90px; color:black;">Back to Website</a>
                     </div>
                     
                     <div class="col-12">
