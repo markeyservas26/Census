@@ -121,7 +121,7 @@ if($email == false){
                         <i class="fas fa-eye" id="toggleConfirmPasswordIcon"></i>
                     </span>
                 </div>
-                <button type="submit" name="change-password" class="btn btn-danger w-100 mb-3">Reset Password</button>
+                <button type="submit" name="change-password" class="btn btn-danger w-100 mb-3">Confirm</button>
             </form>
         </div>
     </div>
