@@ -34,7 +34,7 @@
         .forgot-password-container img {
             width: 80px;
             height: 80px;
-            border-radius: 50%;
+            border-radius: 10%;
             margin-bottom: 1rem;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
