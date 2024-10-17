@@ -339,7 +339,7 @@ margin-left:13%;
                             <p><b>Total Transfer</b></p>
                         </div>
                         <div class="icon">
-                            <i class="fa fa-location" aria-hidden="true"></i>
+                            <i class="fa fa-exchange" aria-hidden="true"></i>
                         </div>              
                     </div>
                 </div> 
