@@ -1634,7 +1634,7 @@ $postData = $_POST ?? [];
             var household = encodeURIComponent(document.getElementById('house_number').value);
             
             // Construct the URL to redirect to
-            var url = 'admin/map.php?name=' + name + '&household=' + household;
+            var url = '../admin/map.php?name=' + name + '&household=' + household;
             
             // Redirect to the constructed URL
             window.location.href = url;
