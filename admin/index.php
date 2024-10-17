@@ -144,6 +144,7 @@ if ($resultSexCounts->num_rows > 0) {
 <main id="main" class="main">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body {
             background: #FEFCFF;
@@ -160,13 +161,18 @@ if ($resultSexCounts->num_rows > 0) {
     margin: 0 auto; /* Ensure the cards are centered in the viewport */
 }
 
-        /* Card box styling */
+     /* Card box styling */
 .card-box {
-    width: 200px; /* Fixed width for consistent card sizes */
+    width: 200px;
     padding: 30px 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    text-align: center; /* Center align text and icons */
+    position: relative; /* Ensure all elements are positioned relative to the card */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Container for the section */
