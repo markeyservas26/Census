@@ -164,7 +164,7 @@ if ($resultSexCounts->num_rows > 0) {
      /* Card box styling */
 .card-box {
     width: 200px;
-    padding: 50px 40px;
+    padding: 30px 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
@@ -214,7 +214,6 @@ if ($resultSexCounts->num_rows > 0) {
 
         .card-box p {
             font-size: 15px;
-            margin-bottom: 30px;
         }
 
         .card-box .icon {
