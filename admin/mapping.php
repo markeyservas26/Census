@@ -24,8 +24,8 @@
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
-        // Initialize the map and set view to a starting location
-        var map = L.map('map').setView([10.0, 122.0], 6);
+        // Initialize the map and set view to Bantayan Island's coordinates
+        var map = L.map('map').setView([11.3, 123.7], 10);  // Adjusted coordinates for Bantayan Island
 
         // Add OpenStreetMap tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
