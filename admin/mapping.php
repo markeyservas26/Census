@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Map Locator</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <title>Google Maps Locator</title>
     <style>
         #map {
             height: 500px;
@@ -17,22 +16,23 @@
     <div id="map"></div>
     <p>Coordinates: <span id="coordinates">None</span></p>
 
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
-        // Initialize the map and set view to a starting location
-        var map = L.map('map').setView([10.0, 122.0], 6);
+        function initMap() {
+            // Initialize the map and set view to a starting location
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 10.0, lng: 122.0},
+                zoom: 6
+            });
 
-        // Add OpenStreetMap tiles
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        // Function to update coordinates when the map is clicked
-        map.on('click', function(e) {
-            var lat = e.latlng.lat;
-            var lng = e.latlng.lng;
-            document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
-        });
+            // Add a click listener to the map
+            map.addListener('click', function(event) {
+                var lat = event.latLng.lat();
+                var lng = event.latLng.lng();
+                document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
+            });
+        }
     </script>
+    <!-- Load the Google Maps JavaScript API with your API key -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
 </body>
 </html>
