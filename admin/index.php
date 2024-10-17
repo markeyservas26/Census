@@ -383,63 +383,6 @@ margin-left:13%;
         </script>
     </div>
 </div>
-    <div class="chart-container">
-        <h5 class="card-title">Total Counts Bar Chart</h5>
-        <canvas id="barChart" style="max-height: 400px;"></canvas>
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                new Chart(document.querySelector('#barChart'), {
-                    type: 'bar',
-                    data: {
-                        labels: ['Total Barangay', 'Total Houses', 'Total Residence'],
-                        datasets: [{
-                            label: 'Counts',
-                            data: [
-                                <?php echo $totalBarangayCount; ?>, // Total Barangay
-                                <?php echo array_sum($data['totalHouseNumbers']); ?>, // Total Houses
-                                <?php echo array_sum($data['totalHouseNumbers']); ?>  // Total Residence
-                            ],
-                            backgroundColor: [
-                               'rgb(0, 192, 239)',
-                               'rgb(0, 166, 90)',
-                               'rgb(217, 83, 79)'
-                            ],
-                            borderColor: [
-                                'rgb(75, 192, 192)',
-                                'rgb(153, 102, 255)',
-                                'rgb(255, 159, 64)'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(tooltipItem) {
-                                        return `${tooltipItem.label}: ${tooltipItem.raw}`;
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            x: {
-                                beginAtZero: true
-                            },
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            });
-        </script>
-    </div>
-</div>
 <div class="dashboard-content">
     <div class="chart-container">
         <div class="row">
