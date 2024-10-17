@@ -150,17 +150,34 @@ if ($resultSexCounts->num_rows > 0) {
             overflow-x: hidden;
         }
 
-        .card-box {
-            position: relative;
-            color: #fff;
-            padding: 20px 10px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            height: 150%; /* Ensure all cards have the same height */
-            margin-right:700px;
-            width: 100%;
-        }
+        /* Adjusting the card container to center the cards */
+.card-container {
+    display: flex;
+    justify-content: center; /* Center the cards horizontally */
+    gap: 20px; /* Add space between cards */
+    flex-wrap: wrap; /* Ensure that cards wrap if the screen is too narrow */
+    width: 100%; /* Full width to ensure centering */
+    margin: 0 auto; /* Ensure the cards are centered in the viewport */
+}
+
+        /* Card box styling */
+.card-box {
+    width: 250px; /* Fixed width for consistent card sizes */
+    padding: 20px 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Container for the section */
+.section .container {
+    display: flex;
+    justify-content: center; /* Center the cards section */
+    width: 100%;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 
         .card-box:hover {
