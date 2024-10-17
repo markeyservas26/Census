@@ -118,6 +118,26 @@ foreach ($houseLabels as $key => $municipality) {
     // Assuming 'occupantValues' is the count of total occupants per municipality
     $totalCombinedCounts[$municipality] = $houseValues[$key] + $occupantValues[$key];
 }
+
+// Prepare SQL to get counts for males and females
+$sqlGender = "SELECT gender, COUNT(*) as count FROM house_leader 
+              WHERE gender IN ('M', 'F')
+              GROUP BY gender";
+
+$resultGender = $conn->query($sqlGender);
+
+$genderLabels = ['Male', 'Female'];
+$genderValues = [0, 0]; // Initialize with 0 counts for both Male and Female
+
+if ($resultGender->num_rows > 0) {
+    while ($row = $resultGender->fetch_assoc()) {
+        if ($row['gender'] == 'M') {
+            $genderValues[0] = $row['count']; // Male count
+        } elseif ($row['gender'] == 'F') {
+            $genderValues[1] = $row['count']; // Female count
+        }
+    }
+}
 ?>
 <main id="main" class="main">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
@@ -308,30 +328,27 @@ margin-left:13%;
     </section>
     <div class="dashboard-content mt-5">
     <div class="chart-container">
-        <h5 class="card-title">Total Counts Bar Chart</h5>
-        <canvas id="barChart" style="max-height: 400px;"></canvas>
+        <h5 class="card-title">Total Males and Females Bar Chart</h5>
+        <canvas id="genderBarChart" style="max-height: 400px;"></canvas>
         <script>
             document.addEventListener("DOMContentLoaded", () => {
-                new Chart(document.querySelector('#barChart'), {
+                new Chart(document.querySelector('#genderBarChart'), {
                     type: 'bar',
                     data: {
-                        labels: ['Total Barangay', 'Total Houses', 'Total Residence'],
+                        labels: ['Male', 'Female'], // Gender labels
                         datasets: [{
                             label: 'Counts',
                             data: [
-                                <?php echo $totalBarangayCount; ?>, // Total Barangay
-                                <?php echo array_sum($data['totalHouseNumbers']); ?>, // Total Houses
-                                <?php echo array_sum($data['totalHouseNumbers']); ?>  // Total Residence
+                                <?php echo $genderValues[0]; ?>, // Male count
+                                <?php echo $genderValues[1]; ?>  // Female count
                             ],
                             backgroundColor: [
-                               'rgb(0, 192, 239)',
-                               'rgb(0, 166, 90)',
-                               'rgb(217, 83, 79)'
+                               'rgb(54, 162, 235)',  // Blue for Males
+                               'rgb(255, 99, 132)'   // Pink for Females
                             ],
                             borderColor: [
-                                'rgb(75, 192, 192)',
-                                'rgb(153, 102, 255)',
-                                'rgb(255, 159, 64)'
+                                'rgb(54, 162, 235)',
+                                'rgb(255, 99, 132)'
                             ],
                             borderWidth: 1
                         }]
