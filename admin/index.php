@@ -169,6 +169,16 @@ if ($resultSexCounts->num_rows > 0) {
     transition: all 0.3s ease;
 }
 
+/* Container for the section */
+.section .container {
+    display: flex;
+    justify-content: center; /* Center the cards section */
+    width: 100%;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
         .card-box:hover {
             text-decoration: none;
