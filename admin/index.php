@@ -387,7 +387,7 @@ margin-left:13%;
     <div class="chart-container">
         <div class="row">
             <!-- Doughnut Chart for Barangays -->
-            <div class="col-lg-6 mb-4">
+            <div class="col-lg-6 mb-2">
                 <h2 class="card-title text-center">Barangay Count Every Municipalities</h2>
                 <canvas id="barangayChart" style="max-width: 300px; max-height: 200px; margin: 0 auto;"></canvas>
                 <script>
@@ -430,7 +430,7 @@ margin-left:13%;
                     });
                 </script>
             </div>
-            <div class="col-lg-6 mb-4">
+            <div class="col-lg-6 mb-2">
     <h2 class="card-title text-center">House Count Every Municipality</h2>
     <canvas id="houseCountChart" style="max-width: 300px; max-height: 200px; margin: 0 auto;""></canvas>
     <script>
@@ -474,7 +474,7 @@ margin-left:13%;
     </script>
 </div>
              <!-- Doughnut Chart for Residences -->
-             <div class="col-lg-6 mb-4">
+             <div class="col-lg-6 mb-2">
                     <h2 class="card-title text-center">Residence Count Every Municipalities</h2>
                     <canvas id="residenceChart" style="max-width: 300px; max-height: 200px; margin: 0 auto;"></canvas>
                     <script>
