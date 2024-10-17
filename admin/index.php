@@ -258,11 +258,12 @@ if ($resultSexCounts->num_rows > 0) {
 .chart-container {
     display: flex;
     justify-content: center; /* Center all charts horizontally */
-    align-items: flex-start; /* Align the charts at the top */
+    align-items: center; /* Align the charts at the top */
     gap: 30px; /* Add a gap between each chart */
    width: 200%;
    margin-left: 33px;
-   margin-top: 200px;
+   margin-top: 20px;
+   flex-direction: column;
 }
 .doughnut-chart {
   width: 50%;
@@ -338,8 +339,9 @@ margin-left:13%;
         </div>
     </section>
     <div class="dashboard-content mt-5">
-    <h5 class="card-title" style="text-align: center;">Gender Distribution Bar Chart</h5>
     <div class="chart-container">
+    <div class="chart-box">
+    <h5 class="card-title" style="text-align: center;">Gender Distribution Bar Chart</h5>
         <canvas id="sexChart" style="max-width: 600px; max-height: 400px; margin-right: 200px;"></canvas>
         <script>
             document.addEventListener("DOMContentLoaded", () => {
@@ -391,6 +393,7 @@ margin-left:13%;
             });
         </script>
     </div>
+</div>
 </div>
 <div class="dashboard-content">
 <div class="row">
