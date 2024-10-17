@@ -389,7 +389,7 @@ margin-left:13%;
             <!-- Doughnut Chart for Barangays -->
             <div class="col-lg-6 mb-4">
                 <h5 class="card-title text-center">Barangay Count Every Municipalities</h5>
-                <canvas id="barangayChart" style="max-width: 500px; max-height: 300px; margin: 0 auto;"></canvas>
+                <canvas id="barangayChart" style="max-width: 300px; max-height: 200px; margin: 0 auto;"></canvas>
                 <script>
                     document.addEventListener("DOMContentLoaded", () => {
                         new Chart(document.querySelector('#barangayChart'), {
@@ -432,7 +432,7 @@ margin-left:13%;
             </div>
             <div class="col-lg-6 mb-4">
     <h5 class="card-title text-center">House Count Every Municipality</h5>
-    <canvas id="houseCountChart" style="max-width: 500px; max-height: 300px; margin: 0 auto;""></canvas>
+    <canvas id="houseCountChart" style="max-width: 300px; max-height: 200px; margin: 0 auto;""></canvas>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             new Chart(document.querySelector('#houseCountChart'), {
@@ -476,7 +476,7 @@ margin-left:13%;
              <!-- Doughnut Chart for Residences -->
              <div class="col-lg-6 mb-4">
                     <h5 class="card-title text-center">Residence Count Every Municipalities</h5>
-                    <canvas id="residenceChart" style="max-width: 500px; max-height: 300px; margin: 0 auto;"></canvas>
+                    <canvas id="residenceChart" style="max-width: 300px; max-height: 200px; margin: 0 auto;"></canvas>
                     <script>
                         document.addEventListener("DOMContentLoaded", () => {
                             new Chart(document.querySelector('#residenceChart'), {
