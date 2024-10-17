@@ -1614,7 +1614,11 @@ $postData = $_POST ?? [];
         <button type="button" id="nextButton" class="btn btn-primary" onclick="goToMap()">Next</button>
     </form>
 </div>
-<div id="mapPage">
+
+
+                </div>
+            </form>
+            <div id="mapPage">
         <h2>Click on the map to get latitude and longitude</h2>
         <div class="input-container">
             <label for="name">First Name:</label>
@@ -1630,9 +1634,6 @@ $postData = $_POST ?? [];
         <button id="submitBtn">Submit</button>
         <button id="backBtn" onclick="goToSurvey()">Back</button>
     </div>
-
-                </div>
-            </form>
         </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
