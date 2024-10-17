@@ -1611,9 +1611,6 @@ $postData = $_POST ?? [];
                   
                <div class="text-center mt-4">
     <form id="myForm">
-        <!-- Your form fields here -->
-
-        <button type="button" id="backButton" class="btn btn-secondary">Back</button>
         <button type="button" id="nextButton" class="btn btn-primary" onclick="goToMap()">Next</button>
     </form>
 </div>
