@@ -118,6 +118,28 @@ foreach ($houseLabels as $key => $municipality) {
     // Assuming 'occupantValues' is the count of total occupants per municipality
     $totalCombinedCounts[$municipality] = $houseValues[$key] + $occupantValues[$key];
 }
+
+// Prepare SQL to get counts of males and females
+$sqlSexCounts = "SELECT sex, COUNT(*) as count FROM house_leader 
+                 WHERE municipality IN ('Madridejos', 'Bantayan', 'Santafe')
+                 GROUP BY sex";
+
+$resultSexCounts = $conn->query($sqlSexCounts);
+
+$sexData = [
+    'Male' => 0,
+    'Female' => 0
+];
+
+if ($resultSexCounts->num_rows > 0) {
+    while ($row = $resultSexCounts->fetch_assoc()) {
+        if ($row['sex'] == 'Male') {
+            $sexData['Male'] = $row['count'];
+        } else if ($row['sex'] == 'Female') {
+            $sexData['Female'] = $row['count'];
+        }
+    }
+}
 ?>
 <main id="main" class="main">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
@@ -307,6 +329,60 @@ margin-left:13%;
         </div>
     </section>
     <div class="dashboard-content mt-5">
+    <div class="chart-container">
+        <h5 class="card-title">Sex Distribution Bar Chart</h5>
+        <canvas id="sexChart" style="max-height: 400px;"></canvas>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                new Chart(document.querySelector('#sexChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['Male', 'Female'],
+                        datasets: [{
+                            label: 'Number of People',
+                            data: [
+                                <?php echo $sexData['Male']; ?>,  // Male count
+                                <?php echo $sexData['Female']; ?>  // Female count
+                            ],
+                            backgroundColor: [
+                               'rgba(54, 162, 235, 0.6)',  // Blue for Male
+                               'rgba(255, 99, 132, 0.6)'   // Red for Female
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 1)',  // Blue for Male
+                                'rgba(255, 99, 132, 1)'   // Red for Female
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(tooltipItem) {
+                                        return `${tooltipItem.label}: ${tooltipItem.raw}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true
+                            },
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+    </div>
+</div>
     <div class="chart-container">
         <h5 class="card-title">Total Counts Bar Chart</h5>
         <canvas id="barChart" style="max-height: 400px;"></canvas>
