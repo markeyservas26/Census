@@ -263,7 +263,6 @@ if ($resultSexCounts->num_rows > 0) {
    width: 200%;
    margin-left: 33px;
    margin-top: 20px;
-   flex-direction: column;
 }
 .doughnut-chart {
   width: 50%;
