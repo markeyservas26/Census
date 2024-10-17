@@ -28,7 +28,6 @@ $postData = $_POST ?? [];
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <style>
        @media (max-width: 768px) {
             .form-label {
@@ -77,59 +76,6 @@ $postData = $_POST ?? [];
     .text-center {
         text-align: center;
     }
-
-    /* Center the form container */
-.text-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 40px;
-}
-
-/* Style the form */
-#myForm {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Style the form fields */
-#myForm input, #myForm textarea, #myForm select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-/* Style the submit button */
-#myForm button {
-    width: 100%;
-    padding: 12px;
-    background-color: #007bff;
-    border: none;
-    color: white;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#myForm button:hover {
-    background-color: #0056b3;
-}
-
-/* Additional styling for better responsiveness */
-@media (max-width: 768px) {
-    #myForm {
-        width: 90%;
-    }
-}
 
     .mb-4 {
         margin-bottom: 1.8rem;
@@ -207,7 +153,7 @@ $postData = $_POST ?? [];
 </head>
 <body>
 <main id="main" class="main">
-<div class="container" id="surveyPage">
+<div class="container">
     <div class="header1">
         <img src="assets/img/censusformlogo.png" alt="Census Logo" class="logo">
         <img src="assets/img/censusformlogo2.png" alt="Census Logo 2" class="logo-right">
@@ -1608,168 +1554,22 @@ $postData = $_POST ?? [];
                     </div>
                   
                 </div>
-               <hr>
+               
                   
-               <div class="text-center mt-4">
-    <form id="myForm">
-        <button type="button" id="nextButton" class="btn btn-primary" onclick="goToMap()">Next</button>
-    </form>
-</div>
-
-
+                <div class="text-center mt-4">
+                <form id="myForm">
+    <!-- Your form fields here -->
+    <button type="submit">Submit</button>
+</form>
                 </div>
             </form>
-            </div>
-            </main>
-
-
-            <div id="mapPage" class="container" style="display: none; padding: 20px;"> <!-- Hide mapPage by default -->
-    <h2 class="text-center">Click on the map to get latitude and longitude</h2>
-    
-    <div class="row justify-content-center mb-3"> <!-- Centering the input fields -->
-        <div class="col-md-6">
-            <div class="input-container">
-                <label for="name">First Name:</label>
-                <input type="text" id="name" class="form-control" placeholder="Enter your first name" value="">
-            </div>
         </div>
-    </div>
-
-    <div class="row justify-content-center mb-3"> <!-- Centering the household input field -->
-        <div class="col-md-6">
-            <div class="input-container">
-                <label for="household">Household Number:</label>
-                <input type="text" id="household" class="form-control" placeholder="Enter household number" value="">
-            </div>
-        </div>
-    </div>
-
-    <div class="text-center">
-        <button id="getLocationBtn" class="btn btn-secondary mb-3">Get My Location</button>
-    </div>
-
-    <!-- Map container with explicit height -->
-    <div id="map" style="height: 600px; width: 50%; margin-top: 20px;  margin: 0 auto;"></div> <!-- Set height for map -->
-    
-    <p class="mt-3 text-center">Coordinates: <span id="coordinates">None</span></p>
-    
-    <div class="text-center">
-        <button id="submitBtn" class="btn btn-success mt-3">Submit</button>
-        <button id="backBtn" class="btn btn-warning mt-3" onclick="goToSurvey()">Back</button>
-    </div>
-</div>
+    </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-<script>
-    let map;
-    let userMarker;
-
-    function goToMap() {
-        document.getElementById('surveyPage').style.display = 'none'; // Hide survey page
-        document.getElementById('mapPage').style.display = 'block';  // Show map page
-        initializeMap(); // Initialize the map
-    }
-
-    function goToSurvey() {
-        document.getElementById('mapPage').style.display = 'none';   // Hide map page
-        document.getElementById('surveyPage').style.display = 'block'; // Show survey page
-    }
-
-    function initializeMap() {
-    if (!map) {
-        map = L.map('map').setView([11.2, 123.7333], 11); // Centered on Bantayan Island
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            maxZoom: 19,
-            subdomains: ['a', 'b', 'c']
-        }).addTo(map);
-
-        map.on('click', function(e) {
-            var lat = e.latlng.lat.toFixed(6);
-            var lng = e.latlng.lng.toFixed(6);
-            
-            // Get values from input fields
-            var name = document.getElementById('firstname_hl').value;
-            var household = document.getElementById('house_number').value;
-
-            // Update the coordinates display
-            document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
-
-            // Create marker with name and household number in the popup
-            if (userMarker) {
-                map.removeLayer(userMarker);
-            }
-            userMarker = L.marker([lat, lng]).addTo(map)
-                .bindPopup('Selected Location<br>Name: ' + name + '<br>Household Number: ' + household)
-                .openPopup();
-        });
-    }
-
-    // Load previously saved data
-    document.getElementById('name').value = localStorage.getItem('firstname_hl') || '';
-    document.getElementById('household').value = localStorage.getItem('house_number') || '';
-}
-
-// Call this function when the page loads
-document.addEventListener('DOMContentLoaded', function() {
-    goToMap();
-});
-
-    document.getElementById('getLocationBtn').addEventListener('click', function() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var lat = position.coords.latitude.toFixed(6);
-                var lng = position.coords.longitude.toFixed(6);
-                
-                map.setView([lat, lng], 15);
-                
-                if (userMarker) {
-                    map.removeLayer(userMarker);
-                }
-                userMarker = L.marker([lat, lng]).addTo(map)
-                    .bindPopup('Your Location')
-                    .openPopup();
-                
-                document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
-            }, function() {
-                Swal.fire('Error', 'Unable to retrieve your location.', 'error');
-            });
-        } else {
-            Swal.fire('Error', 'Geolocation is not supported by this browser.', 'error');
-        }
-    });
-
-    document.getElementById('submitBtn').addEventListener('click', function() {
-        var name = document.getElementById('name').value;
-        var household = document.getElementById('household').value;
-        var coordinates = document.getElementById('coordinates').textContent;
-
-        if (name && household && coordinates !== 'None') {
-            localStorage.setItem('firstname_hl', name);
-            localStorage.setItem('house_number', household);
-
-            Swal.fire({
-                title: 'Confirm Submission',
-                html: `Name: ${name}<br>Household Number: ${household}<br>${coordinates}`,
-                icon: 'info',
-                showCancelButton: true,
-                confirmButtonText: 'Submit',
-                cancelButtonText: 'Cancel'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Here you would typically send the data to your server
-                    Swal.fire('Submitted!', 'Your information has been submitted.', 'success');
-                }
-            });
-        } else {
-            Swal.fire('Error', 'Please fill in all fields and select a location on the map.', 'error');
-        }
-    });
-</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form'); // Adjust this selector if needed
