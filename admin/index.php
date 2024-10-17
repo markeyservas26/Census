@@ -411,6 +411,7 @@ margin-left:13%;
     </div>
 </div>
 </div>
+<hr>
 <div class="dashboard-content">
 <div class="row">
 <div class="col-lg-6 mb-4">
