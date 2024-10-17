@@ -1607,7 +1607,9 @@ $postData = $_POST ?? [];
                     </div>
                   
                 </div>
-               
+               <hr>
+               <button id="getLocationBtn">Get My Location</button>
+    <div id="location">Coordinates: <span id="coordinates">None</span></div>
                   
                 <div class="text-center mt-4">
                 <form id="myForm">
@@ -1623,6 +1625,24 @@ $postData = $_POST ?? [];
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+        // Function to get the user's location
+        document.getElementById('getLocationBtn').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var lat = position.coords.latitude;
+                    var lng = position.coords.longitude;
+
+                    // Display the coordinates
+                    document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
+                }, function() {
+                    alert('Unable to retrieve your location.');
+                });
+            } else {
+                alert('Geolocation is not supported by this browser.');
+            }
+        });
+    </script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form'); // Adjust this selector if needed
