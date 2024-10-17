@@ -1574,7 +1574,7 @@ $postData = $_POST ?? [];
 <script>
     function goToPrintForm() {
         // Change the URL to the page you want to navigate to
-        window.location.href = 'admin/testing.php'; // Replace with your desired page
+        window.location.href = 'testing.php'; // Replace with your desired page
     }
 </script>
 <script>
