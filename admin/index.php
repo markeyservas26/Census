@@ -258,7 +258,7 @@ if ($resultSexCounts->num_rows > 0) {
 .chart-container {
     display: flex;
     justify-content: center; /* Center all charts horizontally */
-    align-items: center; /* Align the charts at the top */
+    align-items: flex-start; /* Align the charts at the top */
     gap: 30px; /* Add a gap between each chart */
    width: 200%;
    margin-left: 33px;
