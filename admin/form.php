@@ -206,7 +206,7 @@ $postData = $_POST ?? [];
 </head>
 <body>
 <main id="main" class="main">
-<div class="container">
+<div class="container" id="surveyPage">
     <div class="header1">
         <img src="assets/img/censusformlogo.png" alt="Census Logo" class="logo">
         <img src="assets/img/censusformlogo2.png" alt="Census Logo 2" class="logo-right">
@@ -1614,6 +1614,22 @@ $postData = $_POST ?? [];
         <button type="button" id="nextButton" class="btn btn-primary" onclick="goToMap()">Next</button>
     </form>
 </div>
+<div id="mapPage">
+        <h2>Click on the map to get latitude and longitude</h2>
+        <div class="input-container">
+            <label for="name">First Name:</label>
+            <input type="text" id="name" placeholder="Enter your first name" value="">
+        </div>
+        <div class="input-container">
+            <label for="household">Household Number:</label>
+            <input type="text" id="household" placeholder="Enter household number" value="">
+        </div>
+        <button id="getLocationBtn">Get My Location</button>
+        <div id="map" style="height: 500px; width: 100%;"></div>
+        <p>Coordinates: <span id="coordinates">None</span></p>
+        <button id="submitBtn">Submit</button>
+        <button id="backBtn" onclick="goToSurvey()">Back</button>
+    </div>
 
                 </div>
             </form>
@@ -1624,12 +1640,45 @@ $postData = $_POST ?? [];
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    function goToMap() {
-        // Redirect to the map locator page
-        window.location.href = '../admin/mapping.php';
-    }
-</script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        function goToMap() {
+            document.getElementById('surveyPage').style.display = 'none';
+            document.getElementById('mapPage').style.display = 'block';
+            initializeMap();
+        }
+
+        function goToSurvey() {
+            document.getElementById('mapPage').style.display = 'none';
+            document.getElementById('surveyPage').style.display = 'block';
+        }
+
+        function initializeMap() {
+            var map = L.map('map').setView([11.3, 123.7], 10);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            var userMarker;
+
+            document.getElementById('name').value = localStorage.getItem('firstname_hl') || '';
+            document.getElementById('household').value = localStorage.getItem('house_number') || '';
+
+            map.on('click', function(e) {
+                var lat = e.latlng.lat;
+                var lng = e.latlng.lng;
+                document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
+            });
+
+            document.getElementById('getLocationBtn').addEventListener('click', function() {
+                // Your existing getLocation code here
+            });
+
+            document.getElementById('submitBtn').addEventListener('click', function() {
+                // Your existing submit code here
+            });
+        }
+    </script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form'); // Adjust this selector if needed
