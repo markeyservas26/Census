@@ -260,6 +260,7 @@ if ($resultSexCounts->num_rows > 0) {
     justify-content: center; /* Center all charts horizontally */
     align-items: flex-start; /* Align the charts at the top */
     gap: 30px; /* Add a gap between each chart */
+   width: 400%;
 }
 .doughnut-chart {
   width: 50%;
@@ -269,12 +270,10 @@ if ($resultSexCounts->num_rows > 0) {
 .container{
 margin-left:13%;
 }
-
 .chart-box {
     flex: 1; /* Allow each chart to take equal space */
     text-align: center;
 }
-
     </style>
 
     <div class="pagetitle">
