@@ -1,8 +1,3 @@
-<?php
-$name = $_GET['firstname'] ?? '';
-$household = $_GET['household_hl'] ?? '';
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
