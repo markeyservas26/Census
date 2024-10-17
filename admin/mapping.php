@@ -14,10 +14,22 @@
             margin-bottom: 10px;
             padding: 10px;
         }
+        .input-container {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <h2>Click on the map to get latitude and longitude</h2>
+
+    <div class="input-container">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter your name">
+    </div>
+    <div class="input-container">
+        <label for="household">Household Number:</label>
+        <input type="text" id="household" placeholder="Enter household number">
+    </div>
     <button id="getLocationBtn">Get My Location</button>
     <div id="map"></div>
     <p>Coordinates: <span id="coordinates">None</span></p>
