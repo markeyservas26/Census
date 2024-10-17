@@ -162,7 +162,7 @@ if ($resultSexCounts->num_rows > 0) {
 
         /* Card box styling */
 .card-box {
-    width: 250px; /* Fixed width for consistent card sizes */
+    width: 100px; /* Fixed width for consistent card sizes */
     padding: 20px 10px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
