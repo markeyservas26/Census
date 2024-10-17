@@ -28,6 +28,7 @@ $postData = $_POST ?? [];
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <style>
        @media (max-width: 768px) {
             .form-label {
@@ -1679,30 +1680,37 @@ $postData = $_POST ?? [];
     }
 
     function initializeMap() {
-        if (!map) {
-            map = L.map('map').setView([11.2, 123.7333], 11); // Centered on Bantayan Island
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
+    if (!map) {
+        map = L.map('map').setView([11.2, 123.7333], 11); // Centered on Bantayan Island
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19,
+            subdomains: ['a','b','c']
+        }).addTo(map);
 
-            map.on('click', function(e) {
-                var lat = e.latlng.lat.toFixed(6);
-                var lng = e.latlng.lng.toFixed(6);
-                document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
+        map.on('click', function(e) {
+            var lat = e.latlng.lat.toFixed(6);
+            var lng = e.latlng.lng.toFixed(6);
+            document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
 
-                if (userMarker) {
-                    map.removeLayer(userMarker);
-                }
-                userMarker = L.marker([lat, lng]).addTo(map)
-                    .bindPopup('Selected Location')
-                    .openPopup();
-            });
-        }
-
-        // Load previously saved data
-        document.getElementById('name').value = localStorage.getItem('firstname_hl') || '';
-        document.getElementById('household').value = localStorage.getItem('house_number') || '';
+            if (userMarker) {
+                map.removeLayer(userMarker);
+            }
+            userMarker = L.marker([lat, lng]).addTo(map)
+                .bindPopup('Selected Location')
+                .openPopup();
+        });
     }
+
+    // Load previously saved data
+    document.getElementById('name').value = localStorage.getItem('firstname_hl') || '';
+    document.getElementById('household').value = localStorage.getItem('house_number') || '';
+}
+
+// Call this function when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    goToMap();
+});
 
     document.getElementById('getLocationBtn').addEventListener('click', function() {
         if (navigator.geolocation) {
