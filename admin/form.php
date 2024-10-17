@@ -1571,37 +1571,47 @@ $postData = $_POST ?? [];
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-document.getElementById('myForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the form from submitting the traditional way
-
-    const formData = new FormData(this); // Capture form data
-
-    // Send the form data using Fetch API
-    fetch('action/anothertesring.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json()) // Parse JSON response
-    .then(data => {
-        if (data.status === 'success') {
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form'); // Adjust this selector if needed
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                Swal.fire({
+                    title: 'Success!',
+                    text: data.message,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Optionally, redirect or reset the form here
+                        // window.location.href = 'some-page.php';
+                        // form.reset();
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: 'Error!',
+                    text: data.message,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
             Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: data.message,
-            });
-        } else {
-            Swal.fire({
-                icon: 'error',
                 title: 'Error!',
-                text: data.message,
+                text: 'An unexpected error occurred. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'OK'
             });
-        }
-    })
-    .catch(error => {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
         });
     });
 });
