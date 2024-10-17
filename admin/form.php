@@ -77,6 +77,59 @@ $postData = $_POST ?? [];
         text-align: center;
     }
 
+    /* Center the form container */
+.text-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 40px;
+}
+
+/* Style the form */
+#myForm {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the form fields */
+#myForm input, #myForm textarea, #myForm select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Style the submit button */
+#myForm button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#myForm button:hover {
+    background-color: #0056b3;
+}
+
+/* Additional styling for better responsiveness */
+@media (max-width: 768px) {
+    #myForm {
+        width: 90%;
+    }
+}
+
     .mb-4 {
         margin-bottom: 1.8rem;
         font-family: 'Georgia', serif;
