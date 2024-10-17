@@ -1685,19 +1685,26 @@ $postData = $_POST ?? [];
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
             maxZoom: 19,
-            subdomains: ['a','b','c']
+            subdomains: ['a', 'b', 'c']
         }).addTo(map);
 
         map.on('click', function(e) {
             var lat = e.latlng.lat.toFixed(6);
             var lng = e.latlng.lng.toFixed(6);
+            
+            // Get values from input fields
+            var name = document.getElementById('firstname_hl').value;
+            var household = document.getElementById('house_number').value;
+
+            // Update the coordinates display
             document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
 
+            // Create marker with name and household number in the popup
             if (userMarker) {
                 map.removeLayer(userMarker);
             }
             userMarker = L.marker([lat, lng]).addTo(map)
-                .bindPopup('Selected Location')
+                .bindPopup('Selected Location<br>Name: ' + name + '<br>Household Number: ' + household)
                 .openPopup();
         });
     }
