@@ -163,7 +163,7 @@ if ($resultSexCounts->num_rows > 0) {
 
      /* Card box styling */
 .card-box {
-    width: 200px;
+    width: 250px;
     padding: 30px 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -184,14 +184,6 @@ if ($resultSexCounts->num_rows > 0) {
     margin-left: auto;
     margin-right: auto;
 }
-
-/* Text inside the card */
-.card-box .text {
-    font-size: 16px;
-    color: #333; /* Ensure text is readable */
-    margin: 0; /* Remove extra margin from text */
-}
-
 
 
         .card-box:hover {
@@ -224,12 +216,15 @@ if ($resultSexCounts->num_rows > 0) {
             font-size: 15px;
         }
 
-       /* Icon styling */
-.card-box .icon {
-    font-size: 72px;
-    color: rgba(0, 0, 0, 0.15);
-    margin-bottom: 20px; /* Increased spacing between the icon and text */
-}
+        .card-box .icon {
+            position: absolute;
+            top: auto;
+            bottom: 5px;
+            right: 5px;
+            z-index: 0;
+            font-size: 72px;
+            color: rgba(0, 0, 0, 0.15);
+        }
 
         .card-box .card-box-footer {
             position: absolute;
