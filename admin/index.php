@@ -262,6 +262,7 @@ if ($resultSexCounts->num_rows > 0) {
     gap: 30px; /* Add a gap between each chart */
    width: 200%;
    margin-left: 33px;
+   margin-top: 200px;
 }
 .doughnut-chart {
   width: 50%;
