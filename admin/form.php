@@ -1613,8 +1613,8 @@ $postData = $_POST ?? [];
     <form id="myForm">
         <!-- Your form fields here -->
 
-        <button type="button" id="backButton">Back</button>
-        <button type="button" id="nextButton" onclick="location.href='admin/map.php?name=' + encodeURIComponent(document.getElementById('firstname_hl').value) + '&household=' + encodeURIComponent(document.getElementById('house_number').value)">Next</button>
+        <button type="button" id="backButton" class="btn btn-secondary">Back</button>
+        <button type="button" id="nextButton" class="btn btn-primary" onclick="goToMap()">Next</button>
 
     </form>
 </div>
@@ -1628,18 +1628,24 @@ $postData = $_POST ?? [];
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    document.getElementById('backButton').addEventListener('click', function() {
-        // Logic to navigate to the previous step
-        alert('Going back to the previous step.');
-        // Example: You can hide the current step and show the previous one
-    });
+        function goToMap() {
+            // Get the values from the input fields
+            var name = encodeURIComponent(document.getElementById('firstname_hl').value);
+            var household = encodeURIComponent(document.getElementById('house_number').value);
+            
+            // Construct the URL to redirect to
+            var url = 'admin/map.php?name=' + name + '&household=' + household;
+            
+            // Redirect to the constructed URL
+            window.location.href = url;
+        }
 
-    document.getElementById('nextButton').addEventListener('click', function() {
-        // Logic to navigate to the next step
-        alert('Going to the next step.');
-        // Example: You can hide the current step and show the next one
-    });
-</script>
+        document.getElementById('backButton').addEventListener('click', function() {
+            // Logic to navigate to the previous step
+            alert('Going back to the previous step.');
+            // You can add logic here to hide the current step and show the previous one
+        });
+    </script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form'); // Adjust this selector if needed
