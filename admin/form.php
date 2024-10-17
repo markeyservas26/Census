@@ -1557,12 +1557,55 @@ $postData = $_POST ?? [];
                
                   
                 <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                <form id="myForm">
+    <!-- Your form fields here -->
+    <button type="submit">Submit</button>
+</form>
                 </div>
             </form>
         </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.getElementById('myForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting the traditional way
+
+    const formData = new FormData(this); // Capture form data
+
+    // Send the form data using Fetch API
+    fetch('action/anothertesring.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json()) // Parse JSON response
+    .then(data => {
+        if (data.status === 'success') {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: data.message,
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: data.message,
+            });
+        }
+    })
+    .catch(error => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+        });
+    });
+});
+</script>
 <script>
 $(document).ready(function() {
     $('#demographicForm').on('submit', function(e) {
@@ -1610,33 +1653,6 @@ $(document).ready(function() {
 });
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<!-- Script to handle SweetAlert based on PHP response -->
-<script>
-    <?php if (isset($_GET['status'])): ?>
-        <?php if ($_GET['status'] == 'success'): ?>
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: 'The form has been submitted successfully!'
-            });
-        <?php elseif ($_GET['status'] == 'error'): ?>
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'There was an error submitting the form. Please try again.'
-            });
-        <?php endif; ?>
-    <?php endif; ?>
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const contactNumberInput = document.querySelector('input[name="contactnumber_hl"]');
