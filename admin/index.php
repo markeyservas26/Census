@@ -164,7 +164,6 @@ if ($resultSexCounts->num_rows > 0) {
 
         .card-container {
           display: flex;
-    justify-content: flex-start; /* Center cards horizontally */
     gap: 20px; /* Adjust spacing between cards */
     flex-wrap: wrap;
   
