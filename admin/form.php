@@ -1609,11 +1609,14 @@ $postData = $_POST ?? [];
                 </div>
                <hr>
                   
-                <div class="text-center mt-4">
-                <form id="myForm">
-    <!-- Your form fields here -->
-    <button type="submit">Submit</button>
-</form>
+               <div class="text-center mt-4">
+    <form id="myForm">
+        <!-- Your form fields here -->
+
+        <button type="button" id="backButton">Back</button>
+        <button type="button" id="nextButton">Next</button>
+    </form>
+</div>
                 </div>
             </form>
         </div>
@@ -1623,6 +1626,19 @@ $postData = $_POST ?? [];
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.getElementById('backButton').addEventListener('click', function() {
+        // Logic to navigate to the previous step
+        alert('Going back to the previous step.');
+        // Example: You can hide the current step and show the previous one
+    });
+
+    document.getElementById('nextButton').addEventListener('click', function() {
+        // Logic to navigate to the next step
+        alert('Going to the next step.');
+        // Example: You can hide the current step and show the next one
+    });
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form'); // Adjust this selector if needed
