@@ -430,7 +430,49 @@ margin-left:13%;
                     });
                 </script>
             </div>
-
+            <div class="col-lg-6 mb-4">
+    <h5 class="card-title text-center">House Count Every Municipality</h5>
+    <canvas id="houseCountChart" style="max-height: 400px;"></canvas>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            new Chart(document.querySelector('#houseCountChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: <?php echo json_encode($houseLabels); ?>,
+                    datasets: [{
+                        label: 'Houses',
+                        data: <?php echo json_encode($houseValues); ?>,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.5)',
+                            'rgba(75, 192, 192, 0.5)',
+                            'rgba(255, 205, 86, 0.5)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 205, 86, 1)'
+                        ],
+                        borderWidth: 1,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    const label = tooltipItem.label || '';
+                                    const value = tooltipItem.raw || 0;
+                                    return `${label}: ${value} Houses`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</div>
              <!-- Doughnut Chart for Residences -->
              <div class="col-lg-6 mb-4">
                     <h5 class="card-title text-center">Residence Count Every Municipalities</h5>
