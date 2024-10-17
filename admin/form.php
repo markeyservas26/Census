@@ -1656,30 +1656,97 @@ $postData = $_POST ?? [];
         }
 
         function initializeMap() {
-            var map = L.map('map').setView([11.3, 123.7], 10);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
+            // Initialize the map and set view to Bantayan Island's coordinates
+        var map = L.map('map').setView([11.3, 123.7], 10);  // Adjusted coordinates for Bantayan Island
 
-            var userMarker;
+// Add OpenStreetMap tiles
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
 
-            document.getElementById('name').value = localStorage.getItem('firstname_hl') || '';
-            document.getElementById('household').value = localStorage.getItem('house_number') || '';
+var userMarker; // Variable to hold the user's marker
 
-            map.on('click', function(e) {
-                var lat = e.latlng.lat;
-                var lng = e.latlng.lng;
-                document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
-            });
+// Pre-fill the input fields with stored values (if available)
+document.getElementById('name').value = localStorage.getItem('firstname_hl') || ''; // Use local storage to retrieve first name
+document.getElementById('household').value = localStorage.getItem('house_number') || ''; // Use local storage to retrieve household number
 
-            document.getElementById('getLocationBtn').addEventListener('click', function() {
-                // Your existing getLocation code here
-            });
+// Function to update coordinates when the map is clicked
+map.on('click', function(e) {
+    var lat = e.latlng.lat;
+    var lng = e.latlng.lng;
+    document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
+});
 
-            document.getElementById('submitBtn').addEventListener('click', function() {
-                // Your existing submit code here
-            });
-        }
+// Function to get the user's location
+document.getElementById('getLocationBtn').addEventListener('click', function() {
+    var name = document.getElementById('name').value;
+    var household = document.getElementById('household').value;
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+
+            // Center the map on the user's location
+            map.setView([lat, lng], 13);
+
+            // Add a marker for the user's location with name and household number in the popup
+            if (userMarker) {
+                map.removeLayer(userMarker); // Remove the previous marker if it exists
+            }
+            userMarker = L.marker([lat, lng]).addTo(map)
+                .bindPopup('Name: ' + name + '<br>Household Number: ' + household)
+                .openPopup();
+
+            // Display the coordinates
+            document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
+        }, function() {
+            alert('Unable to retrieve your location.');
+        });
+    } else {
+        alert('Geolocation is not supported by this browser.');
+    }
+});
+
+// Function to submit the form
+document.getElementById('submitBtn').addEventListener('click', function() {
+    var name = document.getElementById('name').value;
+    var household = document.getElementById('household').value;
+    var coordinates = document.getElementById('coordinates').textContent;
+
+    if (name && household && coordinates !== 'None') {
+        // Save the name and household number to local storage
+        localStorage.setItem('firstName', name);
+        localStorage.setItem('householdNumber', household);
+
+        // Assuming a server-side endpoint to handle the form submission
+        alert('Submitting:\n' + 'Name: ' + name + '\nHousehold Number: ' + household + '\n' + coordinates);
+        // Here, you would normally send the data to your server.
+        // Example using fetch:
+        /*
+        fetch('submit.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,
+                household: household,
+                coordinates: coordinates
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Submission successful: ' + data.message);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+        */
+    } else {
+        alert('Please fill in all fields and ensure you have selected a location.');
+    }
+});
     </script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
