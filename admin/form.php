@@ -1630,7 +1630,7 @@ $postData = $_POST ?? [];
 <script>
     function goToMap() {
         // Redirect to the map locator page
-        window.location.href = '../admin/map.php';
+        window.location.href = '../admin/mapping.php';
     }
 </script>
 <script>
