@@ -388,7 +388,7 @@ margin-left:13%;
         <div class="row">
             <!-- Doughnut Chart for Barangays -->
             <div class="col-lg-6 mb-4">
-                <h5 class="card-title text-center">Barangay Count Every Municipalities</h5>
+                <h2 class="card-title text-center">Barangay Count Every Municipalities</h2>
                 <canvas id="barangayChart" style="max-width: 300px; max-height: 200px; margin: 0 auto;"></canvas>
                 <script>
                     document.addEventListener("DOMContentLoaded", () => {
@@ -431,7 +431,7 @@ margin-left:13%;
                 </script>
             </div>
             <div class="col-lg-6 mb-4">
-    <h5 class="card-title text-center">House Count Every Municipality</h5>
+    <h2 class="card-title text-center">House Count Every Municipality</h2>
     <canvas id="houseCountChart" style="max-width: 300px; max-height: 200px; margin: 0 auto;""></canvas>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -475,7 +475,7 @@ margin-left:13%;
 </div>
              <!-- Doughnut Chart for Residences -->
              <div class="col-lg-6 mb-4">
-                    <h5 class="card-title text-center">Residence Count Every Municipalities</h5>
+                    <h2 class="card-title text-center">Residence Count Every Municipalities</h2>
                     <canvas id="residenceChart" style="max-width: 300px; max-height: 200px; margin: 0 auto;"></canvas>
                     <script>
                         document.addEventListener("DOMContentLoaded", () => {
