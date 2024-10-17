@@ -1614,7 +1614,8 @@ $postData = $_POST ?? [];
         <!-- Your form fields here -->
 
         <button type="button" id="backButton">Back</button>
-        <button type="button" id="nextButton">Next</button>
+        <button type="button" id="nextButton" onclick="location.href='map.php?name=' + encodeURIComponent(document.getElementById('name').value) + '&household=' + encodeURIComponent(document.getElementById('household').value)">Next</button>
+
     </form>
 </div>
                 </div>
