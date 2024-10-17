@@ -338,10 +338,8 @@ margin-left:13%;
         </div>
     </section>
     <div class="dashboard-content mt-5">
+    <h5 class="card-title" style="text-align: center;">Gender Distribution Bar Chart</h5>
     <div class="chart-container">
-        <div class="card-title">
-        <h5  style="text-align: center;">Gender Distribution Bar Chart</h5>
-        </div>
         <canvas id="sexChart" style="max-width: 600px; max-height: 400px; margin-right: 200px;"></canvas>
         <script>
             document.addEventListener("DOMContentLoaded", () => {
