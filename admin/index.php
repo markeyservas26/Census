@@ -260,7 +260,7 @@ if ($resultSexCounts->num_rows > 0) {
     justify-content: center; /* Center all charts horizontally */
     align-items: flex-start; /* Align the charts at the top */
     gap: 30px; /* Add a gap between each chart */
-   width: 400%;
+   width: 200%;
 }
 .doughnut-chart {
   width: 50%;
