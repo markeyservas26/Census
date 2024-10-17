@@ -240,19 +240,19 @@ if ($resultSexCounts->num_rows > 0) {
         }
 
         .bg-blue {
-            background-color: #00c0ef !important;
+            background-color: #c7b37b !important;
         }
 
         .bg-green {
-            background-color: #00a65a !important;
+            background-color: #c7b37b !important;
         }
 
         .bg-orange {
-            background-color: #f39c12 !important;
+            background-color: #c7b37b !important;
         }
 
         .bg-red {
-            background-color: #d9534f !important;
+            background-color: #c7b37b !important;
         }
 
        
