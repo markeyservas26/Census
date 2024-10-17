@@ -256,7 +256,10 @@ if ($resultSexCounts->num_rows > 0) {
 }
 
 .chart-container {
-   width: 400%;
+    display: flex;
+    justify-content: center; /* Center all charts horizontally */
+    align-items: flex-start; /* Align the charts at the top */
+    gap: 30px; /* Add a gap between each chart */
 }
 .doughnut-chart {
   width: 50%;
@@ -265,6 +268,11 @@ if ($resultSexCounts->num_rows > 0) {
 }
 .container{
 margin-left:13%;
+}
+
+.chart-box {
+    flex: 1; /* Allow each chart to take equal space */
+    text-align: center;
 }
 
     </style>
@@ -384,142 +392,26 @@ margin-left:13%;
     </div>
 </div>
 <div class="dashboard-content">
-    <div class="chart-container">
-        <div class="row">
-            <!-- Doughnut Chart for Barangays -->
-            <div class="col-lg-6 mb-2">
-                <h2 class="card-title text-center">Barangay Count Every Municipalities</h2>
-                <canvas id="barangayChart" style="max-width: 300px; max-height: 200px; margin: 0 auto;"></canvas>
-                <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                        new Chart(document.querySelector('#barangayChart'), {
-                            type: 'doughnut',
-                            data: {
-                                labels: <?php echo json_encode(array_keys($totalBarangays)); ?>,
-                                datasets: [{
-                                    label: 'Barangays',
-                                    data: <?php echo json_encode(array_values($totalBarangays)); ?>,
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 0.5)',
-                                        'rgba(75, 192, 192, 0.5)',
-                                        'rgba(255, 205, 86, 0.5)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(255, 205, 86, 1)'
-                                    ],
-                                    borderWidth: 1,
-                                    hoverOffset: 4
-                                }]
-                            },
-                            options: {
-                                plugins: {
-                                    tooltip: {
-                                        callbacks: {
-                                            label: function(tooltipItem) {
-                                                const label = tooltipItem.label || '';
-                                                const value = tooltipItem.raw || 0;
-                                                return `${label}: ${value} Barangays`;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        });
-                    });
-                </script>
-            </div>
-            <div class="col-lg-6 mb-2">
-    <h2 class="card-title text-center">House Count Every Municipality</h2>
-    <canvas id="houseCountChart" style="max-width: 300px; max-height: 200px; margin: 0 auto;""></canvas>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            new Chart(document.querySelector('#houseCountChart'), {
-                type: 'doughnut',
-                data: {
-                    labels: <?php echo json_encode($houseLabels); ?>,
-                    datasets: [{
-                        label: 'Houses',
-                        data: <?php echo json_encode($houseValues); ?>,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.5)',
-                            'rgba(75, 192, 192, 0.5)',
-                            'rgba(255, 205, 86, 0.5)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(255, 205, 86, 1)'
-                        ],
-                        borderWidth: 1,
-                        hoverOffset: 4
-                    }]
-                },
-                options: {
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function(tooltipItem) {
-                                    const label = tooltipItem.label || '';
-                                    const value = tooltipItem.raw || 0;
-                                    return `${label}: ${value} Houses`;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        });
-    </script>
-</div>
-             <!-- Doughnut Chart for Residences -->
-             <div class="col-lg-6 mb-2">
-                    <h2 class="card-title text-center">Residence Count Every Municipalities</h2>
-                    <canvas id="residenceChart" style="max-width: 300px; max-height: 200px; margin: 0 auto;"></canvas>
-                    <script>
-                        document.addEventListener("DOMContentLoaded", () => {
-                            new Chart(document.querySelector('#residenceChart'), {
-                                type: 'doughnut',
-                                data: {
-                                    labels: <?php echo json_encode(array_keys($totalCombinedCounts)); ?>,
-                                    datasets: [{
-                                        label: 'Residences',
-                                        data: <?php echo json_encode(array_values($totalCombinedCounts)); ?>,
-                                        backgroundColor: [
-                                            'rgba(255, 99, 132, 0.5)',
-                                            'rgba(75, 192, 192, 0.5)',
-                                            'rgba(255, 205, 86, 0.5)'
-                                        ],
-                                        borderColor: [
-                                            'rgba(255, 99, 132, 1)',
-                                            'rgba(75, 192, 192, 1)',
-                                            'rgba(255, 205, 86, 1)'
-                                        ],
-                                        borderWidth: 1,
-                                        hoverOffset: 4
-                                    }]
-                                },
-                                options: {
-                                    plugins: {
-                                        tooltip: {
-                                            callbacks: {
-                                                label: function(tooltipItem) {
-                                                    const label = tooltipItem.label || '';
-                                                    const value = tooltipItem.raw || 0;
-                                                    return `${label}: ${value} Residences`;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                        });
-                    </script>
-                </div>
-            </div>
+    <div class="chart-container d-flex justify-content-center">
+        <!-- Doughnut Chart for Barangay Count -->
+        <div class="chart-box">
+            <h5 class="card-title text-center">Barangay Count Per Municipality</h5>
+            <canvas id="barangayChart" style="max-width: 300px; max-height: 300px;"></canvas>
+        </div>
+
+        <!-- Doughnut Chart for House Count -->
+        <div class="chart-box">
+            <h5 class="card-title text-center">House Count Per Municipality</h5>
+            <canvas id="houseCountChart" style="max-width: 300px; max-height: 300px;"></canvas>
+        </div>
+
+        <!-- Doughnut Chart for Residence Count -->
+        <div class="chart-box">
+            <h5 class="card-title text-center">Residence Count Per Municipality</h5>
+            <canvas id="residenceChart" style="max-width: 300px; max-height: 300px;"></canvas>
         </div>
     </div>
+</div>
 </main><!-- End #main -->
 
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -528,4 +420,83 @@ margin-left:13%;
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+<script>
+    // Doughnut chart for Barangay Count
+    document.addEventListener("DOMContentLoaded", () => {
+        new Chart(document.querySelector('#barangayChart'), {
+            type: 'doughnut',
+            data: {
+                labels: <?php echo json_encode(array_keys($totalBarangays)); ?>,
+                datasets: [{
+                    label: 'Barangays',
+                    data: <?php echo json_encode(array_values($totalBarangays)); ?>,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(255, 205, 86, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 205, 86, 1)'
+                    ],
+                    borderWidth: 1,
+                    hoverOffset: 4
+                }]
+            }
+        });
+    });
+
+    // Doughnut chart for House Count
+    document.addEventListener("DOMContentLoaded", () => {
+        new Chart(document.querySelector('#houseCountChart'), {
+            type: 'doughnut',
+            data: {
+                labels: <?php echo json_encode($houseLabels); ?>,
+                datasets: [{
+                    label: 'Houses',
+                    data: <?php echo json_encode($houseValues); ?>,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(255, 205, 86, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 205, 86, 1)'
+                    ],
+                    borderWidth: 1,
+                    hoverOffset: 4
+                }]
+            }
+        });
+    });
+
+    // Doughnut chart for Residence Count
+    document.addEventListener("DOMContentLoaded", () => {
+        new Chart(document.querySelector('#residenceChart'), {
+            type: 'doughnut',
+            data: {
+                labels: <?php echo json_encode(array_keys($totalCombinedCounts)); ?>,
+                datasets: [{
+                    label: 'Residences',
+                    data: <?php echo json_encode(array_values($totalCombinedCounts)); ?>,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(255, 205, 86, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 205, 86, 1)'
+                    ],
+                    borderWidth: 1,
+                    hoverOffset: 4
+                }]
+            }
+        });
+    });
+</script>
 <?php include 'footer.php'; ?>
