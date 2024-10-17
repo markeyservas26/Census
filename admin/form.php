@@ -1620,7 +1620,7 @@ $postData = $_POST ?? [];
             </form>
             </div>
             </main>
-            <div id="mapPage" class="container" style="display: none;"> <!-- Hide mapPage by default -->
+            <div id="mapPage" class="container" style="display: none; padding: 20px;"> <!-- Hide mapPage by default -->
     <h2>Click on the map to get latitude and longitude</h2>
     <div class="input-container">
         <label for="name">First Name:</label>
@@ -1631,7 +1631,10 @@ $postData = $_POST ?? [];
         <input type="text" id="household" class="form-control" placeholder="Enter household number" value="">
     </div>
     <button id="getLocationBtn" class="btn btn-secondary mb-3">Get My Location</button>
-    <div id="map" style="height: 400px;"></div> <!-- Set height for map -->
+    
+    <!-- Map container with explicit height -->
+    <div id="map" style="height: 500px; width: 100%;"></div> <!-- Set height for map -->
+    
     <p class="mt-3">Coordinates: <span id="coordinates">None</span></p>
     <button id="submitBtn" class="btn btn-success mt-3">Submit</button>
     <button id="backBtn" class="btn btn-warning mt-3" onclick="goToSurvey()">Back</button>
