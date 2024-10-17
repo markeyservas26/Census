@@ -353,6 +353,7 @@ margin-left:13%;
             </div>
         </div>
     </section>
+    <hr>
     <div class="dashboard-content mt-5">
     <div class="chart-container">
     <div class="chart-box">
