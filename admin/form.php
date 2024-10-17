@@ -1629,21 +1629,25 @@ $postData = $_POST ?? [];
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
         function goToMap() {
-            // Get the values from the input fields
-            var name = encodeURIComponent(document.getElementById('firstname_hl').value);
-            var household = encodeURIComponent(document.getElementById('house_number').value);
-            
-            // Construct the URL to redirect to
-            var url = '../admin/map.php?name=' + name + '&household=' + household;
-            
-            // Redirect to the constructed URL
+            var name = document.getElementById('firstname_hl').value;
+            var household = document.getElementById('house_number').value;
+
+            if (!name || !household) {
+                alert("Please fill out both fields.");
+                return;
+            }
+
+            name = encodeURIComponent(name);
+            household = encodeURIComponent(household);
+
+            var url = 'admin/map.php?name=' + name + '&household=' + household;
+            console.log("Navigating to:", url);
             window.location.href = url;
         }
 
         document.getElementById('backButton').addEventListener('click', function() {
             // Logic to navigate to the previous step
             alert('Going back to the previous step.');
-            // You can add logic here to hide the current step and show the previous one
         });
     </script>
 <script>
