@@ -1615,9 +1615,9 @@ $postData = $_POST ?? [];
 
         <button type="button" id="backButton" class="btn btn-secondary">Back</button>
         <button type="button" id="nextButton" class="btn btn-primary" onclick="goToMap()">Next</button>
-
     </form>
 </div>
+
                 </div>
             </form>
         </div>
@@ -1628,28 +1628,11 @@ $postData = $_POST ?? [];
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-        function goToMap() {
-            var name = document.getElementById('firstname_hl').value;
-            var household = document.getElementById('house_number').value;
-
-            if (!name || !household) {
-                alert("Please fill out both fields.");
-                return;
-            }
-
-            name = encodeURIComponent(name);
-            household = encodeURIComponent(household);
-
-            var url = '../admin/map.php?name=' + name + '&household=' + household;
-            console.log("Navigating to:", url);
-            window.location.href = url;
-        }
-
-        document.getElementById('backButton').addEventListener('click', function() {
-            // Logic to navigate to the previous step
-            alert('Going back to the previous step.');
-        });
-    </script>
+    function goToMap() {
+        // Redirect to the map locator page
+        window.location.href = 'map-locator.html';
+    }
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form'); // Adjust this selector if needed
