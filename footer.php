@@ -106,7 +106,7 @@
         <div class="footer-content">
             <!-- Brand section with logo and title -->
             <div class="footer-brand">
-                <img src="../assets/img/transperlogo.png" alt="Bantayan Island Census Logo" class="footer-logo">
+                <img src="assets/img/transperlogo.png" alt="Bantayan Island Census Logo" class="footer-logo">
                 <b><h3 class="footer-title">BANISCEN</h3></b>
             </div>
 
