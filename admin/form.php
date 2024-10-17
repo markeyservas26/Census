@@ -1640,7 +1640,7 @@ $postData = $_POST ?? [];
             name = encodeURIComponent(name);
             household = encodeURIComponent(household);
 
-            var url = 'admin/map.php?name=' + name + '&household=' + household;
+            var url = '../admin/map.php?name=' + name + '&household=' + household;
             console.log("Navigating to:", url);
             window.location.href = url;
         }
