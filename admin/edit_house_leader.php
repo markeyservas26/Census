@@ -1,9 +1,13 @@
 <?php 
 include 'header.php'; 
-$status = $_GET['status'] ?? '';
+include '../database/db_connect.php';
 
-// Capture POST data to retain values on error
-$postData = $_POST ?? [];
+function sanitize_output($data) {
+    return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+}
+
+
+$conn->close();
 ?>
 <style>
     body{
@@ -17,7 +21,7 @@ $postData = $_POST ?? [];
             }
         }
 </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,9 +29,7 @@ $postData = $_POST ?? [];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bantayan Island Census Form</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
        @media (max-width: 768px) {
             .form-label {
@@ -54,273 +56,157 @@ $postData = $_POST ?? [];
         margin-left: 3px;
     }
 
-    .form-control {
-        background-color: #FEFCFF;
-    }
-    .error-message {
-        color: red;
-        font-size: 0.875em;
-    }
-    .alert-label {
-        display: inline-block;
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-        border-radius: 5px;
-        padding: 5px 10px;
-        margin-bottom: 10px;
-        font-weight: bold;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .text-center {
-        text-align: center;
-    }
-
-    .mb-4 {
-        margin-bottom: 1.8rem;
-        font-family: 'Georgia', serif;
-    }
-
-    .mb-3 {
-        margin-bottom: 1.8rem;
-        font-family: 'Georgia', serif;
-    }
-
-    h1 {
-        font-size: 25px;
-        color: #2c3e50;
-    }
-
-    .header1 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 10px;
-        position: relative;
-    }
-
-    .logo {
-        max-width: 100px; /* Maximum size for larger screens */
-        width: 100%; /* Responsive scaling */
-    height: auto;
-    position: absolute;
-    left: 0; /* Position the second logo on the right */
-    margin-left: 40px;
-    margin-top: 70px;
-    }
-
-    .logo-right {
-        max-width: 100px; /* Maximum size for larger screens */
-        width: 100%; /* Responsive scaling */
-    height: auto;
-    position: absolute;
-    right: 0; /* Position the second logo on the right */
-    margin-right: 40px;
-    margin-top: 70px;
-    }
-
-    .header-text {
-        text-align: center;
-        width: 100%;
-        padding-top: 10px;
-    }
-
-    h4 {
-        font-size: 20px;
-        color: #34495e;
-        margin: 0;
-    }
-
-    @media (max-width: 768px) {
-        .header1 {
-            flex-direction: column;
-            margin-bottom: 70px;
-        }
-
-        .logo, .logo-right {
-            max-width: 80px; /* Smaller logo size for medium screens */
-            margin-top: 30px;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .logo, .logo-right {
-            max-width: 60px; /* Even smaller logo size for small screens */
-        }
-    }
     </style>
 </head>
 <body>
-<main id="main" class="main">
-<div class="container">
-    <div class="header1">
-        <img src="assets/img/censusformlogo.png" alt="Census Logo" class="logo">
-        <img src="assets/img/censusformlogo2.png" alt="Census Logo 2" class="logo-right">
+    <main id="main" class="main">
+        <div class="container">
+            <h1 class="text-center mb-4">Bantayan Island Census Form</h1>
+            <p>
+            Please fill up completely and correctly the required information before each item below.  For items that are not associated to you, leave it blank.  Required items are also marked with an asterisk (*) so please fill it up correctly.  Your honest response will help the National Commission of Senior Citizens (NCSC) come up with a good information system of the senior citizens in the country as the basis of designing its programs and activities that will help improve the lives of Filipino older persons.</p>
+            <em style="color:red;">* Items with an asterisk (*) are required.</em>
+        
+            <form id="demographicForm" method="post" action="../action/updateform.php">
+            <input type="hidden" name="house_leader_id" id="house_leader_id" value="">
+                <h5 class="section-header">CORE DEMOGRAPHIC CHARACTERISTICS</h5>
+                <p style="color:red;">NOTICE: Do not include special characters like this *!@$%^&, etc. in your name entry.  This will create an issue in the record during verification.  Extensions like SR. or JR., etc. must be entered separately by selecting on the box provided below.</p>
+                <p><b>House Leader</b></p>
+                <div class="col-12 col-sm-6 col-lg-3">
+        <label for="housenumber" class="form-label">House Number<span class="required-asterisk">*</span></label>
+        <input type="text" id="housenumber" name="housenumber" class="form-control" placeholder="House Number" required>
     </div>
-    <h1 class="text-center mb-3">REPUBLIC OF THE PHILIPPINES</h1>
-    <h1 class="text-center mb-3">PHILIPPINE STATISTICS AUTHORITY</h1>
-    <div class="form-header"></div>
-    <div class="header-text">
-        <h4>BANTAYAN ISLAND CENSUS FORM</h4>
+                <div class="row g-3 mb-4">
+    <div class="col-12 col-sm-6 col-lg-3">
+        <label for="lastName" class="form-label">Lastname<span class="required-asterisk">*</span></label>
+        <input type="text" id="lastName" name="lastname_hl" class="form-control" placeholder="Last Name" required>
     </div>
-    <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
-        <p>
-        Please complete the required information for each item below. Items marked with an asterisk (*) are mandatory. Your honest and accurate responses will assist in gathering comprehensive data for the Bantayan Island Census. This information will serve as a foundation for designing programs and activities aimed at improving the lives of residents in Bantayan Island.
-        </p>
-        <em style="color:red;">* Items with an asterisk (*) are required.</em>
-
-        <form method="post" action="../action/anothertesting.php" onsubmit="return validateForm()">
-            <h5 class="section-header">CORE DEMOGRAPHIC CHARACTERISTICS</h5>
-            <p style="color:red;">NOTICE: Do not include special characters like this *!@$%^&, etc. in your name entry. This will create an issue in the record during verification. Extensions like SR. or JR., etc. must be entered separately by selecting on the box provided below.</p>
-            <p><b>House Leader</b></p>
-            <div class="row g-3 mb-4">
-            <div class="col-12 col-sm-6 col-lg-3">
-            <?php
-            // Default house number (can be empty initially or auto-generated)
-            $autoGeneratedHouseNumber = htmlspecialchars($postData['house_number'] ?? '', ENT_QUOTES);
-            ?>
-
-<div class="house-number-wrapper">
-    <label for="housenumber" class="form-label">House Number<span class="required-asterisk">*</span></label>
-    <div class="input-group">
-        <input type="text" class="form-control" id="house_number" name="house_number" value="<?php echo $autoGeneratedHouseNumber; ?>" placeholder="House Number" readonly required>
-        <span class="input-group-text" id="generate-house-number" style="cursor: pointer;">
-            <i class="fas fa-random"></i> <!-- Font Awesome icon for generation -->
-        </span>
+    <div class="col-12 col-sm-6 col-lg-3">
+        <label for="firstName" class="form-label">Firstname<span class="required-asterisk">*</span></label>
+        <input type="text" id="firstName" name="firstname_hl" class="form-control" placeholder="First Name" required>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+        <label for="middleName" class="form-label">Middlename</label>
+        <input type="text" id="middleName" name="middlename_hl" class="form-control" placeholder="Middle Name" required>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+        <label for="extensionName" class="form-label">Extension name:</label>
+        <select id="extensionName" name="exname_hl" class="form-select">
+            <option value="" selected disabled>Select an option</option>
+            <option value="jr">Jr.</option>
+            <option value="sr">Sr.</option>
+            <option value="i">I</option>
+            <option value="ii">II</option>
+            <option value="iii">III</option>
+            <option value="iv">IV</option>
+            <option value="v">V</option>
+            <option value="vi">VI</option>
+        </select>
     </div>
 
-    <?php if ($status === 'house_number_exists'): ?>
-        <div class="error-message">This house number already exists.</div>
-    <?php endif; ?>
+    <div class="col-12 col-sm-6 col-lg-3">
+        <label for="province" class="form-label">Province<span class="required-asterisk">*</span></label>
+        <input type="text" id="province" name="province_hl" class="form-control" placeholder="Pronvice">
+    </div>
+
+    
+    <div class="col-12 col-sm-6 col-lg-3">
+        <label for="status" class="form-label">Municipality<span class="required-asterisk">*</span></label>
+        <select id="status" name="municipality_hl" class="form-select">
+            <option value="" selected disabled>Select an option</option>
+            <option value="Madridejos">Madridejos</option>
+            <option value="Bantayan">Bantayan</option>
+            <option value="Santafe">Santafe</option>
+        </select>
+    </div>
+    
+
+    
+    <div class="col-12 col-sm-6 col-lg-3">
+        <label for="status" class="form-label">Barangay<span class="required-asterisk">*</span></label>
+        <select id="status" name="Barangay_hl" class="form-select">
+            <option value="" selected disabled>Select an option</option>
+            <option value="Mancilang">Mancilang</option>
+       
+        </select>
+    </div>
+
+    <div class="col-12 col-sm-6 col-lg-3">
+        <label for="purok" class="form-label">Street/Purok/Sitio/Subd.</label>
+        <input type="text" id="purok" name="purok_hl" class="form-control" placeholder="Province">
+    </div>
+    
+
+    <div class="col-12 col-sm-6 col-lg-3">
+        <label for="dateOfBirth" class="form-label">Date of Birth<span class="required-asterisk">*</span></label>
+        <input type="date" id="dateOfBirth" name="dob_hl" class="form-control">
+    </div>
+
+    <div class="col-12 col-sm-6 col-lg-3">
+        <label for="age" class="form-label">Age<span class="required-asterisk">*</span></label>
+        <input type="text" id="age" name="age_hl" class="form-control" placeholder="Age">
+    </div>
+
+    <div class="col-12 col-sm-6 col-lg-3">
+        <label for="sex" class="form-label">Sex at Birth <span class="required-asterisk">*</span></label>
+        <select id="sex" name="sex_hl" class="form-select">
+            <option value="" selected disabled>Select an option</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+    </div>
+    
+    
+    <div class="col-12 col-sm-6 col-lg-3">
+        <label for="occupation" class="form-label">Occupation:</label>
+        <input type="text" id="occupation" name="occupation_hl" class="form-control" placeholder="Occupation">
+    </div>
+   
+    <div class="col-12 col-sm-6 col-lg-3">
+        <label for="registered" class="form-label">Registered with LCRO?</label>
+        <select id="registered" name="lcro_hl" class="form-select">
+            <option value="" selected disabled>Select an option</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Dont_know">I Don't know</option>
+        </select>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+        <label for="status" class="form-label">Marital Status<span class="required-asterisk">*</span></label>
+        <select id="status" name="marital_hl" class="form-select">
+            <option value="" selected disabled>Select an option</option>
+            <option value="single">Single/Never married</option>
+            <option value="married">Married</option>
+            <option value="common_law">Common-law/Live-in</option>
+            <option value="widowed">Widowed</option>
+            <option value="divorced">Divorced</option>
+            <option value="separated">Separated</option>
+            <option value="annulled">Annulled</option>
+        </select>
+    </div>
+
+    <div class="col-12 col-sm-6 col-lg-3">
+        <label for="contactnumber" class="form-label">Contact Number<span class="required-asterisk">*</span></label>
+        <input type="text" id="contactnumber" name="contactnumber_hl" class="form-control" placeholder="Contact Number">
+    </div>
+
+    <div class="col-12 col-sm-6 col-lg-3">
+        <label for="religion" class="form-label">Religion</label>
+        <select id="religion" name="religion" class="form-select">
+            <option value="" selected disabled>Select an option</option>
+            <option value="Catholic">Catholic</option>
+            <option value="Islam">Islam</option>
+            <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
+            <option value="Evangelicals">Evangelicals</option>
+            <option value="Protestant">Protestant</option>
+            <option value="Seventh">Seventh-day Adventist</option>
+            <option value="Bible">Bible Baptist Church</option>
+            <option value="Aglipayan">Aglipayan</option>
+            <option value="UCCP">UCCP</option>
+            <option value="Jehovah">Jehovah's Witnesses</option>
+        </select>
+    </div>
+
 </div>
-            </div>
-            </div>
-            <div class="row g-3 mb-4">
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <label for="lastName" class="form-label">Lastname<span class="required-asterisk">*</span></label>
-                    <input type="text" id="lastName" name="lastname_hl" class="form-control" placeholder="Last Name" required>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <label for="firstName" class="form-label">Firstname<span class="required-asterisk">*</span></label>
-                    <input type="text" id="firstName" name="firstname_hl" class="form-control" placeholder="First Name" required>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <label for="middleName" class="form-label">Middlename</label>
-                    <input type="text" id="middleName" name="middlename_hl" class="form-control" placeholder="Middle Name">
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <label for="extensionName" class="form-label">Extension name:</label>
-                    <select id="extensionName" name="exname_hl" class="form-select">
-                        <option value="" selected disabled>Select an option</option>
-                        <option value="jr">Jr.</option>
-                        <option value="sr">Sr.</option>
-                        <option value="i">I</option>
-                        <option value="ii">II</option>
-                        <option value="iii">III</option>
-                        <option value="iv">IV</option>
-                        <option value="v">V</option>
-                        <option value="vi">VI</option>
-                    </select>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <label for="province" class="form-label">Province<span class="required-asterisk">*</span></label>
-                    <input type="text" id="province" name="province_hl" class="form-control" placeholder="Province" required>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <label for="status" class="form-label">Municipality<span class="required-asterisk">*</span></label>
-                    <select id="status" name="municipality_hl" class="form-select" required>
-                        <option value="" selected disabled>Select an option</option>
-                        <option value="madridejos">Madridejos</option>
-                        <option value="bantayan">Bantayan</option>
-                        <option value="santafe">Santafe</option>
-                    </select>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <label for="status" class="form-label">Barangay<span class="required-asterisk">*</span></label>
-                    <select class="form-select" name="barangay" id="barangay" required>
-                        <!-- Options will be populated based on selected municipality -->
-                    </select>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <label for="purok" class="form-label">Street/Purok/Sitio/Subd.</label>
-                    <input type="text" id="purok" name="purok_hl" class="form-control" placeholder="Street/Purok/Sitio/Subd.">
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <label for="dateOfBirth" class="form-label">Date of Birth<span class="required-asterisk">*</span></label>
-                    <input type="date" id="dateOfBirth" name="dob_hl" class="form-control" onchange="calculateAge()" required>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <label for="age" class="form-label">Age<span class="required-asterisk">*</span></label>
-                    <input type="text" id="age" name="age_hl" class="form-control" placeholder="Age" readonly required>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <label for="sex" class="form-label">Sex at Birth <span class="required-asterisk">*</span></label>
-                    <select id="sex" name="sex_hl" class="form-select" required>
-                        <option value="" selected disabled>Select an option</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <label for="occupation" class="form-label">Occupation:</label>
-                    <input type="text" id="occupation" name="occupation_hl" class="form-control" placeholder="Occupation">
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <label for="registered" class="form-label">Registered with LCRO?</label>
-                    <select id="registered" name="lcro_hl" class="form-select">
-                        <option value="" selected disabled>Select an option</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                        <option value="Dont_know">I Don't know</option>
-                    </select>
-                </div>
-                
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <label for="status" class="form-label">Marital Status<span class="required-asterisk">*</span></label>
-                    <select id="status" name="marital_hl" class="form-select" required>
-                        <option value="" selected disabled>Select an option</option>
-                        <option value="single">Single/Never married</option>
-                        <option value="married">Married</option>
-                        <option value="common_law">Common-law/Live-in</option>
-                        <option value="widowed">Widowed</option>
-                        <option value="divorced">Divorced</option>
-                        <option value="separated">Separated</option>
-                        <option value="annulled">Annulled</option>
-                    </select>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <label for="contactnumber" class="form-label">Contact Number<span class="required-asterisk">*</span></label>
-                    <input type="text" id="contactnumber" name="contactnumber_hl" class="form-control" placeholder="Contact Number" pattern="\d{11}" title="Please enter an 11-digit contact number" required>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <label for="religion" class="form-label">Religion</label>
-                    <select id="religion" name="religion" class="form-select">
-                        <option value="" selected disabled>Select an option</option>
-                        <option value="Catholic">Catholic</option>
-                        <option value="Islam">Islam</option>
-                        <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
-                        <option value="Evangelicals">Evangelicals</option>
-                        <option value="Protestant">Protestant</option>
-                        <option value="Seventh">Seventh-day Adventist</option>
-                        <option value="Bible">Bible Baptist Church</option>
-                        <option value="Aglipayan">Aglipayan</option>
-                        <option value="UCCP">UCCP</option>
-                        <option value="Jehovah">Jehovah's Witnesses</option>
-                    </select>
-                </div>
-            </div>
 <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
 
 
@@ -353,14 +239,13 @@ $postData = $_POST ?? [];
         </select>
     </div>
     <div class="col-12 col-sm-6 col-lg-3">
-    <label for="dateOfBirth" class="form-label">Date of Birth:</label>
-    <input type="date" id="dateOfBirthSpouse" name="dob_spouse" class="form-control" onchange="calculateSpouseAge()">
-</div>
-
-<div class="col-12 col-sm-6 col-lg-3">
-    <label for="ageSpouse" class="form-label">Age:</label>
-    <input type="number" id="ageSpouse" name="age_spouse" class="form-control" placeholder="Age" readonly>
-</div>
+        <label for="dateOfBirth" class="form-label">Date of Birth:</label>
+        <input type="date" id="dateOfBirth" name="dob_spouse" class="form-control">
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+        <label for="age" class="form-label">Age:</label>
+        <input type="number" id="age" name="age_spouse" class="form-control" placeholder="Age">
+    </div>
     <div class="col-12 col-sm-6 col-lg-3">
         <label for="occupation" class="form-label">Occupation:</label>
         <input type="text" id="occupation" name="occupation_spouse" class="form-control" placeholder="Occupation">
@@ -394,253 +279,279 @@ $postData = $_POST ?? [];
     </div>
                 </div>
                 <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
-                <p><b>Name of your child(ren)</b> - If applicable, enumerate the first five and arrange them from oldest to youngest.</p>
+                <p><b>Name of your child(ren)</b> - If applicable, enumerate the first five and arrange them from oldest to youngest</p>
                 
-                <!-- First Child -->
-<div class="row g-3 mb-4">
-    <div class="col-12 col-sm-6 col-lg">
-        <label for="oldername" class="form-label">Complete Name</label>
-        <input type="text" id="oldername_1" name="oldername_1" class="form-control" placeholder="1. Child Name">
-    </div>
-    <div class="col-12 col-sm-6 col-lg">
-        <label for="age" class="form-label">Age:</label>
-        <input type="number" id="age_1" name="olderage_1" class="form-control" placeholder="Age">
-    </div>
-    <div class="col-12 col-sm-6 col-lg">
-        <label for="working_1" class="form-label">Is working?</label>
-        <select id="working_1" name="olderworking_1" class="form-select" onchange="toggleOccupationIncome(1)">
-            <option value="" disabled selected>Select an option</option>
+                <div class="row g-3 mb-4">
+                    <div class="col-12 col-sm-6 col-lg">
+                        <label for="oldername" class="form-label">Complete Name</label>
+                        <input type="text" id="oldername" name="oldername_1" class="form-control" placeholder="1.Child Name">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+                        <label for="age" class="form-label">Age:</label>
+                        <input type="number" id="age" name="olderage_1" class="form-control" placeholder="Age">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+        <label for="working" class="form-label">Is working?</label>
+        <select id="working" name="olderworking_1" class="form-select">
+            <option value=""disabled selected></option>
             <option value="yes">Yes</option>
             <option value="no">No</option>
         </select>
     </div>
-    <div class="col-12 col-lg">
-        <label for="occupation_1" class="form-label">Occupation:</label>
-        <input type="text" id="occupation_1" name="olderoccupation_1" class="form-control" placeholder="Occupation" disabled>
-    </div>
-    <div class="col-12 col-sm-6 col-lg">
-        <label for="income_1" class="form-label">Income:</label>
-        <input type="text" id="income_1" name="olderincome_1" class="form-control" placeholder="Income" disabled>
-    </div>
-</div>
 
-<!-- Second Child -->
-<div class="row g-3 mb-4">
-    <div class="col-12 col-sm-6 col-lg">
-        <input type="text" id="oldername_2" name="oldername_2" class="form-control" placeholder="2. Child Name">
-    </div>
-    <div class="col-12 col-sm-6 col-lg">
-        <input type="number" id="age_2" name="olderage_2" class="form-control" placeholder="Age">
-    </div>
-    <div class="col-12 col-sm-6 col-lg">
-        <select id="working_2" name="olderworking_2" class="form-select" onchange="toggleOccupationIncome(2)">
-            <option value="" disabled selected></option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-        </select>
-    </div>
     <div class="col-12 col-lg">
-        <input type="text" id="occupation_2" name="olderoccupation_2" class="form-control" placeholder="Occupation" disabled>
-    </div>
-    <div class="col-12 col-sm-6 col-lg">
-        <input type="text" id="income_2" name="olderincome_2" class="form-control" placeholder="Income" disabled>
-    </div>
-</div>
+                        <label for="occupation" class="form-label">Occupation:</label>
+                        <input type="text" id="occupation" name="olderoccupation_1" class="form-control" placeholder="Occupation">
+                    </div>
 
-<!-- Third Child -->
-<div class="row g-3 mb-4">
-    <div class="col-12 col-sm-6 col-lg">
-        <input type="text" id="oldername_3" name="oldername_3" class="form-control" placeholder="3. Child Name">
-    </div>
-    <div class="col-12 col-sm-6 col-lg">
-        <input type="number" id="age_3" name="olderage_3" class="form-control" placeholder="Age">
-    </div>
-    <div class="col-12 col-sm-6 col-lg">
-        <select id="working_3" name="olderworking_3" class="form-select" onchange="toggleOccupationIncome(3)">
-            <option value="" disabled selected></option>
+                    <div class="col-12 col-sm-6 col-lg">
+                        <label for="olderincome" class="form-label">Income:</label>
+                        <input type="text" id="olderincome" name="olderincome_1" class="form-control" placeholder="Income">
+                    </div>       
+                </div>
+<!-- second -->
+                <div class="row g-3 mb-4">
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="text" id="oldername_second" name="oldername_2" class="form-control" placeholder="2.Child Name">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="number" id="agesecond" name="olderage_2" class="form-control" placeholder="Age">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+        <select id="working" name="olderworking_2" class="form-select">
+            <option value=""disabled selected></option>
             <option value="yes">Yes</option>
             <option value="no">No</option>
         </select>
     </div>
-    <div class="col-12 col-lg">
-        <input type="text" id="occupation_3" name="olderoccupation_3" class="form-control" placeholder="Occupation" disabled>
-    </div>
-    <div class="col-12 col-sm-6 col-lg">
-        <input type="text" id="income_3" name="olderincome_3" class="form-control" placeholder="Income" disabled>
-    </div>
-</div>
 
-<!-- Fourth Child -->
-<div class="row g-3 mb-4">
-    <div class="col-12 col-sm-6 col-lg">
-        <input type="text" id="oldername_4" name="oldername_4" class="form-control" placeholder="4. Child Name">
-    </div>
-    <div class="col-12 col-sm-6 col-lg">
-        <input type="number" id="age_4" name="olderage_4" class="form-control" placeholder="Age">
-    </div>
-    <div class="col-12 col-sm-6 col-lg">
-        <select id="working_4" name="olderworking_4" class="form-select" onchange="toggleOccupationIncome(4)">
-            <option value="" disabled selected></option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-        </select>
-    </div>
     <div class="col-12 col-lg">
-        <input type="text" id="occupation_4" name="olderoccupation_4" class="form-control" placeholder="Occupation" disabled>
-    </div>
-    <div class="col-12 col-sm-6 col-lg">
-        <input type="text" id="income_4" name="olderincome_4" class="form-control" placeholder="Income" disabled>
-    </div>
-</div>
+                        <input type="text" id="occupationsecond" name="olderoccupation_2" class="form-control" placeholder="Occupation">
+                    </div>
 
-<!-- Fifth Child -->
-<div class="row g-3 mb-4">
-    <div class="col-12 col-sm-6 col-lg">
-        <input type="text" id="oldername_5" name="oldername_5" class="form-control" placeholder="5. Child Name">
-    </div>
-    <div class="col-12 col-sm-6 col-lg">
-        <input type="number" id="age_5" name="olderage_5" class="form-control" placeholder="Age">
-    </div>
-    <div class="col-12 col-sm-6 col-lg">
-        <select id="working_5" name="olderworking_5" class="form-select" onchange="toggleOccupationIncome(5)">
-            <option value="" disabled selected></option>
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="text" id="olderincomesec" name="olderincome_2" class="form-control" placeholder="Income">
+                    </div>
+                  
+                </div>
+<!-- third -->
+                <div class="row g-3 mb-4">
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="text" id="oldernamethird" name="oldername_3" class="form-control" placeholder="3.Child Name">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="number" id="agethree" name="olderage_3" class="form-control" placeholder="Age">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+        <select id="workingthree" name="olderworking_3" class="form-select">
+            <option value=""disabled selected></option>
             <option value="yes">Yes</option>
             <option value="no">No</option>
         </select>
     </div>
+
     <div class="col-12 col-lg">
-        <input type="text" id="occupation_5" name="olderoccupation_5" class="form-control" placeholder="Occupation" disabled>
+                        <input type="text" id="occupationthree" name="olderoccupation_3" class="form-control" placeholder="Occupation">
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="text" id="incomethree" name="olderincome_3" class="form-control" placeholder="Income">
+                    </div>
+                  
+                </div>
+<!-- fourth -->
+                <div class="row g-3 mb-4">
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="text" id="oldernamefour" name="oldername_4" class="form-control" placeholder="4.Child Name">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="number" id="agefour" name="olderage_4" class="form-control" placeholder="Age">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+        <select id="workingfour" name="olderworking_4" class="form-select">
+            <option value=""disabled selected></option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
     </div>
-    <div class="col-12 col-sm-6 col-lg">
-        <input type="text" id="income_5" name="olderincome_5" class="form-control" placeholder="Income" disabled>
+
+    <div class="col-12 col-lg">
+                        <input type="text" id="occupationfour" name="olderoccupation_4" class="form-control" placeholder="Occupation">
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="text" id="incomefour" name="olderincome_4" class="form-control" placeholder="Income">
+                    </div>
+                  
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="text" id="houseNumber" name="oldername_5" class="form-control" placeholder="5.Child Name">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="number" id="agefive" name="olderage_5" class="form-control" placeholder="Age">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+        <select id="workingfive" name="olderworking_5" class="form-select">
+            <option value=""disabled selected></option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
     </div>
-</div>
+
+
+    <div class="col-12 col-lg">
+                        <input type="text" id="occupationfive" name="olderoccupation_5" class="form-control" placeholder="Occupation">
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="text" id="incomefive" name="olderincome_5" class="form-control" placeholder="Income">
+                    </div>
+
+                    
+                </div>
 
                  <!-- fifth -->
 
-                 <p><b>Name of your child(ren)</b> - If applicable, enumerate the first five and arrange them from oldest to youngest. <em><b>Student Only</b></em></p>
+    <p><b>Name of your child(ren)</b> - If applicable, enumerate the first five and arrange them from oldest to youngest <em><b>Student Only</b></em></p>
     <div class="row g-3 mb-4">
-  <div class="col-12 col-sm-6 col-lg">
-    <label for="firstyoungchildname" class="form-label">Complete Name</label>
-    <input type="text" id="firstyoungchildname" name="youngername_1" class="form-control" placeholder="1.Child Name">
-  </div>
-  <div class="col-12 col-sm-6 col-lg">
-    <label for="firstyoungage" class="form-label">Age:</label>
-    <input type="number" id="firstyoungage" name="youngerage_1" class="form-control" placeholder="Age">
-  </div>
-  <div class="col-12 col-sm-6 col-lg">
-    <label for="firstyounglevel" class="form-label">Year level</label>
-    <select id="firstyounglevel" name="younglevel_1" class="form-select" onchange="updateAcademicYear('firstyounglevel', 'firstyoungacademic')">
-      <option value="" disabled selected></option>
-      <option value="Elementary">Elementary School</option>
-      <option value="Junior">Junior High School</option>
-      <option value="Senior">Senior High School</option>
-      <option value="College">College</option>
-    </select>
-  </div>
-  <div class="col-12 col-sm-6 col-lg">
-    <label for="firstyoungacademic" class="form-label">Academic Year</label>
-    <select id="firstyoungacademic" name="youngacademic_1" class="form-select">
-      <option value="" disabled selected></option>
-    </select>
-  </div>
-</div>
+                    <div class="col-12 col-sm-6 col-lg">
+                        <label for="firstyoungchildname" class="form-label">Complete Name</label>
+                        <input type="text" id="firstyoungchildname" name="youngername_1" class="form-control" placeholder="1.Child Name">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+                        <label for="firstyoungage" class="form-label">Age:</label>
+                        <input type="number" id="firstyoungage" name="youngerage_1" class="form-control" placeholder="Age">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+        <label for="firstyounglevel" class="form-label">Year level</label>
+        <select id="firstyounglevel" name="younglevel_1" class="form-select">
+            <option value=""disabled selected></option>
+            <option value="Elementary">Elementary School</option>
+            <option value="Junior">Junior High Scool</option>
+            <option value="Senior">Senior High School</option>
+            <option value="College">College High School</option>
+        </select>
+    </div>
+    <div class="col-12 col-sm-6 col-lg">
+        <label for="firstyoungacademic" class="form-label">Academic Year</label>
+        <select id="firstyoungacademic" name="youngacademic_1" class="form-select">
+            <option value=""disabled selected></option>
+            <option value="yes">Script</option>
+        </select>
+    </div>
 
-<!-- Second Child -->
+                    
+</div>  
+<!-- ikaduwa -->
 <div class="row g-3 mb-4">
-  <div class="col-12 col-sm-6 col-lg">
-    <input type="text" id="secondyoungname" name="youngername_2" class="form-control" placeholder="2.Child Name">
-  </div>
-  <div class="col-12 col-sm-6 col-lg">
-    <input type="number" id="secondyoungage" name="youngerage_2" class="form-control" placeholder="Age">
-  </div>
-  <div class="col-12 col-sm-6 col-lg">
-    <select id="secondyounglevel" name="younglevel_2" class="form-select" onchange="updateAcademicYear('secondyounglevel', 'secondyoungacademic')">
-      <option value="" disabled selected></option>
-      <option value="Elementary">Elementary School</option>
-      <option value="Junior">Junior High School</option>
-      <option value="Senior">Senior High School</option>
-      <option value="College">College</option>
-    </select>
-  </div>
-  <div class="col-12 col-sm-6 col-lg">
-    <select id="secondyoungacademic" name="youngacademic_2" class="form-select">
-      <option value="" disabled selected></option>
-    </select>
-  </div>
-</div>
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="text" id="secondyoungname" name="youngername_2" class="form-control" placeholder="2.Child Name">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="number" id="secondyoungage" name="youngerage_2" class="form-control" placeholder="Age">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+        <select id="secondyounglevel" name="younglevel_2" class="form-select">
+            <option value=""disabled selected></option>
+            <option value="Elementary">Elementary School</option>
+            <option value="Junior">Junior High Scool</option>
+            <option value="Senior">Senior High School</option>
+            <option value="College">College High School</option>
+        </select>
+    </div>
+    <div class="col-12 col-sm-6 col-lg">
+        <select id="secondyoungacademic" name="youngacademic_2" class="form-select">
+            <option value=""disabled selected></option>
+            <option value="yes">Script</option>
+        </select>
+    </div>
 
-<!-- Third Child -->
+                    
+</div>  
+<!-- ikatulo -->
 <div class="row g-3 mb-4">
-  <div class="col-12 col-sm-6 col-lg">
-    <input type="text" id="thirdyoungname" name="youngername_3" class="form-control" placeholder="3.Child Name">
-  </div>
-  <div class="col-12 col-sm-6 col-lg">
-    <input type="number" id="thirdyoungage" name="youngerage_3" class="form-control" placeholder="Age">
-  </div>
-  <div class="col-12 col-sm-6 col-lg">
-    <select id="thirdyounglevel" name="younglevel_3" class="form-select" onchange="updateAcademicYear('thirdyounglevel', 'thirdyoungacademic')">
-      <option value="" disabled selected></option>
-      <option value="Elementary">Elementary School</option>
-      <option value="Junior">Junior High School</option>
-      <option value="Senior">Senior High School</option>
-      <option value="College">College</option>
-    </select>
-  </div>
-  <div class="col-12 col-sm-6 col-lg">
-    <select id="thirdyoungacademic" name="youngacademic_3" class="form-select">
-      <option value="" disabled selected></option>
-    </select>
-  </div>
-</div>
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="text" id="thirdyoungname" name="youngername_3" class="form-control" placeholder="3.Child Name">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="number" id="thirdyoungage" name="youngerage_3" class="form-control" placeholder="Age">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+        <select id="thirdyounglevel" name="younglevel_3" class="form-select">
+            <option value=""disabled selected></option>
+            <option value="Elementary">Elementary School</option>
+            <option value="Junior">Junior High Scool</option>
+            <option value="Senior">Senior High School</option>
+            <option value="College">College High School</option>
+        </select>
+    </div>
+    <div class="col-12 col-sm-6 col-lg">
+        <select id="thirdyoungacademic" name="youngacademic_3" class="form-select">
+            <option value=""disabled selected></option>
+            <option value="yes">Script</option>
+        </select>
+    </div>
 
-<!-- Fourth Child -->
-<div class="row g-3 mb-4">
-  <div class="col-12 col-sm-6 col-lg">
-    <input type="text" id="fourthyoungname" name="youngername_4" class="form-control" placeholder="4.Child Name">
-  </div>
-  <div class="col-12 col-sm-6 col-lg">
-    <input type="number" id="fourthyoungage" name="youngerage_4" class="form-control" placeholder="Age">
-  </div>
-  <div class="col-12 col-sm-6 col-lg">
-    <select id="fourthyounglevel" name="younglevel_4" class="form-select" onchange="updateAcademicYear('fourthyounglevel', 'fourthyoungacademic')">
-      <option value="" disabled selected></option>
-      <option value="Elementary">Elementary School</option>
-      <option value="Junior">Junior High School</option>
-      <option value="Senior">Senior High School</option>
-      <option value="College">College</option>
-    </select>
-  </div>
-  <div class="col-12 col-sm-6 col-lg">
-    <select id="fourthyoungacademic" name="youngacademic_4" class="form-select">
-      <option value="" disabled selected></option>
-    </select>
-  </div>
-</div>
+                    
+</div>   
 
-<!-- Fifth Child -->
+<!-- ikaupat -->
+
 <div class="row g-3 mb-4">
-  <div class="col-12 col-sm-6 col-lg">
-    <input type="text" id="fifthyoungname" name="youngername_5" class="form-control" placeholder="5.Child Name">
-  </div>
-  <div class="col-12 col-sm-6 col-lg">
-    <input type="number" id="fifthyoungage" name="youngerage_5" class="form-control" placeholder="Age">
-  </div>
-  <div class="col-12 col-sm-6 col-lg">
-    <select id="fifthyounglevel" name="younglevel_5" class="form-select" onchange="updateAcademicYear('fifthyounglevel', 'fifthyoungacademic')">
-      <option value="" disabled selected></option>
-      <option value="Elementary">Elementary School</option>
-      <option value="Junior">Junior High School</option>
-      <option value="Senior">Senior High School</option>
-      <option value="College">College</option>
-    </select>
-  </div>
-  <div class="col-12 col-sm-6 col-lg">
-    <select id="fifthyoungacademic" name="youngacademic_5" class="form-select">
-      <option value="" disabled selected></option>
-    </select>
-  </div>
-</div>
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="text" id="fourthyoungname" name="youngername_4" class="form-control" placeholder="4.Child Name">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="number" id="fourthyoungage" name="youngerage_4" class="form-control" placeholder="Age">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+        <select id="fourthyounglevel" name="younglevel_4" class="form-select">
+            <option value=""disabled selected></option>
+            <option value="Elementary">Elementary School</option>
+            <option value="Junior">Junior High Scool</option>
+            <option value="Senior">Senior High School</option>
+            <option value="College">College High School</option>
+        </select>
+    </div>
+    <div class="col-12 col-sm-6 col-lg">
+        <select id="fourthyoungacademic" name="youngacademic_4" class="form-select">
+            <option value=""disabled selected></option>
+            <option value="yes">Script</option>
+        </select>
+    </div>
+
+                    
+</div>  
+
+<!-- ikalima -->
+
+<div class="row g-3 mb-4">
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="text" id="fifthyoungname" name="youngername_5" class="form-control" placeholder="5.Child Name">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+                        <input type="number" id="fifthyoungage" name="youngerage_5" class="form-control" placeholder="Age">
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg">
+        <select id="fifthyounglevel" name="younglevel_5" class="form-select">
+            <option value=""disabled selected></option>
+            <option value="Elementary">Elementary School</option>
+            <option value="Junior">Junior High Scool</option>
+            <option value="Senior">Senior High School</option>
+            <option value="College">College High School</option>
+        </select>
+    </div>
+    <div class="col-12 col-sm-6 col-lg">
+        <select id="fifthyoungacademic" name="youngacademic_5" class="form-select">
+            <option value=""disabled selected></option>
+            <option value="yes">Script</option>
+        </select>
+    </div>
+
+                    
+</div>  
 
 <h5 class="section-header">Access to Public Transportation</h5>
 <div class="row">
@@ -648,11 +559,11 @@ $postData = $_POST ?? [];
                         <p>Does your household have access to any public transportation vehicle within 500 meters from your housing unit (if within 10-15 minutes walking distance)? </p>
                         <div class="mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="transportation" id="yes" value="Yes">
+                                <input class="form-check-input" type="checkbox" name="yes" id="yes" value="Yes">
                                 <label class="form-check-label" for="yes">Yes</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="transportation" id="no" value="No" >
+                                <input class="form-check-input" type="checkbox" name="no" id="no" value="No" checked>
                                 <label class="form-check-label" for="no">No</label>
                             </div>
                         </div>
@@ -735,27 +646,27 @@ $postData = $_POST ?? [];
                         <p>How safe do you feel walking alone in your area (i.e., neighborhood or village) at night? </p>
                         <div class="ms-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="publicsafety1" name="publicsafety" value="Very safe">
+                                <input class="form-check-input" type="checkbox" id="publicsafety1" name="verysafe" value="Very safe">
                                 <label class="form-check-label" for="publicsafety1"> Very safe</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="publicsafety2" name="publicsafety" value="Safe">
+                                <input class="form-check-input" type="checkbox" id="publicsafety2" name="safe" value="Safe">
                                 <label class="form-check-label" for="publicsafety2">Safe</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="publicsafety3" name="publicsafety" value="Unsafe">
+                                <input class="form-check-input" type="checkbox" id="publicsafety3" name="unsafe" value="Unsafe">
                                 <label class="form-check-label" for="publicsafety3">Unsafe</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="publicsafety4" name="publicsafety" value="Very unsafe">
+                                <input class="form-check-input" type="checkbox" id="publicsafety4" name="veryunsafe" value="Very unsafe">
                                 <label class="form-check-label" for="publicsafety4"> Very unsafe</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="publicsafety5" name="publicsafety" value="I never go out at night/Does not apply">
+                                <input class="form-check-input" type="checkbox" id="publicsafety5" name="nevergoout" value="I never go out at night/Does not apply">
                                 <label class="form-check-label" for="publicsafety5">I never go out at night/Does not apply </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="publicsafety6" name="publicsafety" value="Don’t Know">
+                                <input class="form-check-input" type="checkbox" id="publicsafety6" name="dontknow" value="Don’t Know">
                                 <label class="form-check-label" for="publicsafety6">Don’t Know</label>
                             </div>
                         </div>
@@ -784,6 +695,10 @@ $postData = $_POST ?? [];
                                 <label class="form-check-label" for="spap4">  Health/Medical Insurance other than PhilHealth (e.g., MediCard, Maxicare, LGU Health card, cooperative health card)</label>
                             </div>
                             <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="spap5" name="nevergoout" value="I never go out at night/Does not apply">
+                                <label class="form-check-label" for="spap5">I never go out at night/Does not apply </label>
+                            </div>
+                            <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="spap6" name="dontwork" value="Don’t Know">
                                 <label class="form-check-label" for="spap6">Don’t Know</label>
                             </div>
@@ -810,6 +725,10 @@ $postData = $_POST ?? [];
                                 <label class="form-check-label" for="spap10">  Health/Medical Insurance other than PhilHealth (e.g., MediCard, Maxicare, LGU Health card, cooperative health card)</label>
                             </div>
                             <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="spap11" name="nevergoout2" value="I never go out at night/Does not apply">
+                                <label class="form-check-label" for="spap11">I never go out at night/Does not apply </label>
+                            </div>
+                            <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="spap12" name="dontknow2" value="Don’t Know">
                                 <label class="form-check-label" for="spap12">Don’t Know</label>
                             </div>
@@ -818,54 +737,59 @@ $postData = $_POST ?? [];
                 </div>
 
                 <h5 class="section-header">Water, Sanitation, and Hygiene</h5>
-<div class="row">
-    <div class="col-md-6">
-        <p>What is your household's main source of water supply?</p>
-        <div class="ms-4">
-        <b><p>Community Water System</p></b>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh1" name="community_water_supply" value="Piped into Dwelling">
-                <label class="form-check-label" for="wsh1"> Piped into Dwelling</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh2" name="community_water_supply" value="Piped into yard/plot">
-                <label class="form-check-label" for="wsh2">Piped into yard/plot</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh3" name="community_water_supply" value="Public Tap/Stand Pipe">
-                <label class="form-check-label" for="wsh3">Public Tap/Stand Pipe</label>
-            </div>
-            <b><p>Point Source</p></b>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh4" name="point_source_water_supply" value="Protected Well/Tube Well/Borehole">
-                <label class="form-check-label" for="wsh4">Protected Well/Tube Well/Borehole  </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh5" name="point_source_water_supply" value="Protected Spring">
-                <label class="form-check-label" for="wsh5">Protected Spring</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh6" name="point_source_water_supply" value="RainWater">
-                <label class="form-check-label" for="wsh6">RainWater</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh7" name="point_source_water_supply" value="Transfer Truck/Peddler/Neighbor">
-                <label class="form-check-label" for="wsh7">Transfer Truck/Peddler/Neighbor</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh8" name="point_source_water_supply" value="Unprotected (Open Dug Well)">
-                <label class="form-check-label" for="wsh8">Unprotected (Open Dug Well)</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh9" name="point_source_water_supply" value="Unproteced Spring">
-                <label class="form-check-label" for="wsh9">Unproteced Spring</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh10" name="point_source_water_supply" value="Surfaced Water">
-                <label class="form-check-label" for="wsh10">Surfaced Water (e.g.., River, Dam, Lake, Pond, Stream, Canal, Irrigation Channel)</label>
-            </div>
-        </div>
-    </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>What is your household's main source of water supply?</p>
+                        <div class="ms-4">
+                        <b><p>Community Water System</p></b>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh1" name="dwelling" value="Piped into Dwelling">
+                                <label class="form-check-label" for="wsh1"> Piped into Dwelling</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh2" name="yardorplot" value="Piped into yard/plot">
+                                <label class="form-check-label" for="wsh2">Piped into yard/plot</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh3" name="publictaporstandpipe" value="Public Tap/Stand Pipe">
+                                <label class="form-check-label" for="wsh3">Public Tap/Stand Pipe</label>
+                            </div>
+                            <b><p>Point Source</p></b>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh4" name="protectedtube" value="Protected Well/Tube Well/Borehole">
+                                <label class="form-check-label" for="wsh4">Protected Well/Tube Well/Borehole  </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh5" name="protectedspring" value="Protected Spring">
+                                <label class="form-check-label" for="wsh5">Protected Spring</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh6" name="RainWater" value="RainWater">
+                                <label class="form-check-label" for="wsh6">RainWater</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh7" name="TransferTruck" value="Transfer Truck/Peddler/Neighbor">
+                                <label class="form-check-label" for="wsh7">Transfer Truck/Peddler/Neighbor</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh8" name="Unprotected" value="Unprotected (Open Dug Well)">
+                                <label class="form-check-label" for="wsh8">Unprotected (Open Dug Well)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh9" name="UnprotecedSpring" value="Unproteced Spring">
+                                <label class="form-check-label" for="wsh9">Unproteced Spring</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh10" name="SurfacedWater" value="Surfaced Water">
+                                <label class="form-check-label" for="wsh10">Surfaced Water (e.g.., River, Dam, Lake, Pond, Stream, Canal, Irrigation Channel)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh11" name="Others" value="Others">
+                                <label class="form-check-label" for="wsh11">Others:</label>
+                                <input type="text" class="form-control form-control-sm d-inline-block w-auto" name="othersLivingSpecify2" placeholder="Specify">
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="col-md-6">
                         <p>What is the main source of drinking water used by members of your household?</p>
@@ -931,6 +855,11 @@ $postData = $_POST ?? [];
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="wsh26" name="SurfacedWater3" value="Surfaced Water">
                                 <label class="form-check-label" for="wsh26">Surfaced Water (e.g.., River, Dam, Lake, Pond, Stream, Canal, Irrigation Channel)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh27" name="Others2" value="Others">
+                                <label class="form-check-label" for="wsh27">Others:</label>
+                                <input type="text" class="form-control form-control-sm d-inline-block w-auto" name="othersLivingSpecify3" placeholder="Specify">
                             </div>
                         </div>
                     </div>
@@ -998,22 +927,26 @@ $postData = $_POST ?? [];
                                 <input class="form-check-input" type="checkbox" id="wsh42" name="SurfacedWater3" value="Surfaced Water">
                                 <label class="form-check-label" for="wsh42">Surfaced Water (e.g.., River, Dam, Lake, Pond, Stream, Canal, Irrigation Channel)</label>
                             </div>
-    
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh43" name="Others3" value="Others">
+                                <label class="form-check-label" for="children">Others:</label>
+                                <input type="text" class="form-control form-control-sm d-inline-block w-auto" name="othersLivingSpecify4" placeholder="Specify">
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <p>Where is that water source located?</p>
                         <div class="ms-4">
                         <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh44" name="watersourcelocated" value="In Own Dwelling">
+                                <input class="form-check-input" type="checkbox" id="wsh44" name="InOwnDwelling" value="In Own Dwelling">
                                 <label class="form-check-label" for="wsh44">In Own Dwelling</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh45" name="watersourcelocated" value="In own Yard/Plot">
+                                <input class="form-check-input" type="checkbox" id="wsh45" name="InownYardorPlot" value="In own Yard/Plot">
                                 <label class="form-check-label" for="wsh45">In own Yard/Plot</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh46" name="watersourcelocated" value="Elsewhere">
+                                <input class="form-check-input" type="checkbox" id="wsh46" name="Elsewhere" value="Elsewhere">
                                 <label class="form-check-label" for="wsh46">Elsewhere</label>
                             </div>
                         </div>
@@ -1024,97 +957,101 @@ $postData = $_POST ?? [];
                         <div class="ms-4">
                         <p><b>Improved Sanitation Facility</b></p>
                         <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh47" name="improvedsanitation" value="Flush/Pour flush to piped sewer system">
+                                <input class="form-check-input" type="checkbox" id="wsh47" name="pipedsewersystem" value="Flush/Pour flush to piped sewer system">
                                 <label class="form-check-label" for="wsh47">Flush/Pour flush to piped sewer system</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh48" name="improvedsanitation" value="Flush/Pour flush to septic tank">
+                                <input class="form-check-input" type="checkbox" id="wsh48" name="septictank" value="Flush/Pour flush to septic tank">
                                 <label class="form-check-label" for="wsh48">Flush/Pour flush to septic tank</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh49" name="improvedsanitation" value="Flush/Pour flush to pit latrine">
+                                <input class="form-check-input" type="checkbox" id="wsh49" name="pitlatrine" value="Flush/Pour flush to pit latrine">
                                 <label class="form-check-label" for="wsh49">Flush/Pour flush to pit latrine</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh50" name="improvedsanitation" value="wsh50">
+                                <input class="form-check-input" type="checkbox" id="wsh50" name="VentilatedImproveLatrine" value="wsh50">
                                 <label class="form-check-label" for="wsh50">Ventilated Improve Latrine</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh51" name="improvedsanitation" value="Pit Latrine with Slab">
+                                <input class="form-check-input" type="checkbox" id="wsh51" name="PitLatrinewithSlab" value="Pit Latrine with Slab">
                                 <label class="form-check-label" for="wsh51">Pit Latrine with Slab</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh52" name="improvedsanitation" value="Composting Toilet">
+                                <input class="form-check-input" type="checkbox" id="wsh52" name="CompostingToilet" value="Composting Toilet">
                                 <label class="form-check-label" for="wsh52">Composting Toilet</label>
                             </div>
                             <p><b>Unimproved Sanitation Facility</b></p>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh53" name="unimprovedsanitation" value="Flush/Pour flush to somewhere else/open drain">
+                                <input class="form-check-input" type="checkbox" id="wsh53" name="somewhereelseandopendrain" value="Flush/Pour flush to somewhere else/open drain">
                                 <label class="form-check-label" for="wsh53">Flush/Pour flush to somewhere else/open drain</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh54" name="unimprovedsanitation" value="Pit Latrine without slab/Open pit">
+                                <input class="form-check-input" type="checkbox" id="wsh54" name="PitLatrinewithoutslab" value="Pit Latrine without slab/Open pit">
                                 <label class="form-check-label" for="wsh54">Pit Latrine without slab/Open pit</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh55" name="unimprovedsanitation" value="Bucket/Pil System">
+                                <input class="form-check-input" type="checkbox" id="wsh55" name="BucketandPilSystem" value="Bucket/Pil System">
                                 <label class="form-check-label" for="wsh55">Bucket/Pil System</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh56" name="unimprovedsanitation" value="Hanging Toilet/Hanging Latrine">
+                                <input class="form-check-input" type="checkbox" id="wsh56" name="HangingToiletandHangingLatrine" value="Hanging Toilet/Hanging Latrine">
                                 <label class="form-check-label" for="wsh56">Hanging Toilet/Hanging Latrine</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh57" name="unimprovedsanitation" value="Flush or pour flush to don't know where">
+                                <input class="form-check-input" type="checkbox" id="wsh57" name="dontknowwhere" value="Flush or pour flush to don't know where">
                                 <label class="form-check-label" for="wsh57">Flush or pour flush to don't know where</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh58" name="unimprovedsanitation" value="Public Toilet">
+                                <input class="form-check-input" type="checkbox" id="wsh58" name="PublicToilet" value="Public Toilet">
                                 <label class="form-check-label" for="wsh58">Public Toilet</label>
                             </div>
                             <p><b>Open Defecation</b></p>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh59" name="opendefecation" value="No Facility">
+                                <input class="form-check-input" type="checkbox" id="wsh59" name="NoFacility" value="No Facility">
                                 <label class="form-check-label" for="wsh59">No Facility/Disposal of human feces in feilds, forests, bushes, open bodies of water, beaches, or other open species</label>
                             </div>
-
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh60" name="Others4" value="Others">
+                                <label class="form-check-label" for="children">Others:</label>
+                                <input type="text" class="form-control form-control-sm d-inline-block w-auto" name="othersLivingSpecify5" placeholder="Specify">
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <p>Where is the toilet facility located?</p>
                         <div class="ms-4">
                         <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh61" name="toiletfacility" value="In own Dwelling">
+                                <input class="form-check-input" type="checkbox" id="wsh61" name="InownDwelling2" value="In own Dwelling">
                                 <label class="form-check-label" for="wsh61">In own Dwelling</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh62" name="toiletfacility" value="In own Yard/Plot">
+                                <input class="form-check-input" type="checkbox" id="wsh62" name="InownYard/Plot2" value="In own Yard/Plot">
                                 <label class="form-check-label" for="wsh62">In own Yard/Plot</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh63" name="toiletfacility" value="Elsewhere">
+                                <input class="form-check-input" type="checkbox" id="wsh63" name="Elsewhere2" value="Elsewhere">
                                 <label class="form-check-label" for="wsh63">Elsewhere</label>
                             </div>
                             <div class="col-md-6">
                         <p>Do you share this facility with others who are not members of your households?</p>
                         <div class="ms-4">
                         <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh64" name="facilitywithothers" value="Yes">
+                                <input class="form-check-input" type="checkbox" id="wsh64" name="Yes" value="Yes">
                                 <label class="form-check-label" for="wsh64">Yes</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh65" name="facilitywithothers" value="No">
+                                <input class="form-check-input" type="checkbox" id="wsh65" name="No" value="No">
                                 <label class="form-check-label" for="wsh65">No</label>
                             </div>
                             </div>
                       <p>Do you share this facility only with members of other household that you know or is the facility open to the use of the general public?</p>
                         <div class="ms-4">
                         <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh67" name="facilitywithmembers" value="Shared with known household (Not Public)">
+                                <input class="form-check-input" type="checkbox" id="wsh67" name="Sharedwithknownhousehold" value="Shared with known household (Not Public)">
                                 <label class="form-check-label" for="wsh67">Shared with known household (Not Public)</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh68" name="facilitywithmembers" value="Shared with General Public">
+                                <input class="form-check-input" type="checkbox" id="wsh68" name="SharedwithGeneralPublic" value="Shared with General Public">
                                 <label class="form-check-label" for="wsh68">Shared with General Public</label>
                             </div>
                            </div>
@@ -1147,6 +1084,11 @@ $postData = $_POST ?? [];
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="wsh75" name="Throwinginunhabitedlocations" value="Throwing in unhabited locations">
                                 <label class="form-check-label" for="wsh75">Throwing in unhabited locations</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh76" name="Others5" value="Others">
+                                <label class="form-check-label" for="wsh76">Others:</label>
+                                <input type="text" class="form-control form-control-sm d-inline-block w-auto" name="othersLivingSpecify6" placeholder="Specify">
                             </div>
                            </div>
 </div>
@@ -1272,6 +1214,10 @@ $postData = $_POST ?? [];
                                 <input class="form-check-input" type="checkbox" id="housing21" name="Linoleum" value="LINOLEUM">
                                 <label class="form-check-label" for="housing21"> LINOLEUM </label>
                             </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing22" name="none" value="NONE">
+                                <label class="form-check-label" for="housing22"> NONE </label>
+                            </div>
                         </div>
                     </div>
                   
@@ -1305,6 +1251,10 @@ $postData = $_POST ?? [];
                                 <input class="form-check-input" type="checkbox" id="housing28" name="msim" value="MAKESHIFT/SALVAGED/ IMPROVISED MATERIALS">
                                 <label class="form-check-label" for="housing28"> MAKESHIFT/SALVAGED/ IMPROVISED MATERIALS</label>
                             </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing29" name="notobserved" value="NOT OBSERVED">
+                                <label class="form-check-label" for="housing29">NOT OBSERVED</label>
+                            </div>
                         </div>
                     </div>
                   
@@ -1331,31 +1281,31 @@ $postData = $_POST ?? [];
                         <p>What is the tenure status of the housing unit and lot occupied by this household? </p>
                         <div class="ms-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="housing30" name="tenturestatus" value="OWNER-LIKE POSSESSION OF THE HOUSE AND LOT">
+                                <input class="form-check-input" type="checkbox" id="housing30" name="Owner" value="OWNER-LIKE POSSESSION OF THE HOUSE AND LOT">
                                 <label class="form-check-label" for="housing30">  OWN OR OWNER-LIKE POSSESSION OF THE HOUSE AND LOT</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="housing31" name="tenturestatus" value="OWN HOUSE & RENT LOT">
+                                <input class="form-check-input" type="checkbox" id="housing31" name="ownhouseandrent" value="OWN HOUSE & RENT LOT">
                                 <label class="form-check-label" for="housing31">OWN HOUSE, RENT LOT</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="housing32" name="tenturestatus" value="OWN HOUSE, RENT-FREE LOT WITH CONSENT OF OWNER">
+                                <input class="form-check-input" type="checkbox" id="housing32" name="ownhouserentfreewithconsent" value="OWN HOUSE, RENT-FREE LOT WITH CONSENT OF OWNER">
                                 <label class="form-check-label" for="housing32">OWN HOUSE, RENT-FREE LOT WITH CONSENT OF OWNER</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="housing33" name="tenturestatus" value="OWN HOUSE, RENT-FREE LOT WITHOUT CONSENT OF OWNER">
+                                <input class="form-check-input" type="checkbox" id="housing33" name="ownhouserentwithoutconsent" value="OWN HOUSE, RENT-FREE LOT WITHOUT CONSENT OF OWNER">
                                 <label class="form-check-label" for="housing33"> OWN HOUSE, RENT-FREE LOT WITHOUT CONSENT OF OWNER </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="housing34" name="tenturestatus" value="RENT HOUSE/INCLUDING LOT">
+                                <input class="form-check-input" type="checkbox" id="housing34" name="RENTHOUSE/INCLUDINGLOT" value="RENT HOUSE/INCLUDING LOT">
                                 <label class="form-check-label" for="housing34">RENT HOUSE/INCLUDING LOT</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="housing35" name="tenturestatus" value="RENT- FREE HOUSE AND LOT WITH CONSENT OF OWNER">
+                                <input class="form-check-input" type="checkbox" id="housing35" name="rentfreehousewithconsent" value="RENT- FREE HOUSE AND LOT WITH CONSENT OF OWNER">
                                 <label class="form-check-label" for="housing35">RENT- FREE HOUSE AND LOT WITH CONSENT OF OWNER</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="housing36" name="tenturestatus" value="RENT- FREE HOUSE AND LOT WITHOUT CONSENT OF OWNER">
+                                <input class="form-check-input" type="checkbox" id="housing36" name="rentfreehousewithoutconsent" value="RENT- FREE HOUSE AND LOT WITHOUT CONSENT OF OWNER">
                                 <label class="form-check-label" for="housing36"> RENT- FREE HOUSE AND LOT WITHOUT CONSENT OF OWNER</label>
                             </div>
                         </div>
@@ -1367,7 +1317,7 @@ $postData = $_POST ?? [];
                     <div class="col-md-6">
                         <p>When was the housing unit/building constructed?</p>
                         <div class="ms-4">
-                           <input type="date" class="form-control" name="housing">
+                           <input type="text" class="form-control" name="housing">
                     </div>
 
                   
@@ -1375,11 +1325,11 @@ $postData = $_POST ?? [];
 <div class="col-md-6">
                         <p>Is there electricity in the building?</p>
                         <div class="form-check">
-                                <input class="form-check-input" type="radio" id="housing37" name="electricity" value=" YES">
+                                <input class="form-check-input" type="checkbox" id="housing37" name="YES" value=" YES">
                                 <label class="form-check-label" for="housing37"> YES</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="housing38" name="electricity" value="NO">
+                                <input class="form-check-input" type="checkbox" id="housing38" name="NO" value="NO">
                                 <label class="form-check-label" for="housing38">NO</label>
                             </div>
                 </div>
@@ -1416,6 +1366,10 @@ $postData = $_POST ?? [];
                                 <input class="form-check-input" type="checkbox" id="housing45" name="battery" value="BATTERY">
                                 <label class="form-check-label" for="housing45">BATTERY</label>
                             </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing46" name="none" value="NONE">
+                                <label class="form-check-label" for="housing46">NONE</label>
+                            </div>
                         </div>
                     </div>
                   
@@ -1444,6 +1398,10 @@ $postData = $_POST ?? [];
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="housing51" name="wood" value="WOOD">
                                 <label class="form-check-label" for="housing51">WOOD </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing52" name="none" value="NONE">
+                                <label class="form-check-label" for="housing52">NONE</label>
                             </div>
                         </div>
                     </div>
@@ -1562,290 +1520,17 @@ $postData = $_POST ?? [];
             </form>
         </div>
     </main>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function() {
-    $('#demographicForm').on('submit', function(e) {
-        e.preventDefault(); // Prevent the form from submitting normally
 
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function(response) {
-                if (response.status === 'success') {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        text: response.message,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = 'form.php';
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: response.message,
-                        confirmButtonColor: '#d33',
-                        confirmButtonText: 'OK'
-                    });
-                }
-            },
-            error: function() {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                    confirmButtonColor: '#d33',
-                    confirmButtonText: 'OK'
-                });
-            }
-        });
-    });
-});
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<!-- Script to handle SweetAlert based on PHP response -->
-<script>
-    <?php if (isset($_GET['status'])): ?>
-        <?php if ($_GET['status'] == 'success'): ?>
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: 'The form has been submitted successfully!'
-            });
-        <?php elseif ($_GET['status'] == 'error'): ?>
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'There was an error submitting the form. Please try again.'
-            });
-        <?php endif; ?>
-    <?php endif; ?>
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const contactNumberInput = document.querySelector('input[name="contactnumber_hl"]');
 
-    // Remove non-numeric characters and enforce length limit
-    contactNumberInput.addEventListener('input', function() {
-        // Remove non-digit characters
-        this.value = this.value.replace(/\D/g, '');
-
-        // Ensure the value is no longer than 11 digits
-        if (this.value.length > 11) {
-            this.value = this.value.slice(0, 11);
-        }
-    });
-
-    // Validate on blur
-    contactNumberInput.addEventListener('blur', function() {
-        if (this.value.length !== 11) {
-            this.setCustomValidity('Please enter exactly 11 digits.');
-        } else {
-            this.setCustomValidity('');
-        }
-    });
-
-    // Optionally, you can also validate on form submission
-    document.querySelector('form').addEventListener('submit', function(event) {
-        if (contactNumberInput.value.length !== 11) {
-            contactNumberInput.setCustomValidity('Please enter exactly 11 digits.');
-            event.preventDefault(); // Prevent form submission if validation fails
-        } else {
-            contactNumberInput.setCustomValidity('');
-        }
-    });
-});
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const municipalitySelect = document.querySelector('select[name="municipality_hl"]');
-    const barangaySelect = document.getElementById('barangay');
-
-    // Define barangay options for each municipality
-    const barangayOptions = {
-        bantayan: [
-            'Atop-Atop', 'Bigad', 'Bantigue', 'Baod', 'Binaobao', 'Botigues', 'Doong', 'Guiwanon', 'Hilotongan',
-            'Kabac', 'Kabangbang', 'Kampingganon', 'Kangkaibe', 'Lipayran', 'Luyongbaybay', 'Mojon',
-            'Oboob', 'Patao', 'Putian', 'Sillion', 'Suba', 'Sulangan', 'Sungko', 'Tamiao', 'Ticad'
-        ],
-        madridejos: [
-            'Poblacion', 'Mancilang', 'Malbago', 'Kaongkod', 'San Agustin', 'Kangwayan', 'Pili', 'Kodia',
-            'Tabagak', 'Bunakan', 'Maalat', 'Tugas', 'Tarong', 'Talangnan'
-        ],
-        santafe: [
-            'Balidbid', 'Hagdan', 'Hilantagaan', 'Kinatarkan', 'Langub', 'Marikaban', 'Okoy', 'Poblacion',
-            'Pooc', 'Talisay'
-        ]
-    };
-
-    // Function to update barangay options
-    function updateBarangayOptions(municipality) {
-        // Clear existing options
-        barangaySelect.innerHTML = '';
-
-        // Add new options
-        if (barangayOptions[municipality]) {
-            barangayOptions[municipality].forEach(function(barangay) {
-                const option = document.createElement('option');
-                option.value = barangay.toLowerCase().replace(/\s+/g, '_');
-                option.textContent = barangay;
-                barangaySelect.appendChild(option);
-            });
-        }
-    }
-
-    // Initialize barangay options based on the current municipality
-    updateBarangayOptions(municipalitySelect.value);
-
-    // Update barangay options when municipality changes
-    municipalitySelect.addEventListener('change', function() {
-        updateBarangayOptions(this.value);
-    });
-});
-</script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-   document.addEventListener('DOMContentLoaded', function() {
-    const status = new URLSearchParams(window.location.search).get('status');
-    
-    if (status === 'house_number_exists') {
-        Swal.fire({
-            icon: 'error',
-            title: 'House Number Exists',
-            text: 'The house number you entered already exists. Please use a different one.'
-        });
-    } else if (status === 'success') {
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: 'The form has been submitted successfully!'
-        });
-    }
-});
-</script>
-<script>
-    // Function to generate a random house number
-    function generateHouseNumber() {
-        const prefix = '';
-        const randomNumber = Math.floor(100000 + Math.random() * 900000); // Random 6-digit number
-        return prefix + randomNumber;
-    }
-
-    // Add an event listener to the icon
-    document.getElementById('generate-house-number').addEventListener('click', function() {
-        const houseNumberInput = document.getElementById('house_number');
-        houseNumberInput.value = generateHouseNumber(); // Set the generated number to the input field
-    });
-</script>
-<script>
-    function calculateAge() {
-        const dob = document.getElementById('dateOfBirth').value;
-        if (dob) {
-            const dobDate = new Date(dob);
-            const diff = Date.now() - dobDate.getTime();
-            const ageDate = new Date(diff);
-            const age = Math.abs(ageDate.getUTCFullYear() - 1970);
-            document.getElementById('age').value = age;
-        }
-    }
-
-    function calculateSpouseAge() {
-        const dob = document.getElementById('dateOfBirthSpouse').value;
-        if (dob) {
-            const dobDate = new Date(dob);
-            const diff = Date.now() - dobDate.getTime();
-            const ageDate = new Date(diff);
-            const age = Math.abs(ageDate.getUTCFullYear() - 1970);
-            document.getElementById('ageSpouse').value = age;
-        }
-    }
-</script>
-<script>
-    function toggleOccupationIncome(childNumber) {
-        const working = document.getElementById(`working_${childNumber}`).value;
-        const occupationField = document.getElementById(`occupation_${childNumber}`);
-        const incomeField = document.getElementById(`income_${childNumber}`);
-
-        if (working === "yes") {
-            occupationField.disabled = false;
-            incomeField.disabled = false;
-        } else {
-            occupationField.disabled = true;
-            occupationField.value = ''; // Clear field if disabled
-            incomeField.disabled = true;
-            incomeField.value = ''; // Clear field if disabled
-        }
-    }
-</script>
-<script>
-  function updateAcademicYear(levelId, academicId) {
-    const level = document.getElementById(levelId).value;
-    const academicYearSelect = document.getElementById(academicId);
-
-    // Clear previous options
-    academicYearSelect.innerHTML = '<option value="" disabled selected></option>';
-
-    let academicOptions = [];
-
-    // Define options based on the selected year level
-    switch (level) {
-      case 'Elementary':
-        academicOptions = ['Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5', 'Grade 6'];
-        break;
-      case 'Junior':
-        academicOptions = ['Grade 7', 'Grade 8', 'Grade 9', 'Grade 10'];
-        break;
-      case 'Senior':
-        academicOptions = ['Grade 11', 'Grade 12'];
-        break;
-      case 'College':
-        academicOptions = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
-        break;
-    }
-
-    // Add new options
-    academicOptions.forEach(function(option) {
-      let newOption = document.createElement('option');
-      newOption.value = option;
-      newOption.textContent = option;
-      academicYearSelect.appendChild(newOption);
-    });
-  }
-</script>
-<script>
-function validateForm() {
-    const form = document.forms[0];
-    const inputs = form.querySelectorAll('[required]');
-    let isValid = true;
-
-    inputs.forEach(input => {
-        if (!input.value) {
-            isValid = false;
-            input.classList.add('is-invalid'); // Add error class if needed
-        } else {
-            input.classList.remove('is-invalid'); // Remove error class if filled
-        }
-    });
-
-    return isValid; // Prevents form submission if not valid
-}
-</script>
 <?php 
 include 'footer.php';
 ?>

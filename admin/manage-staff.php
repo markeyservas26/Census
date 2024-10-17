@@ -27,6 +27,8 @@ $result = $stmt->get_result();
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-QfU7+rwg2rZ5spmt6No5y46/6vY9PVetMzU78vIzYq6G9qkcY0lUkH1COHt0dj5iIw4B5BnLxVKw1VcAVKxvrw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <style>
   /* Custom CSS to position modal on the right side */
   .container {
@@ -164,7 +166,7 @@ $result = $stmt->get_result();
                     </div>
                     <div class="col-md-6">
                         <div class="password-container">
-                            <input type="password" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password" required>
+                            <input type="text" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password" required>
                             <span class="eye" onclick="togglePasswordVisibility()">
                                 <i id="eyeIcon" class="fas fa-eye"></i>
                             </span>
@@ -188,7 +190,28 @@ $result = $stmt->get_result();
             </div>
         </div>
     </div>
-</div><!-- End Modal --
+</div><!-- End Modal -->
+<!-- Modal -->
+<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewModalLabel">Bantayan Island Census</h5>
+            </div>
+            <div class="modal-body">
+                <p><strong>Name:</strong> <span id="modal-name"></span></p>
+                <p><strong>Email:</strong> <span id="modal-email">example@example.com</span></p>
+                <p><strong>Municipality:</strong> <span id="modal-municipality"></span></p>
+                <p>Type the password:</p>
+                <p><strong>Password:</strong> <input type="text" id="modal-password" class="form-control" /></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="printDetails()">Print</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 
   <div class="pagetitle">
     <h1>Staff List</h1>
@@ -242,23 +265,63 @@ $result = $stmt->get_result();
               </tr>
             </thead>
             <tbody>
-              <?php
-              if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                  echo "<td>" . htmlspecialchars($row['name']) . "</td>";
-                  echo "<td>" . htmlspecialchars($row['email']) . "</td>";
-                  echo "<td>" . htmlspecialchars($row['municipality']) . "</td>";
-                  echo "<td>  
-                          <button class='btn btn-primary edit-btn' data-id='" . htmlspecialchars($row['id']) . "'>Edit</button> |
-                          <button class='btn btn-danger delete-btn' data-id='" . htmlspecialchars($row['id']) . "'>Delete</button>
-                        </td>";
-                  echo "</tr>";
-                }
-              } else {
-                echo "<tr><td colspan='5'>No records found</td></tr>";
-              }
-              ?>
-            </tbody>
+    <?php
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<td>" . htmlspecialchars($row['name']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['municipality']) . "</td>";
+            
+            // Fetch the actual password securely from the database
+            $userId = $row['id'];
+            $actual_password = getPasswordById($userId); // Function to retrieve the actual password
+
+            // Display the actual password or 'N/A' if not found
+            $password = ($actual_password !== false) ? htmlspecialchars($actual_password) : 'N/A';
+            
+            echo "<td>  
+        <button class='btn btn-primary edit-btn' data-id='" . htmlspecialchars($row['id']) . "'>Edit</button> |
+        <button class='btn btn-danger delete-btn' data-id='" . htmlspecialchars($row['id']) . "'>Delete</button> |
+        <button class='btn btn-info view-btn' 
+                data-id='" . htmlspecialchars($row['id']) . "' 
+                data-name='" . htmlspecialchars($row['name']) . "' 
+                data-email='" . htmlspecialchars($row['email']) . "' 
+                data-municipality='" . htmlspecialchars($row['municipality']) . "' 
+                data-password='" . htmlspecialchars($password) . "'>View</button>
+      </td>";
+    
+
+            // Display the actual password in the table
+            echo "<td>" . $password . "</td>"; // Display the password in the table
+            echo "</tr>";
+        }
+    } else {
+        echo "<tr><td colspan='5'>No records found</td></tr>";
+    }
+
+    // Function to securely retrieve the actual password
+    function getPasswordById($id) {
+        // Connect to your database
+        global $conn; // Assuming $conn is your database connection
+
+        // Example query to retrieve the original password (not secure and not recommended)
+        $query = "SELECT password FROM users WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->bind_result($password);
+        $stmt->fetch();
+        $stmt->close();
+
+        return $password; // This will return the original password (not secure)
+    }
+    ?>
+</tbody>
+
+
+
+
           </table>
           <!-- End Table with stripped rows -->
           
@@ -349,8 +412,23 @@ $result = $stmt->get_result();
     </div>
   </div>
 </div><!-- End Edit Modal -->
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-3wYIVjO+VV7lRuLefk7hVBrCoPeOb8Dh4v2eSQq8tcoQ0X6D/YStJcI/ZQf3t1iF" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-lJ1eF3ABhksSrfUwSHFrA7pNDo4+v3/t7hC8pXKJr0k0oUp2H4UQj3z2f0xKi2uB" crossorigin="anonymous"></script>
+
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const table = document.getElementById('staffTable');
@@ -704,8 +782,152 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initial table update
   updateTable();
 });
-
 </script>
+<script>
+    // Show modal and populate fields
+    document.querySelectorAll('.view-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const email = this.getAttribute('data-email');
+            const password = this.getAttribute('data-password');
+
+            document.getElementById('modal-email').textContent = email;
+            document.getElementById('modal-password').textContent = password;
+
+            // Show the modal
+            $('#viewModal').modal('show');
+        });
+    });
+</script>
+<script>
+  document.querySelectorAll('.view-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const userId = this.getAttribute('data-id');
+        const userName = this.getAttribute('data-name');
+        const userEmail = this.getAttribute('data-email');
+        const userMunicipality = this.getAttribute('data-municipality'); // New line for municipality
+        const userPassword = this.getAttribute('data-password');
+
+        // Populate the modal with the values
+        document.getElementById('modal-name').innerText = userName;
+        document.getElementById('modal-email').innerText = userEmail;
+        document.getElementById('modal-municipality').innerText = userMunicipality; // New line for municipality
+        document.getElementById('modal-password').value = userPassword;
+
+        // Show the modal (Assuming you are using Bootstrap)
+        $('#viewModal').modal('show');
+    });
+});
+</script>
+<script>
+function printDetails() {
+  const name = document.getElementById('modal-name').innerText;
+    const email = document.getElementById('modal-email').innerText;
+    const municipality = document.getElementById('modal-municipality').innerText;
+    const password = document.getElementById('modal-password').value;
+
+    const printContent = `
+        <html>
+        <head>
+            <title>Print</title>
+            <style>
+                @page {
+                    margin: 0; /* Remove default margin */
+                }
+                body {
+                    background: url('assets/img/censusformlogo.png') no-repeat center center fixed;
+                    background-size: cover;
+                    height: 70vh; /* Adjust as needed for your design */
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                }
+                .content {
+                    background: rgba(255, 255, 255, 0.8); /* White background with slight transparency */
+                    padding: 10px;
+                    border-radius: 10px;
+                    width: 100%; /* Full width of the content area */
+                    max-width: 300px; /* Prevents it from getting too wide */
+                    text-align: left; /* Align text to the left */
+                    position: relative; /* Ensure it appears above the background */
+                    z-index: 1; /* Ensure content is above the background */
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional shadow for depth */
+                    margin-bottom: 70px;
+                }
+                h4 {
+                    font-size: 24px; /* Increased font size for the heading */
+                    margin-bottom: 10px; /* Space below the heading */
+                    color: #333; /* Darker color for better readability */
+                }
+                p {
+                    font-size: 16px; /* Font size for the text */
+                    margin: 5px 0; /* Spacing between paragraphs */
+                    color: #555; /* Slightly lighter color for the text */
+                }
+                strong {
+                    color: #000; /* Color for strong text */
+                }
+                .note {
+                    font-size: 14px; /* Font size for the note */
+                    color: #000; /* Black text for better contrast */
+                    background: rgba(255, 255, 255, 0.8); /* White background with transparency */
+                    padding: 10px;
+                    border-radius: 5px;
+                    margin-top: 350px; /* Space above the note */
+                    width: 90%; /* Adjust the width of the note */
+                    max-width: 350px; /* Max width for the note */
+                    position: absolute; /* Position the note outside the container */
+                    left: 50%; /* Center horizontally */
+                    transform: translateX(-50%); /* Align the center */
+                    z-index: 1; /* Ensure the note is above the background */
+                }
+                .steps {
+                    margin-top: 5px; /* Space above the steps */
+                    font-size: 14px; /* Font size for steps */
+                }
+                .step {
+                    margin: 2px 0; /* Spacing between steps */
+                }
+            </style>
+        </head>
+        <body>
+            <div class="content">
+                <h4>Bantayan Island Census</h4>
+                <hr>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                 <p><strong>Municipality:</strong> ${municipality}</p>
+                <p><strong>Password:</strong> ${password}</p>
+            </div>
+            <div class="note">
+                <strong>Note: You can change the password of your account</strong>
+                <hr>
+                <p>Follow these steps to change your password:</p>
+                <div class="steps">
+                    <div class="step">1. Open your account.</div>
+                    <div class="step">2. Click the profile.</div>
+                    <div class="step">3. Click on 'Change Password.'</div>
+                    <div class="step">4. Follow the instructions to set a new password.</div>
+                </div>
+                <hr>
+                <strong>Important:</strong> Ensure you choose a strong password that you can remember.
+            </div>
+        </body>
+        </html>
+    `;
+
+    const newWindow = window.open('', '', 'width=800,height=600');
+    newWindow.document.write(printContent);
+    newWindow.document.close();
+    newWindow.print();
+}
+</script>
+
+
+
+
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>

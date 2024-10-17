@@ -26,6 +26,7 @@ $result = $stmt->get_result();
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-QfU7+rwg2rZ5spmt6No5y46/6vY9PVetMzU78vIzYq6G9qkcY0lUkH1COHt0dj5iIw4B5BnLxVKw1VcAVKxvrw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
   .container {
     display: flex;
@@ -164,6 +165,28 @@ $result = $stmt->get_result();
     </div>
   </div>
 
+  <!-- View Modal -->
+<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewModalLabel">Bantyan Island Census</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Name:</strong> <span id="modal-name"></span></p>
+        <p><strong>Username:</strong> <span id="modal-username"></span></p>
+        <p>Type the password:</p>
+        <p><strong>Password:</strong> <input type="text" id="modal-password" class="form-control" /></p>
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-primary" onclick="printDetails()">Print</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
   <div class="pagetitle">
     <h1>Admin List</h1>
   </div>
@@ -216,13 +239,19 @@ $result = $stmt->get_result();
         echo "<td>" . htmlspecialchars($row['username']) . "</td>";
         echo "<td>
                <button class='btn btn-primary edit-btn' data-id='" . htmlspecialchars($row['id']) . "' data-bs-toggle='modal' data-bs-target='#editModal'>Edit</button> |
-                <button class='btn btn-danger delete-btn' data-id='" . htmlspecialchars($row['id']) . "'>Delete</button>
+                <button class='btn btn-danger delete-btn' data-id='" . htmlspecialchars($row['id']) . "'>Delete</button> |
+               <button class='btn btn-info view-btn' 
+    data-id='" . htmlspecialchars($row['id']) . "' 
+    data-name='" . htmlspecialchars($row['name']) . "' 
+    data-username='" . htmlspecialchars($row['username']) . "' 
+    data-bs-toggle='modal' data-bs-target='#viewModal'>View</button>
               </td>";
         echo "</tr>";
       }
     } else {
       echo "<tr><td colspan='3'>No records found</td></tr>";
     }
+    
     ?>
   </tbody>
 </table>
@@ -292,7 +321,7 @@ $result = $stmt->get_result();
   </div>
 </div>
 
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
@@ -579,5 +608,131 @@ document.getElementById('editModal').addEventListener('hidden.bs.modal', functio
     });
   }
 })
+</script>
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+    // Listen for click events on all view buttons
+    document.querySelectorAll('.view-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            // Get the user data from the data-* attributes
+            const userName = this.getAttribute('data-name');
+            const username = this.getAttribute('data-username');
+            const userPassword = this.getAttribute('data-password');
+
+            // Populate the modal with the values
+            document.getElementById('modal-name').innerText = userName;
+            document.getElementById('modal-username').innerText = username;
+            document.getElementById('modal-password').value = userPassword;
+
+           // Show the modal (Assuming you are using Bootstrap)
+        $('#viewModal').modal('show');
+        });
+    });
+});
+
+</script>
+<script>
+function printDetails() {
+  const name = document.getElementById('modal-name').innerText;
+    const username = document.getElementById('modal-username').innerText;
+    const password = document.getElementById('modal-password').value;
+
+    const printContent = `
+        <html>
+        <head>
+            <title>Print</title>
+            <style>
+                @page {
+                    margin: 0; /* Remove default margin */
+                }
+                body {
+                    background: url('assets/img/censusformlogo.png') no-repeat center center fixed;
+                    background-size: cover;
+                    height: 70vh; /* Adjust as needed for your design */
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                }
+                .content {
+                    background: rgba(255, 255, 255, 0.8); /* White background with slight transparency */
+                    padding: 10px;
+                    border-radius: 10px;
+                    width: 100%; /* Full width of the content area */
+                    max-width: 300px; /* Prevents it from getting too wide */
+                    text-align: left; /* Align text to the left */
+                    position: relative; /* Ensure it appears above the background */
+                    z-index: 1; /* Ensure content is above the background */
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional shadow for depth */
+                    margin-bottom: 70px;
+                }
+                h4 {
+                    font-size: 24px; /* Increased font size for the heading */
+                    margin-bottom: 10px; /* Space below the heading */
+                    color: #333; /* Darker color for better readability */
+                }
+                p {
+                    font-size: 16px; /* Font size for the text */
+                    margin: 5px 0; /* Spacing between paragraphs */
+                    color: #555; /* Slightly lighter color for the text */
+                }
+                strong {
+                    color: #000; /* Color for strong text */
+                }
+                .note {
+                    font-size: 14px; /* Font size for the note */
+                    color: #000; /* Black text for better contrast */
+                    background: rgba(255, 255, 255, 0.8); /* White background with transparency */
+                    padding: 10px;
+                    border-radius: 5px;
+                    margin-top: 350px; /* Space above the note */
+                    width: 90%; /* Adjust the width of the note */
+                    max-width: 350px; /* Max width for the note */
+                    position: absolute; /* Position the note outside the container */
+                    left: 50%; /* Center horizontally */
+                    transform: translateX(-50%); /* Align the center */
+                    z-index: 1; /* Ensure the note is above the background */
+                }
+                .steps {
+                    margin-top: 5px; /* Space above the steps */
+                    font-size: 14px; /* Font size for steps */
+                }
+                .step {
+                    margin: 2px 0; /* Spacing between steps */
+                }
+            </style>
+        </head>
+        <body>
+            <div class="content">
+                <h4>Bantayan Island Census</h4>
+                <hr>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Username:</strong> ${username}</p>
+                <p><strong>Password:</strong> ${password}</p>
+            </div>
+            <div class="note">
+                <strong>Note: You can change the password of your account</strong>
+                <hr>
+                <p>Follow these steps to change your password:</p>
+                <div class="steps">
+                    <div class="step">1. Open your account.</div>
+                    <div class="step">2. Click the profile.</div>
+                    <div class="step">3. Click on 'Change Password.'</div>
+                    <div class="step">4. Follow the instructions to set a new password.</div>
+                </div>
+                <hr>
+                <strong>Important:</strong> Ensure you choose a strong password that you can remember.
+            </div>
+        </body>
+        </html>
+    `;
+
+    const newWindow = window.open('', '', 'width=800,height=600');
+    newWindow.document.write(printContent);
+    newWindow.document.close();
+    newWindow.print();
+}
 </script>
 <?php include 'footer.php' ?>

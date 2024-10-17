@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,13 +30,12 @@
   <link href="queenie.css" rel="stylesheet">
 <style>
  /* About Section Styles */
-.about-content {
+ .about-content {
     padding: 80px 0;
     position: relative;
     overflow: hidden;
     color: #fff; /* Default text color */
     display: none;
-   
     animation: fadeIn 1.5s ease-out;
 }
 
@@ -59,7 +59,7 @@
     width: 100%;
     height: 100%;
     background: url('assets/img/picture1.jpg') no-repeat center center/cover; /* Background image */
-    filter: blur(4px); /* Adjust the blur amount as needed */
+    filter: blur(6px); /* Increased blur for better effect */
     z-index: 1; /* Place below the content */
 }
 
@@ -70,7 +70,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Darker overlay */
+    background: rgba(0, 0, 0, 0.6); /* Darker overlay */
     z-index: 2; /* Ensure overlay is above the blurred background but below the content */
 }
 
@@ -79,9 +79,8 @@
     z-index: 3; /* Ensure content is above the overlay */
 }
 
-
 .section-header {
-    margin-top: 80px;
+    margin-top: 60px;
 }
 
 .section-header h2 {
@@ -89,71 +88,71 @@
     color: #ffffff; /* Light color for better contrast */
     font-weight: bold;
     text-transform: uppercase;
-    margin-top: 100px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Add shadow for text */
+    margin-top: 50px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8); /* Stronger shadow for depth */
+    letter-spacing: 2px; /* Spacing for elegance */
 }
 
 .section-header p {
     font-size: 1.2rem;
     color: #e0e0e0; /* Slightly lighter color */
     font-style: italic;
-    margin-top: 100px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); /* Add shadow for text */
+    margin-top: 20px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6); /* Add shadow for text */
 }
 
 .about-content .about-texts {
-    background: rgba(255, 255, 255, 0.8); /* Slightly transparent white background */
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    background: #fce4ec; /* Light pink background */
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s, transform 0.3s; /* Smooth transition */
+}
+
+.about-content .about-texts:hover {
+    background: #f8bbd0; /* Darker pink on hover */
+    transform: translateY(-5px); /* Lift effect on hover */
 }
 
 .about-content .about-texts h3 {
-    font-size: 2.2rem;
-    color: #004d40;
-    margin-bottom: 20px;
-    border-bottom: 3px solid #004d40;
-    padding-bottom: 10px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Add shadow for text */
+    font-size: 2.5rem;
+    color: #880e4f; /* Darker pink color for titles */
+    margin-bottom: 15px;
 }
 
 .about-content .about-texts p {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: #004d40;
-}
-
-.about-content .about-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #4a148c; /* Dark purple for text */
 }
 
 .mission-vision {
-    background: #ffffff;
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    background: #e1f5fe; /* Light blue background */
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
     margin-bottom: 30px;
-    background: rgba(255, 255, 255, 0.8);
+    transition: background 0.3s, transform 0.3s; /* Smooth transition */
+}
+
+.mission-vision:hover {
+    background: #b3e5fc; /* Darker blue on hover */
+    transform: translateY(-5px); /* Lift effect on hover */
 }
 
 .mission-vision h3 {
-    font-size: 1.8rem;
-    color: #004d40;
+    font-size: 2.2rem; /* Slightly larger title */
+    color: #01579b; /* Dark blue for titles */
     margin-bottom: 15px;
-    border-bottom: 2px solid #004d40;
-    padding-bottom: 5px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Add shadow for text */
 }
 
 .mission-vision p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #004d40;
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: #0d47a1; /* Dark blue for text */
 }
 
+/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
     .section-header h2 {
         font-size: 2.2rem;
@@ -164,7 +163,7 @@
     }
     
     .about-content .about-texts h3 {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
     
     .about-content .about-texts p {
@@ -177,6 +176,46 @@
     
     .mission-vision p {
         font-size: 0.9rem;
+    }
+}
+.logos-row {
+    display: flex; /* Use flexbox for horizontal alignment */
+    justify-content: center; /* Center the logos */
+    align-items: center; /* Vertically center the logos */
+    margin-bottom: 30px; /* Space below the logos */
+    animation: marquee 15s linear infinite; /* Animate the row */
+}
+
+.logos-row .logo {
+    max-width: 300px; /* Set a max width for logos */
+    margin: 0 15px; /* Space between logos */
+    transition: transform 0.3s; /* Add a hover effect */
+}
+
+.logos-row .logo:hover {
+    transform: scale(1.1); /* Slightly enlarge logo on hover */
+}
+
+/* Ensure responsive behavior */
+@media (max-width: 768px) {
+    .logos-row .logo {
+        max-width: 50px; /* Adjust logo size for smaller screens */
+        margin: 0 10px; /* Space between logos */
+    }
+}
+
+.logos-marquee {
+    position: relative; /* Position for absolute elements */
+    background-color: transparent; /* Background color for contrast */
+    padding: 30px 10px; /* Add padding above and below the marquee */
+}
+/* Animation for marquee effect */
+@keyframes marquee {
+    0% {
+        transform: translateX(100%); /* Start outside the right */
+    }
+    100% {
+        transform: translateX(-100%); /* Move to the left outside */
     }
 }
 
@@ -204,19 +243,33 @@
     transform: translateY(-3px); /* Slight lift on hover */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Darker shadow on hover */
 }
-/* Footer Styles */
-.footer {
-    background-color: #2a2a2a; /* Change to your desired background color */
-    color: #ffffff; /* Text color */
-    padding: 20px 0; /* Padding for spacing */
+
+.scroll-up {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none; /* Initially hidden */
+    width: 50px; /* Width of the button */
+    height: 50px; /* Height of the button */
+    background-color: #007bff; /* Button color */
+    color: white;
+    border: none;
+    border-radius: 50%; /* Circular shape */
+    font-size: 24px; /* Font size */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; /* Transition for hover effects */
+    z-index: 1000; /* Ensure it appears above other elements */
 }
 
-.footer p {
-    margin: 0;
-    font-size: 1rem;
-    color: #cccccc; /* Lighter text color for better contrast */
+.scroll-up:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    transform: scale(1.1); /* Slightly increase size on hover */
 }
 
+.scroll-up:focus {
+    outline: none; /* Remove outline */
+}
 </style>
 </head>
 
@@ -227,8 +280,8 @@
     <div class="d-flex align-items-center justify-content-between w-100>
         <!-- Logo and title -->
         <img src="assets/img/trasparlogo.png" alt="" style="width: 150px; height: 90px; margin-left: 20px;">
-        <h1 class="header-title">BANTAYAN ISLAND CENSUS</h1>
-        
+        <h1 class="header-title d-none d-md-block text-blue">BANTAYAN ISLAND CENSUS</h1>
+        <h1 class="header-title d-block d-md-none text-blue">BANISCEN</h1>
         <!-- Navigation Menu and Login Dropdown -->
         <div class="d-flex align-items-center justify-content-end w-100">
             <nav id="navmenu" class="navmenu">
@@ -243,21 +296,21 @@
                 </ul>
             </nav>
             
-           <div class="dropdown flex-md-shrink-0 hey">
+            <div class="dropdown flex-md-shrink-0 hey">
                 <button class="btn btn-primarys dropdown-toggle" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     Login
-              </button>
+                </button>
                 <ul class="dropdown-menu" aria-labelledby="loginDropdown">
                     <li><a class="dropdown-item" href="admin/login.php">Admin</a></li>
                     <hr>
-                    <li><a class="dropdown-item" href="stafflogin.php">Staff</a></li>
+                    <li><a class="dropdown-item" href="staff/login.php">Staff</a></li>
                 </ul>
             </div>
         </div>
     </div>
 </header>
 
-<!--<main class="main">
+<main class="main">
     <!-- Hero Section -->
     <section id="hero" class="hero section">
         <div class="row">
@@ -426,52 +479,60 @@
         <div class="row">
             <!-- Schedule Heading -->
             <div class="col-lg-12 text-center">
-                <br> <br>
-                <h2 class="section-title">Upcoming Schedule</h2>
-                <p class="section-description">Check out the upcoming events and schedules. Stay tuned for more details!</p>
+                <h2 class="section-title">Upcoming Census Schedule</h2>
+                <p class="section-description">Stay informed about the upcoming events and census schedules.</p>
             </div>
         </div>
         <!-- Schedule Table -->
         <div class="row">
             <div class="col-lg-12">
-                <table class="table table-striped schedule-table">
-                    <thead>
-                        <tr>
-                            <th>Municipality</th>
-                            <th>Census Date</th>
-                            <th>Census Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        // Include the database connection
-                        include 'database/db_connect.php';
+                <div class="table-responsive">
+                    <table class="table schedule-table">
+                        <thead>
+                            <tr>
+                                <th>Municipality</th>
+                                <th>Census Date</th>
+                                <th>Census Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            // Include the database connection
+                            include 'database/db_connect.php';
 
-                        // Fetch data from the schedule table
-                        $sql = "SELECT municipality, start_census, end_census, start_time, end_time FROM schedule ORDER BY start_census ASC";
-                        $result = $conn->query($sql);
+                            // Fetch data from the schedule table
+                            $sql = "SELECT municipality, start_census, end_census, start_time, end_time FROM schedule ORDER BY start_census ASC";
+                            $result = $conn->query($sql);
 
-                        if ($result->num_rows > 0) {
-                            while($row = $result->fetch_assoc()) {
-                                echo "<tr>";
-                                echo "<td>" . htmlspecialchars($row["municipality"]) . "</td>";
-                                echo "<td>" . htmlspecialchars($row["start_census"]) . " to " . htmlspecialchars($row["end_census"]) . "</td>";
-                                echo "<td>" . htmlspecialchars($row["start_time"]) . " to " . htmlspecialchars($row["end_time"]) . "</td>";
-                                echo "</tr>";
+                            if ($result->num_rows > 0) {
+                                while($row = $result->fetch_assoc()) {
+                                    echo "<tr>";
+                                    echo "<td>" . htmlspecialchars($row["municipality"]) . "</td>";
+                                    echo "<td>" . htmlspecialchars($row["start_census"]) . " to " . htmlspecialchars($row["end_census"]) . "</td>";
+                                    echo "<td>" . htmlspecialchars($row["start_time"]) . " to " . htmlspecialchars($row["end_time"]) . "</td>";
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='3'>No schedules found</td></tr>";
                             }
-                        } else {
-                            echo "<tr><td colspan='3'>No schedules found</td></tr>";
-                        }
 
-                        // Close the database connection
-                        $conn->close();
-                        ?>
-                    </tbody>
-                </table>
+                            // Close the database connection
+                            $conn->close();
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center mt-4">
+                <p class="footer-note">For more information, please contact your local census office.</p>
             </div>
         </div>
     </div>
 </section>
+
+
 
 <!-- About Section -->
 <section id="about" class="about-content section">
@@ -479,52 +540,56 @@
     <div class="container">
         <!-- Section Header -->
         <div class="section-header text-center mb-5">
-            <p>Learn more about our initiative, mission, and vision.</p>
+            <h2 class="section-title">Join Us in Shaping a Brighter Future</h2>
+            <p class="section-subtitle">Discover our mission to empower communities and learn how you can make a meaningful impact today.</p>
         </div>
-        
+
+        <!-- Logos Row with Marquee -->
+        <div class="logos-marquee">
+            <div class="logos-row text-center">
+                <img src="assets/img/censuslogo1.png" class="logo" alt="Logo 1">
+                <img src="assets/img/bantayanseal.png" class="logo" alt="Bantayan Seal">
+                <img src="assets/img/madridejosseal.png" class="logo" alt="Madridejos Seal">
+                <img src="assets/img/santafeseal.png" class="logo" alt="Santa Fe Seal">
+                <img src="assets/img/censuslogo2.png" class="logo" alt="Logo 2">
+            </div>
+        </div>
+
         <!-- About Content -->
         <div class="row align-items-center">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div class="about-texts">
-                    <h3>About Us</h3>
-                    <p>
+                    <h3 class="about-title">About Us</h3>
+                    <p class="about-description">
                         The Bantayan Island Census is a dedicated effort to gather and document essential demographic data across Bantayan Island and its municipalities. We strive to provide accurate and timely information to aid in effective community planning and development.
                     </p>
-                    <p>
+                    <p class="about-description">
                         Our aim is to enhance living standards and ensure that every resident has access to the resources and support they need. By conducting this census, we hope to foster a deeper understanding of our communities and address their unique needs with precision and care.
                     </p>
                 </div>
             </div>
-             <!-- Right Column: Logo Design -->
-             <div class="col-lg-6">
-                        <div class="hero-image text-center">
-                            <!-- Use a container to maintain the size -->
-                            <div id="logoContainer">
-                            <img src="assets/img/logo.png" class="img-fluid animated" alt="" style="border-radius: 300px; margin-bottom: 30px; margin-right: 50px; width: 80%;">
-                            </div>
+
+            <!-- Mission and Vision -->
+            <div class="row mt-5">
+                <div class="col-lg-6">
+                    <div class="mission-vision">
+                        <div class="mission">
+                            <h3 class="mission-title">Our Mission</h3>
+                            <p class="mission-description">
+                                To collect and analyze comprehensive demographic data that empowers our communities, supports effective planning, and drives sustainable social and economic development.
+                            </p>
                         </div>
                     </div>
-        
-
-        <!-- Mission and Vision -->
-       <div class="col-lg-6">
-                <div class="mission-vision">
-                    <div class="mission">
-                        <h3>Our Mission</h3>
-                        <p>
-                            To collect and analyze comprehensive demographic data that empowers our communities, supports effective planning, and drives sustainable social and economic development.
-                        </p>
-                    </div>
                 </div>
-            </div>
-    
-            <div class="col-lg-6">
-                <div class="mission-vision">
-                    <div class="vision">
-                        <h3>Our Vision</h3>
-                        <p>
-                            To be a leading example of data-driven community engagement, where accurate and actionable information fosters growth, development, and an enhanced quality of life for all residents.
-                        </p>
+
+                <div class="col-lg-6">
+                    <div class="mission-vision">
+                        <div class="vision">
+                            <h3 class="vision-title">Our Vision</h3>
+                            <p class="vision-description">
+                                To be a leading example of data-driven community engagement, where accurate and actionable information fosters growth, development, and an enhanced quality of life for all residents.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -532,15 +597,8 @@
     </div>
 </section>
 
-
-
-
-
-
-
-
-<!-- Scroll Top button and scripts -->
-<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<!-- Scroll Up Button -->
+<button id="scrollUp" class="scroll-up" title="Scroll to Top">↑</button>
 
 <!-- Vendor JS Files and Main JS -->
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -643,20 +701,27 @@
 
 
 </script>
+<script>
+// JavaScript to handle scroll behavior
+window.onscroll = function() {
+    const scrollUpButton = document.getElementById("scrollUp");
+    
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        scrollUpButton.style.display = "block"; // Show button
+    } else {
+        scrollUpButton.style.display = "none"; // Hide button
+    }
+};
 
-<!-- Footer Section -->
-<footer class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-             <p>&copy;2024 Bantayan Island Census. All rights reserved.</p> 
-             <p> Bachelor Science Information Techonolgy.</p>
-            </div>
-        </div>
-    </div>
-</footer>
+// Scroll to top function
+document.getElementById("scrollUp").onclick = function() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth" // Smooth scroll
+    });
+};
+</script>
 
-  
   <div class="credits">
     <!-- All the links in the footer should remain intact. -->
     <!-- You can delete the links only if you've purchased the pro version. -->
@@ -665,7 +730,8 @@
     <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
   </div>
 </div>
-
-</footer>
+<?php 
+include 'footer.php';
+?>
 </body>
 </html>
