@@ -280,7 +280,7 @@ margin-left:13%;
         <div class="container">
             <div class="row">
             <h5 class="card-title su" style="margin-left: 37px;">Overall Total </h5>
-                <div class="col-xl-3 col-lg-6 col-md-6 mb-6">
+                <div class="col-xl-3 col-lg-6 col-md-5 mb-4">
                     <div class="card-box bg-blue">
                         <div class="inner">
                         <h3 class="total-barangay"><?php echo $totalBarangayCount; ?></h3>
@@ -292,7 +292,7 @@ margin-left:13%;
                     </div>
                 </div>
 
-                <div class="col-xl-3 col-lg-6 col-md-6 mb-6">
+                <div class="col-xl-3 col-lg-6 col-md-5 mb-4">
                     <div class="card-box bg-green">
                         <div class="inner">
                         <h3 class="total-houses"><?php echo array_sum($data['totalHouseNumbers']); ?></h3>
