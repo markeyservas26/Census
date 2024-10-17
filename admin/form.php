@@ -1646,7 +1646,7 @@ $postData = $_POST ?? [];
     </div>
 
     <!-- Map container with explicit height -->
-    <div id="map" style="height: 500px; width: 100%;"></div> <!-- Set height for map -->
+    <div id="map" style="height: 200px; width: 50%;"></div> <!-- Set height for map -->
     
     <p class="mt-3 text-center">Coordinates: <span id="coordinates">None</span></p>
     
