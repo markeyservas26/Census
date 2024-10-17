@@ -214,6 +214,7 @@ if ($resultSexCounts->num_rows > 0) {
 
         .card-box p {
             font-size: 15px;
+            margin-top: 20px;
         }
 
         .card-box .icon {
