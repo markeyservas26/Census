@@ -53,6 +53,9 @@
 
         // Function to get the user's location
         document.getElementById('getLocationBtn').addEventListener('click', function() {
+            var name = document.getElementById('name').value;
+            var household = document.getElementById('household').value;
+
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     var lat = position.coords.latitude;
@@ -61,9 +64,9 @@
                     // Center the map on the user's location
                     map.setView([lat, lng], 13);
 
-                    // Add a marker for the user's location
+                    // Add a marker for the user's location with name and household number in the popup
                     L.marker([lat, lng]).addTo(map)
-                        .bindPopup('You are here!')
+                        .bindPopup('Name: ' + name + '<br>Household Number: ' + household)
                         .openPopup();
 
                     // Display the coordinates
