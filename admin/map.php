@@ -1,80 +1,83 @@
-<?php include 'header.php'; ?>
-<main id="main" class="main">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map Locator</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+        button {
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        .input-container {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Click on the map to get latitude and longitude</h2>
 
-    <!-- Input fields for name and household number -->
     <div class="input-container">
         <label for="name">Name:</label>
-        <input type="text" id="name" placeholder="Enter your name" required>
+        <input type="text" id="name" placeholder="Enter your name">
     </div>
     <div class="input-container">
         <label for="household">Household Number:</label>
-        <input type="text" id="household" placeholder="Enter household number" required>
+        <input type="text" id="household" placeholder="Enter household number">
     </div>
-    
     <button id="getLocationBtn">Get My Location</button>
-    <button id="submitBtn" disabled>Submit</button>
+    <div id="map"></div>
+    <p>Coordinates: <span id="coordinates">None</span></p>
 
-    <div id="map" style="height: 630px;"></div>
-</main><!-- End #main -->
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script>
-    // Initialize the map
-    var map = L.map('map').setView([11.1561, 123.7467], 12); // Centered on Bantayan Island
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map and set view to Bantayan Island's coordinates
+        var map = L.map('map').setView([11.3, 123.7], 10);  // Adjusted coordinates for Bantayan Island
 
-    // Add a tile layer (base map)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: ' '
-    }).addTo(map);
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
 
-    var marker; // Variable to store the user's marker
-    var userLat, userLng; // Variables to store latitude and longitude
+        // Function to update coordinates when the map is clicked
+        map.on('click', function(e) {
+            var lat = e.latlng.lat;
+            var lng = e.latlng.lng;
+            document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
+        });
 
-    // Function to get the user's location
-    document.getElementById('getLocationBtn').addEventListener('click', function() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                userLat = position.coords.latitude;
-                userLng = position.coords.longitude;
+        // Function to get the user's location
+        document.getElementById('getLocationBtn').addEventListener('click', function() {
+            var name = document.getElementById('name').value;
+            var household = document.getElementById('household').value;
 
-                // Center the map on the user's location
-                map.setView([userLat, userLng], 13);
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var lat = position.coords.latitude;
+                    var lng = position.coords.longitude;
 
-                // If there's an existing marker, remove it
-                if (marker) {
-                    map.removeLayer(marker);
-                }
+                    // Center the map on the user's location
+                    map.setView([lat, lng], 13);
 
-                // Add a marker for the user's location
-                marker = L.marker([userLat, userLng]).addTo(map)
-                    .bindPopup('You are here!')
-                    .openPopup();
+                    // Add a marker for the user's location with name and household number in the popup
+                    L.marker([lat, lng]).addTo(map)
+                        .bindPopup('Name: ' + name + '<br>Household Number: ' + household)
+                        .openPopup();
 
-                // Enable the submit button after getting the location
-                document.getElementById('submitBtn').disabled = false;
-            }, function() {
-                alert('Unable to retrieve your location.');
-            });
-        } else {
-            alert('Geolocation is not supported by this browser.');
-        }
-    });
-
-    // Function to submit the name and household number
-    document.getElementById('submitBtn').addEventListener('click', function() {
-        var name = document.getElementById('name').value;
-        var household = document.getElementById('household').value;
-
-        // Check if both fields are filled
-        if (name && household && userLat !== undefined && userLng !== undefined) {
-            // Update the marker with the user's name and household number
-            marker.setLatLng([userLat, userLng]); // Ensure the marker is at the user's location
-            marker.bindPopup('Name: ' + name + '<br>Household Number: ' + household).openPopup();
-        } else {
-            alert('Please fill in both fields and get your location first.');
-        }
-    });
-</script>
-
-<?php include 'footer.php'; ?>
+                    // Display the coordinates
+                    document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
+                }, function() {
+                    alert('Unable to retrieve your location.');
+                });
+            } else {
+                alert('Geolocation is not supported by this browser.');
+            }
+        });
+    </script>
+</body>
+</html>
