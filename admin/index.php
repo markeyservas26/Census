@@ -311,18 +311,6 @@ margin-left:13%;
                     </div>
                 </div>
 
-                <!-- <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
-                    <div class="card-box bg-orange">
-                        <div class="inner">
-                        <h3 class="total-sitios"><?php echo $data['values'][0]; ?></h3>
-                            <p><b>Total Sitios</b></p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa fa-location" aria-hidden="true"></i>
-                        </div>              
-                    </div>
-                </div> -->
-
                 <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
                     <div class="card-box bg-red">
                         <div class="inner">
@@ -334,6 +322,17 @@ margin-left:13%;
                         </div>
                     </div>
                 </div>
+                <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
+                    <div class="card-box bg-orange">
+                        <div class="inner">
+                        <h3 class="total-sitios">0</h3>
+                            <p><b>Total Transfer</b></p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-location" aria-hidden="true"></i>
+                        </div>              
+                    </div>
+                </div> 
             </div>
         </div>
     </section>
