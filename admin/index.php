@@ -158,29 +158,18 @@ if ($resultSexCounts->num_rows > 0) {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             height: 150%; /* Ensure all cards have the same height */
-            margin-right:80px;
+            margin-left:18px;
             width: 100%;
         }
 
         .card-container {
-    display: flex;
-    justify-content: center; /* Center cards horizontally */
+          display: flex;
+    justify-content: flex-start; /* Center cards horizontally */
     gap: 20px; /* Adjust spacing between cards */
     flex-wrap: wrap;
-    width: 100%;
-}
+  
+        }
 
-.card-box {
-    width: 250px; /* Set a fixed width for consistent card size */
-    padding: 20px 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-.section .container {
-    display: flex;
-    justify-content: center; /* Center the cards section */
-}
         .card-box:hover {
             text-decoration: none;
             color: #f1f1f1;
