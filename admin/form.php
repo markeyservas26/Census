@@ -1618,6 +1618,8 @@ $postData = $_POST ?? [];
 
                 </div>
             </form>
+            </div>
+            </main>
             <div id="mapPage">
         <h2>Click on the map to get latitude and longitude</h2>
         <div class="input-container">
@@ -1634,8 +1636,7 @@ $postData = $_POST ?? [];
         <button id="submitBtn">Submit</button>
         <button id="backBtn" onclick="goToSurvey()">Back</button>
     </div>
-        </div>
-    </main>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
