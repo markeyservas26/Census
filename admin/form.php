@@ -1620,22 +1620,22 @@ $postData = $_POST ?? [];
             </form>
             </div>
             </main>
-            <div id="mapPage" class="container">
-        <h2>Click on the map to get latitude and longitude</h2>
-        <div class="input-container">
-            <label for="name">First Name:</label>
-            <input type="text" id="name" class="form-control" placeholder="Enter your first name" value="">
-        </div>
-        <div class="input-container">
-            <label for="household">Household Number:</label>
-            <input type="text" id="household" class="form-control" placeholder="Enter household number" value="">
-        </div>
-        <button id="getLocationBtn" class="btn btn-secondary mb-3">Get My Location</button>
-        <div id="map"></div>
-        <p class="mt-3">Coordinates: <span id="coordinates">None</span></p>
-        <button id="submitBtn" class="btn btn-success mt-3">Submit</button>
-        <button id="backBtn" class="btn btn-warning mt-3" onclick="goToSurvey()">Back</button>
+            <div id="mapPage" class="container" style="display: none;"> <!-- Hide mapPage by default -->
+    <h2>Click on the map to get latitude and longitude</h2>
+    <div class="input-container">
+        <label for="name">First Name:</label>
+        <input type="text" id="name" class="form-control" placeholder="Enter your first name" value="">
     </div>
+    <div class="input-container">
+        <label for="household">Household Number:</label>
+        <input type="text" id="household" class="form-control" placeholder="Enter household number" value="">
+    </div>
+    <button id="getLocationBtn" class="btn btn-secondary mb-3">Get My Location</button>
+    <div id="map" style="height: 400px;"></div> <!-- Set height for map -->
+    <p class="mt-3">Coordinates: <span id="coordinates">None</span></p>
+    <button id="submitBtn" class="btn btn-success mt-3">Submit</button>
+    <button id="backBtn" class="btn btn-warning mt-3" onclick="goToSurvey()">Back</button>
+</div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -1644,96 +1644,97 @@ $postData = $_POST ?? [];
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script>
-        let map;
-        let userMarker;
+    let map;
+    let userMarker;
 
-        function goToMap() {
-            document.getElementById('surveyPage').style.display = 'none';
-            document.getElementById('mapPage').style.display = 'block';
-            initializeMap();
+    function goToMap() {
+        document.getElementById('surveyPage').style.display = 'none'; // Hide survey page
+        document.getElementById('mapPage').style.display = 'block';  // Show map page
+        initializeMap(); // Initialize the map
+    }
+
+    function goToSurvey() {
+        document.getElementById('mapPage').style.display = 'none';   // Hide map page
+        document.getElementById('surveyPage').style.display = 'block'; // Show survey page
+    }
+
+    function initializeMap() {
+        if (!map) {
+            map = L.map('map').setView([11.2, 123.7333], 11); // Centered on Bantayan Island
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            map.on('click', function(e) {
+                var lat = e.latlng.lat.toFixed(6);
+                var lng = e.latlng.lng.toFixed(6);
+                document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
+
+                if (userMarker) {
+                    map.removeLayer(userMarker);
+                }
+                userMarker = L.marker([lat, lng]).addTo(map)
+                    .bindPopup('Selected Location')
+                    .openPopup();
+            });
         }
 
-        function goToSurvey() {
-            document.getElementById('mapPage').style.display = 'none';
-            document.getElementById('surveyPage').style.display = 'block';
+        // Load previously saved data
+        document.getElementById('name').value = localStorage.getItem('firstname_hl') || '';
+        document.getElementById('household').value = localStorage.getItem('house_number') || '';
+    }
+
+    document.getElementById('getLocationBtn').addEventListener('click', function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var lat = position.coords.latitude.toFixed(6);
+                var lng = position.coords.longitude.toFixed(6);
+                
+                map.setView([lat, lng], 15);
+                
+                if (userMarker) {
+                    map.removeLayer(userMarker);
+                }
+                userMarker = L.marker([lat, lng]).addTo(map)
+                    .bindPopup('Your Location')
+                    .openPopup();
+                
+                document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
+            }, function() {
+                Swal.fire('Error', 'Unable to retrieve your location.', 'error');
+            });
+        } else {
+            Swal.fire('Error', 'Geolocation is not supported by this browser.', 'error');
         }
+    });
 
-        function initializeMap() {
-            if (!map) {
-                map = L.map('map').setView([11.2, 123.7333], 11); // Centered on Bantayan Island
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                }).addTo(map);
+    document.getElementById('submitBtn').addEventListener('click', function() {
+        var name = document.getElementById('name').value;
+        var household = document.getElementById('household').value;
+        var coordinates = document.getElementById('coordinates').textContent;
 
-                map.on('click', function(e) {
-                    var lat = e.latlng.lat.toFixed(6);
-                    var lng = e.latlng.lng.toFixed(6);
-                    document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
-                    
-                    if (userMarker) {
-                        map.removeLayer(userMarker);
-                    }
-                    userMarker = L.marker([lat, lng]).addTo(map)
-                        .bindPopup('Selected Location')
-                        .openPopup();
-                });
-            }
+        if (name && household && coordinates !== 'None') {
+            localStorage.setItem('firstname_hl', name);
+            localStorage.setItem('house_number', household);
 
-            document.getElementById('name').value = localStorage.getItem('firstname_hl') || '';
-            document.getElementById('household').value = localStorage.getItem('house_number') || '';
+            Swal.fire({
+                title: 'Confirm Submission',
+                html: `Name: ${name}<br>Household Number: ${household}<br>${coordinates}`,
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: 'Submit',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Here you would typically send the data to your server
+                    Swal.fire('Submitted!', 'Your information has been submitted.', 'success');
+                }
+            });
+        } else {
+            Swal.fire('Error', 'Please fill in all fields and select a location on the map.', 'error');
         }
-
-        document.getElementById('getLocationBtn').addEventListener('click', function() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var lat = position.coords.latitude.toFixed(6);
-                    var lng = position.coords.longitude.toFixed(6);
-                    
-                    map.setView([lat, lng], 15);
-                    
-                    if (userMarker) {
-                        map.removeLayer(userMarker);
-                    }
-                    userMarker = L.marker([lat, lng]).addTo(map)
-                        .bindPopup('Your Location')
-                        .openPopup();
-                    
-                    document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
-                }, function() {
-                    Swal.fire('Error', 'Unable to retrieve your location.', 'error');
-                });
-            } else {
-                Swal.fire('Error', 'Geolocation is not supported by this browser.', 'error');
-            }
-        });
-
-        document.getElementById('submitBtn').addEventListener('click', function() {
-            var name = document.getElementById('name').value;
-            var household = document.getElementById('household').value;
-            var coordinates = document.getElementById('coordinates').textContent;
-
-            if (name && household && coordinates !== 'None') {
-                localStorage.setItem('firstname_hl', name);
-                localStorage.setItem('house_number', household);
-
-                Swal.fire({
-                    title: 'Confirm Submission',
-                    html: `Name: ${name}<br>Household Number: ${household}<br>${coordinates}`,
-                    icon: 'info',
-                    showCancelButton: true,
-                    confirmButtonText: 'Submit',
-                    cancelButtonText: 'Cancel'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Here you would typically send the data to your server
-                        Swal.fire('Submitted!', 'Your information has been submitted.', 'success');
-                    }
-                });
-            } else {
-                Swal.fire('Error', 'Please fill in all fields and select a location on the map.', 'error');
-            }
-        });
-    </script>
+    });
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form'); // Adjust this selector if needed
