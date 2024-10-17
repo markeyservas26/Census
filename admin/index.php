@@ -239,22 +239,22 @@ if ($resultSexCounts->num_rows > 0) {
             background: rgba(0, 0, 0, 0.3);
         }
 
-       /* Card box styling */
-.bg-blue {
-    background-color: #004080 !important; /* Navy Blue */
-}
+        .bg-blue {
+            background-color: #00c0ef !important;
+        }
 
-.bg-green {
-    background-color: #006400 !important; /* Dark Green */
-}
+        .bg-green {
+            background-color: #00a65a !important;
+        }
 
-.bg-orange {
-    background-color: #800000 !important; /* Maroon */
-}
+        .bg-orange {
+            background-color: #f39c12 !important;
+        }
 
-.bg-red {
-    background-color: #808080 !important; /* Gray */
-}
+        .bg-red {
+            background-color: #d9534f !important;
+        }
+
        
 
         .dashboard-content {
