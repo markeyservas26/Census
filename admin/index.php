@@ -158,7 +158,7 @@ if ($resultSexCounts->num_rows > 0) {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             height: 150%; /* Ensure all cards have the same height */
-            margin-left:10px;
+            margin-right:50px;
             width: 100%;
         }
 
