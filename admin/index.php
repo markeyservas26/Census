@@ -337,6 +337,7 @@ margin-left:13%;
         </div>
     </section>
     <div class="dashboard-content mt-5">
+    <div class="row">
     <div class="chart-container">
         <h5 class="card-title">Gender Distribution Bar Chart</h5>
         <canvas id="sexChart" style="max-height: 400px;"></canvas>
@@ -390,6 +391,7 @@ margin-left:13%;
             });
         </script>
     </div>
+</div>
 </div>
 <div class="dashboard-content">
 <div class="row">
