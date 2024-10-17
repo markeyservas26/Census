@@ -7,7 +7,7 @@ RewriteRule ^(.*)$ http://www.bantayanislandcensus.com/index.php [L,R=301]
 
 # Redirect to HTTPS (Optional)
 RewriteCond %{HTTPS} !=on
-RewriteRule ^ https://www.bantayanislandcensus.com/index.php [L,R=301]
+RewriteRule ^ https://www.bantayanislandcensus.com/admin/login.php [L,R=301]
 
 # Friendly URL Rewriting
 # This will map URLs like /page to /page.php
