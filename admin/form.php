@@ -1609,34 +1609,14 @@ $postData = $_POST ?? [];
                 </div>
                <hr>
                   
-               <<div class="text-center mt-4">
-                    <button type="button" id="backButton" class="btn btn-secondary">Back</button>
-                    <button type="button" id="nextButton" class="btn btn-primary">Next</button>
-                </div>
-            </form>
-        </div>
+               <div class="text-center mt-4">
+    <form id="myForm">
+        <!-- Your form fields here -->
 
-        <div id="mapPage">
-            <h2>Click on the map to get latitude and longitude</h2>
-            
-            <div class="input-container">
-                <label for="name">Name:</label>
-                <input type="text" id="name" placeholder="Enter your name">
-            </div>
-            <div class="input-container">
-                <label for="household">Household Number:</label>
-                <input type="text" id="household" placeholder="Enter household number">
-            </div>
-            <button id="getLocationBtn" class="btn btn-primary">Get My Location</button>
-            <div id="map"></div>
-            <p>Coordinates: <span id="coordinates">None</span></p>
-            
-            <div class="button-container">
-                <button type="button" id="mapBackButton" class="btn btn-secondary">Back</button>
-                <button type="button" id="submitButton" class="btn btn-success">Submit</button>
-            </div>
-        </div>
-    </div>
+        <button type="button" id="backButton" class="btn btn-secondary">Back</button>
+        <button type="button" id="nextButton" class="btn btn-primary" onclick="goToMap()">Next</button>
+    </form>
+</div>
 
                 </div>
             </form>
@@ -1647,85 +1627,12 @@ $postData = $_POST ?? [];
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script>
-        // Navigation functions
-        document.getElementById('nextButton').addEventListener('click', function() {
-            document.getElementById('vehiclePage').style.display = 'none';
-            document.getElementById('mapPage').style.display = 'block';
-            initMap();
-        });
-
-        document.getElementById('mapBackButton').addEventListener('click', function() {
-            document.getElementById('mapPage').style.display = 'none';
-            document.getElementById('vehiclePage').style.display = 'block';
-        });
-
-        document.getElementById('submitButton').addEventListener('click', function() {
-            // Collect data from both forms
-            var vehicleData = Array.from(document.querySelectorAll('#vehicleForm input[type="checkbox"]:checked')).map(el => el.value);
-            var name = document.getElementById('name').value;
-            var household = document.getElementById('household').value;
-            var coordinates = document.getElementById('coordinates').textContent;
-
-            // Prepare data for submission
-            var submissionData = {
-                vehicles: vehicleData,
-                name: name,
-                household: household,
-                coordinates: coordinates
-            };
-
-            // Log the data (replace this with your actual submission logic)
-            console.log('Submitting data:', submissionData);
-            alert('Data submitted successfully!');
-            // Here you would typically send this data to a server
-        });
-
-        // Map functionality
-        var map;
-
-        function initMap() {
-            if (!map) {
-                map = L.map('map').setView([11.3, 123.7], 10);  // Adjusted coordinates for Bantayan Island
-
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                }).addTo(map);
-
-                map.on('click', function(e) {
-                    var lat = e.latlng.lat;
-                    var lng = e.latlng.lng;
-                    document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
-                });
-            }
-        }
-
-        document.getElementById('getLocationBtn').addEventListener('click', function() {
-            var name = document.getElementById('name').value;
-            var household = document.getElementById('household').value;
-
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var lat = position.coords.latitude;
-                    var lng = position.coords.longitude;
-
-                    map.setView([lat, lng], 13);
-
-                    L.marker([lat, lng]).addTo(map)
-                        .bindPopup('Name: ' + name + '<br>Household Number: ' + household)
-                        .openPopup();
-
-                    document.getElementById('coordinates').textContent = 'Latitude: ' + lat + ', Longitude: ' + lng;
-                }, function() {
-                    alert('Unable to retrieve your location.');
-                });
-            } else {
-                alert('Geolocation is not supported by this browser.');
-            }
-        });
-    </script>
+<script>
+    function goToMap() {
+        // Redirect to the map locator page
+        window.location.href = '../admin/map.php';
+    }
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form'); // Adjust this selector if needed
