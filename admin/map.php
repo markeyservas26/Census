@@ -1,6 +1,6 @@
 <?php
 $name = $_GET['firstname'] ?? '';
-$household = $_GET['house_number'] ?? '';
+$household = $_GET['household_hl'] ?? '';
 ?>
 
 <!DOCTYPE html>
