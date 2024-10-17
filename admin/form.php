@@ -1621,25 +1621,40 @@ $postData = $_POST ?? [];
             </div>
             </main>
             <div id="mapPage" class="container" style="display: none; padding: 20px;"> <!-- Hide mapPage by default -->
-    <h2>Click on the map to get latitude and longitude</h2>
-    <div class="input-container">
-        <label for="name">First Name:</label>
-        <input type="text" id="name" class="form-control" placeholder="Enter your first name" value="">
-    </div>
-    <div class="input-container">
-        <label for="household">Household Number:</label>
-        <input type="text" id="household" class="form-control" placeholder="Enter household number" value="">
-    </div>
-    <button id="getLocationBtn" class="btn btn-secondary mb-3">Get My Location</button>
+    <h2 class="text-center">Click on the map to get latitude and longitude</h2>
     
+    <div class="row justify-content-center mb-3"> <!-- Centering the input fields -->
+        <div class="col-md-6">
+            <div class="input-container">
+                <label for="name">First Name:</label>
+                <input type="text" id="name" class="form-control" placeholder="Enter your first name" value="">
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-3"> <!-- Centering the household input field -->
+        <div class="col-md-6">
+            <div class="input-container">
+                <label for="household">Household Number:</label>
+                <input type="text" id="household" class="form-control" placeholder="Enter household number" value="">
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <button id="getLocationBtn" class="btn btn-secondary mb-3">Get My Location</button>
+    </div>
+
     <!-- Map container with explicit height -->
     <div id="map" style="height: 500px; width: 100%;"></div> <!-- Set height for map -->
     
-    <p class="mt-3">Coordinates: <span id="coordinates">None</span></p>
-    <button id="submitBtn" class="btn btn-success mt-3">Submit</button>
-    <button id="backBtn" class="btn btn-warning mt-3" onclick="goToSurvey()">Back</button>
+    <p class="mt-3 text-center">Coordinates: <span id="coordinates">None</span></p>
+    
+    <div class="text-center">
+        <button id="submitBtn" class="btn btn-success mt-3">Submit</button>
+        <button id="backBtn" class="btn btn-warning mt-3" onclick="goToSurvey()">Back</button>
+    </div>
 </div>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
