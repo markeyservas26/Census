@@ -158,16 +158,10 @@ if ($resultSexCounts->num_rows > 0) {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             height: 150%; /* Ensure all cards have the same height */
-            margin-right:500px;
+            margin-right:700px;
             width: 100%;
         }
 
-        .card-container {
-          display: flex;
-    gap: 20px; /* Adjust spacing between cards */
-    flex-wrap: wrap;
-  
-        }
 
         .card-box:hover {
             text-decoration: none;
