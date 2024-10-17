@@ -261,7 +261,7 @@ if ($resultSexCounts->num_rows > 0) {
     align-items: flex-start; /* Align the charts at the top */
     gap: 30px; /* Add a gap between each chart */
    width: 200%;
-   margin-left: 65px;
+   margin-left: 50px;
 }
 .doughnut-chart {
   width: 50%;
@@ -337,7 +337,6 @@ margin-left:13%;
         </div>
     </section>
     <div class="dashboard-content mt-5">
-    <div class="row">
     <div class="chart-container">
         <h5 class="card-title">Gender Distribution Bar Chart</h5>
         <canvas id="sexChart" style="max-height: 400px;"></canvas>
@@ -391,7 +390,6 @@ margin-left:13%;
             });
         </script>
     </div>
-</div>
 </div>
 <div class="dashboard-content">
 <div class="row">
