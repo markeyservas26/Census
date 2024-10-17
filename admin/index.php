@@ -3,8 +3,8 @@ include 'header.php';
 include '../database/db_connect.php';
 
 // Prepare SQL to get municipality counts
-$sql = "SELECT municipality, COUNT(*) as count FROM barangay_census 
-        WHERE municipality IN ('madridejos', 'bantayan', 'santafe')
+$sql = "SELECT municipality, COUNT(*) as count FROM house_leader 
+        WHERE municipality IN ('Madridejos', 'Bantayan', 'Santafe')
         GROUP BY municipality";
 
 $result = $conn->query($sql);
@@ -21,8 +21,8 @@ if ($result->num_rows > 0) {
 }
 
 // Prepare SQL to get house number counts
-$sqlHouseNumbers = "SELECT municipality, COUNT(DISTINCT house_number) as count FROM barangay_census 
-                    WHERE municipality IN ('madridejos', 'bantayan', 'santafe')
+$sqlHouseNumbers = "SELECT municipality, COUNT(DISTINCT house_number) as count FROM house_leader 
+                    WHERE municipality IN ('Madridejos', 'Bantayan', 'Santafe')
                     GROUP BY municipality";
 
 $resultHouseNumbers = $conn->query($sqlHouseNumbers);
@@ -39,8 +39,8 @@ if ($resultHouseNumbers->num_rows > 0) {
 }
 
 // Prepare SQL to get occupant name counts
-$sqlOccupants = "SELECT municipality, COUNT(*) as count FROM barangay_census 
-                 WHERE municipality IN ('madridejos', 'bantayan', 'santafe')
+$sqlOccupants = "SELECT municipality, COUNT(*) as count FROM house_leader 
+                 WHERE municipality IN ('Madridejos', 'Bantayan', 'Santafe')
                  GROUP BY municipality";
 
 $resultOccupants = $conn->query($sqlOccupants);
@@ -63,8 +63,8 @@ foreach ($houseLabels as $key => $municipality) {
 }
 
 // Fetch total count of house number records (for Residence)
-$sqlTotalHouseNumbers = "SELECT municipality, COUNT(DISTINCT house_number) as count FROM barangay_census 
-                         WHERE municipality IN ('madridejos', 'bantayan', 'santafe')
+$sqlTotalHouseNumbers = "SELECT municipality, COUNT(DISTINCT house_number) as count FROM house_leader  
+                         WHERE municipality IN ('Madridejos', 'Bantayan', 'Santafe')
                          GROUP BY municipality";
 
 $resultTotalHouseNumbers = $conn->query($sqlTotalHouseNumbers);
