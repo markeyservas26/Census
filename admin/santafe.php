@@ -171,7 +171,7 @@ margin: 0;
             <td><?= htmlspecialchars($row['fullname']) ?></td>
             <td><?= htmlspecialchars($row['address']) ?></td>
             <td>
-                <a href="view_household.php?id=<?= $row['id'] ?>" class="btn btn-primary btn-sm">View</a>
+                <a href="view-form.php?id=<?= $row['id'] ?>" class="btn btn-primary btn-sm">View</a>
             </td>
         </tr>
     <?php endwhile; ?>

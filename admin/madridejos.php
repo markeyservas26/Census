@@ -170,7 +170,7 @@ margin: 0;
             <td><?= htmlspecialchars($row['fullname']) ?></td>
             <td><?= htmlspecialchars($row['address']) ?></td>
             <td>
-    <a href="view_household.php?id=<?= $row['id'] ?>" class="btn btn-primary btn-sm">View</a>
+    <a href="view-form.php?id=<?= $row['id'] ?>" class="btn btn-primary btn-sm">View</a>
     <button type="button" class="btn btn-secondary btn-sm transfer-btn" data-id="<?= $row['id'] ?>" data-house="<?= htmlspecialchars($row['house_number']) ?>" data-fullname="<?= htmlspecialchars($row['fullname']) ?>" data-address="<?= htmlspecialchars($row['address']) ?>" data-municipality="Bantayan" data-toggle="modal" data-target="#transferModal">Transfer</button>
     <button type="button" class="btn btn-info btn-sm edit-btn" data-id="<?= $row['id'] ?>">Edit</button>
 </td>
