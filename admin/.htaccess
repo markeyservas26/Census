@@ -3,11 +3,11 @@ RewriteEngine On
 
 # Force www. version of the site (Optional)
 RewriteCond %{HTTP_HOST} ^bantayanislandcensus.com [NC]
-RewriteRule ^(.*)$ http://www.bantayanislandcensus.com/ [L,R=301]
+RewriteRule ^(.*)$ http://www.bantayanislandcensus.com/index.php [L,R=301]
 
 # Redirect to HTTPS (Optional)
 RewriteCond %{HTTPS} !=on
-RewriteRule ^ https://www.bantayanislandcensus.com/admin/login.php [L,R=301]
+RewriteRule ^ https://www.bantayanislandcensus.com/index.php [L,R=301]
 
 # Friendly URL Rewriting
 # This will map URLs like /page to /page.php
