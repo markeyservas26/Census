@@ -261,7 +261,7 @@ if ($resultSexCounts->num_rows > 0) {
     align-items: flex-start; /* Align the charts at the top */
     gap: 30px; /* Add a gap between each chart */
    width: 200%;
-   margin-left: 130px;
+   margin-left: 120px;
 }
 .doughnut-chart {
   width: 50%;
