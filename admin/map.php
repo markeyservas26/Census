@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Map Locator</title>
+    <title>Multi-Step Form with Map Locator</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <style>
         #map {
@@ -11,38 +11,64 @@
             width: 100%;
         }
         button {
-            margin-bottom: 10px;
+            margin: 10px;
             padding: 10px;
         }
         .input-container {
             margin-bottom: 10px;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <h2>Click on the map to get latitude and longitude</h2>
+    <h2>Multi-Step Form</h2>
 
-    <div class="input-container">
-        <label for="name">Name:</label>
-        <input type="text" id="name" placeholder="Enter your name">
+    <div id="inputSection">
+        <div class="input-container">
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+        </div>
+        <div class="input-container">
+            <label for="household">Household Number:</label>
+            <input type="text" id="household" placeholder="Enter household number" required>
+        </div>
+        <div class="text-center mt-4">
+            <button type="button" id="nextButton">Next</button>
+        </div>
     </div>
-    <div class="input-container">
-        <label for="household">Household Number:</label>
-        <input type="text" id="household" placeholder="Enter household number">
+
+    <div id="mapSection" class="hidden">
+        <div class="text-center mt-4">
+            <button type="button" id="backButton">Back</button>
+            <button type="button" id="getLocationBtn">Get My Location</button>
+        </div>
+        <div id="map"></div>
+        <p>Coordinates: <span id="coordinates">None</span></p>
     </div>
-    <button id="getLocationBtn">Get My Location</button>
-    <div id="map"></div>
-    <p>Coordinates: <span id="coordinates">None</span></p>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
-        // Initialize the map and set view to Bantayan Island's coordinates
-        var map = L.map('map').setView([11.3, 123.7], 10);  // Adjusted coordinates for Bantayan Island
+        // Initialize the map
+        var map = L.map('map').setView([11.3, 123.7], 10); // Centered on Bantayan Island
 
         // Add OpenStreetMap tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
+
+        // Handle Next button click
+        document.getElementById('nextButton').addEventListener('click', function() {
+            document.getElementById('inputSection').classList.add('hidden');
+            document.getElementById('mapSection').classList.remove('hidden');
+        });
+
+        // Handle Back button click
+        document.getElementById('backButton').addEventListener('click', function() {
+            document.getElementById('mapSection').classList.add('hidden');
+            document.getElementById('inputSection').classList.remove('hidden');
+        });
 
         // Function to update coordinates when the map is clicked
         map.on('click', function(e) {
