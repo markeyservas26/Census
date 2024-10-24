@@ -606,7 +606,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 timer: 2000, // Show for 2 seconds before proceeding
                                 willClose: () => {
                                   location.reload(); 
-                                    printDetails(); // Call the print function after the success message
                                 }
                             });
                         } else {
