@@ -560,94 +560,65 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  function printDetails() {
-    const emailValue = document.getElementById("emailInput").value;
-    // You can gather other details similarly if needed
-
-    const printWindow = window.open('', '_blank');
-    printWindow.document.write(`
-        <html>
-            <head>
-                <title>Staff Details</title>
-                <style>
-                    body { font-family: Arial, sans-serif; }
-                </style>
-            </head>
-            <body>
-                <h1>Staff Details</h1>
-                <p>Email: ${emailValue}</p>
-                <!-- Add more details as necessary -->
-                <button onclick="window.print()">Print this document</button>
-            </body>
-        </html>
-    `);
-    printWindow.document.close();
-    printWindow.focus();
-}
-3. Verify the Form Submission Flow
-Make sure that after form submission, the necessary data is prepared before printing. Here’s how your form submission handler can be adjusted to ensure clarity in the flow:
-
-javascript
-Copy code
-document.getElementById("addStaffForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    
-    const emailInput = document.getElementById("emailInput");
-    const emailValue = emailInput.value;
-    const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-    
-    // Email validation
-    if (!gmailPattern.test(emailValue)) {
-        Swal.fire({
-            icon: "error",
-            title: "Validation Error",
-            text: "Username must have an @gmail.com."
-        });
-        return;
-    }
-    
-    // Form submission
-    const formData = new FormData(this);
-    
-    fetch(this.action, {
-        method: "POST",
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // First Sweet Alert for successful submission
-            Swal.fire({
-                icon: "success",
-                title: "Staff Added Successfully!",
-                text: "Would you like to print the details?",
-                showCancelButton: true,
-                confirmButtonText: 'Yes, print it!',
-                cancelButtonText: 'No, thanks'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    printDetails(); // Call your print function
+  document.getElementById("addStaffForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const emailInput = document.getElementById("emailInput");
+            const emailValue = emailInput.value;
+            const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+            
+            // Email validation
+            if (!gmailPattern.test(emailValue)) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Validation Error",
+                    text: "Username must have an @gmail.com."
+                });
+                return;
+            }
+            
+            // Form submission
+            const formData = new FormData(this);
+            
+            fetch(this.action, {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // First Sweet Alert for successful submission
+                    Swal.fire({
+                        icon: "success",
+                        title: "Staff Added Successfully!",
+                        text: "Would you like to print the details?",
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, print it!',
+                        cancelButtonText: 'No, thanks'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            printDetails(); // Call your print function
+                        } else {
+                            location.reload();
+                        }
+                    });
                 } else {
-                    location.reload();
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: data.message || "There was a problem adding the new staff."
+                    });
                 }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "An error occurred while adding the new staff."
+                });
             });
-        } else {
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: data.message || "There was a problem adding the new staff."
-            });
-        }
-    })
-    .catch(error => {
-        console.error("Error:", error);
-        Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "An error occurred while adding the new staff."
         });
-    });
-});
 
 
 
