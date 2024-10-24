@@ -593,16 +593,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: "Success",
                 text: "New staff added successfully!"
             }).then(() => {
-                // Store necessary details in localStorage
-                localStorage.setItem('printDetails', JSON.stringify({
-                    name: document.getElementById('nameInput').value,
-                    email: document.getElementById('emailInput').value,
-                    municipality: document.getElementById('municipalityInput').value,
-                    password: document.getElementById('passwordInput').value,
-                }));
-
-                // Reload the page
-                location.reload();
+                // Call the print confirmation function after success alert
+                showPrintConfirmation().then(() => {
+                    // Reload the page after the print confirmation
+                    location.reload();
+                });
             });
         } else {
             Swal.fire({
@@ -621,17 +616,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-// Check for stored print details on page load
-window.onload = function() {
-    const storedDetails = localStorage.getItem('printDetails');
-    if (storedDetails) {
-        const details = JSON.parse(storedDetails);
-        // Call print confirmation with stored details
-        showPrintConfirmation(details.name, details.email, details.municipality, details.password);
-        // Clear stored details after using
-        localStorage.removeItem('printDetails');
-    }
-};
+
 
 
 document.getElementById('editStaffForm').addEventListener('submit', function(e) {
