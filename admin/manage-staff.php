@@ -587,17 +587,19 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // Show success alert
+            // Show success alert for confirmation
             Swal.fire({
                 icon: "success",
                 title: "Success",
-                text: "New staff added successfully!"
-            }).then(() => {
-                // Call the print confirmation function after success alert
-                showPrintConfirmation().then(() => {
-                    // Reload the page after the print confirmation
+                text: "New staff added successfully!",
+                confirmButtonText: "OK"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Set a flag in localStorage before reloading
+                    localStorage.setItem('staffAdded', 'true');
+                    // Reload the page
                     location.reload();
-                });
+                }
             });
         } else {
             Swal.fire({
@@ -616,6 +618,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// After the page reload, check if the flag is set
+window.onload = function() {
+    if (localStorage.getItem('staffAdded')) {
+        // Show success alert for printing
+        Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: "New staff added successfully! Do you want to print the details?"
+        }).then(() => {
+            // Call the print confirmation function
+            showPrintConfirmation().then(() => {
+                // Clear the flag
+                localStorage.removeItem('staffAdded');
+            });
+        });
+    }
+};
 
 
 
