@@ -560,7 +560,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  document.getElementById("addStaffForm").addEventListener("submit", function(event) {
+  // Update the main form submission logic
+document.getElementById("addStaffForm").addEventListener("submit", function(event) {
     event.preventDefault();
     
     const emailInput = document.getElementById("emailInput");
@@ -587,6 +588,8 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            // Assuming 'data.staff' contains the newly added staff details
+            localStorage.setItem('staffAdded', JSON.stringify(data.staff)); // Store staff details
             // Show success alert for confirmation
             Swal.fire({
                 icon: "success",
@@ -595,8 +598,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 confirmButtonText: "OK"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Set a flag in localStorage before reloading
-                    localStorage.setItem('staffAdded', 'true');
                     // Reload the page
                     location.reload();
                 }
@@ -621,18 +622,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // After the page reload, check if the flag is set
 window.onload = function() {
-    if (localStorage.getItem('staffAdded')) {
+    const staffData = localStorage.getItem('staffAdded');
+    if (staffData) {
+        const staff = JSON.parse(staffData); // Parse the stored staff details
         // Show success alert for printing
         Swal.fire({
             icon: "success",
             title: "Success",
-            text: "New staff added successfully! Do you want to print the details?"
-        }).then(() => {
-            // Call the print confirmation function
-            showPrintConfirmation().then(() => {
-                // Clear the flag
+            text: "New staff added successfully! Do you want to print the details?",
+            confirmButtonText: "Print",
+            showCancelButton: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Call the print confirmation function with the staff details
+                showPrintConfirmation(staff); // Pass the staff details here
+            } else {
+                // Clear the flag even if not printing
                 localStorage.removeItem('staffAdded');
-            });
+            }
         });
     }
 };
@@ -845,11 +852,12 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script>
 // Print confirmation function
-function showPrintConfirmation() {
-    const name = document.getElementById('nameInput').value;
-    const email = document.getElementById('emailInput').value;
-    const municipality = document.getElementById('municipalityInput').value;
-    const password = document.getElementById('passwordInput').value;
+function showPrintConfirmation(staff) {
+    // Extract staff details from the staff object
+    const name = name; // Adjust these properties based on your actual staff object structure
+    const email = email;
+    const municipality = municipality;
+    const password = password; // Note: Avoid printing sensitive information like passwords
 
     Swal.fire({
         title: 'Do you want to print the account details?',
@@ -859,6 +867,7 @@ function showPrintConfirmation() {
         cancelButtonText: 'No'
     }).then((result) => {
         if (result.isConfirmed) {
+            // Call the function to print the details
             printDetails(name, email, municipality, password);
         } else {
             // Optionally reset the form or do something else
