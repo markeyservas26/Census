@@ -578,7 +578,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Sweet Alert for successful submission
+            // Sweet Alert for confirmation before submission
             Swal.fire({
                 icon: "warning",
                 title: "Are you sure?",
