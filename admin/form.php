@@ -178,13 +178,13 @@ $postData = $_POST ?? [];
             <div class="col-12 col-sm-6 col-lg-3">
             <?php
 // Default house number (can be empty initially or predefined)
-$houseNumber = htmlspecialchars($postData['house_number'] ?? '', ENT_QUOTES);
+$houseNumber = htmlspecialchars($postData['house_number'] ?? '000000', ENT_QUOTES); // Default to '000000' if empty
 ?>
 
 <div class="house-number-wrapper">
-    <label for="housenumber" class="form-label">House Number<span class="required-asterisk">*</span></label>
+    <label for="house_number" class="form-label">House Number<span class="required-asterisk">*</span></label>
     <div class="input-group">
-        <input type="number" class="form-control" id="house_number" name="house_number" value="<?php echo $houseNumber; ?>" placeholder="000000" required>
+        <input type="text" class="form-control" id="house_number" name="house_number" value="<?php echo $houseNumber; ?>" placeholder="000000" required pattern="\d{6}" title="Please enter a 6-digit house number">
     </div>
 
     <?php if ($status === 'house_number_exists'): ?>
@@ -1761,6 +1761,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+</script>
+<script>
+    document.getElementById('house_number').addEventListener('input', function (e) {
+        // Ensure the input is always a 6-digit number with leading zeros
+        let value = e.target.value.replace(/\D/g, ''); // Remove non-digit characters
+        e.target.value = value.padStart(6, '0'); // Pad the number with leading zeros to make it 6 digits
+    });
 </script>
 <script>
     function calculateAge() {
