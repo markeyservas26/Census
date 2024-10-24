@@ -593,8 +593,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: "Success",
                 text: "New staff added successfully!"
             }).then(() => {
-                // Set a flag in localStorage to indicate to show print confirmation
-                localStorage.setItem('showPrintConfirmation', 'true');
+                // Store necessary details in localStorage
+                localStorage.setItem('printDetails', JSON.stringify({
+                    name: document.getElementById('nameInput').value,
+                    email: document.getElementById('emailInput').value,
+                    municipality: document.getElementById('municipalityInput').value,
+                    password: document.getElementById('passwordInput').value,
+                }));
 
                 // Reload the page
                 location.reload();
@@ -616,14 +621,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-// Check for the flag on page load
+// Check for stored print details on page load
 window.onload = function() {
-    if (localStorage.getItem('showPrintConfirmation') === 'true') {
-        // Clear the flag
-        localStorage.removeItem('showPrintConfirmation');
-        
-        // Call print confirmation after the page has reloaded
-        showPrintConfirmation();
+    const storedDetails = localStorage.getItem('printDetails');
+    if (storedDetails) {
+        const details = JSON.parse(storedDetails);
+        // Call print confirmation with stored details
+        showPrintConfirmation(details.name, details.email, details.municipality, details.password);
+        // Clear stored details after using
+        localStorage.removeItem('printDetails');
     }
 };
 
