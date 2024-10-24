@@ -561,7 +561,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   document.getElementById("addStaffForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault();
     
     const emailInput = document.getElementById("emailInput");
     const emailValue = emailInput.value;
@@ -580,7 +580,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // If validation passes, proceed with form submission
     const formData = new FormData(this);
 
-    // Perform fetch request to submit the form
     fetch(this.action, {
         method: "POST",
         body: formData
@@ -588,17 +587,12 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // Show success alert
             Swal.fire({
                 icon: "success",
                 title: "Success",
                 text: "New staff added successfully!"
             }).then(() => {
-                // Update the table with the new staff details
-                updateTable(data.newStaff); // Assuming the response contains the new staff data
-                
-                // Show print confirmation
-                showPrintConfirmation(data.newStaff);
+                location.reload();
             });
         } else {
             Swal.fire({
