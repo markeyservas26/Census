@@ -560,24 +560,25 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  document.getElementById("addStaffForm").addEventListener("submit", function(event) {
+  // Form submission handler
+document.getElementById("addStaffForm").addEventListener("submit", function(event) {
     event.preventDefault();
     
     const emailInput = document.getElementById("emailInput");
     const emailValue = emailInput.value;
     const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
     
-    // Check if the email matches the @gmail.com pattern
+    // Email validation
     if (!gmailPattern.test(emailValue)) {
         Swal.fire({
             icon: "error",
             title: "Validation Error",
             text: "Username must have an @gmail.com."
         });
-        return; // Stop form submission
+        return;
     }
     
-    // If validation passes, proceed with form submission
+    // Form submission
     const formData = new FormData(this);
     
     fetch(this.action, {
@@ -587,28 +588,17 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            // First Sweet Alert for successful submission
             Swal.fire({
                 icon: "success",
-                title: "Success",
-                text: "New staff added successfully!",
+                title: "Staff Added Successfully!",
+                text: "Would you like to print the details?",
                 showCancelButton: true,
-                confirmButtonText: 'Print Details',
-                cancelButtonText: 'Close'
+                confirmButtonText: 'Yes, print it!',
+                cancelButtonText: 'No, thanks'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // If user clicks "Print Details", show another confirmation
-                    Swal.fire({
-                        title: 'Print Details',
-                        text: "Would you like to print the staff details?",
-                        icon: 'question',
-                        showCancelButton: true,
-                        confirmButtonText: 'Yes, print it!',
-                        cancelButtonText: 'No, cancel'
-                    }).then((printResult) => {
-                        if (printResult.isConfirmed) {
-                            printDetails(); // Call the print function
-                        }
-                    });
+                    printDetails(); // Using your existing print function
                 } else {
                     location.reload();
                 }
