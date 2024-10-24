@@ -157,35 +157,35 @@ $result = $stmt->get_result();
             </div>
             <div class="modal-body">
                 <!-- Form -->
-                <form id="addStaffForm" class="row g-3" method="POST" action="../staffaction/manage-staff.php" novalidate>
-                    <div class="col-md-12">
-                        <input type="text" class="form-control" id="nameInput" name="nameInput" placeholder="Name" required>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="email" class="form-control" id="emailInput" name="emailInput" placeholder="Username (@gmail.com only)" required>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="password-container">
-                            <input type="text" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password" required>
-                            <span class="eye" onclick="togglePasswordVisibility()">
-                                <i id="eyeIcon" class="fas fa-eye"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <label for="municipalityInput" class="form-label">Municipality</label>
-                        <select id="municipalityInput" name="municipalityInput" class="form-select" required>
-                            <option value="" disabled selected>Select Municipality</option>
-                            <option value="Madridejos">Madridejos</option>
-                            <option value="Bantayan">Bantayan</option>
-                            <option value="Santafe">Santafe</option>
-                        </select>
-                    </div>  
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                    </div>
-                </form>
+                <form id="addStaffForm" class="row g-3" method="POST" action="../staffaction/manage-staff.php" novalidate onsubmit="handleFormSubmit(event)">
+    <div class="col-md-12">
+        <input type="text" class="form-control" id="nameInput" name="nameInput" placeholder="Name" required>
+    </div>
+    <div class="col-md-6">
+        <input type="email" class="form-control" id="emailInput" name="emailInput" placeholder="Username (@gmail.com only)" required>
+    </div>
+    <div class="col-md-6">
+        <div class="password-container">
+            <input type="text" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password" required>
+            <span class="eye" onclick="togglePasswordVisibility()">
+                <i id="eyeIcon" class="fas fa-eye"></i>
+            </span>
+        </div>
+    </div>
+    <div class="col-6">
+        <label for="municipalityInput" class="form-label">Municipality</label>
+        <select id="municipalityInput" name="municipalityInput" class="form-select" required>
+            <option value="" disabled selected>Select Municipality</option>
+            <option value="Madridejos">Madridejos</option>
+            <option value="Bantayan">Bantayan</option>
+            <option value="Santafe">Santafe</option>
+        </select>
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+    </div>
+</form>
                 <!-- End Form -->
             </div>
         </div>
@@ -819,11 +819,30 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script>
+function handleFormSubmit(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Show SweetAlert confirmation
+    Swal.fire({
+        title: 'Account Created!',
+        text: 'Do you want to print the account details?',
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, print it!',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Call printDetails() if user confirms
+            printDetails();
+        }
+    });
+}
+
 function printDetails() {
-  const name = document.getElementById('modal-name').innerText;
-    const email = document.getElementById('modal-email').innerText;
-    const municipality = document.getElementById('modal-municipality').innerText;
-    const password = document.getElementById('modal-password').value;
+    const name = document.getElementById('nameInput').value;
+    const email = document.getElementById('emailInput').value;
+    const municipality = document.getElementById('municipalityInput').value;
+    const password = document.getElementById('passwordInput').value;
 
     const printContent = `
         <html>
@@ -831,64 +850,49 @@ function printDetails() {
             <title>Print</title>
             <style>
                 @page {
-                    margin: 0; /* Remove default margin */
+                    margin: 0;
                 }
                 body {
                     background: url('assets/img/censusformlogo.png') no-repeat center center fixed;
                     background-size: cover;
-                    height: 70vh; /* Adjust as needed for your design */
+                    height: 70vh;
                     margin: 0;
                     padding: 0;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    position: relative;
                 }
                 .content {
-                    background: rgba(255, 255, 255, 0.8); /* White background with slight transparency */
+                    background: rgba(255, 255, 255, 0.8);
                     padding: 10px;
                     border-radius: 10px;
-                    width: 100%; /* Full width of the content area */
-                    max-width: 300px; /* Prevents it from getting too wide */
-                    text-align: left; /* Align text to the left */
-                    position: relative; /* Ensure it appears above the background */
-                    z-index: 1; /* Ensure content is above the background */
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional shadow for depth */
-                    margin-bottom: 70px;
+                    width: 100%;
+                    max-width: 300px;
+                    text-align: left;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
                 }
                 h4 {
-                    font-size: 24px; /* Increased font size for the heading */
-                    margin-bottom: 10px; /* Space below the heading */
-                    color: #333; /* Darker color for better readability */
+                    font-size: 24px;
+                    margin-bottom: 10px;
+                    color: #333;
                 }
                 p {
-                    font-size: 16px; /* Font size for the text */
-                    margin: 5px 0; /* Spacing between paragraphs */
-                    color: #555; /* Slightly lighter color for the text */
+                    font-size: 16px;
+                    margin: 5px 0;
+                    color: #555;
                 }
                 strong {
-                    color: #000; /* Color for strong text */
+                    color: #000;
                 }
                 .note {
-                    font-size: 14px; /* Font size for the note */
-                    color: #000; /* Black text for better contrast */
-                    background: rgba(255, 255, 255, 0.8); /* White background with transparency */
+                    font-size: 14px;
+                    color: #000;
                     padding: 10px;
                     border-radius: 5px;
-                    margin-top: 350px; /* Space above the note */
-                    width: 90%; /* Adjust the width of the note */
-                    max-width: 350px; /* Max width for the note */
-                    position: absolute; /* Position the note outside the container */
-                    left: 50%; /* Center horizontally */
-                    transform: translateX(-50%); /* Align the center */
-                    z-index: 1; /* Ensure the note is above the background */
-                }
-                .steps {
-                    margin-top: 5px; /* Space above the steps */
-                    font-size: 14px; /* Font size for steps */
-                }
-                .step {
-                    margin: 2px 0; /* Spacing between steps */
+                    margin-top: 350px;
+                    width: 90%;
+                    max-width: 350px;
+                    text-align: center;
                 }
             </style>
         </head>
@@ -898,21 +902,21 @@ function printDetails() {
                 <hr>
                 <p><strong>Name:</strong> ${name}</p>
                 <p><strong>Email:</strong> ${email}</p>
-                 <p><strong>Municipality:</strong> ${municipality}</p>
+                <p><strong>Municipality:</strong> ${municipality}</p>
                 <p><strong>Password:</strong> ${password}</p>
             </div>
             <div class="note">
                 <strong>Note: You can change the password of your account</strong>
                 <hr>
                 <p>Follow these steps to change your password:</p>
-                <div class="steps">
-                    <div class="step">1. Open your account.</div>
-                    <div class="step">2. Click the profile.</div>
-                    <div class="step">3. Click on 'Change Password.'</div>
-                    <div class="step">4. Follow the instructions to set a new password.</div>
-                </div>
+                <ol>
+                    <li>Open your account.</li>
+                    <li>Click the profile.</li>
+                    <li>Click on 'Change Password.'</li>
+                    <li>Follow the instructions to set a new password.</li>
+                </ol>
                 <hr>
-                <strong>Important:</strong> Ensure you choose a strong password that you can remember.
+                <strong>Important:</strong> Ensure you choose a strong password.
             </div>
         </body>
         </html>
