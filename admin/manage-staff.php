@@ -580,6 +580,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // If validation passes, proceed with form submission
     const formData = new FormData(this);
 
+    // Perform fetch request to submit the form
     fetch(this.action, {
         method: "POST",
         body: formData
@@ -821,7 +822,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script>
-
 // Print confirmation function
 function showPrintConfirmation() {
     const name = document.getElementById('nameInput').value;
