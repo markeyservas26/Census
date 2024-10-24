@@ -587,7 +587,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // First Sweet Alert for successful submission
+                    // Sweet Alert for successful submission
                     Swal.fire({
                         icon: "success",
                         title: "Staff Added Successfully!",
@@ -595,6 +595,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         timer: 2000, // Show for 2 seconds before proceeding
                         willClose: () => {
                             printDetails(); // Call the print function after a short delay
+                            this.reset(); // Reset the form fields
                         }
                     });
                 } else {
