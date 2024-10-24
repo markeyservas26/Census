@@ -561,7 +561,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   document.getElementById("addStaffForm").addEventListener("submit", function(event) {
-            event.preventDefault();
+            event.preventDefault();  // Prevent the default form submission
             
             const emailInput = document.getElementById("emailInput");
             const emailValue = emailInput.value;
@@ -591,15 +591,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
                         icon: "success",
                         title: "Staff Added Successfully!",
-                        text: "Would you like to print the details?",
-                        showCancelButton: true,
-                        confirmButtonText: 'Yes, print it!',
-                        cancelButtonText: 'No, thanks'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            printDetails(); // Call your print function
-                        } else {
-                            location.reload();
+                        text: "The staff has been added. Now printing the details...",
+                        timer: 2000, // Show for 2 seconds before proceeding
+                        willClose: () => {
+                            printDetails(); // Call the print function after a short delay
                         }
                     });
                 } else {
