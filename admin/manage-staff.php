@@ -587,8 +587,6 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // Assuming 'data.staff' contains the newly added staff details
-            localStorage.setItem('staffAdded', JSON.stringify(data.staff)); // Store staff details
             // Show success alert for confirmation
             Swal.fire({
                 icon: "success",
@@ -597,6 +595,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 confirmButtonText: "OK"
             }).then((result) => {
                 if (result.isConfirmed) {
+                    // Set a flag in localStorage before reloading
+                    localStorage.setItem('staffAdded', 'true');
                     // Reload the page
                     location.reload();
                 }
@@ -621,27 +621,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // After the page reload, check if the flag is set
 window.onload = function() {
-    const staffData = localStorage.getItem('staffAdded');
-    if (staffData) {
-        const staff = JSON.parse(staffData); // Parse the stored staff details
+    if (localStorage.getItem('staffAdded')) {
         // Show success alert for printing
         Swal.fire({
             icon: "success",
             title: "Success",
-            text: "New staff added successfully! Do you want to print the details?",
-            confirmButtonText: "Print",
-            showCancelButton: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Call the print confirmation function with the staff details
-                showPrintConfirmation(staff).then(() => {
-                    // Clear the flag
-                    localStorage.removeItem('staffAdded');
-                });
-            } else {
-                // Clear the flag even if not printing
+            text: "New staff added successfully! Do you want to print the details?"
+        }).then(() => {
+            // Call the print confirmation function
+            showPrintConfirmation().then(() => {
+                // Clear the flag
                 localStorage.removeItem('staffAdded');
-            }
+            });
         });
     }
 };
