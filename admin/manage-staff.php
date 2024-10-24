@@ -560,7 +560,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  event.preventDefault();
+  // Form submission handler
+document.getElementById("addStaffForm").addEventListener("submit", function(event) {
+    event.preventDefault();
     
     const emailInput = document.getElementById("emailInput");
     const emailValue = emailInput.value;
@@ -576,54 +578,46 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     
-    // First Sweet Alert to confirm submission and print
-    Swal.fire({
-        icon: "question",
-        title: "Confirm Submission",
-        text: "Would you like to submit and print the details?",
-        showCancelButton: true,
-        confirmButtonText: 'Yes, submit and print!',
-        cancelButtonText: 'Cancel'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Form submission after confirmation
-            const formData = new FormData(this);
-            
-            fetch(this.action, {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Show success message
-                    Swal.fire({
-                        icon: "success",
-                        title: "Success!",
-                        text: "Staff added successfully!",
-                        timer: 1500,
-                        showConfirmButton: false
-                    }).then(() => {
-                        // Proceed to print after success message
-                        printDetails();
-                    });
+    // Form submission
+    const formData = new FormData(this);
+    
+    fetch(this.action, {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // First Sweet Alert for successful submission
+            Swal.fire({
+                icon: "success",
+                title: "Staff Added Successfully!",
+                text: "Would you like to print the details?",
+                showCancelButton: true,
+                confirmButtonText: 'Yes, print it!',
+                cancelButtonText: 'No, thanks'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    printDetails(); // Using your existing print function
                 } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: data.message || "There was a problem adding the new staff."
-                    });
+                    location.reload();
                 }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                Swal.fire({
-                    icon: "error",
-                    title: "Error",
-                    text: "An error occurred while adding the new staff."
-                });
+            });
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: data.message || "There was a problem adding the new staff."
             });
         }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "An error occurred while adding the new staff."
+        });
     });
 });
 
