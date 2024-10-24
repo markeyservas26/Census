@@ -589,9 +589,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Proceed with form submission
-                    const formData = new FormData(this);
+                    const formData = new FormData(form); // Use the form reference
                     
-                    fetch(this.action, {
+                    fetch(form.action, {
                         method: "POST",
                         body: formData
                     })
@@ -605,7 +605,8 @@ document.addEventListener('DOMContentLoaded', function() {
                                 text: "Now printing the details...",
                                 timer: 2000, // Show for 2 seconds before proceeding
                                 willClose: () => {
-                                  location.reload(); // Reset the form fields
+                                  location.reload(); 
+                                    printDetails(); // Call the print function after the success message
                                 }
                             });
                         } else {
