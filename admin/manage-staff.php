@@ -561,7 +561,9 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   
-  document.getElementById("addStaffForm").addEventListener("submit", function(event) {
+  const form = document.getElementById("addStaffForm");
+
+        form.addEventListener("submit", function(event) {
             event.preventDefault(); // Prevent the default form submission
             
             const emailInput = document.getElementById("emailInput");
@@ -588,10 +590,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Proceed with form submission
-                    const formData = new FormData(this);
-                    
-                    fetch(this.action, {
+                    // Proceed with form submission using fetch
+                    const formData = new FormData(form); // Use the form reference
+
+                    fetch(form.action, {
                         method: "POST",
                         body: formData
                     })
@@ -606,7 +608,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 timer: 2000, // Show for 2 seconds before proceeding
                                 willClose: () => {
                                     printDetails(); // Call the print function after a short delay
-                                    this.reset(); // Reset the form fields
+                                    form.reset(); // Reset the form fields
                                 }
                             });
                         } else {
