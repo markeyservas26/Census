@@ -616,7 +616,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
+// Check for the flag on page load
+window.onload = function() {
+    if (localStorage.getItem('showPrintConfirmation') === 'true') {
+        // Clear the flag
+        localStorage.removeItem('showPrintConfirmation');
+        
+        // Call print confirmation after the page has reloaded
+        showPrintConfirmation();
+    }
+};
 
 
 document.getElementById('editStaffForm').addEventListener('submit', function(e) {
