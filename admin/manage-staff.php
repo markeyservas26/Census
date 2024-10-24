@@ -852,13 +852,66 @@ function printDetails(name, email, municipality, password) {
         <head>
             <title>Print</title>
             <style>
-                @page { margin: 0; }
-                body { background: url('assets/img/censusformlogo.png') no-repeat center center fixed; background-size: cover; height: 70vh; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; }
-                .content { background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 10px; width: 100%; max-width: 300px; text-align: left; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
-                h4 { font-size: 24px; margin-bottom: 10px; color: #333; }
-                p { font-size: 16px; margin: 5px 0; color: #555; }
-                strong { color: #000; }
-                .note { font-size: 14px; color: #000; padding: 10px; border-radius: 5px; margin-top: 350px; width: 90%; max-width: 350px; text-align: center; }
+                @page {
+                    margin: 0; /* Remove default margin */
+                }
+                body {
+                    background: url('assets/img/censusformlogo.png') no-repeat center center fixed;
+                    background-size: cover;
+                    height: 70vh; /* Adjust as needed for your design */
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                }
+                .content {
+                    background: rgba(255, 255, 255, 0.8); /* White background with slight transparency */
+                    padding: 10px;
+                    border-radius: 10px;
+                    width: 100%; /* Full width of the content area */
+                    max-width: 300px; /* Prevents it from getting too wide */
+                    text-align: left; /* Align text to the left */
+                    position: relative; /* Ensure it appears above the background */
+                    z-index: 1; /* Ensure content is above the background */
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional shadow for depth */
+                    margin-bottom: 70px;
+                }
+                h4 {
+                    font-size: 24px; /* Increased font size for the heading */
+                    margin-bottom: 10px; /* Space below the heading */
+                    color: #333; /* Darker color for better readability */
+                }
+                p {
+                    font-size: 16px; /* Font size for the text */
+                    margin: 5px 0; /* Spacing between paragraphs */
+                    color: #555; /* Slightly lighter color for the text */
+                }
+                strong {
+                    color: #000; /* Color for strong text */
+                }
+                .note {
+                    font-size: 14px; /* Font size for the note */
+                    color: #000; /* Black text for better contrast */
+                    background: rgba(255, 255, 255, 0.8); /* White background with transparency */
+                    padding: 10px;
+                    border-radius: 5px;
+                    margin-top: 350px; /* Space above the note */
+                    width: 90%; /* Adjust the width of the note */
+                    max-width: 350px; /* Max width for the note */
+                    position: absolute; /* Position the note outside the container */
+                    left: 50%; /* Center horizontally */
+                    transform: translateX(-50%); /* Align the center */
+                    z-index: 1; /* Ensure the note is above the background */
+                }
+                .steps {
+                    margin-top: 5px; /* Space above the steps */
+                    font-size: 14px; /* Font size for steps */
+                }
+                .step {
+                    margin: 2px 0; /* Spacing between steps */
+                }
             </style>
         </head>
         <body>
