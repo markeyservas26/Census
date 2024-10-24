@@ -560,7 +560,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Form submission handler
+  function printDetails() {
+    const emailValue = document.getElementById("emailInput").value;
+    // You can gather other details similarly if needed
+
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+        <html>
+            <head>
+                <title>Staff Details</title>
+                <style>
+                    body { font-family: Arial, sans-serif; }
+                </style>
+            </head>
+            <body>
+                <h1>Staff Details</h1>
+                <p>Email: ${emailValue}</p>
+                <!-- Add more details as necessary -->
+                <button onclick="window.print()">Print this document</button>
+            </body>
+        </html>
+    `);
+    printWindow.document.close();
+    printWindow.focus();
+}
+3. Verify the Form Submission Flow
+Make sure that after form submission, the necessary data is prepared before printing. Here’s how your form submission handler can be adjusted to ensure clarity in the flow:
+
+javascript
+Copy code
 document.getElementById("addStaffForm").addEventListener("submit", function(event) {
     event.preventDefault();
     
@@ -598,7 +626,7 @@ document.getElementById("addStaffForm").addEventListener("submit", function(even
                 cancelButtonText: 'No, thanks'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    printDetails(); // Using your existing print function
+                    printDetails(); // Call your print function
                 } else {
                     location.reload();
                 }
