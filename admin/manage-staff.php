@@ -593,11 +593,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: "Success",
                 text: "New staff added successfully!"
             }).then(() => {
-                // Call the print confirmation function after success alert
-                showPrintConfirmation().then(() => {
-                    // Reload the page after the print confirmation
-                    location.reload();
-                });
+                // Set a flag in localStorage to indicate to show print confirmation
+                localStorage.setItem('showPrintConfirmation', 'true');
+
+                // Reload the page
+                location.reload();
             });
         } else {
             Swal.fire({
