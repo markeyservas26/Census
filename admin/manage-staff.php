@@ -560,8 +560,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  
   document.getElementById("addStaffForm").addEventListener("submit", function(event) {
-            event.preventDefault();  // Prevent the default form submission
+            event.preventDefault(); // Prevent the default form submission
             
             const emailInput = document.getElementById("emailInput");
             const emailValue = emailInput.value;
@@ -577,42 +578,54 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Form submission
-            const formData = new FormData(this);
-            
-            fetch(this.action, {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Sweet Alert for successful submission
-                    Swal.fire({
-                        icon: "success",
-                        title: "Staff Added Successfully!",
-                        text: "The staff has been added. Now printing the details...",
-                        timer: 2000, // Show for 2 seconds before proceeding
-                        willClose: () => {
-                            printDetails(); // Call the print function after a short delay
-                            this.reset(); // Reset the form fields
+            // Sweet Alert for successful submission
+            Swal.fire({
+                icon: "warning",
+                title: "Are you sure?",
+                text: "This will add the staff. Click OK to proceed.",
+                showCancelButton: true,
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Proceed with form submission
+                    const formData = new FormData(this);
+                    
+                    fetch(this.action, {
+                        method: "POST",
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Sweet Alert for success
+                            Swal.fire({
+                                icon: "success",
+                                title: "Staff Added Successfully!",
+                                text: "Now printing the details...",
+                                timer: 2000, // Show for 2 seconds before proceeding
+                                willClose: () => {
+                                    printDetails(); // Call the print function after a short delay
+                                    this.reset(); // Reset the form fields
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error",
+                                text: data.message || "There was a problem adding the new staff."
+                            });
                         }
-                    });
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: data.message || "There was a problem adding the new staff."
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "An error occurred while adding the new staff."
+                        });
                     });
                 }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                Swal.fire({
-                    icon: "error",
-                    title: "Error",
-                    text: "An error occurred while adding the new staff."
-                });
             });
         });
 
