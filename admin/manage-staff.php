@@ -158,34 +158,34 @@ $result = $stmt->get_result();
             <div class="modal-body">
                 <!-- Form -->
                 <form id="addStaffForm" class="row g-3" method="POST" action="../staffaction/manage-staff.php" novalidate>
-    <div class="col-md-12">
-        <input type="text" class="form-control" id="nameInput" name="nameInput" placeholder="Name" required>
-    </div>
-    <div class="col-md-6">
-        <input type="email" class="form-control" id="emailInput" name="emailInput" placeholder="Username (@gmail.com only)" required>
-    </div>
-    <div class="col-md-6">
-        <div class="password-container">
-            <input type="text" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password" required>
-            <span class="eye" onclick="togglePasswordVisibility()">
-                <i id="eyeIcon" class="fas fa-eye"></i>
-            </span>
-        </div>
-    </div>
-    <div class="col-6">
-        <label for="municipalityInput" class="form-label">Municipality</label>
-        <select id="municipalityInput" name="municipalityInput" class="form-select" required>
-            <option value="" disabled selected>Select Municipality</option>
-            <option value="Madridejos">Madridejos</option>
-            <option value="Bantayan">Bantayan</option>
-            <option value="Santafe">Santafe</option>
-        </select>
-    </div>
-    <div class="text-center">
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-    </div>
-</form>
+                    <div class="col-md-12">
+                        <input type="text" class="form-control" id="nameInput" name="nameInput" placeholder="Name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="email" class="form-control" id="emailInput" name="emailInput" placeholder="Username (@gmail.com only)" required>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="password-container">
+                            <input type="text" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password" required>
+                            <span class="eye" onclick="togglePasswordVisibility()">
+                                <i id="eyeIcon" class="fas fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label for="municipalityInput" class="form-label">Municipality</label>
+                        <select id="municipalityInput" name="municipalityInput" class="form-select" required>
+                            <option value="" disabled selected>Select Municipality</option>
+                            <option value="Madridejos">Madridejos</option>
+                            <option value="Bantayan">Bantayan</option>
+                            <option value="Santafe">Santafe</option>
+                        </select>
+                    </div>  
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
                 <!-- End Form -->
             </div>
         </div>
@@ -587,19 +587,12 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // Show success alert for confirmation
             Swal.fire({
                 icon: "success",
                 title: "Success",
-                text: "New staff added successfully!",
-                confirmButtonText: "OK"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Set a flag in localStorage before reloading
-                    localStorage.setItem('staffAdded', 'true');
-                    // Reload the page
-                    location.reload();
-                }
+                text: "New staff added successfully!"
+            }).then(() => {
+                location.reload();
             });
         } else {
             Swal.fire({
@@ -618,24 +611,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
-// After the page reload, check if the flag is set
-window.onload = function() {
-    if (localStorage.getItem('staffAdded')) {
-        // Show success alert for printing
-        Swal.fire({
-            icon: "success",
-            title: "Success",
-            text: "New staff added successfully! Do you want to print the details?"
-        }).then(() => {
-            // Call the print confirmation function
-            showPrintConfirmation().then(() => {
-                // Clear the flag
-                localStorage.removeItem('staffAdded');
-            });
-        });
-    }
-};
 
 
 
@@ -844,31 +819,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script>
-// Print confirmation function
-function showPrintConfirmation() {
-    const name = document.getElementById('nameInput').value;
-    const email = document.getElementById('emailInput').value;
-    const municipality = document.getElementById('municipalityInput').value;
-    const password = document.getElementById('passwordInput').value;
+function printDetails() {
+  const name = document.getElementById('modal-name').innerText;
+    const email = document.getElementById('modal-email').innerText;
+    const municipality = document.getElementById('modal-municipality').innerText;
+    const password = document.getElementById('modal-password').value;
 
-    Swal.fire({
-        title: 'Do you want to print the account details?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, print it!',
-        cancelButtonText: 'No'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            printDetails(name, email, municipality, password);
-        } else {
-            // Optionally reset the form or do something else
-            document.getElementById('addStaffForm').reset();
-        }
-    });
-}
-
-// Print function
-function printDetails(name, email, municipality, password) {
     const printContent = `
         <html>
         <head>
@@ -942,21 +898,21 @@ function printDetails(name, email, municipality, password) {
                 <hr>
                 <p><strong>Name:</strong> ${name}</p>
                 <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Municipality:</strong> ${municipality}</p>
+                 <p><strong>Municipality:</strong> ${municipality}</p>
                 <p><strong>Password:</strong> ${password}</p>
             </div>
             <div class="note">
                 <strong>Note: You can change the password of your account</strong>
                 <hr>
                 <p>Follow these steps to change your password:</p>
-                <ol>
-                    <li>Open your account.</li>
-                    <li>Click the profile.</li>
-                    <li>Click on 'Change Password.'</li>
-                    <li>Follow the instructions to set a new password.</li>
-                </ol>
+                <div class="steps">
+                    <div class="step">1. Open your account.</div>
+                    <div class="step">2. Click the profile.</div>
+                    <div class="step">3. Click on 'Change Password.'</div>
+                    <div class="step">4. Follow the instructions to set a new password.</div>
+                </div>
                 <hr>
-                <strong>Important:</strong> Ensure you choose a strong password.
+                <strong>Important:</strong> Ensure you choose a strong password that you can remember.
             </div>
         </body>
         </html>
