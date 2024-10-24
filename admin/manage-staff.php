@@ -560,8 +560,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Update the main form submission logic
-document.getElementById("addStaffForm").addEventListener("submit", function(event) {
+  document.getElementById("addStaffForm").addEventListener("submit", function(event) {
     event.preventDefault();
     
     const emailInput = document.getElementById("emailInput");
@@ -635,7 +634,10 @@ window.onload = function() {
         }).then((result) => {
             if (result.isConfirmed) {
                 // Call the print confirmation function with the staff details
-                showPrintConfirmation(staff); // Pass the staff details here
+                showPrintConfirmation(staff).then(() => {
+                    // Clear the flag
+                    localStorage.removeItem('staffAdded');
+                });
             } else {
                 // Clear the flag even if not printing
                 localStorage.removeItem('staffAdded');
@@ -852,12 +854,11 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script>
 // Print confirmation function
-function showPrintConfirmation(staff) {
-    // Extract staff details from the staff object
-    const name = name; // Adjust these properties based on your actual staff object structure
-    const email = email;
-    const municipality = municipality;
-    const password = password; // Note: Avoid printing sensitive information like passwords
+function showPrintConfirmation() {
+    const name = document.getElementById('nameInput').value;
+    const email = document.getElementById('emailInput').value;
+    const municipality = document.getElementById('municipalityInput').value;
+    const password = document.getElementById('passwordInput').value;
 
     Swal.fire({
         title: 'Do you want to print the account details?',
@@ -867,7 +868,6 @@ function showPrintConfirmation(staff) {
         cancelButtonText: 'No'
     }).then((result) => {
         if (result.isConfirmed) {
-            // Call the function to print the details
             printDetails(name, email, municipality, password);
         } else {
             // Optionally reset the form or do something else
