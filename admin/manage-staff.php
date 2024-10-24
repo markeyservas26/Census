@@ -822,10 +822,10 @@ document.addEventListener('DOMContentLoaded', function() {
 function handleFormSubmit(event) {
     event.preventDefault(); // Prevent the default form submission
 
-    // Show SweetAlert confirmation
+    // Show SweetAlert confirmation for submission
     Swal.fire({
         title: 'Account Created!',
-        text: 'Do you want to print the account details?',
+        text: 'Your account has been successfully created. Do you want to print the account details?',
         icon: 'success',
         showCancelButton: true,
         confirmButtonText: 'Yes, print it!',
@@ -834,6 +834,9 @@ function handleFormSubmit(event) {
         if (result.isConfirmed) {
             // Call printDetails() if user confirms
             printDetails();
+        } else {
+            // Optionally, you can reset the form or redirect the user
+            document.getElementById('addStaffForm').reset();
         }
     });
 }
