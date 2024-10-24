@@ -587,12 +587,17 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            // Show success alert
             Swal.fire({
                 icon: "success",
                 title: "Success",
                 text: "New staff added successfully!"
             }).then(() => {
-                location.reload();
+                // Call the print confirmation function after success alert
+                showPrintConfirmation().then(() => {
+                    // Reload the page after the print confirmation
+                    location.reload();
+                });
             });
         } else {
             Swal.fire({
