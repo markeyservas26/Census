@@ -587,13 +587,8 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            Swal.fire({
-                icon: "success",
-                title: "Success",
-                text: "New staff added successfully!"
-            }).then(() => {
-                location.reload();
-            });
+            // Call the print confirmation function after successful addition
+            showPrintConfirmation();
         } else {
             Swal.fire({
                 icon: "error",
