@@ -178,7 +178,7 @@ $postData = $_POST ?? [];
             <div class="col-12 col-sm-6 col-lg-3">
             <?php
 // Default house number (can be empty initially or predefined)
-$houseNumber = htmlspecialchars($postData['house_number'] ?? '000000', ENT_QUOTES); // Default to '000000' if empty
+$houseNumber = htmlspecialchars($postData['house_number'] ?? '000000', ENT_QUOTES); // Default to '000000' if no input yet
 ?>
 
 <div class="house-number-wrapper">
@@ -1763,10 +1763,20 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script>
-    document.getElementById('house_number').addEventListener('input', function (e) {
-        // Ensure the input is always a 6-digit number with leading zeros
+    // Automatically pad the house number on blur (when user leaves the field)
+    document.getElementById('house_number').addEventListener('blur', function (e) {
         let value = e.target.value.replace(/\D/g, ''); // Remove non-digit characters
-        e.target.value = value.padStart(6, '0'); // Pad the number with leading zeros to make it 6 digits
+        if (value) {
+            e.target.value = value.padStart(6, '0'); // Pad the number with leading zeros to make it 6 digits
+        }
+    });
+
+    // Allow clearing the input field
+    document.getElementById('house_number').addEventListener('focus', function (e) {
+        // Clear the default value if it is still '000000'
+        if (e.target.value === '000000') {
+            e.target.value = '';
+        }
     });
 </script>
 <script>
