@@ -184,7 +184,7 @@ $houseNumber = htmlspecialchars($postData['house_number'] ?? '', ENT_QUOTES);
 <div class="house-number-wrapper">
     <label for="housenumber" class="form-label">House Number<span class="required-asterisk">*</span></label>
     <div class="input-group">
-        <input type="number" class="form-control" id="house_number" name="house_number" value="<?php echo $houseNumber; ?>" placeholder="xxxxxx" required>
+        <input type="number" class="form-control" id="house_number" name="house_number" value="<?php echo $houseNumber; ?>" placeholder="000000awd" required>
     </div>
 
     <?php if ($status === 'house_number_exists'): ?>
