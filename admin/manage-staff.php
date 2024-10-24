@@ -566,7 +566,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const emailInput = document.getElementById("emailInput");
     const emailValue = emailInput.value;
     const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-
+    
     // Check if the email matches the @gmail.com pattern
     if (!gmailPattern.test(emailValue)) {
         Swal.fire({
@@ -576,10 +576,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         return; // Stop form submission
     }
-
+    
     // If validation passes, proceed with form submission
     const formData = new FormData(this);
-
+    
     fetch(this.action, {
         method: "POST",
         body: formData
@@ -590,9 +590,28 @@ document.addEventListener('DOMContentLoaded', function() {
             Swal.fire({
                 icon: "success",
                 title: "Success",
-                text: "New staff added successfully!"
-            }).then(() => {
-                location.reload();
+                text: "New staff added successfully!",
+                showCancelButton: true,
+                confirmButtonText: 'Print Details',
+                cancelButtonText: 'Close'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // If user clicks "Print Details", show another confirmation
+                    Swal.fire({
+                        title: 'Print Details',
+                        text: "Would you like to print the staff details?",
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, print it!',
+                        cancelButtonText: 'No, cancel'
+                    }).then((printResult) => {
+                        if (printResult.isConfirmed) {
+                            printDetails(); // Call the print function
+                        }
+                    });
+                } else {
+                    location.reload();
+                }
             });
         } else {
             Swal.fire({
