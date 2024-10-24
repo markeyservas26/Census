@@ -594,8 +594,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: "Success",
                 text: "New staff added successfully!"
             }).then(() => {
-                // After the success alert is confirmed, show print confirmation
-                showPrintConfirmation();
+                // Update the table with the new staff details
+                updateTable(data.newStaff); // Assuming the response contains the new staff data
+                
+                // Show print confirmation
+                showPrintConfirmation(data.newStaff);
             });
         } else {
             Swal.fire({
