@@ -157,7 +157,7 @@ $result = $stmt->get_result();
             </div>
             <div class="modal-body">
                 <!-- Form -->
-                <form id="addStaffForm" class="row g-3" method="POST" action="../staffaction/manage-staff.php" novalidate onsubmit="handleFormSubmit(event)">
+                <form id="addStaffForm" class="row g-3" method="POST" action="../staffaction/manage-staff.php" novalidate>
     <div class="col-md-12">
         <input type="text" class="form-control" id="nameInput" name="nameInput" placeholder="Name" required>
     </div>
@@ -561,7 +561,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   document.getElementById("addStaffForm").addEventListener("submit", function(event) {
-    event.preventDefault();
+    event.preventDefault(); // Prevent the default form submission
     
     const emailInput = document.getElementById("emailInput");
     const emailValue = emailInput.value;
@@ -587,12 +587,14 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            // Show success alert
             Swal.fire({
                 icon: "success",
                 title: "Success",
                 text: "New staff added successfully!"
             }).then(() => {
-                location.reload();
+                // After the success alert is confirmed, show print confirmation
+                showPrintConfirmation();
             });
         } else {
             Swal.fire({
@@ -819,84 +821,44 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script>
-function handleFormSubmit(event) {
-    event.preventDefault(); // Prevent the default form submission
 
-    // Show SweetAlert confirmation for submission
-    Swal.fire({
-        title: 'Account Created!',
-        text: 'Your account has been successfully created. Do you want to print the account details?',
-        icon: 'success',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, print it!',
-        cancelButtonText: 'No'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Call printDetails() if user confirms
-            printDetails();
-        } else {
-            // Optionally, you can reset the form or redirect the user
-            document.getElementById('addStaffForm').reset();
-        }
-    });
-}
-
-function printDetails() {
+// Print confirmation function
+function showPrintConfirmation() {
     const name = document.getElementById('nameInput').value;
     const email = document.getElementById('emailInput').value;
     const municipality = document.getElementById('municipalityInput').value;
     const password = document.getElementById('passwordInput').value;
 
+    Swal.fire({
+        title: 'Do you want to print the account details?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, print it!',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            printDetails(name, email, municipality, password);
+        } else {
+            // Optionally reset the form or do something else
+            document.getElementById('addStaffForm').reset();
+        }
+    });
+}
+
+// Print function
+function printDetails(name, email, municipality, password) {
     const printContent = `
         <html>
         <head>
             <title>Print</title>
             <style>
-                @page {
-                    margin: 0;
-                }
-                body {
-                    background: url('assets/img/censusformlogo.png') no-repeat center center fixed;
-                    background-size: cover;
-                    height: 70vh;
-                    margin: 0;
-                    padding: 0;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-                .content {
-                    background: rgba(255, 255, 255, 0.8);
-                    padding: 10px;
-                    border-radius: 10px;
-                    width: 100%;
-                    max-width: 300px;
-                    text-align: left;
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-                }
-                h4 {
-                    font-size: 24px;
-                    margin-bottom: 10px;
-                    color: #333;
-                }
-                p {
-                    font-size: 16px;
-                    margin: 5px 0;
-                    color: #555;
-                }
-                strong {
-                    color: #000;
-                }
-                .note {
-                    font-size: 14px;
-                    color: #000;
-                    padding: 10px;
-                    border-radius: 5px;
-                    margin-top: 350px;
-                    width: 90%;
-                    max-width: 350px;
-                    text-align: center;
-                }
+                @page { margin: 0; }
+                body { background: url('assets/img/censusformlogo.png') no-repeat center center fixed; background-size: cover; height: 70vh; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; }
+                .content { background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 10px; width: 100%; max-width: 300px; text-align: left; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
+                h4 { font-size: 24px; margin-bottom: 10px; color: #333; }
+                p { font-size: 16px; margin: 5px 0; color: #555; }
+                strong { color: #000; }
+                .note { font-size: 14px; color: #000; padding: 10px; border-radius: 5px; margin-top: 350px; width: 90%; max-width: 350px; text-align: center; }
             </style>
         </head>
         <body>
