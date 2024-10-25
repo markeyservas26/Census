@@ -1,0 +1,166 @@
+<?php
+
+include '../database/db_connect.php';
+
+function sanitize_input($key) {
+    global $conn;
+    return isset($_POST[$key]) ? mysqli_real_escape_string($conn, trim($_POST[$key])) : null;
+}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // House Leader
+    $house_number = sanitize_input('housenumber');
+    $lastname_hl = sanitize_input('lastname_hl');
+    $firstname_hl = sanitize_input('firstname_hl');
+    $middlename_hl = sanitize_input('middlename_hl');
+    $exname_hl = sanitize_input('exname_hl');
+    $province_hl = sanitize_input('province_hl');
+    $municipality_hl = sanitize_input('municipality_hl');
+    $barangay_hl = sanitize_input('Barangay_hl');
+    $purok_hl = sanitize_input('purok_hl');
+    $dob_hl = sanitize_input('dob_hl');
+    $sex_hl = sanitize_input('sex_hl');
+    $age_hl = sanitize_input('age_hl');
+    $occupation_hl = sanitize_input('occupation_hl');
+    $lcro_hl = sanitize_input('lcro_hl');
+    $marital_hl = sanitize_input('marital_hl');
+    $contactnumber_hl = sanitize_input('contactnumber_hl');
+    $religion = sanitize_input('religion');
+    // Insert House Leader
+    $sql_house_leader = "INSERT INTO house_leader (house_number, lastname, firstname, middlename, exname, 
+                         province, municipality, barangay, purok, dob, sex, age, occupation, lcro, 
+                         marital_status, contact_number, religion) 
+                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    $stmt = $conn->prepare($sql_house_leader);
+    $stmt->bind_param("sssssssssssssssss", $house_number, $lastname_hl, $firstname_hl, $middlename_hl, 
+                      $exname_hl, $province_hl, $municipality_hl, $barangay_hl, $purok_hl, $dob_hl, 
+                      $sex_hl, $age_hl, $occupation_hl, $lcro_hl, $marital_hl, $contactnumber_hl, $religion);
+    $stmt->execute();
+    $house_leader_id = $stmt->insert_id;
+    $stmt->close();
+
+
+     // Spouse
+     $lastname_spouse = sanitize_input('lastname_spouse');
+     $firstname_spouse = sanitize_input('firstname_spouse');
+     $middlename_spouse = sanitize_input('middlename_spouse');
+     $extension_spouse = sanitize_input('extension_spouse');
+     $age_spouse = sanitize_input('age_spouse');
+     $occupation_spouse = sanitize_input('occupation_spouse');
+     $dob_spouse = sanitize_input('dob_spouse');
+     $lcro_spouse = sanitize_input('lcro_spouse');
+     $address_spouse = sanitize_input('address_spouse');
+     $status_spouse = sanitize_input('status_spouse');
+ 
+     // Insert Spouse
+     $sql_spouse = "INSERT INTO spouse (house_leader_id, lastname, firstname, middlename, extension, 
+                    age, occupation, dob, lcro, address, status) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+     
+     $stmt = $conn->prepare($sql_spouse);
+     $stmt->bind_param("issssssssss", $house_leader_id, $lastname_spouse, $firstname_spouse, $middlename_spouse, 
+                       $extension_spouse, $age_spouse, $occupation_spouse, $dob_spouse, $lcro_spouse, 
+                       $address_spouse, $status_spouse);
+     $stmt->execute();
+     $stmt->close();
+ 
+     // Public Transportation
+ 
+     // Older Household Members
+     for ($i = 1; $i <= 5; $i++) {
+         $name = sanitize_input("oldername_$i");
+         $age = sanitize_input("olderage_$i");
+         $working = sanitize_input("olderworking_$i");
+         $occupation = sanitize_input("olderoccupation_$i");
+         $income = sanitize_input("olderincome_$i");
+     
+         if (!empty($name)) {
+             $sql_older = "INSERT INTO older_household_members (house_leader_id, name, age, working, occupation, income) 
+                           VALUES (?, ?, ?, ?, ?, ?)";
+             $stmt = $conn->prepare($sql_older);
+             $stmt->bind_param("issssd", $house_leader_id, $name, $age, $working, $occupation, $income);
+             $stmt->execute();
+             $stmt->close();
+         }
+     }
+ 
+     // Younger Household Members
+     for ($i = 1; $i <= 5; $i++) {
+         $name = sanitize_input("youngername_$i");
+         $age = sanitize_input("youngerage_$i");
+         $level = sanitize_input("younglevel_$i");
+         $academic = sanitize_input("youngacademic_$i");
+     
+         if (!empty($name)) {
+             $sql_younger = "INSERT INTO younger_household_members (house_leader_id, name, age, education_level, academic_status) 
+                             VALUES (?, ?, ?, ?, ?)";
+             $stmt = $conn->prepare($sql_younger);
+             $stmt->bind_param("isiss", $house_leader_id, $name, $age, $level, $academic);
+             $stmt->execute();
+             $stmt->close();
+         }
+     }
+
+     
+    // Public Transportation
+    $public_transportation = sanitize_input('transportation');
+
+    // Insert Public Transportation
+    $sql_public_transportation = "INSERT INTO public_transportation (house_leader_id, transportation) 
+                                  VALUES (?, ?)";
+    
+    $stmt = $conn->prepare($sql_public_transportation);
+    $stmt->bind_param("ss", $house_leader_id, $public_transportation);
+    $stmt->execute();
+    $stmt->close();
+
+
+ // Financial Accounts
+ $bank_account = isset($_POST['bankaccount']) ? 1 : 0;
+ $digital_bank_account = isset($_POST['digitalbankaccount']) ? 1 : 0;
+ $emoney_account = isset($_POST['emoneyaccount']) ? 1 : 0;
+ $nssla_account = isset($_POST['nssla']) ? 1 : 0;
+ $cooperative_account = isset($_POST['awc']) ? 1 : 0;
+ $microfinance_ngo_account = isset($_POST['ngo']) ? 1 : 0;
+ $remittance_center_account = isset($_POST['amrc']) ? 1 : 0;
+ $financial_prefer_not_answer = isset($_POST['notanswer']) ? 1 : 0;
+
+
+ $sql_financial_accounts = "INSERT INTO financial_accounts (house_leader_id, bank_account, digital_bank_account, 
+                            emoney_account, nssla_account, cooperative_account, microfinance_ngo_account, 
+                            remittance_center_account, prefer_not_answer) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+ 
+ $stmt = $conn->prepare($sql_financial_accounts);
+ $stmt->bind_param("sssssssss", $house_leader_id, $bank_account, $digital_bank_account, $emoney_account, 
+                   $nssla_account, $cooperative_account, $microfinance_ngo_account, $remittance_center_account, 
+                   $financial_prefer_not_answer);
+ $stmt->execute();
+ $stmt->close();
+
+ // Internet Access
+ $internet_fixed_wired = isset($_POST['ko3network']) ? 1 : 0;
+ $internet_fixed_wireless = isset($_POST['fixednetwork']) ? 1 : 0;
+ $internet_satellite = isset($_POST['satellitenetwork']) ? 1 : 0;
+ $internet_mobile = isset($_POST['mobilenetwork']) ? 1 : 0;
+
+ $sql_internet_access = "INSERT INTO internet_access (house_leader_id, fixed_wired, fixed_wireless, satellite, mobile) 
+                         VALUES (?, ?, ?, ?, ?)";
+ 
+ $stmt = $conn->prepare($sql_internet_access);
+ $stmt->bind_param("iiiii", $house_leader_id, $internet_fixed_wired, $internet_fixed_wireless, 
+                   $internet_satellite, $internet_mobile);
+ $stmt->execute();
+ $stmt->close();
+
+    if (!$conn->error) {
+        $conn->commit();
+        echo "New record created successfully";
+    } else {
+        $conn->rollback();
+        echo "Error: " . $conn->error;
+    }
+
+    $conn->close();
+}
+?>
