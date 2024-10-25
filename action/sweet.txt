@@ -1,0 +1,8 @@
+ // Commit the transaction
+    if (!$conn->error) {
+        $conn->commit();
+        echo "New record created successfully";
+    } else {
+        $conn->rollback();
+        echo "Error: " . $conn->error;
+    }

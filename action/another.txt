@@ -1,0 +1,458 @@
+<?php
+
+include '../database/db_connect.php';
+
+function sanitize_input($data) {
+    global $conn;
+    return mysqli_real_escape_string($conn, trim($data));
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // House Leader
+    $house_number = sanitize_input($_POST['housenumber']);
+    $lastname_hl = sanitize_input($_POST['lastname_hl']);
+    $firstname_hl = sanitize_input($_POST['firstname_hl']);
+    $middlename_hl = sanitize_input($_POST['middlename_hl']);
+    $exname_hl = sanitize_input($_POST['exname_hl']);
+    $province_hl = sanitize_input($_POST['province_hl']);
+    $municipality_hl = sanitize_input($_POST['municipality_hl']);
+    $barangay_hl = sanitize_input($_POST['Barangay_hl']);
+    $purok_hl = sanitize_input($_POST['purok_hl']);
+    $dob_hl = sanitize_input($_POST['dob_hl']);
+    $sex_hl = sanitize_input($_POST['sex_hl']);
+    $age_hl = sanitize_input($_POST['age_hl']);
+    $occupation_hl = sanitize_input($_POST['occupation_hl']);
+    $lcro_hl = sanitize_input($_POST['lcro_hl']);
+    $marital_hl = sanitize_input($_POST['marital_hl']);
+    $contactnumber_hl = sanitize_input($_POST['contactnumber_hl']);
+    $religion = sanitize_input($_POST['religion']);
+
+    // Insert House Leader
+    $sql_house_leader = "INSERT INTO house_leader (house_number, lastname, firstname, middlename, exname, 
+                         province, municipality, barangay, purok, dob, sex, age, occupation, lcro, 
+                         marital_status, contact_number, religion) 
+                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    $stmt = $conn->prepare($sql_house_leader);
+    $stmt->bind_param("sssssssssssssssss", $house_number, $lastname_hl, $firstname_hl, $middlename_hl, 
+                      $exname_hl, $province_hl, $municipality_hl, $barangay_hl, $purok_hl, $dob_hl, 
+                      $sex_hl, $age_hl, $occupation_hl, $lcro_hl, $marital_hl, $contactnumber_hl, $religion);
+    $stmt->execute();
+    $house_leader_id = $stmt->insert_id;
+    $stmt->close();
+
+    // Spouse
+    $lastname_spouse = sanitize_input($_POST['lastname_spouse']);
+    $firstname_spouse = sanitize_input($_POST['firstname_spouse']);
+    $middlename_spouse = sanitize_input($_POST['middlename_spouse']);
+    $extension_spouse = sanitize_input($_POST['extension_spouse']);
+    $age_spouse = sanitize_input($_POST['age_spouse']);
+    $occupation_spouse = sanitize_input($_POST['occupation_spouse']);
+    $dob_spouse = sanitize_input($_POST['dob_spouse']);
+    $lcro_spouse = sanitize_input($_POST['lcro_spouse']);
+    $address_spouse = sanitize_input($_POST['address_spouse']);
+    $status_spouse = sanitize_input($_POST['status_spouse']);
+
+    // Insert Spouse
+    $sql_spouse = "INSERT INTO spouse (house_leader_id, lastname, firstname, middlename, extension, 
+                   age, occupation, dob, lcro, address, status) 
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    $stmt = $conn->prepare($sql_spouse);
+    $stmt->bind_param("issssssssss", $house_leader_id, $lastname_spouse, $firstname_spouse, $middlename_spouse, 
+                      $extension_spouse, $age_spouse, $occupation_spouse, $dob_spouse, $lcro_spouse, 
+                      $address_spouse, $status_spouse);
+    $stmt->execute();
+    $stmt->close();
+
+    // Public Transportation
+    $public_transportation = isset($_POST['yes']) ? 1 : 0;
+
+    // Insert Public Transportation
+    $sql_public_transportation = "INSERT INTO public_transportation (house_leader_id, has_public_transportation) 
+                                  VALUES (?, ?)";
+    
+    $stmt = $conn->prepare($sql_public_transportation);
+    $stmt->bind_param("ii", $house_leader_id, $public_transportation);
+    $stmt->execute();
+    $stmt->close();
+
+    // Financial Accounts
+    $bank_account = isset($_POST['bankaccount']) ? 1 : 0;
+    $digital_bank_account = isset($_POST['digitalbankaccount']) ? 1 : 0;
+    $emoney_account = isset($_POST['emoneyaccount']) ? 1 : 0;
+    $nssla_account = isset($_POST['nssla']) ? 1 : 0;
+    $cooperative_account = isset($_POST['awc']) ? 1 : 0;
+    $microfinance_ngo_account = isset($_POST['ngo']) ? 1 : 0;
+    $remittance_center_account = isset($_POST['amrc']) ? 1 : 0;
+    $financial_prefer_not_answer = isset($_POST['notanswer']) ? 1 : 0;
+    $financial_none = isset($_POST['none']) ? 1 : 0;
+    $financial_other = sanitize_input($_POST['othersLivingSpecify']);
+
+    // Insert Financial Accounts
+    $sql_financial_accounts = "INSERT INTO financial_accounts (house_leader_id, bank_account, digital_bank_account, 
+                               emoney_account, nssla_account, cooperative_account, microfinance_ngo_account, 
+                               remittance_center_account, prefer_not_answer, none, other) 
+                               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    $stmt = $conn->prepare($sql_financial_accounts);
+    $stmt->bind_param("iiiiiiiiiss", $house_leader_id, $bank_account, $digital_bank_account, $emoney_account, 
+                      $nssla_account, $cooperative_account, $microfinance_ngo_account, $remittance_center_account, 
+                      $financial_prefer_not_answer, $financial_none, $financial_other);
+    $stmt->execute();
+    $stmt->close();
+
+    // Internet Access
+    $internet_fixed_wired = isset($_POST['ko3network']) ? 1 : 0;
+    $internet_fixed_wireless = isset($_POST['fixednetwork']) ? 1 : 0;
+    $internet_satellite = isset($_POST['satellitenetwork']) ? 1 : 0;
+    $internet_mobile = isset($_POST['mobilenetwork']) ? 1 : 0;
+
+    // Insert Internet Access
+    $sql_internet_access = "INSERT INTO internet_access (house_leader_id, fixed_wired, fixed_wireless, satellite, mobile) 
+                            VALUES (?, ?, ?, ?, ?)";
+    
+    $stmt = $conn->prepare($sql_internet_access);
+    $stmt->bind_param("iiiii", $house_leader_id, $internet_fixed_wired, $internet_fixed_wireless, 
+                      $internet_satellite, $internet_mobile);
+    $stmt->execute();
+    $stmt->close();
+
+    // Public Safety
+    $public_safety = '';
+    if (isset($_POST['verysafe'])) $public_safety = 'Very safe';
+    elseif (isset($_POST['safe'])) $public_safety = 'Safe';
+    elseif (isset($_POST['unsafe'])) $public_safety = 'Unsafe';
+    elseif (isset($_POST['veryunsafe'])) $public_safety = 'Very unsafe';
+    elseif (isset($_POST['nevergoout'])) $public_safety = 'I never go out at night/Does not apply';
+    elseif (isset($_POST['dontknow'])) $public_safety = 'Don\'t Know';
+
+    // Insert Public Safety
+    $sql_public_safety = "INSERT INTO public_safety (house_leader_id, safety_level) VALUES (?, ?)";
+    
+    $stmt = $conn->prepare($sql_public_safety);
+    $stmt->bind_param("is", $house_leader_id, $public_safety);
+    $stmt->execute();
+    $stmt->close();
+
+    // Social Protection and Assistance Programs
+    $sss = isset($_POST['sss']) ? 1 : 0;
+    $gsis = isset($_POST['gsis']) ? 1 : 0;
+    $philhealth = isset($_POST['philhealth']) ? 1 : 0;
+    $healthormedical = isset($_POST['healthormedical']) ? 1 : 0;
+    $nevergoout = isset($_POST['nevergoout']) ? 1 : 0;
+    $dontwork = isset($_POST['dontwork']) ? 1 : 0;
+    $sss2 = isset($_POST['sss2']) ? 1 : 0;
+    $gsis2 = isset($_POST['gsis2']) ? 1 : 0;
+    $philhealth2 = isset($_POST['philhealth2']) ? 1 : 0;
+    $healthormedical2 = isset($_POST['healthormedical2']) ? 1 : 0;
+    $nevergoout2 = isset($_POST['nevergoout2']) ? 1 : 0;
+    $dontknow2 = isset($_POST['dontknow2']) ? 1 : 0;
+
+    // Insert Social Protection
+    $sql_social_protection = "INSERT INTO social_protection (house_leader_id, sss, gsis, philhealth, health_or_medical, 
+                              never_go_out, dont_work, sss2, gsis2, philhealth2, health_or_medical2, never_go_out2, dont_know2) 
+                              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    $stmt = $conn->prepare($sql_social_protection);
+    $stmt->bind_param("iiiiiiiiiiiii", $house_leader_id, $sss, $gsis, $philhealth, $healthormedical, $nevergoout, 
+                      $dontwork, $sss2, $gsis2, $philhealth2, $healthormedical2, $nevergoout2, $dontknow2);
+    $stmt->execute();
+    $stmt->close();
+
+    // Water, Sanitation, and Hygiene
+    $water_supply = '';
+    $water_supply_options = ['dwelling', 'yardorplot', 'publictaporstandpipe', 'protectedtube', 'protectedspring', 'RainWater', 'TransferTruck', 'Unprotected', 'UnprotecedSpring', 'SurfacedWater'];
+    foreach ($water_supply_options as $option) {
+        if (isset($_POST[$option])) {
+            $water_supply = $_POST[$option];
+            break;
+        }
+    }
+    $water_supply_other = sanitize_input($_POST['othersLivingSpecify2']);
+
+    $drinking_water = '';
+    $drinking_water_options = ['dwelling2', 'yardorplot2', 'PipedtoNeighbor', 'PublicTap2', 'TubeWell2', 'ProtectedWell2', 'RainWater2', 'UnprotectedSpring2', 'TankerTruck', 'CartwithSmallTank', 'WaterRefillingStation', 'BottledWater', 'UnprotectedWell', 'UnprotectedSpring3', 'SurfacedWater3'];
+    foreach ($drinking_water_options as $option) {
+        if (isset($_POST[$option])) {
+            $drinking_water = $_POST[$option];
+            break;
+        }
+    }
+    $drinking_water_other = sanitize_input($_POST['othersLivingSpecify3']);
+
+    $other_purposes_water = '';
+    $other_purposes_water_options = ['PipedintoDwelling', 'Pipedintoyardorplot', 'PipedtoNeighbor', 'PublicTap3', 'TubeWell3', 'ProtectedWell3', 'RainWater3', 'UnprotectedSpring3', 'TankerTruck3', 'CartwithSmallTank3', 'WaterRefillingStation3', 'BottledWater3', 'UnprotectedWell3', 'UnprotectedSpring3', 'SurfacedWater3'];
+    foreach ($other_purposes_water_options as $option) {
+        if (isset($_POST[$option])) {
+            $other_purposes_water = $_POST[$option];
+            break;
+        }
+    }
+    $other_purposes_water_other = sanitize_input($_POST['othersLivingSpecify4']);
+
+    $water_source_location = '';
+    if (isset($_POST['InOwnDwelling'])) $water_source_location = 'In Own Dwelling';
+    elseif (isset($_POST['InownYardorPlot'])) $water_source_location = 'In own Yard/Plot';
+    elseif (isset($_POST['Elsewhere'])) $water_source_location = 'Elsewhere';
+
+    $toilet_facility = '';
+    $toilet_facility_options = ['pipedsewersystem', 'septictank', 'pitlatrine', 'VentilatedImproveLatrine', 'PitLatrinewithSlab', 'CompostingToilet', 'somewhereelseandopendrain', 'PitLatrinewithoutslab', 'BucketandPilSystem', 'HangingToiletandHangingLatrine', 'dontknowwhere', 'PublicToilet', 'NoFacility'];
+    foreach ($toilet_facility_options as $option) {
+        if (isset($_POST[$option])) {
+            $toilet_facility = $_POST[$option];
+            break;
+        }
+    }
+    $toilet_facility_other = sanitize_input($_POST['othersLivingSpecify5']);
+
+    $toilet_location = '';
+    if (isset($_POST['InownDwelling2'])) $toilet_location = 'In own Dwelling';
+    elseif (isset($_POST['InownYard/Plot2'])) $toilet_location = 'In own Yard/Plot';
+    elseif (isset($_POST['Elsewhere2'])) $toilet_location = 'Elsewhere';
+
+    $share_facility = isset($_POST['Yes']) ? 1 : 0;
+
+    $share_type = '';
+    if (isset($_POST['Sharedwithknownhousehold'])) $share_type = 'Shared with known household (Not Public)';
+    elseif (isset($_POST['SharedwithGeneralPublic'])) $share_type = 'Shared with General Public';
+
+    $garbage_disposal = array();
+    $garbage_disposal_options = [
+        'SegregatingWaste', 'Lettinggarbagetruckcollectwaste', 'Recycling', 'Composting',
+        'Burning', 'Dumpinginpitwithcover', 'Throwinginunhabitedlocations'
+    ];
+    foreach ($garbage_disposal_options as $option) {
+        if (isset($_POST[$option])) {
+            $garbage_disposal[] = $_POST[$option];
+        }
+    }
+    $garbage_disposal_str = implode(', ', $garbage_disposal);
+    $garbage_disposal_other = sanitize_input($_POST['othersLivingSpecify6']);
+
+    // Insert Water, Sanitation, and Hygiene
+    $sql_water_sanitation = "INSERT INTO water_sanitation (house_leader_id, water_supply, water_supply_other, 
+                             drinking_water, drinking_water_other, other_purposes_water, other_purposes_water_other, 
+                             water_source_location, toilet_facility, toilet_facility_other, toilet_location, 
+                             share_facility, share_type, garbage_disposal, garbage_disposal_other) 
+                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    $stmt = $conn->prepare($sql_water_sanitation);
+    $stmt->bind_param("issssssssssssss", $house_leader_id, $water_supply, $water_supply_other, $drinking_water, 
+                      $drinking_water_other, $other_purposes_water, $other_purposes_water_other, 
+                      $water_source_location, $toilet_facility, $toilet_facility_other, $toilet_location, 
+                      $share_facility, $share_type, $garbage_disposal_str, $garbage_disposal_other);
+    $stmt->execute();
+    $stmt->close();
+
+    // Housing Characteristics
+    $SINGLEHOUSE = isset($_POST['SINGLEHOUSE']) ? 1 : 0;
+    $DUPLEX = isset($_POST['DUPLEX']) ? 1 : 0;
+    $AAROW_HOUSE = isset($_POST['AAROW_HOUSE']) ? 1 : 0;
+    $Multi_urb = isset($_POST['Multi_urb']) ? 1 : 0;
+    $Cominag = isset($_POST['Cominag']) ? 1 : 0;
+    $Institution_living = isset($_POST['Institution_living']) ? 1 : 0;
+    $none = isset($_POST['none']) ? 1 : 0;
+    $Othertype = isset($_POST['Othertype']) ? 1 : 0;
+    $Temporaryevac = isset($_POST['Temporaryevac']) ? 1 : 0;
+
+    $floor = sanitize_input($_POST['floor']);
+
+    $Metalroofing = isset($_POST['Metalroofing']) ? 1 : 0;
+    $concretslayslate = isset($_POST['concretslayslate']) ? 1 : 0;
+    $HG_concrete = isset($_POST['HG_concrete']) ? 1 : 0;
+    $Woodbamboo = isset($_POST['Woodbamboo']) ? 1 : 0;
+    $Sodthatch = isset($_POST['Sodthatch']) ? 1 : 0;
+    $Asbestos = isset($_POST['Asbestos']) ? 1 : 0;
+    $Msi_materials = isset($_POST['Msi_materials']) ? 1 : 0;
+
+    $CMG = isset($_POST['CMG']) ? 1 : 0;
+    $CBS = isset($_POST['CBS']) ? 1 : 0;
+    $WBP = isset($_POST['WBP']) ? 1 : 0;
+    $WTP = isset($_POST['WTP']) ? 1 : 0;
+    $VCT = isset($_POST['VCT']) ? 1 : 0;
+    $Linoleum = isset($_POST['Linoleum']) ? 1 : 0;
+
+    $concrete = isset($_POST['concrete']) ? 1 : 0;
+    $earthsandmud = isset($_POST['earthsandmud']) ? 1 : 0;
+    $wood = isset($_POST['wood']) ? 1 : 0;
+    $coconutlumber = isset($_POST['coconutlumber']) ? 1 : 0;
+    $bamboo = isset($_POST['bamboo']) ? 1 : 0;
+    $msim = isset($_POST['msim']) ? 1 : 0;
+    $notobserved = isset($_POST['notobserved']) ? 1 : 0;
+
+    $floor2 = sanitize_input($_POST['floor2']);
+    $bedrooms = sanitize_input($_POST['bedrooms']);
+
+    // Insert Housing Characteristics
+    $sql_housing = "INSERT INTO housing_characteristics (house_leader_id, single_house, duplex, row_house, 
+                    multi_unit_residential, commercial_industrial_agricultural, institutional_living_quarters, 
+                    other, other_type, temporary_shelter, floor_area, metal_roofing, concrete_clay_slate, 
+                    half_concrete, wood_bamboo, cogon_nipa, asbestos, makeshift_salvaged_improvised, 
+                    concrete_brick_stone, wood_plywood, galvanized_iron_aluminum, bamboo_sawali_cogon_nipa, 
+                    asbestos2, makeshift_salvaged_improvised2, floor_material, bedrooms) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    $stmt = $conn->prepare($sql_housing);
+    $stmt->bind_param("iiiiiiiisisiiiiiiiiiiiiisi", $house_leader_id, $SINGLEHOUSE, $DUPLEX, $AAROW_HOUSE, 
+                      $Multi_urb, $Cominag, $Institution_living, $none, $Othertype, $Temporaryevac, $floor, 
+                      $Metalroofing, $concretslayslate, $HG_concrete, $Woodbamboo, $Sodthatch, $Asbestos, 
+                      $Msi_materials, $CMG, $CBS, $WBP, $WTP, $VCT, $Linoleum, $floor2, $bedrooms);
+    $stmt->execute();
+    $stmt->close();
+
+    // Tenure Status
+    $Owner = isset($_POST['Owner']) ? 1 : 0;
+    $ownhouseandrent = isset($_POST['ownhouseandrent']) ? 1 : 0;
+    $ownhouserentfreewithconsent = isset($_POST['ownhouserentfreewithconsent']) ? 1 : 0;
+    $ownhouserentwithoutconsent = isset($_POST['ownhouserentwithoutconsent']) ? 1 : 0;
+    $RENTHOUSE_INCLUDINGLOT = isset($_POST['RENTHOUSE']) ? 1 : 0;
+    $rentfreehousewithconsent = isset($_POST['rentfreehousewithconsent']) ? 1 : 0;
+    $rentfreehousewithoutconsent = isset($_POST['rentfreehousewithoutconsent']) ? 1 : 0;
+
+    // Insert Tenure Status
+    $sql_tenure = "INSERT INTO tenure_status (house_leader_id, owner, own_house_rent_lot, 
+                   own_house_rent_free_with_consent, own_house_rent_free_without_consent, 
+                   rent_house_and_lot, rent_free_house_with_consent, rent_free_house_without_consent) 
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    $stmt = $conn->prepare($sql_tenure);
+    $stmt->bind_param("iiiiiiii", $house_leader_id, $Owner, $ownhouseandrent, $ownhouserentfreewithconsent, 
+                      $ownhouserentwithoutconsent, $RENTHOUSE_INCLUDINGLOT, $rentfreehousewithconsent, 
+                      $rentfreehousewithoutconsent);
+    $stmt->execute();
+    $stmt->close();
+
+    // Housing Cost
+    $housing = sanitize_input($_POST['housing']);
+    $YES = isset($_POST['YES']) ? 1 : 0;
+    $NO = isset($_POST['NO']) ? 1 : 0;
+
+    // Insert Housing Cost
+    $sql_housing_cost = "INSERT INTO housing_cost (house_leader_id, monthly_cost, has_separate_electricity) 
+                         VALUES (?, ?, ?)";
+    
+    $stmt = $conn->prepare($sql_housing_cost);
+    $stmt->bind_param("idi", $house_leader_id, $housing, $YES);
+    $stmt->execute();
+    $stmt->close();
+
+    // Energy Sources
+      $electricity = isset($_POST['electricity']) ? 1 : 0;
+    $kerosene = isset($_POST['kerosene']) ? 1 : 0;
+    $liquefiedpetroleum = isset($_POST['liquefiedpetroleum']) ? 1 : 0;
+    $oil = isset($_POST['oil']) ? 1 : 0;
+    $Solapanelandlamp = isset($_POST['Solapanelandlamp']) ? 1 : 0;
+    $candle = isset($_POST['candle']) ? 1 : 0;
+    $battery = isset($_POST['battery']) ? 1 : 0;
+    $charcoal = isset($_POST['charcoal']) ? 1 : 0;
+
+    // Insert Energy Sources
+    $sql_energy = "INSERT INTO energy_sources (house_leader_id, electricity, kerosene, liquefied_petroleum, 
+                   oil, solar_panel_lamp, candle, battery, charcoal) 
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    $stmt = $conn->prepare($sql_energy);
+    $stmt->bind_param("iiiiiiiii", $house_leader_id, $electricity, $kerosene, $liquefiedpetroleum, 
+                      $oil, $Solapanelandlamp, $candle, $battery, $charcoal);
+    $stmt->execute();
+    $stmt->close();
+
+    // Household Appliances
+    $regrigerator = isset($_POST['regrigerator']) ? 1 : 0;
+    $Airconditioner = isset($_POST['Airconditioner']) ? 1 : 0;
+    $WashingMachine = isset($_POST['WashingMachine']) ? 1 : 0;
+    $StoveGasrange = isset($_POST['StoveGasrange']) ? 1 : 0;
+    $Radiocassette = isset($_POST['Radiocassette']) ? 1 : 0;
+    $Television = isset($_POST['Television']) ? 1 : 0;
+    $Askv = isset($_POST['Askv']) ? 1 : 0;
+    $Landwiretelephone = isset($_POST['Landwiretelephone']) ? 1 : 0;
+    $Cellularphonebasic = isset($_POST['Cellularphonebasic']) ? 1 : 0;
+    $Cellularphonemodern = isset($_POST['Cellularphonemodern']) ? 1 : 0;
+    $Tablet = isset($_POST['Tablet']) ? 1 : 0;
+    $Personalcomputer = isset($_POST['Personalcomputer']) ? 1 : 0;
+
+    // Insert Household Appliances
+    $sql_appliances = "INSERT INTO household_appliances (house_leader_id, refrigerator, air_conditioner, 
+                       washing_machine, stove_gas_range, radio_cassette, television, audio_system, 
+                       landline_telephone, basic_cellphone, smartphone, tablet, personal_computer) 
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    $stmt = $conn->prepare($sql_appliances);
+    $stmt->bind_param("iiiiiiiiiiiii", $house_leader_id, $regrigerator, $Airconditioner, $WashingMachine, 
+                      $StoveGasrange, $Radiocassette, $Television, $Askv, $Landwiretelephone, 
+                      $Cellularphonebasic, $Cellularphonemodern, $Tablet, $Personalcomputer);
+    $stmt->execute();
+    $stmt->close();
+
+    // Vehicles
+    $Car = isset($_POST['Car']) ? 1 : 0;
+    $Van = isset($_POST['Van']) ? 1 : 0;
+    $Jeep = isset($_POST['Jeep']) ? 1 : 0;
+    $Truck = isset($_POST['Truck']) ? 1 : 0;
+    $Motorcycleandscooter = isset($_POST['Motorcycleandscooter']) ? 1 : 0;
+    $E_bike = isset($_POST['E-bike']) ? 1 : 0;
+    $Tricycle = isset($_POST['Tricycle']) ? 1 : 0;
+    $Bicycle = isset($_POST['Bicycle']) ? 1 : 0;
+    $Pedicab = isset($_POST['Pedicab']) ? 1 : 0;
+    $Motorizedboat = isset($_POST['Motorizedboat']) ? 1 : 0;
+    $Nonmotorized = isset($_POST['Nonmotorized']) ? 1 : 0;
+
+    // Insert Vehicles
+    $sql_vehicles = "INSERT INTO vehicles (house_leader_id, car, van, jeep, truck, motorcycle_scooter, 
+                     e_bike, tricycle, bicycle, pedicab, motorized_boat, non_motorized_boat) 
+                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    $stmt = $conn->prepare($sql_vehicles);
+    $stmt->bind_param("iiiiiiiiiiii", $house_leader_id, $Car, $Van, $Jeep, $Truck, $Motorcycleandscooter, 
+                      $E_bike, $Tricycle, $Bicycle, $Pedicab, $Motorizedboat, $Nonmotorized);
+    $stmt->execute();
+    $stmt->close();
+
+    // Older Household Members
+    for ($i = 1; $i <= 5; $i++) {
+        $name = sanitize_input($_POST["oldername_$i"]);
+        $age = sanitize_input($_POST["olderage_$i"]);
+        $working = sanitize_input($_POST["olderworking_$i"]);
+        $occupation = sanitize_input($_POST["olderoccupation_$i"]);
+        $income = sanitize_input($_POST["olderincome_$i"]);
+
+        if (!empty($name)) {
+            $sql_older = "INSERT INTO older_household_members (house_leader_id, name, age, working, occupation, income) 
+                          VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql_older);
+            $stmt->bind_param("issssd", $house_leader_id, $name, $age, $working, $occupation, $income);
+            $stmt->execute();
+            $stmt->close();
+        }
+    }
+
+    // Younger Household Members
+    for ($i = 1; $i <= 5; $i++) {
+        $name = sanitize_input($_POST["youngername_$i"]);
+        $age = sanitize_input($_POST["youngerage_$i"]);
+        $level = sanitize_input($_POST["younglevel_$i"]);
+        $academic = sanitize_input($_POST["youngacademic_$i"]);
+
+        if (!empty($name)) {
+            $sql_younger = "INSERT INTO younger_household_members (house_leader_id, name, age, education_level, academic_status) 
+                            VALUES (?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql_younger);
+            $stmt->bind_param("isiss", $house_leader_id, $name, $age, $level, $academic);
+            $stmt->execute();
+            $stmt->close();
+        }
+    }
+
+    // Commit the transaction
+    if (!$conn->error) {
+        $conn->commit();
+        echo "New record created successfully";
+    } else {
+        $conn->rollback();
+        echo "Error: " . $conn->error;
+    }
+
+    $conn->close();
+}
+?>
