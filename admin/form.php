@@ -180,9 +180,6 @@ $postData = $_POST ?? [];
     <label for="housenumber" class="form-label">House Number<span class="required-asterisk">*</span></label>
     <div class="input-group">
         <input type="text" class="form-control" id="house_number" name="house_number" placeholder="000000" required>
-        <span class="input-group-text" id="generate-house-number" style="cursor: pointer;">
-            <i class="fas fa-random"></i> <!-- Font Awesome icon for generation -->
-        </span>
     </div>
 
     <?php if ($status === 'house_number_exists'): ?>
