@@ -1260,7 +1260,6 @@ function safe_array_value($array, $key, $default = '') {
                         </div>
                     </div>
                   
-                </div>
                
                   
                 <div class="text-center mt-4">
