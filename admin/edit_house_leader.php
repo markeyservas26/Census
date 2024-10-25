@@ -435,12 +435,839 @@ function safe_array_value($array, $key, $default = '') {
             <input class="form-check-input" type="checkbox" id="connection4" name="mobilenetwork" value="MOBILE BROADBAND NETWORK" <?php echo (isset($internet['mobile']) && $internet['mobile'] == 1) ? 'checked' : ''; ?>>
             <label class="form-check-label" for="connection4">MOBILE BROADBAND NETWORK [e.g., via handset, card (e.g., integrated SIM card) or USB modem] </label>
         </div>
+
+    <h5 class="section-header">Public Safety</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>How safe do you feel walking alone in your area (i.e., neighborhood or village) at night? </p>
+                        <div class="ms-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="publicsafety1" name="publicsafety" value="Very safe">
+                                <label class="form-check-label" for="publicsafety1"> Very safe</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="publicsafety2" name="publicsafety" value="Safe">
+                                <label class="form-check-label" for="publicsafety2">Safe</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="publicsafety3" name="publicsafety" value="Unsafe">
+                                <label class="form-check-label" for="publicsafety3">Unsafe</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="publicsafety4" name="publicsafety" value="Very unsafe">
+                                <label class="form-check-label" for="publicsafety4"> Very unsafe</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="publicsafety5" name="publicsafety" value="I never go out at night/Does not apply">
+                                <label class="form-check-label" for="publicsafety5">I never go out at night/Does not apply </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="publicsafety6" name="publicsafety" value="Don’t Know">
+                                <label class="form-check-label" for="publicsafety6">Don’t Know</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="section-header">Social Protection and Assistance Programs</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>Is any member of your household (including) OFW, who is a dependent/beneficiary/member of any of the following social/health insurance programs?</p>
+                        <div class="ms-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="spap1" name="sss" value="A Social Security System (SSS)">
+                                <label class="form-check-label" for="spap1"> A Social Security System (SSS)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="spap2" name="gsis" value="Government Service Insurance System (GSIS)">
+                                <label class="form-check-label" for="spap2"> Government Service Insurance System (GSIS)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="spap3" name="philhealth" value="PhilHealth">
+                                <label class="form-check-label" for="spap3">PhilHealth</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="spap4" name="healthormedical" value="Health/Medical Insurance other than PhilHealth">
+                                <label class="form-check-label" for="spap4">  Health/Medical Insurance other than PhilHealth (e.g., MediCard, Maxicare, LGU Health card, cooperative health card)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="spap6" name="dontwork" value="Don’t Know">
+                                <label class="form-check-label" for="spap6">Don’t Know</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <p>In the past 12 months (July 01, 2023 - June 30, 2024), did any member of your household receive benefits/ grants/assistance from the following social/health insurance programs?</p>
+                        <div class="ms-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="spap7" name="sss2" value="A Social Security System (SSS)">
+                                <label class="form-check-label" for="spap7"> A Social Security System (SSS)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="spap8" name="gsis2" value="Government Service Insurance System (GSIS)">
+                                <label class="form-check-label" for="spap8"> Government Service Insurance System (GSIS)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="spap9" name="philhealth2" value="PhilHealth">
+                                <label class="form-check-label" for="spap9">PhilHealth</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="spap10" name="healthormedical2" value="Health/Medical Insurance other than PhilHealth">
+                                <label class="form-check-label" for="spap10">  Health/Medical Insurance other than PhilHealth (e.g., MediCard, Maxicare, LGU Health card, cooperative health card)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="spap12" name="dontknow2" value="Don’t Know">
+                                <label class="form-check-label" for="spap12">Don’t Know</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="section-header">Water, Sanitation, and Hygiene</h5>
+<div class="row">
+    <div class="col-md-6">
+        <p>What is your household's main source of water supply?</p>
+        <div class="ms-4">
+        <b><p>Community Water System</p></b>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="wsh1" name="community_water_supply" value="Piped into Dwelling">
+                <label class="form-check-label" for="wsh1"> Piped into Dwelling</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="wsh2" name="community_water_supply" value="Piped into yard/plot">
+                <label class="form-check-label" for="wsh2">Piped into yard/plot</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="wsh3" name="community_water_supply" value="Public Tap/Stand Pipe">
+                <label class="form-check-label" for="wsh3">Public Tap/Stand Pipe</label>
+            </div>
+            <b><p>Point Source</p></b>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="wsh4" name="point_source_water_supply" value="Protected Well/Tube Well/Borehole">
+                <label class="form-check-label" for="wsh4">Protected Well/Tube Well/Borehole  </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="wsh5" name="point_source_water_supply" value="Protected Spring">
+                <label class="form-check-label" for="wsh5">Protected Spring</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="wsh6" name="point_source_water_supply" value="RainWater">
+                <label class="form-check-label" for="wsh6">RainWater</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="wsh7" name="point_source_water_supply" value="Transfer Truck/Peddler/Neighbor">
+                <label class="form-check-label" for="wsh7">Transfer Truck/Peddler/Neighbor</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="wsh8" name="point_source_water_supply" value="Unprotected (Open Dug Well)">
+                <label class="form-check-label" for="wsh8">Unprotected (Open Dug Well)</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="wsh9" name="point_source_water_supply" value="Unproteced Spring">
+                <label class="form-check-label" for="wsh9">Unproteced Spring</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="wsh10" name="point_source_water_supply" value="Surfaced Water">
+                <label class="form-check-label" for="wsh10">Surfaced Water (e.g.., River, Dam, Lake, Pond, Stream, Canal, Irrigation Channel)</label>
+            </div>
+        </div>
     </div>
+
+                    <div class="col-md-6">
+                        <p>What is the main source of drinking water used by members of your household?</p>
+                        <div class="ms-4">
+                        <p><b>Improved source of drinking water</b></p>
+                        <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh12" name="dwelling2" value="Piped into Dwelling">
+                                <label class="form-check-label" for="wsh12"> Piped into Dwelling</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh13" name="yardorplot2" value="Piped into yard/plot">
+                                <label class="form-check-label" for="wsh13">Piped into yard/plot</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh14" name="PipedtoNeighbor" value="Piped to Neighbor">
+                                <label class="form-check-label" for="wsh14">Piped to Neighbor</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh15" name="PublicTap2" value="Public Tap/Stand Pipe">
+                                <label class="form-check-label" for="wsh15">Public Tap/Stand Pipe</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh16" name="TubeWell2" value="Tube Well/Borehole">
+                                <label class="form-check-label" for="wsh16">Tube Well/Borehole  </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh17" name="ProtectedWell2" value="Protected Well">
+                                <label class="form-check-label" for="wsh17">Protected Well</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh18" name="RainWater2" value="RainWater">
+                                <label class="form-check-label" for="wsh18">RainWater</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh19" name="UnprotectedSpring2" value="Unprotected Spring">
+                                <label class="form-check-label" for="wsh19">Unprotected Spring</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh20" name="TankerTruck" value="Tanker - Truck">
+                                <label class="form-check-label" for="wsh20">Tanker - Truck</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh21" name="CartwithSmallTank" value="Cart with Small-Tank">
+                                <label class="form-check-label" for="wsh21">Cart with Small-Tank</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh22" name="WaterRefillingStation" value="Water Refilling Station">
+                                <label class="form-check-label" for="wsh22">Water Refilling Station</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh23" name="BottledWater" value="Bottled Water">
+                                <label class="form-check-label" for="wsh23">Bottled Water</label>
+                            </div>
+                            <p><b>Unimproved source of drinking water</b></p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh24" name="UnprotectedWell" value="Unprotected Well (Open Dug Well)">
+                                <label class="form-check-label" for="wsh24">Unprotected Well (Open Dug Well)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh25" name="UnprotectedSpring3" value="Unprotected Spring">
+                                <label class="form-check-label" for="wsh25">Unprotected Spring</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh26" name="SurfacedWater3" value="Surfaced Water">
+                                <label class="form-check-label" for="wsh26">Surfaced Water (e.g.., River, Dam, Lake, Pond, Stream, Canal, Irrigation Channel)</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
+                    <div class="col-md-6">
+                        <p>What is the main source of water used by members of your household for other purposes such as cooking and handwashing?</p>
+                        <div class="ms-4">
+                        <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh28" name="PipedintoDwelling" value="Piped into Dwelling">
+                                <label class="form-check-label" for="wsh28"> Piped into Dwelling</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh29" name="Pipedintoyardorplot" value="Piped into yard/plot">
+                                <label class="form-check-label" for="wsh29">Piped into yard/plot</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh30" name="PipedtoNeighbor" value="Piped to Neighbor">
+                                <label class="form-check-label" for="wsh30">Piped to Neighbor</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh31" name="PublicTap3" value="Public Tap/Stand Pipe">
+                                <label class="form-check-label" for="wsh31">Public Tap/Stand Pipe</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh32" name="TubeWell3" value="Tube Well/Borehole">
+                                <label class="form-check-label" for="wsh32">Tube Well/Borehole  </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh33" name="ProtectedWell3" value="Protected Well">
+                                <label class="form-check-label" for="wsh33">Protected Well</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh34" name="RainWater3" value="RainWater">
+                                <label class="form-check-label" for="wsh34">RainWater</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh35" name="UnprotectedSpring3" value="Unprotected Spring">
+                                <label class="form-check-label" for="wsh35">Unprotected Spring</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh36" name="TankerTruck3" value="Tanker - Truck">
+                                <label class="form-check-label" for="wsh36">Tanker - Truck</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh37" name="CartwithSmallTank3" value="Cart with Small-Tank">
+                                <label class="form-check-label" for="wsh37">Cart with Small-Tank</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh38" name="WaterRefillingStation3" value="Water Refilling Station">
+                                <label class="form-check-label" for="wsh38">Water Refilling Station</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh39" name="BottledWater3" value="Bottled Water">
+                                <label class="form-check-label" for="wsh39">Bottled Water</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh40" name="UnprotectedWell3" value="Unprotected Well (Open Dug Well)">
+                                <label class="form-check-label" for="wsh40">Unprotected Well (Open Dug Well)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh41" name="UnprotectedSpring3" value="Unprotected Sprin">
+                                <label class="form-check-label" for="wsh41">Unprotected Spring</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh42" name="SurfacedWater3" value="Surfaced Water">
+                                <label class="form-check-label" for="wsh42">Surfaced Water (e.g.., River, Dam, Lake, Pond, Stream, Canal, Irrigation Channel)</label>
+                            </div>
+    
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Where is that water source located?</p>
+                        <div class="ms-4">
+                        <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh44" name="watersourcelocated" value="In Own Dwelling">
+                                <label class="form-check-label" for="wsh44">In Own Dwelling</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh45" name="watersourcelocated" value="In own Yard/Plot">
+                                <label class="form-check-label" for="wsh45">In own Yard/Plot</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh46" name="watersourcelocated" value="Elsewhere">
+                                <label class="form-check-label" for="wsh46">Elsewhere</label>
+                            </div>
+                        </div>
 </div>
+<hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
+<div class="col-md-6">
+                        <p>What kind of toilet facility do members of your household usually use?</p>
+                        <div class="ms-4">
+                        <p><b>Improved Sanitation Facility</b></p>
+                        <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh47" name="improvedsanitation" value="Flush/Pour flush to piped sewer system">
+                                <label class="form-check-label" for="wsh47">Flush/Pour flush to piped sewer system</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh48" name="improvedsanitation" value="Flush/Pour flush to septic tank">
+                                <label class="form-check-label" for="wsh48">Flush/Pour flush to septic tank</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh49" name="improvedsanitation" value="Flush/Pour flush to pit latrine">
+                                <label class="form-check-label" for="wsh49">Flush/Pour flush to pit latrine</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh50" name="improvedsanitation" value="wsh50">
+                                <label class="form-check-label" for="wsh50">Ventilated Improve Latrine</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh51" name="improvedsanitation" value="Pit Latrine with Slab">
+                                <label class="form-check-label" for="wsh51">Pit Latrine with Slab</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh52" name="improvedsanitation" value="Composting Toilet">
+                                <label class="form-check-label" for="wsh52">Composting Toilet</label>
+                            </div>
+                            <p><b>Unimproved Sanitation Facility</b></p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh53" name="unimprovedsanitation" value="Flush/Pour flush to somewhere else/open drain">
+                                <label class="form-check-label" for="wsh53">Flush/Pour flush to somewhere else/open drain</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh54" name="unimprovedsanitation" value="Pit Latrine without slab/Open pit">
+                                <label class="form-check-label" for="wsh54">Pit Latrine without slab/Open pit</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh55" name="unimprovedsanitation" value="Bucket/Pil System">
+                                <label class="form-check-label" for="wsh55">Bucket/Pil System</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh56" name="unimprovedsanitation" value="Hanging Toilet/Hanging Latrine">
+                                <label class="form-check-label" for="wsh56">Hanging Toilet/Hanging Latrine</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh57" name="unimprovedsanitation" value="Flush or pour flush to don't know where">
+                                <label class="form-check-label" for="wsh57">Flush or pour flush to don't know where</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh58" name="unimprovedsanitation" value="Public Toilet">
+                                <label class="form-check-label" for="wsh58">Public Toilet</label>
+                            </div>
+                            <p><b>Open Defecation</b></p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh59" name="opendefecation" value="No Facility">
+                                <label class="form-check-label" for="wsh59">No Facility/Disposal of human feces in feilds, forests, bushes, open bodies of water, beaches, or other open species</label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Where is the toilet facility located?</p>
+                        <div class="ms-4">
+                        <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh61" name="toiletfacility" value="In own Dwelling">
+                                <label class="form-check-label" for="wsh61">In own Dwelling</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh62" name="toiletfacility" value="In own Yard/Plot">
+                                <label class="form-check-label" for="wsh62">In own Yard/Plot</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh63" name="toiletfacility" value="Elsewhere">
+                                <label class="form-check-label" for="wsh63">Elsewhere</label>
+                            </div>
+                            <div class="col-md-6">
+                        <p>Do you share this facility with others who are not members of your households?</p>
+                        <div class="ms-4">
+                        <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh64" name="facilitywithothers" value="Yes">
+                                <label class="form-check-label" for="wsh64">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh65" name="facilitywithothers" value="No">
+                                <label class="form-check-label" for="wsh65">No</label>
+                            </div>
+                            </div>
+                      <p>Do you share this facility only with members of other household that you know or is the facility open to the use of the general public?</p>
+                        <div class="ms-4">
+                        <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh67" name="facilitywithmembers" value="Shared with known household (Not Public)">
+                                <label class="form-check-label" for="wsh67">Shared with known household (Not Public)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="wsh68" name="facilitywithmembers" value="Shared with General Public">
+                                <label class="form-check-label" for="wsh68">Shared with General Public</label>
+                            </div>
+                           </div>
+                           <p>In what ways does your household dispose its garbage/solid wastes?</p>
+                        <div class="ms-4">
+                        <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh69" name="SegregatingWaste" value="Segregating Waste">
+                                <label class="form-check-label" for="wsh69">Segregating Waste</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh70" name="Lettinggarbagetruckcollectwaste" value="Letting garbage truck collect waste">
+                                <label class="form-check-label" for="wsh70">Letting garbage truck collect waste</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh71" name="Recycling" value="Recycling/Giving Away Recyclables">
+                                <label class="form-check-label" for="wsh71">Recycling/Giving Away Recyclables</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh72" name="Composting" value="Composting">
+                                <label class="form-check-label" for="wsh72">Composting</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh73" name="Burning" value="Burning">
+                                <label class="form-check-label" for="wsh73">Burning</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh74" name="Dumpinginpitwithcover" value="Dumping in pit with cover">
+                                <label class="form-check-label" for="wsh74">Dumping in pit with cover</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wsh75" name="Throwinginunhabitedlocations" value="Throwing in unhabited locations">
+                                <label class="form-check-label" for="wsh75">Throwing in unhabited locations</label>
+                            </div>
+                           </div>
+</div>
+</div>
+</div>
+<h5 class="section-header">Housing Characteristics</h5>
+<div class="row">
+                    <div class="col-md-6">
+                        <p>What is the type of building occupied by your household? </p>
+                        <div class="ms-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing1" name="SINGLEHOUSE" value="SINGLE HOUSE">
+                                <label class="form-check-label" for="housing1"> SINGLE HOUSE</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing2" name="DUPLEX" value="DUPLEX">
+                                <label class="form-check-label" for="housing2"> DUPLEX</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing3" name="AAROW_HOUSE" value="APARTMENT/ACCESSORIA/ROW HOUSE">
+                                <label class="form-check-label" for="housing3"> APARTMENT/ACCESSORIA/ROW HOUSE</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing4" name="Multi_urb" value="OTHER MULTI-UNIT RESIDENTIAL BUILDING">
+                                <label class="form-check-label" for="housing4"> OTHER MULTI-UNIT RESIDENTIAL BUILDING (3 OR MORE UNITS)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing5" name="Cominag" value="COMMERCIAL/INDUSTRIAL/AGRICULTURAL">
+                                <label class="form-check-label" for="housing5"> COMMERCIAL/INDUSTRIAL/AGRICULTURAL (E.G., OFFICE, FACTORY, BARN)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing6" name="Institution_living" value="INSTITUTIONAL LIVING QUARTER">
+                                <label class="form-check-label" for="housing6"> INSTITUTIONAL LIVING QUARTER (E.G., HOTEL, HOSPITAL, CONVENT, JAIL)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing7" name="none" value="NONE">
+                                <label class="form-check-label" for="housing7"> NONE (e.g., HOMELESS/CART), END INTERVIEW</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing8" name="Othertype" value="OTHER TYPES OF BUILDING">
+                                <label class="form-check-label" for="housing8">OTHER TYPES OF BUILDING (e.g., BUS/TRAILER, BOAT, TENT), SPECIFY</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing9" name="Temporaryevac" value="TEMPORARY EVACUATION CENTER/RELOCATION AREA">
+                                <label class="form-check-label" for="housing9"> TEMPORARY EVACUATION CENTER/RELOCATION AREA (E.G., SCHOOL, GYM, RELOCATION HOUSE)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <p>How many floors are there in this building?</p>
+                        <div class="ms-4">
+                            <label>Number of Floors</label>
+                       <input class="form-control" type="number" id="housing10" name="floor">
+                    </div>
+                </div>
+            </div>
+
+                </div>
+                <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
+                <div class="row">
+                    <div class="col-md-9">
+                        <p>What is the main construction material of the roof of this building? </p>
+                        <div class="ms-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing11" name="Metalroofing" value="METAL ROOFING SHEETS">
+                                <label class="form-check-label" for="housing11">  METAL ROOFING SHEETS (E.G., GALVANIZED IRON, COPPER, ALUMINUM, STAINLESS STEEL, ETC.)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing12" name="concretslayslate" value="CONCRETE/CLAY/SLATE TILE">
+                                <label class="form-check-label" for="housing12"> CONCRETE/CLAY/SLATE TILE</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing13" name="HG_concrete" value="HALF-GALVANIZED IRON AND HALF-CONCRETE">
+                                <label class="form-check-label" for="housing13">HALF-GALVANIZED IRON AND HALF-CONCRETE</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing14" name="Woodbamboo" value="WOOD/BAMBOO">
+                                <label class="form-check-label" for="housing14">  WOOD/BAMBOO</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing15" name="Sodthatch" value="SOD/THATCH">
+                                <label class="form-check-label" for="housing15">SOD/THATCH (E.G., COGON, NIPA, ANAHAW, ETC.)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing15" name="Asbestos" value="ASBESTOS">
+                                <label class="form-check-label" for="housing15"> ASBESTOS</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing16" name="Msi_materials" value="MAKESHIFT/SALVAGED/IMPROVISED MATERIALS">
+                                <label class="form-check-label" for="housing16">MAKESHIFT/SALVAGED/IMPROVISED MATERIALS</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
+                <div class="row">
+                    <div class="col-md-9">
+                        <p>What is the finishing material of the floor of this building/housing unit? </p>
+                        <div class="ms-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing17" name="CMG" value="CERAMIC TILE/MARBLE/GRANITE">
+                                <label class="form-check-label" for="housing17"> CERAMIC TILE/MARBLE/GRANITE</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing18" name="CBS" value="CEMENT/BRICK/STONE">
+                                <label class="form-check-label" for="housing18"> CEMENT/BRICK/STONE</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing19" name="WBP" value="WOOD/BAMBOO PLANK">
+                                <label class="form-check-label" for="housing19"> WOOD/BAMBOO PLANK</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing20" name="WTP" value="WOOD TILE/PARQUET">
+                                <label class="form-check-label" for="housing20"> WOOD TILE/PARQUET</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing20" name="VCT" value="VINYL/CARPET TILE">
+                                <label class="form-check-label" for="housing20"> VINYL/CARPET TILE </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing21" name="Linoleum" value="LINOLEUM">
+                                <label class="form-check-label" for="housing21"> LINOLEUM </label>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+                <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
+                <div class="row">
+                    <div class="col-md-9">
+                        <p>What is the main construction material of the floor of this housing unit? </p>
+                        <div class="ms-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing23" name="concrete" value="CONCRETE">
+                                <label class="form-check-label" for="housing23">CONCRETE</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing24" name="earthsandmud" value="EARTH/SAND/MUD">
+                                <label class="form-check-label" for="housing24">  EARTH/SAND/MUD</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing25" name="wood" value="WOOD">
+                                <label class="form-check-label" for="housing25">WOOD</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing26" name="coconutlumber" value="COCONUTLUMBER">
+                                <label class="form-check-label" for="housing26"> COCONUT LUMBER</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing27" name="bamboo" value="BAMBOO">
+                                <label class="form-check-label" for="housing27">BAMBOO</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing28" name="msim" value="MAKESHIFT/SALVAGED/ IMPROVISED MATERIALS">
+                                <label class="form-check-label" for="housing28"> MAKESHIFT/SALVAGED/ IMPROVISED MATERIALS</label>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+                <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
+                <div class="row">    
+                <div class="col-md-6">
+                        <p>What is the estimated floor area of this housing unit? </p>
+                        <div class="ms-4">
+                            <input type="number" class="form-control" name ="floor2">
+                    </div>
+                  
+
+                    <div class="col-md-6">
+                        <p> How many bedrooms does this housing unit have? </p>
+                        <div class="ms-4">
+                            <input type="number" class="form-control" name ="bedrooms">
+                    </div>
+                </div>
+                </div>
+                <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
+                <div class="row">
+                    <div class="col-md-9">
+                        <p>What is the tenure status of the housing unit and lot occupied by this household? </p>
+                        <div class="ms-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="housing30" name="tenturestatus" value="OWNER-LIKE POSSESSION OF THE HOUSE AND LOT">
+                                <label class="form-check-label" for="housing30">  OWN OR OWNER-LIKE POSSESSION OF THE HOUSE AND LOT</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="housing31" name="tenturestatus" value="OWN HOUSE & RENT LOT">
+                                <label class="form-check-label" for="housing31">OWN HOUSE, RENT LOT</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="housing32" name="tenturestatus" value="OWN HOUSE, RENT-FREE LOT WITH CONSENT OF OWNER">
+                                <label class="form-check-label" for="housing32">OWN HOUSE, RENT-FREE LOT WITH CONSENT OF OWNER</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="housing33" name="tenturestatus" value="OWN HOUSE, RENT-FREE LOT WITHOUT CONSENT OF OWNER">
+                                <label class="form-check-label" for="housing33"> OWN HOUSE, RENT-FREE LOT WITHOUT CONSENT OF OWNER </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="housing34" name="tenturestatus" value="RENT HOUSE/INCLUDING LOT">
+                                <label class="form-check-label" for="housing34">RENT HOUSE/INCLUDING LOT</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="housing35" name="tenturestatus" value="RENT- FREE HOUSE AND LOT WITH CONSENT OF OWNER">
+                                <label class="form-check-label" for="housing35">RENT- FREE HOUSE AND LOT WITH CONSENT OF OWNER</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="housing36" name="tenturestatus" value="RENT- FREE HOUSE AND LOT WITHOUT CONSENT OF OWNER">
+                                <label class="form-check-label" for="housing36"> RENT- FREE HOUSE AND LOT WITHOUT CONSENT OF OWNER</label>
+                            </div>
+                        </div>
+                    </div>
+</div>
+                </div>
+                <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>When was the housing unit/building constructed?</p>
+                        <div class="ms-4">
+                           <input type="date" class="form-control" name="housing">
+                    </div>
+
+                  
+</div>
+<div class="col-md-6">
+                        <p>Is there electricity in the building?</p>
+                        <div class="form-check">
+                                <input class="form-check-input" type="radio" id="housing37" name="electricity" value=" YES">
+                                <label class="form-check-label" for="housing37"> YES</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="housing38" name="electricity" value="NO">
+                                <label class="form-check-label" for="housing38">NO</label>
+                            </div>
+                </div>
+                <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
+                <div class="row">
+                    <div class="col-md-9">
+                        <p>What type of fuel/energy source does this household mainly use for lighting? </p>
+                        <div class="ms-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing39" name="electricity" value="ELECTRICITY">
+                                <label class="form-check-label" for="housing39">  ELECTRICITY</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing40" name="kerosene" value="KEROSENE">
+                                <label class="form-check-label" for="housing40"> KEROSENE (GAAS)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing41" name="liquefiedpetroleum" value="LIQUEFIED PETROLEUM GAS">
+                                <label class="form-check-label" for="housing41"> LIQUEFIED PETROLEUM GAS (LPG)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing42" name="oil" value="OIL">
+                                <label class="form-check-label" for="housing42"> OIL (VEGETABLE, ANIMAL, AND OTHERS)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing43" name="Solapanelandlamp" value="SOLAR PANEL/SOLAR LAMP">
+                                <label class="form-check-label" for="housing43">SOLAR PANEL/SOLAR LAMP </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing44" name="candle" value="CANDLE">
+                                <label class="form-check-label" for="housing44">CANDLE</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing45" name="battery" value="BATTERY">
+                                <label class="form-check-label" for="housing45">BATTERY</label>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+                <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
+                <div class="row">
+                    <div class="col-md-9">
+                        <p>What type of fuel/energy source does this household use most of the time for cooking? </p>
+                        <div class="ms-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing47" name="electricity" value="ELECTRICITY">
+                                <label class="form-check-label" for="housing47">ELECTRICITY</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing48" name="kerosene" value="KEROSENE">
+                                <label class="form-check-label" for="housing48"> KEROSENE (GAAS)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing49" name="liquefiedpetroleum" value="LIQUEFIED PETROLEUM GAS">
+                                <label class="form-check-label" for="housing49"> LIQUEFIED PETROLEUM GAS (LPG)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing50" name="charcoal" value="CHARCOAL">
+                                <label class="form-check-label" for="housing50"> CHARCOAL</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing51" name="wood" value="WOOD">
+                                <label class="form-check-label" for="housing51">WOOD </label>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+                <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
+                <div class="row">
+                    <div class="col-md-9">
+                        <p>Choose the following items in good working condition does the household own? </p>
+                        <div class="ms-4">
+                        <p><b>HOUSEHOLD CONVENIENCES</b> </p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing53" name="regrigerator" value="Refrigerator/Freezer">
+                                <label class="form-check-label" for="housing53"> Refrigerator/Freezer</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing54" name="Airconditioner" value="Air conditioner">
+                                <label class="form-check-label" for="housing54"> Air conditioner</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing55" name="WashingMachine" value="Washing Machine">
+                                <label class="form-check-label" for="housing55">Washing Machine</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing56" name="StoveGasrange" value=" Stove with oven / Gas range">
+                                <label class="form-check-label" for="housing56"> Stove with oven / Gas range</label>
+                            </div>
+
+                            <p><b>ICT DEVICES</b> </p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing56" name="Radiocassette" value="Radio/Radio cassette">
+                                <label class="form-check-label" for="housing56">Radio/Radio cassette (AM, FM, and transistor) </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing57" name="Television" value="Television">
+                                <label class="form-check-label" for="housing57">Television</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing58" name="Askv" value="Audio component/Stereo set/Karaoke/Videoke">
+                                <label class="form-check-label" for="housing58">Audio component/Stereo set/Karaoke/Videoke</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing59" name="Landwiretelephone" value="Landline/Wireless telephone">
+                                <label class="form-check-label" for="housing59">Landline/Wireless telephone</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing60" name="Cellularphonebasic" value="Cellular phone (basic or with button keypad)">
+                                <label class="form-check-label" for="housing60">Cellular phone (basic or with button keypad)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing61" name="Cellularphonemodern" value="Cellular phone (modern or smart phone)">
+                                <label class="form-check-label" for="housing61"> Cellular phone (modern or smart phone)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing62" name="Tablet" value="Tablet">
+                                <label class="form-check-label" for="housing62">Tablet</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing63" name="Personalcomputer" value="Personal computer">
+                                <label class="form-check-label" for="housing63"> Personal computer (e.g., desktop, laptop, notebook, netbook)</label>
+                            </div>
+                            <p><b>VEHICLES</b> </p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing64" name="Car" value="Car">
+                                <label class="form-check-label" for="housing64">Car</label>
+</div>
+<div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing65" name="Van" value="Van">
+                                <label class="form-check-label" for="housing65">Van</label>
+</div>
+<div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing66" name="Jeep" value="Jeep">
+                                <label class="form-check-label" for="housing66"> Jeep</label>
+</div>
+<div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing67" name="Truck" value="Truck">
+                                <label class="form-check-label" for="housing67">Truck</label>
+</div>
+<div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing68" name="Motorcycleandscooter" value="Motorcycle/Motor scooter">
+                                <label class="form-check-label" for="housing68"> Motorcycle/Motor scooter</label>
+</div>
+<div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing69" name="E-bike" value="E-bike">
+                                <label class="form-check-label" for="housing69"> E-bike</label>
+</div>
+<div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing70" name="Tricycle" value="Tricycle">
+                                <label class="form-check-label" for="housing70"> Tricycle (for errands and travel)</label>
+</div>
+<div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing71" name="Bicycle" value="Bicycle">
+                                <label class="form-check-label" for="housing71"> Bicycle</label>
+</div>
+<div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing72" name="Pedicab" value="Pedicab">
+                                <label class="form-check-label" for="housing72"> Pedicab</label>
+</div>
+<div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing73" name="Motorizedboat" value="Motorized boat/Banca">
+                                <label class="form-check-label" for="housing73"> Motorized boat/Banca</label>
+</div>
+<div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="housing74" name="Nonmotorized" value="Non-motorized boat/Banca">
+                                <label class="form-check-label" for="housing74"> Non-motorized boat/Banca</label>
+</div>
+                        </div>
+                    </div>
+                  
+                </div>
                
                   
                 <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                <form id="myForm">
+    <!-- Your form fields here -->
+    <button type="submit">Submit</button>
+</form>
                 </div>
             </form>
         </div>
