@@ -162,3 +162,14 @@ function update_internet_access($conn, $house_leader_id, $data) {
     
     return $stmt->execute();
 }
+
+function update_public_safety($conn, $house_leader_id, $data) {
+    $sql = "UPDATE public_safety SET 
+            safety_level = ?
+            WHERE house_leader_id = ?";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("si", $data['safety_level'], $house_leader_id);
+    
+    return $stmt->execute();
+}

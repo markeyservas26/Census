@@ -33,6 +33,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       
         $result = update_internet_access($conn, $_POST['house_leader_id'], $_POST);
         if (!$result) throw new Exception("Error updating internet access");
+
+        $result = update_public_safety($conn, $_POST['house_leader_id'], $_POST);
+        if (!$result) throw new Exception("Error updating public safety");
         
 
         $conn->commit();
