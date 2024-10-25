@@ -121,21 +121,13 @@ function safe_array_value($array, $key, $default = '') {
                 <input type="text" id="province" name="province_hl" class="form-control" value="<?php echo $house_leader['province']; ?>" required>
             </div>
             <div class="col-12 col-sm-6 col-lg-3">
-                <label for="municipality" class="form-label">Municipality<span class="required-asterisk">*</span></label>
-                <select id="municipality" name="municipality_hl" class="form-select" required>
-                    <option value="" <?php echo $house_leader['municipality'] == '' ? 'selected' : ''; ?>>Select an option</option>
-                    <option value="Madridejos" <?php echo $house_leader['municipality'] == 'Madridejos' ? 'selected' : ''; ?>>Madridejos</option>
-                    <option value="Bantayan" <?php echo $house_leader['municipality'] == 'Bantayan' ? 'selected' : ''; ?>>Bantayan</option>
-                    <option value="Santafe" <?php echo $house_leader['municipality'] == 'Santafe' ? 'selected' : ''; ?>>Santafe</option>
-                </select>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-3">
-                <label for="barangay" class="form-label">Barangay<span class="required-asterisk">*</span></label>
-                <select id="barangay" name="Barangay_hl" class="form-select" required>
-                    <option value="" <?php echo $house_leader['barangay'] == '' ? 'selected' : ''; ?>>Select an option</option>
-                    <option value="Mancilang" <?php echo $house_leader['barangay'] == 'Mancilang' ? 'selected' : ''; ?>>Mancilang</option>
-                </select>
-            </div>
+    <label for="municipality" class="form-label">Municipality<span class="required-asterisk">*</span></label>
+    <input type="text" id="municipality" name="municipality_hl" class="form-control" value="<?php echo $house_leader['municipality']; ?>" required>
+</div>
+<div class="col-12 col-sm-6 col-lg-3">
+    <label for="barangay" class="form-label">Barangay<span class="required-asterisk">*</span></label>
+    <input type="text" id="barangay" name="barangay_hl" class="form-control" value="<?php echo $house_leader['barangay']; ?>" required>
+</div>s
             <div class="col-12 col-sm-6 col-lg-3">
                 <label for="purok" class="form-label">Street/Purok/Sitio/Subd.</label>
                 <input type="text" id="purok" name="purok_hl" class="form-control" value="<?php echo $house_leader['purok']; ?>">
