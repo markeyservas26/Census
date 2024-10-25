@@ -224,22 +224,14 @@
         </div>
     </div>
     <div class="header">
-<<<<<<< HEAD
         <img src="admin/assets/img/censusformlogo.png" alt="Census Logo" class="logo">
-=======
-        <img src="../assets/img/censusformlogo.png" alt="Census Logo" class="logo">
->>>>>>> d632c6ca82170030c5cbe04ee2a10e443677266d
         <div class="header-text">
             <h4>REPUBLIC OF THE PHILIPPINES</h4>
             <h3>PHILIPPINE STATISTICS AUTHORITY</h3>
             <h5>PROVINCE OF CEBU</h5>
             <h5>MUNICIPALITY OF MADRIDEJOS</h5>
         </div>
-<<<<<<< HEAD
         <img src="admin/assets/img/censusformlogo2.png" alt="Census Logo 2" class="logo-right">
-=======
-        <img src="../assets/img/censusformlogo2.png" alt="Census Logo 2" class="logo-right">
->>>>>>> d632c6ca82170030c5cbe04ee2a10e443677266d
     </div>
 
 
