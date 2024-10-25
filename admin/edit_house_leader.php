@@ -435,7 +435,8 @@ function safe_array_value($array, $key, $default = '') {
             <input class="form-check-input" type="checkbox" id="connection4" name="mobilenetwork" value="MOBILE BROADBAND NETWORK" <?php echo (isset($internet['mobile']) && $internet['mobile'] == 1) ? 'checked' : ''; ?>>
             <label class="form-check-label" for="connection4">MOBILE BROADBAND NETWORK [e.g., via handset, card (e.g., integrated SIM card) or USB modem] </label>
         </div>
-
+        
+    </div>
     <h5 class="section-header">Public Safety</h5>
                 <div class="row">
                     <div class="col-md-6">
@@ -1259,14 +1260,16 @@ function safe_array_value($array, $key, $default = '') {
 </div>
                         </div>
                     </div>
-                  
+
+
+
+
+
+</div>
                
                   
                 <div class="text-center mt-4">
-                <form id="myForm">
-    <!-- Your form fields here -->
-    <button type="submit">Submit</button>
-</form>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>
         </div>
