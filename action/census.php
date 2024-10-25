@@ -26,8 +26,8 @@ $sql = "INSERT INTO barangay_census (
     employment_duration, employer_name, employer_address, 
     occupant_name, occupant_position, occupant_age, occupant_birth_date, 
     occupant_civil_status, occupant_occupation, 
-    residence_status, length_of_stay, provincial_address, civil_status
-) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    residence_status, length_of_stay, provincial_address, civil_status, location
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
 
@@ -37,7 +37,7 @@ if (!$stmt) {
 }
 
 // Bind the parameters
-$stmt->bind_param('ssssssssssssssssssssssssssssssssssss',
+$stmt->bind_param('sssssssssssssssssssssssssssssssssssss',
     $_POST['house_number'], $_POST['first_name'], $_POST['last_name'], $_POST['middle_name'],
     $_POST['street'], $_POST['barangay'], $_POST['municipality'],
     $_POST['province'], $_POST['sex'], $_POST['date_of_birth'],
@@ -53,7 +53,7 @@ $stmt->bind_param('ssssssssssssssssssssssssssssssssssss',
     $_POST['occupant_birth_date'], $_POST['occupant_civil_status'],
     $_POST['occupant_occupation'], 
     $_POST['residence_status'], $_POST['length_of_stay'], 
-    $_POST['provincial_address'], $_POST['civil_status']);
+    $_POST['provincial_address'], $_POST['civil_status'], $_POST['location']);
 
 // Execute the statement
 if (!$stmt->execute()) {
