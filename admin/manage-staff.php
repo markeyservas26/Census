@@ -273,51 +273,52 @@ $result = $stmt->get_result();
             echo "<td>" . htmlspecialchars($row['email']) . "</td>";
             echo "<td>" . htmlspecialchars($row['municipality']) . "</td>";
             
-            // Fetch the actual password securely from the database
+            // Fetch the hashed password securely from the database
             $userId = $row['id'];
-            $actual_password = getPasswordById($userId); // Function to retrieve the actual password
+            $hashed_password = getPasswordById($userId); // Function to retrieve the hashed password
 
-            // Display the actual password or 'N/A' if not found
-            $password = ($actual_password !== false) ? htmlspecialchars($actual_password) : 'N/A';
-            
+            // Display 'N/A' if not found
+            $password = ($hashed_password !== false) ? htmlspecialchars($hashed_password) : 'N/A';
+
+            // Buttons for edit, delete, and view actions
             echo "<td>  
-        <button class='btn btn-primary edit-btn' data-id='" . htmlspecialchars($row['id']) . "'>Edit</button> |
-        <button class='btn btn-danger delete-btn' data-id='" . htmlspecialchars($row['id']) . "'>Delete</button> |
-        <button class='btn btn-info view-btn' 
-                data-id='" . htmlspecialchars($row['id']) . "' 
-                data-name='" . htmlspecialchars($row['name']) . "' 
-                data-email='" . htmlspecialchars($row['email']) . "' 
-                data-municipality='" . htmlspecialchars($row['municipality']) . "' 
-                data-password='" . htmlspecialchars($password) . "'>View</button>
-      </td>";
-    
+                <button class='btn btn-primary edit-btn' data-id='" . htmlspecialchars($row['id']) . "'>Edit</button> |
+                <button class='btn btn-danger delete-btn' data-id='" . htmlspecialchars($row['id']) . "'>Delete</button> |
+                <button class='btn btn-info view-btn' 
+                        data-id='" . htmlspecialchars($row['id']) . "' 
+                        data-name='" . htmlspecialchars($row['name']) . "' 
+                        data-email='" . htmlspecialchars($row['email']) . "' 
+                        data-municipality='" . htmlspecialchars($row['municipality']) . "' 
+                        data-password='" . $password . "'>View</button>
+                </td>";
 
-            // Display the actual password in the table
-            echo "<td>" . $password . "</td>"; // Display the password in the table
+            // Display the hashed password in the table
+            echo "<td>" . $password . "</td>"; // Display the hashed password
             echo "</tr>";
         }
     } else {
         echo "<tr><td colspan='5'>No records found</td></tr>";
     }
 
-    // Function to securely retrieve the actual password
+    // Function to securely retrieve the hashed password
     function getPasswordById($id) {
         // Connect to your database
         global $conn; // Assuming $conn is your database connection
 
-        // Example query to retrieve the original password (not secure and not recommended)
+        // Example query to retrieve the hashed password
         $query = "SELECT password FROM users WHERE id = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        $stmt->bind_result($password);
+        $stmt->bind_result($hashed_password);
         $stmt->fetch();
         $stmt->close();
 
-        return $password; // This will return the original password (not secure)
+        return $hashed_password; // This will return the hashed password
     }
     ?>
 </tbody>
+
 
 
 
