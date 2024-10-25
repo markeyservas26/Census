@@ -122,11 +122,11 @@ function safe_array_value($array, $key, $default = '') {
             </div>
             <div class="col-12 col-sm-6 col-lg-3">
     <label for="municipality" class="form-label">Municipality<span class="required-asterisk">*</span></label>
-    <input type="text" id="municipality" name="municipality_hl" class="form-control" value="<?php echo $house_leader['municipality']; ?>" required>
+    <input type="text" id="status" name="municipality_hl" class="form-control" value="<?php echo $house_leader['municipality']; ?>" required>
 </div>
 <div class="col-12 col-sm-6 col-lg-3">
     <label for="barangay" class="form-label">Barangay<span class="required-asterisk">*</span></label>
-    <input type="text" id="barangay" name="barangay_hl" class="form-control" value="<?php echo $house_leader['barangay']; ?>" required>
+    <input type="text" id="status" name="barangay_hl" class="form-control" value="<?php echo $house_leader['barangay']; ?>" required>
 </div>
             <div class="col-12 col-sm-6 col-lg-3">
                 <label for="purok" class="form-label">Street/Purok/Sitio/Subd.</label>
