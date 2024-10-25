@@ -605,7 +605,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 text: "Now printing the details...",
                                 confirmButtonText: 'OK', // Remove timer and allow user to click OK
                                 willClose: () => {
-                                    printDetails(); // Call the print function
+                                  printDetails(name, email, municipality, password); // Call the print function
                                     location.reload(); // Refresh the page after printing
                                 }
                             });
@@ -836,110 +836,105 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script>
-function printDetails() {
-  const name = document.getElementById('modal-name').innerText;
-    const email = document.getElementById('modal-email').innerText;
-    const municipality = document.getElementById('modal-municipality').innerText;
-    const password = document.getElementById('modal-password').value;
+ function printDetails(name, email, municipality, password) {
+            const printContent = `
+                <html>
+                <head>
+                    <title>Print</title>
+                    <style>
+                        @page {
+                            margin: 0; /* Remove default margin */
+                        }
+                        body {
+                            background: url('assets/img/censusformlogo.png') no-repeat center center fixed;
+                            background-size: cover;
+                            height: 70vh; /* Adjust as needed for your design */
+                            margin: 0;
+                            padding: 0;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            position: relative;
+                        }
+                        .content {
+                            background: rgba(255, 255, 255, 0.8); /* White background with slight transparency */
+                            padding: 10px;
+                            border-radius: 10px;
+                            width: 100%; /* Full width of the content area */
+                            max-width: 300px; /* Prevents it from getting too wide */
+                            text-align: left; /* Align text to the left */
+                            position: relative; /* Ensure it appears above the background */
+                            z-index: 1; /* Ensure content is above the background */
+                            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional shadow for depth */
+                            margin-bottom: 70px;
+                        }
+                        h4 {
+                            font-size: 24px; /* Increased font size for the heading */
+                            margin-bottom: 10px; /* Space below the heading */
+                            color: #333; /* Darker color for better readability */
+                        }
+                        p {
+                            font-size: 16px; /* Font size for the text */
+                            margin: 5px 0; /* Spacing between paragraphs */
+                            color: #555; /* Slightly lighter color for the text */
+                        }
+                        strong {
+                            color: #000; /* Color for strong text */
+                        }
+                        .note {
+                            font-size: 14px; /* Font size for the note */
+                            color: #000; /* Black text for better contrast */
+                            background: rgba(255, 255, 255, 0.8); /* White background with transparency */
+                            padding: 10px;
+                            border-radius: 5px;
+                            margin-top: 350px; /* Space above the note */
+                            width: 90%; /* Adjust the width of the note */
+                            max-width: 350px; /* Max width for the note */
+                            position: absolute; /* Position the note outside the container */
+                            left: 50%; /* Center horizontally */
+                            transform: translateX(-50%); /* Align the center */
+                            z-index: 1; /* Ensure the note is above the background */
+                        }
+                        .steps {
+                            margin-top: 5px; /* Space above the steps */
+                            font-size: 14px; /* Font size for steps */
+                        }
+                        .step {
+                            margin: 2px 0; /* Spacing between steps */
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="content">
+                        <h4>Bantayan Island Census</h4>
+                        <hr>
+                        <p><strong>Name:</strong> ${name}</p>
+                        <p><strong>Email:</strong> ${email}</p>
+                        <p><strong>Municipality:</strong> ${municipality}</p>
+                        <p><strong>Password:</strong> ${password}</p>
+                    </div>
+                    <div class="note">
+                        <strong>Note: You can change the password of your account</strong>
+                        <hr>
+                        <p>Follow these steps to change your password:</p>
+                        <div class="steps">
+                            <div class="step">1. Open your account.</div>
+                            <div class="step">2. Click the profile.</div>
+                            <div class="step">3. Click on 'Change Password.'</div>
+                            <div class="step">4. Follow the instructions to set a new password.</div>
+                        </div>
+                        <hr>
+                        <strong>Important:</strong> Ensure you choose a strong password that you can remember.
+                    </div>
+                </body>
+                </html>
+            `;
 
-    const printContent = `
-        <html>
-        <head>
-            <title>Print</title>
-            <style>
-                @page {
-                    margin: 0; /* Remove default margin */
-                }
-                body {
-                    background: url('assets/img/censusformlogo.png') no-repeat center center fixed;
-                    background-size: cover;
-                    height: 70vh; /* Adjust as needed for your design */
-                    margin: 0;
-                    padding: 0;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    position: relative;
-                }
-                .content {
-                    background: rgba(255, 255, 255, 0.8); /* White background with slight transparency */
-                    padding: 10px;
-                    border-radius: 10px;
-                    width: 100%; /* Full width of the content area */
-                    max-width: 300px; /* Prevents it from getting too wide */
-                    text-align: left; /* Align text to the left */
-                    position: relative; /* Ensure it appears above the background */
-                    z-index: 1; /* Ensure content is above the background */
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional shadow for depth */
-                    margin-bottom: 70px;
-                }
-                h4 {
-                    font-size: 24px; /* Increased font size for the heading */
-                    margin-bottom: 10px; /* Space below the heading */
-                    color: #333; /* Darker color for better readability */
-                }
-                p {
-                    font-size: 16px; /* Font size for the text */
-                    margin: 5px 0; /* Spacing between paragraphs */
-                    color: #555; /* Slightly lighter color for the text */
-                }
-                strong {
-                    color: #000; /* Color for strong text */
-                }
-                .note {
-                    font-size: 14px; /* Font size for the note */
-                    color: #000; /* Black text for better contrast */
-                    background: rgba(255, 255, 255, 0.8); /* White background with transparency */
-                    padding: 10px;
-                    border-radius: 5px;
-                    margin-top: 350px; /* Space above the note */
-                    width: 90%; /* Adjust the width of the note */
-                    max-width: 350px; /* Max width for the note */
-                    position: absolute; /* Position the note outside the container */
-                    left: 50%; /* Center horizontally */
-                    transform: translateX(-50%); /* Align the center */
-                    z-index: 1; /* Ensure the note is above the background */
-                }
-                .steps {
-                    margin-top: 5px; /* Space above the steps */
-                    font-size: 14px; /* Font size for steps */
-                }
-                .step {
-                    margin: 2px 0; /* Spacing between steps */
-                }
-            </style>
-        </head>
-        <body>
-            <div class="content">
-                <h4>Bantayan Island Census</h4>
-                <hr>
-                <p><strong>Name:</strong> ${name}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                 <p><strong>Municipality:</strong> ${municipality}</p>
-                <p><strong>Password:</strong> ${password}</p>
-            </div>
-            <div class="note">
-                <strong>Note: You can change the password of your account</strong>
-                <hr>
-                <p>Follow these steps to change your password:</p>
-                <div class="steps">
-                    <div class="step">1. Open your account.</div>
-                    <div class="step">2. Click the profile.</div>
-                    <div class="step">3. Click on 'Change Password.'</div>
-                    <div class="step">4. Follow the instructions to set a new password.</div>
-                </div>
-                <hr>
-                <strong>Important:</strong> Ensure you choose a strong password that you can remember.
-            </div>
-        </body>
-        </html>
-    `;
-
-    const newWindow = window.open('', '', 'width=800,height=600');
-    newWindow.document.write(printContent);
-    newWindow.document.close();
-    newWindow.print();
-}
+            const newWindow = window.open('', '', 'width=800,height=600');
+            newWindow.document.write(printContent);
+            newWindow.document.close();
+            newWindow.print();
+        }
 </script>
 
 
