@@ -1761,20 +1761,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script>
-    // Function to generate a random house number
-    function generateHouseNumber() {
-        const prefix = '';
-        const randomNumber = Math.floor(100000 + Math.random() * 900000); // Random 6-digit number
-        return prefix + randomNumber;
-    }
-
-    // Add an event listener to the icon
-    document.getElementById('generate-house-number').addEventListener('click', function() {
-        const houseNumberInput = document.getElementById('house_number');
-        houseNumberInput.value = generateHouseNumber(); // Set the generated number to the input field
-    });
-</script>
-<script>
     function calculateAge() {
         const dob = document.getElementById('dateOfBirth').value;
         if (dob) {
