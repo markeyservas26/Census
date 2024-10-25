@@ -6,7 +6,7 @@ $password = ""; // Change to your MySQL password
 $dbname = "census"; // Database name
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password,a $dbname);
 
 // Check connection
 if ($conn->connect_error) {

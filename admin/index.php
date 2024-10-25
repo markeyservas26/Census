@@ -118,74 +118,35 @@ foreach ($houseLabels as $key => $municipality) {
     // Assuming 'occupantValues' is the count of total occupants per municipality
     $totalCombinedCounts[$municipality] = $houseValues[$key] + $occupantValues[$key];
 }
-
-// Prepare SQL to get counts of males and females
-$sqlSexCounts = "SELECT sex, COUNT(*) as count FROM house_leader 
-                 WHERE municipality IN ('Madridejos', 'Bantayan', 'Santafe')
-                 GROUP BY sex";
-
-$resultSexCounts = $conn->query($sqlSexCounts);
-
-$sexData = [
-    'Male' => 0,
-    'Female' => 0
-];
-
-if ($resultSexCounts->num_rows > 0) {
-    while ($row = $resultSexCounts->fetch_assoc()) {
-        if ($row['sex'] == 'Male') {
-            $sexData['Male'] = $row['count'];
-        } else if ($row['sex'] == 'Female') {
-            $sexData['Female'] = $row['count'];
-        }
-    }
-}
 ?>
 <main id="main" class="main">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body {
             background: #FEFCFF;
             overflow-x: hidden;
         }
 
-        /* Adjusting the card container to center the cards */
-.card-container {
-    display: flex;
-    justify-content: center; /* Center the cards horizontally */
-    gap: 20px; /* Add space between cards */
-    flex-wrap: wrap; /* Ensure that cards wrap if the screen is too narrow */
-    width: 100%; /* Full width to ensure centering */
-    margin: 0 auto; /* Ensure the cards are centered in the viewport */
-}
+        .card-box {
+            position: relative;
+            color: #fff;
+            padding: 20px 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 150%; /* Ensure all cards have the same height */
+            margin-left:18px;
+            width: 100%;
+        }
 
-     /* Card box styling */
-.card-box {
-    width: 230px;
-    height: 220px;
-    padding: 20px 0px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    text-align: center; /* Center align text and icons */
-    position: relative; /* Ensure all elements are positioned relative to the card */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Container for the section */
-.section .container {
-    display: flex;
-    justify-content: center; /* Center the cards section */
-    width: 100%;
+        .card-container {
+          display: flex;
+    justify-content: flex-start; /* Center cards horizontally */
+    gap: 20px; /* Adjust spacing between cards */
     flex-wrap: wrap;
-    margin-left: auto;
-    margin-right: auto;
-}
-
+  
+        }
 
         .card-box:hover {
             text-decoration: none;
@@ -247,19 +208,19 @@ if ($resultSexCounts->num_rows > 0) {
         }
 
         .bg-blue {
-            background-color: #c7b37b !important;
+            background-color: #00c0ef !important;
         }
 
         .bg-green {
-            background-color: #c7b37b !important;
+            background-color: #00a65a !important;
         }
 
         .bg-orange {
-            background-color: #c7b37b !important;
+            background-color: #f39c12 !important;
         }
 
         .bg-red {
-            background-color: #c7b37b !important;
+            background-color: #d9534f !important;
         }
 
        
@@ -273,25 +234,17 @@ if ($resultSexCounts->num_rows > 0) {
 }
 
 .chart-container {
-    display: flex;
-    justify-content: center; /* Center all charts horizontally */
-    align-items: flex-start; /* Align the charts at the top */
-    gap: 30px; /* Add a gap between each chart */
-   width: 200%;
-   margin-left: 33px;
+   width: 400%;
 }
 .doughnut-chart {
-  width: 50%;
+  width: 100%;
   height: auto;
   margin-left:27%;
 }
 .container{
 margin-left:13%;
 }
-.chart-box {
-    flex: 1; /* Allow each chart to take equal space */
-    text-align: center;
-}
+
     </style>
 
     <div class="pagetitle">
@@ -327,6 +280,18 @@ margin-left:13%;
                     </div>
                 </div>
 
+                <!-- <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
+                    <div class="card-box bg-orange">
+                        <div class="inner">
+                        <h3 class="total-sitios"><?php echo $data['values'][0]; ?></h3>
+                            <p><b>Total Sitios</b></p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-location" aria-hidden="true"></i>
+                        </div>              
+                    </div>
+                </div> -->
+
                 <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
                     <div class="card-box bg-red">
                         <div class="inner">
@@ -338,46 +303,35 @@ margin-left:13%;
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
-                    <div class="card-box bg-orange">
-                        <div class="inner">
-                        <h3 class="total-sitios">0</h3>
-                            <p><b>Total Transfer</b></p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa fa-exchange" aria-hidden="true"></i>
-                        </div>              
-                    </div>
-                </div> 
             </div>
         </div>
     </section>
-    <br>
-    <hr>
     <div class="dashboard-content mt-5">
     <div class="chart-container">
-    <div class="chart-box">
-    <h5 class="card-title" style="text-align: center;">Gender Distribution Bar Chart</h5>
-        <canvas id="sexChart" style="max-width: 800px; max-height: 400px; margin-left: 60px;"></canvas>
+        <h5 class="card-title">Total Counts Bar Chart</h5>
+        <canvas id="barChart" style="max-height: 400px;"></canvas>
         <script>
             document.addEventListener("DOMContentLoaded", () => {
-                new Chart(document.querySelector('#sexChart'), {
+                new Chart(document.querySelector('#barChart'), {
                     type: 'bar',
                     data: {
-                        labels: ['Male', 'Female'],
+                        labels: ['Total Barangay', 'Total Houses', 'Total Residence'],
                         datasets: [{
-                            label: 'Number of People',
+                            label: 'Counts',
                             data: [
-                                <?php echo $sexData['Male']; ?>,  // Male count
-                                <?php echo $sexData['Female']; ?>  // Female count
+                                <?php echo $totalBarangayCount; ?>, // Total Barangay
+                                <?php echo array_sum($data['totalHouseNumbers']); ?>, // Total Houses
+                                <?php echo array_sum($data['totalHouseNumbers']); ?>  // Total Residence
                             ],
                             backgroundColor: [
-                               'rgba(54, 162, 235, 0.6)',  // Blue for Male
-                               'rgba(255, 99, 132, 0.6)'   // Red for Female
+                               'rgb(0, 192, 239)',
+                               'rgb(0, 166, 90)',
+                               'rgb(217, 83, 79)'
                             ],
                             borderColor: [
-                                'rgba(54, 162, 235, 1)',  // Blue for Male
-                                'rgba(255, 99, 132, 1)'   // Red for Female
+                                'rgb(75, 192, 192)',
+                                'rgb(153, 102, 255)',
+                                'rgb(255, 159, 64)'
                             ],
                             borderWidth: 1
                         }]
@@ -410,33 +364,101 @@ margin-left:13%;
         </script>
     </div>
 </div>
-</div>
-<hr>
 <div class="dashboard-content">
-<div class="row">
-<div class="col-lg-6 mb-4">
-    <div class="chart-container d-flex justify-content-center">
-        <!-- Doughnut Chart for Barangay Count -->
-        <div class="chart-box">
-            <h5 class="card-title text-center">Barangay Count Per Municipality</h5>
-            <canvas id="barangayChart" style="max-width: 300px; max-height: 300px;"></canvas>
-        </div>
+    <div class="chart-container">
+        <div class="row">
+            <!-- Doughnut Chart for Barangays -->
+            <div class="col-lg-6 mb-4">
+                <h5 class="card-title text-center">Barangay Count Every Municipalities</h5>
+                <canvas id="barangayChart" style="max-height: 400px;"></canvas>
+                <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                        new Chart(document.querySelector('#barangayChart'), {
+                            type: 'doughnut',
+                            data: {
+                                labels: <?php echo json_encode(array_keys($totalBarangays)); ?>,
+                                datasets: [{
+                                    label: 'Barangays',
+                                    data: <?php echo json_encode(array_values($totalBarangays)); ?>,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.5)',
+                                        'rgba(75, 192, 192, 0.5)',
+                                        'rgba(255, 205, 86, 0.5)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(255, 205, 86, 1)'
+                                    ],
+                                    borderWidth: 1,
+                                    hoverOffset: 4
+                                }]
+                            },
+                            options: {
+                                plugins: {
+                                    tooltip: {
+                                        callbacks: {
+                                            label: function(tooltipItem) {
+                                                const label = tooltipItem.label || '';
+                                                const value = tooltipItem.raw || 0;
+                                                return `${label}: ${value} Barangays`;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </div>
 
-        <!-- Doughnut Chart for House Count -->
-        <div class="chart-box">
-            <h5 class="card-title text-center">House Count Per Municipality</h5>
-            <canvas id="houseCountChart" style="max-width: 300px; max-height: 300px;"></canvas>
-        </div>
-
-        <!-- Doughnut Chart for Residence Count -->
-        <div class="chart-box">
-            <h5 class="card-title text-center">Residence Count Per Municipality</h5>
-            <canvas id="residenceChart" style="max-width: 300px; max-height: 300px;"></canvas>
+             <!-- Doughnut Chart for Residences -->
+             <div class="col-lg-6 mb-4">
+                    <h5 class="card-title text-center">Residence Count Every Municipalities</h5>
+                    <canvas id="residenceChart" style="max-height: 400px;"></canvas>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", () => {
+                            new Chart(document.querySelector('#residenceChart'), {
+                                type: 'doughnut',
+                                data: {
+                                    labels: <?php echo json_encode(array_keys($totalCombinedCounts)); ?>,
+                                    datasets: [{
+                                        label: 'Residences',
+                                        data: <?php echo json_encode(array_values($totalCombinedCounts)); ?>,
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.5)',
+                                            'rgba(75, 192, 192, 0.5)',
+                                            'rgba(255, 205, 86, 0.5)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(255, 205, 86, 1)'
+                                        ],
+                                        borderWidth: 1,
+                                        hoverOffset: 4
+                                    }]
+                                },
+                                options: {
+                                    plugins: {
+                                        tooltip: {
+                                            callbacks: {
+                                                label: function(tooltipItem) {
+                                                    const label = tooltipItem.label || '';
+                                                    const value = tooltipItem.raw || 0;
+                                                    return `${label}: ${value} Residences`;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-        </div>
-        </div>
 </main><!-- End #main -->
 
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -445,83 +467,4 @@ margin-left:13%;
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<script>
-    // Doughnut chart for Barangay Count
-    document.addEventListener("DOMContentLoaded", () => {
-        new Chart(document.querySelector('#barangayChart'), {
-            type: 'doughnut',
-            data: {
-                labels: <?php echo json_encode(array_keys($totalBarangays)); ?>,
-                datasets: [{
-                    label: 'Barangays',
-                    data: <?php echo json_encode(array_values($totalBarangays)); ?>,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.5)',
-                        'rgba(75, 192, 192, 0.5)',
-                        'rgba(255, 205, 86, 0.5)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(255, 205, 86, 1)'
-                    ],
-                    borderWidth: 1,
-                    hoverOffset: 4
-                }]
-            }
-        });
-    });
-
-    // Doughnut chart for House Count
-    document.addEventListener("DOMContentLoaded", () => {
-        new Chart(document.querySelector('#houseCountChart'), {
-            type: 'doughnut',
-            data: {
-                labels: <?php echo json_encode($houseLabels); ?>,
-                datasets: [{
-                    label: 'Houses',
-                    data: <?php echo json_encode($houseValues); ?>,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.5)',
-                        'rgba(75, 192, 192, 0.5)',
-                        'rgba(255, 205, 86, 0.5)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(255, 205, 86, 1)'
-                    ],
-                    borderWidth: 1,
-                    hoverOffset: 4
-                }]
-            }
-        });
-    });
-
-    // Doughnut chart for Residence Count
-    document.addEventListener("DOMContentLoaded", () => {
-        new Chart(document.querySelector('#residenceChart'), {
-            type: 'doughnut',
-            data: {
-                labels: <?php echo json_encode(array_keys($totalCombinedCounts)); ?>,
-                datasets: [{
-                    label: 'Residences',
-                    data: <?php echo json_encode(array_values($totalCombinedCounts)); ?>,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.5)',
-                        'rgba(75, 192, 192, 0.5)',
-                        'rgba(255, 205, 86, 0.5)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(255, 205, 86, 1)'
-                    ],
-                    borderWidth: 1,
-                    hoverOffset: 4
-                }]
-            }
-        });
-    });
-</script>
 <?php include 'footer.php'; ?>
