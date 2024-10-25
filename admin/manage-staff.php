@@ -531,13 +531,12 @@ document.addEventListener('DOMContentLoaded', function() {
       const name = row.cells[0].textContent;
       const email = row.cells[1].textContent;
       const municipality = row.cells[2].textContent;
-      const password = row.cells[3].textContent;
+      
 
       document.getElementById('editId').value = id;
       document.getElementById('editNameInput').value = name;
       document.getElementById('editEmailInput').value = email;
       document.getElementById('editMunicipalityInput').value = municipality;
-      document.getElementById('editpasswordInput').value = password;
 
       editModal.show();
     }
