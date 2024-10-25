@@ -603,9 +603,10 @@ document.addEventListener('DOMContentLoaded', function() {
                                 icon: "success",
                                 title: "Staff Added Successfully!",
                                 text: "Now printing the details...",
-                                timer: 2000, // Show for 2 seconds before proceeding
+                                confirmButtonText: 'OK', // Remove timer and allow user to click OK
                                 willClose: () => {
-                                  location.reload(); // Reset the form fields
+                                    printDetails(); // Call the print function
+                                    location.reload(); // Refresh the page after printing
                                 }
                             });
                         } else {
