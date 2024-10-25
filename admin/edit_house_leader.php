@@ -127,7 +127,7 @@ function safe_array_value($array, $key, $default = '') {
 <div class="col-12 col-sm-6 col-lg-3">
     <label for="barangay" class="form-label">Barangay<span class="required-asterisk">*</span></label>
     <input type="text" id="barangay" name="barangay_hl" class="form-control" value="<?php echo $house_leader['barangay']; ?>" required>
-</div>s
+</div>
             <div class="col-12 col-sm-6 col-lg-3">
                 <label for="purok" class="form-label">Street/Purok/Sitio/Subd.</label>
                 <input type="text" id="purok" name="purok_hl" class="form-control" value="<?php echo $house_leader['purok']; ?>">
