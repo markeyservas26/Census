@@ -292,6 +292,15 @@ margin-left:13%;
     flex: 1; /* Allow each chart to take equal space */
     text-align: center;
 }
+
+.chart-box-container {
+    background-color: #ffffff; /* Background color for the box */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    padding: 20px; /* Inner padding */
+    margin: 10px 0; /* Margin above and below the box */
+    text-align: center; /* Center align text inside the box */
+}
     </style>
 
     <div class="pagetitle">
@@ -300,58 +309,46 @@ margin-left:13%;
     </div><!-- End Page Title -->
 <br>
 <section class="section dashboard">
-        <div class="container">
-            <div class="row">
-            <h5 class="card-title su" style="margin-left: 37px;">Overall Total </h5>
-                <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
-                    <div class="card-box bg-blue">
-                        <div class="inner">
+    <div class="container">
+        <div class="row card-container"> <!-- Added card-container class here -->
+            <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
+                <div class="card-box bg-blue">
+                    <div class="inner">
                         <h3 class="total-barangay"><?php echo $totalBarangayCount; ?></h3>
-                            <p><b>Total Barangay</b></p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa fa-university" aria-hidden="true"></i>
-                        </div>
+                        <p><b>Total Barangay</b></p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-university" aria-hidden="true"></i>
                     </div>
                 </div>
+            </div>
 
-                <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
-                    <div class="card-box bg-green">
-                        <div class="inner">
+            <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
+                <div class="card-box bg-green">
+                    <div class="inner">
                         <h3 class="total-houses"><?php echo array_sum($data['totalHouseNumbers']); ?></h3>
-                            <p><b>Total Houses</b></p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa fa-house" aria-hidden="true"></i>
-                        </div>
+                        <p><b>Total Houses</b></p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-house" aria-hidden="true"></i>
                     </div>
                 </div>
+            </div>
 
-                <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
-                    <div class="card-box bg-red">
-                        <div class="inner">
+            <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
+                <div class="card-box bg-red">
+                    <div class="inner">
                         <h3 class="total-residence"><?php echo array_sum($totalCombinedCounts); ?></h3>
-                            <p><b>Total Residence</b></p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa fa-users"></i>
-                        </div>
+                        <p><b>Total Residence</b></p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-users"></i>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
-                    <div class="card-box bg-orange">
-                        <div class="inner">
-                        <h3 class="total-sitios">0</h3>
-                            <p><b>Total Transfer</b></p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa fa-exchange" aria-hidden="true"></i>
-                        </div>              
-                    </div>
-                </div> 
             </div>
         </div>
-    </section>
+    </div>
+</section>
     <br>
     <hr>
     <div class="dashboard-content mt-5">
@@ -417,21 +414,21 @@ margin-left:13%;
 <div class="col-lg-6 mb-4">
     <div class="chart-container d-flex justify-content-center">
         <!-- Doughnut Chart for Barangay Count -->
-        <div class="chart-box">
-            <h5 class="card-title text-center">Barangay Count Per Municipality</h5>
-            <canvas id="barangayChart" style="max-width: 300px; max-height: 300px;"></canvas>
-        </div>
+        <div class="chart-box-container"> <!-- New box container -->
+    <h5 class="card-title text-center">Barangay Count Per Municipality</h5>
+    <canvas id="barangayChart" style="max-width: 265px; max-height: 265px;"></canvas>
+</div>
 
         <!-- Doughnut Chart for House Count -->
-        <div class="chart-box">
+        <div class="chart-box-container">
             <h5 class="card-title text-center">House Count Per Municipality</h5>
-            <canvas id="houseCountChart" style="max-width: 300px; max-height: 300px;"></canvas>
+            <canvas id="houseCountChart" style="max-width: 265px; max-height: 265px;"></canvas>
         </div>
 
         <!-- Doughnut Chart for Residence Count -->
-        <div class="chart-box">
+        <div class="chart-box-container">
             <h5 class="card-title text-center">Residence Count Per Municipality</h5>
-            <canvas id="residenceChart" style="max-width: 300px; max-height: 300px;"></canvas>
+            <canvas id="residenceChart" style="max-width: 265px; max-height: 265px;"></canvas>
         </div>
     </div>
 </div>
