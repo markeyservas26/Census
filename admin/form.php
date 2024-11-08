@@ -233,7 +233,7 @@ $postData = $_POST ?? [];
 
                 <div class="col-12 col-sm-6 col-lg-3">
                     <label for="status" class="form-label">Barangay<span class="required-asterisk">*</span></label>
-                    <select class="form-select" name="barangay" id="barangay" required>
+                    <select class="form-select" name="Barangay_hl" id="barangay" required>
                         <!-- Options will be populated based on selected municipality -->
                     </select>
                 </div>
@@ -816,44 +816,44 @@ $postData = $_POST ?? [];
         <div class="ms-4">
         <b><p>Community Water System</p></b>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh1" name="community_water_supply" value="Piped into Dwelling">
+                <input class="form-check-input" type="radio" id="wsh1" name="communitywatersupply" value="Piped into Dwelling">
                 <label class="form-check-label" for="wsh1"> Piped into Dwelling</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh2" name="community_water_supply" value="Piped into yard/plot">
+                <input class="form-check-input" type="radio" id="wsh2" name="communitywatersupply" value="Piped into yard/plot">
                 <label class="form-check-label" for="wsh2">Piped into yard/plot</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh3" name="community_water_supply" value="Public Tap/Stand Pipe">
+                <input class="form-check-input" type="radio" id="wsh3" name="communitywatersupply" value="Public Tap/Stand Pipe">
                 <label class="form-check-label" for="wsh3">Public Tap/Stand Pipe</label>
             </div>
             <b><p>Point Source</p></b>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh4" name="point_source_water_supply" value="Protected Well/Tube Well/Borehole">
+                <input class="form-check-input" type="radio" id="wsh4" name="pointsourcewatersupply" value="Protected Well/Tube Well/Borehole">
                 <label class="form-check-label" for="wsh4">Protected Well/Tube Well/Borehole  </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh5" name="point_source_water_supply" value="Protected Spring">
+                <input class="form-check-input" type="radio" id="wsh5" name="pointsourcewatersupply" value="Protected Spring">
                 <label class="form-check-label" for="wsh5">Protected Spring</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh6" name="point_source_water_supply" value="RainWater">
+                <input class="form-check-input" type="radio" id="wsh6" name="pointsourcewatersupply" value="RainWater">
                 <label class="form-check-label" for="wsh6">RainWater</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh7" name="point_source_water_supply" value="Transfer Truck/Peddler/Neighbor">
+                <input class="form-check-input" type="radio" id="wsh7" name="pointsourcewatersupply" value="Transfer Truck/Peddler/Neighbor">
                 <label class="form-check-label" for="wsh7">Transfer Truck/Peddler/Neighbor</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh8" name="point_source_water_supply" value="Unprotected (Open Dug Well)">
+                <input class="form-check-input" type="radio" id="wsh8" name="pointsourcewatersupply" value="Unprotected (Open Dug Well)">
                 <label class="form-check-label" for="wsh8">Unprotected (Open Dug Well)</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh9" name="point_source_water_supply" value="Unproteced Spring">
+                <input class="form-check-input" type="radio" id="wsh9" name="pointsourcewatersupply" value="Unproteced Spring">
                 <label class="form-check-label" for="wsh9">Unproteced Spring</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="wsh10" name="point_source_water_supply" value="Surfaced Water">
+                <input class="form-check-input" type="radio" id="wsh10" name="pointsourcewatersupply" value="Surfaced Water">
                 <label class="form-check-label" for="wsh10">Surfaced Water (e.g.., River, Dam, Lake, Pond, Stream, Canal, Irrigation Channel)</label>
             </div>
         </div>
@@ -959,8 +959,8 @@ $postData = $_POST ?? [];
                                 <label class="form-check-label" for="wsh34">RainWater</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="wsh35" name="UnprotectedSpring3" value="Unprotected Spring">
-                                <label class="form-check-label" for="wsh35">Unprotected Spring</label>
+                                <input class="form-check-input" type="checkbox" id="wsh35" name="ProtectedSpring3" value="Protected Spring">
+                                <label class="form-check-label" for="wsh35">Protected Spring</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="wsh36" name="TankerTruck3" value="Tanker - Truck">
@@ -983,7 +983,7 @@ $postData = $_POST ?? [];
                                 <label class="form-check-label" for="wsh40">Unprotected Well (Open Dug Well)</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="wsh41" name="UnprotectedSpring3" value="Unprotected Sprin">
+                                <input class="form-check-input" type="checkbox" id="wsh41" name="UnprotectedSpring3" value="Unprotected Spring">
                                 <label class="form-check-label" for="wsh41">Unprotected Spring</label>
                             </div>
                             <div class="form-check">
@@ -1028,7 +1028,7 @@ $postData = $_POST ?? [];
                                 <label class="form-check-label" for="wsh49">Flush/Pour flush to pit latrine</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh50" name="improvedsanitation" value="wsh50">
+                                <input class="form-check-input" type="radio" id="wsh50" name="improvedsanitation" value="Ventilated Improve Latrine">
                                 <label class="form-check-label" for="wsh50">Ventilated Improve Latrine</label>
                             </div>
                             <div class="form-check">
@@ -1057,7 +1057,7 @@ $postData = $_POST ?? [];
                                 <label class="form-check-label" for="wsh56">Hanging Toilet/Hanging Latrine</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="wsh57" name="unimprovedsanitation" value="Flush or pour flush to don't know where">
+                                <input class="form-check-input" type="radio" id="wsh57" name="unimprovedsanitation" value="Flush or pour flush to do not know where">
                                 <label class="form-check-label" for="wsh57">Flush or pour flush to don't know where</label>
                             </div>
                             <div class="form-check">
@@ -1367,11 +1367,11 @@ $postData = $_POST ?? [];
 <div class="col-md-6">
                         <p>Is there electricity in the building?</p>
                         <div class="form-check">
-                                <input class="form-check-input" type="radio" id="housing37" name="electricity" value=" YES">
-                                <label class="form-check-label" for="housing37"> YES</label>
+                                <input class="form-check-input" type="radio" id="housing37" name="electricitys" value="YES">
+                                <label class="form-check-label" for="housing37">YES</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="housing38" name="electricity" value="NO">
+                                <input class="form-check-input" type="radio" id="housing38" name="electricitys" value="NO">
                                 <label class="form-check-label" for="housing38">NO</label>
                             </div>
                 </div>
@@ -1418,15 +1418,15 @@ $postData = $_POST ?? [];
                         <p>What type of fuel/energy source does this household use most of the time for cooking? </p>
                         <div class="ms-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="housing47" name="electricity" value="ELECTRICITY">
+                                <input class="form-check-input" type="checkbox" id="housing47" name="electricity1" value="ELECTRICITY">
                                 <label class="form-check-label" for="housing47">ELECTRICITY</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="housing48" name="kerosene" value="KEROSENE">
+                                <input class="form-check-input" type="checkbox" id="housing48" name="kerosene1" value="KEROSENE">
                                 <label class="form-check-label" for="housing48"> KEROSENE (GAAS)</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="housing49" name="liquefiedpetroleum" value="LIQUEFIED PETROLEUM GAS">
+                                <input class="form-check-input" type="checkbox" id="housing49" name="liquefiedpetroleum1" value="LIQUEFIED PETROLEUM GAS">
                                 <label class="form-check-label" for="housing49"> LIQUEFIED PETROLEUM GAS (LPG)</label>
                             </div>
                             <div class="form-check">
@@ -1542,17 +1542,31 @@ $postData = $_POST ?? [];
                                 <input class="form-check-input" type="checkbox" id="housing74" name="Nonmotorized" value="Non-motorized boat/Banca">
                                 <label class="form-check-label" for="housing74"> Non-motorized boat/Banca</label>
 </div>
+
                         </div>
-                    </div>
-                  
+                        </div>
+                   
+                    <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
+                    <div class="form-check">
+  <h4>Click the button to get your location:</h4>
+  <!-- Set type="button" to avoid form submission -->
+  <button type="button" class="btn btn-primary  mt-4" onclick="getLocation()">Get Location</button>
+</div>
+
+<!-- Input field for Latitude and Longitude -->
+<div style="margin-top: 10px;">
+  <label for="coordinates">Coordinates (Latitude, Longitude):</label>
+  <input type="text" id="coordinates" name="location" readonly>
+</div>
+                    
                 </div>
                
                   
                 <div class="text-center mt-4">
-                <form id="myForm">
+           
     <!-- Your form fields here -->
-    <button type="submit">Submit</button>
-</form>
+    <button type="submit"  class="btn btn-primary  mt-4">Submit</button>
+
                 </div>
             </form>
         </div>
