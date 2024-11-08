@@ -42,10 +42,9 @@ $start_entry = $total_rows > 0 ? $start + 1 : 0;
 $end_entry = min($start + $limit, $total_rows);
 
 ?>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-     <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
      <style>
         .highlight-term {
     background-color: yellow;
@@ -171,8 +170,9 @@ margin: 0;
             <td><?= htmlspecialchars($row['fullname']) ?></td>
             <td><?= htmlspecialchars($row['address']) ?></td>
             <td>
-                <a href="view_household.php?id=<?= $row['id'] ?>" class="btn btn-primary btn-sm">View</a>
-            </td>
+    <a href="view_household.php?id=<?= $row['id'] ?>" class="btn btn-primary btn-sm">View</a> |
+    <button type="button" class="btn btn-info btn-sm edit-btn" data-id="<?= $row['id'] ?>">Edit</button>
+</td>
         </tr>
     <?php endwhile; ?>
                         </tbody>
@@ -210,6 +210,47 @@ margin: 0;
         </div>
     </div>
 </section>
+<div class="modal fade" id="transferModal" tabindex="-1" aria-labelledby="transferModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="transferModalLabel">Transfer Household Leader</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="transferForm">
+          <div class="form-group">
+            <label for="houseNumber">House Number</label>
+            <input type="text" class="form-control" id="houseNumber" readonly>
+          </div>
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" class="form-control" id="fullName" readonly>
+          </div>
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" id="address" readonly>
+          </div>
+          <div class="form-group">
+            <label for="municipality">New Municipality</label>
+            <select class="form-control" id="municipality">
+              <option value="Madridejos">Madridejos</option>
+              <option value="Bantayan">Bantayan</option>
+              <option value="Santa Fe">Santa Fe</option>
+            </select>
+          </div>
+          <input type="hidden" id="leaderId">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="saveTransfer">Save Transfer</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 document.getElementById('entriesPerPage').addEventListener('change', function() {
@@ -221,7 +262,70 @@ document.getElementById('searchInput').addEventListener('keyup', function(e) {
         window.location.href = '?page=1&limit=<?= $limit ?>&search=' + encodeURIComponent(this.value);
     }
 });
+
+
+document.querySelectorAll('.transfer-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        document.getElementById('houseNumber').value = this.dataset.house;
+        document.getElementById('fullName').value = this.dataset.fullname;
+        document.getElementById('address').value = this.dataset.address;
+        document.getElementById('leaderId').value = this.dataset.id;
+        document.getElementById('municipality').value = this.dataset.municipality;
+    });
+});
+
+document.getElementById('saveTransfer').addEventListener('click', function() {
+    var leaderId = document.getElementById('leaderId').value;
+    var newMunicipality = document.getElementById('municipality').value;
+    
+    var transferData = {
+        leader_id: leaderId,
+        new_municipality: newMunicipality
+    };
+    
+    // Send AJAX request to save the transfer
+    fetch('save_transfer.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(transferData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Use SweetAlert2 to display the success message
+            Swal.fire({
+                icon: 'success',
+                title: 'Transfer Scheduled!',
+                text: 'Transfer scheduled after 6 months.',
+                confirmButtonText: 'OK'
+            });
+            $('#transferModal').modal('hide');
+                    // Optionally, you can refresh the page or update the table here
+                    location.reload(); // Uncomment this to reload the page
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Transfer Failed',
+                text: 'Failed to schedule transfer.',
+                confirmButtonText: 'Try Again'
+            });
+        }
+    });
+});
+
+
+document.querySelectorAll('.edit-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        var leaderId = this.dataset.id;
+        // Redirect to the edit page
+        window.location.href = 'edit_house_leader.php?id=' + leaderId;
+    });
+});
 </script>
+
+
 <?php
 // Close the database connection
 mysqli_close($conn);

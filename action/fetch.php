@@ -74,4 +74,202 @@ function fetch_internet_access_data($house_leader_id) {
     return $result->fetch_assoc();
 }
 
+function fetch_public_safety_data($house_leader_id) {
+    global $conn;
+    
+    $sql = "SELECT * FROM public_safety WHERE house_leader_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $house_leader_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function fetch_social_protection_data($house_leader_id) {
+    global $conn;
+    
+    $sql = "SELECT * FROM social_protection WHERE house_leader_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $house_leader_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function fetch_water_sanitation_hygiene_data($house_leader_id) {
+    global $conn;
+    
+    $sql = "SELECT * FROM water_sanitation_hygiene WHERE house_leader_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $house_leader_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function fetch_improved_source_data($house_leader_id) {
+    global $conn;
+    
+    $sql = "SELECT * FROM improved_source WHERE house_leader_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $house_leader_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function fetch_unimproved_source_data($house_leader_id) {
+    global $conn;
+    
+    $sql = "SELECT * FROM unimproved_source WHERE house_leader_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $house_leader_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function fetch_main_water_source_data($house_leader_id) {
+    global $conn;
+    
+    $sql = "SELECT * FROM main_water_source WHERE house_leader_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $house_leader_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function fetch_water_source_located_data($house_leader_id) {
+    global $conn;
+    
+    $sql = "SELECT * FROM water_source_location WHERE house_leader_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $house_leader_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function fetch_sanitation_data($house_leader_id) {
+    global $conn;
+    
+    $sql = "SELECT * FROM sanitation WHERE house_leader_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $house_leader_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function fetch_toiletfacility_data($house_leader_id) {
+    global $conn;
+    
+    $sql = "SELECT * FROM toiletfacility WHERE house_leader_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $house_leader_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function fetch_garbage_data($house_leader_id) {
+    global $conn;
+    
+    $sql = "SELECT * FROM garbage WHERE house_leader_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $house_leader_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function fetch_housing_characteristics_data($house_leader_id) {
+    global $conn;
+    
+    $sql = "SELECT * FROM housing_characteristics WHERE house_leader_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $house_leader_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function fetch_floor_bedroom_data($house_leader_id) {
+    global $conn;
+    
+    $sql = "SELECT * FROM floor_bedroom WHERE house_leader_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $house_leader_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function fetch_tenturestatus_data($house_leader_id) {
+    global $conn;
+    
+    $sql = "SELECT * FROM tenturestatus WHERE house_leader_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $house_leader_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function fetch_housing_data($house_leader_id) {
+    global $conn;
+    
+    $sql = "SELECT * FROM housing WHERE house_leader_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $house_leader_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function fetch_energy_source_data($house_leader_id) {
+    global $conn;
+    
+    $sql = "SELECT * FROM energy_sources WHERE house_leader_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $house_leader_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function fetch_energy_souce_cooking_data($house_leader_id) {
+    global $conn;
+    
+    $sql = "SELECT * FROM energy_souce_cooking WHERE house_leader_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $house_leader_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function fetch_household_assets_data($house_leader_id) {
+    global $conn;
+    
+    $sql = "SELECT * FROM household_assets WHERE house_leader_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $house_leader_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function fetch_vehicles_data($house_leader_id) {
+    global $conn;
+    
+    $sql = "SELECT * FROM vehicles WHERE house_leader_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $house_leader_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
 ?>

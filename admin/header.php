@@ -94,6 +94,13 @@ if (!isset($_SESSION['userid'])) {
             </li>
 
             <li>
+              <a class="dropdown-item d-flex align-items-center" href="changepassword.php">
+                <i class="fas fa-lock"></i>
+                <span>Change Password</span>
+              </a>
+            </li>
+
+            <li>
               <a class="dropdown-item d-flex align-items-center" href="logout.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>

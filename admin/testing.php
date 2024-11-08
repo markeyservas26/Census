@@ -1,3 +1,64 @@
+<?php
+include '../database/db_connect.php';
+include '../action/fetch.php';
+
+$houseLeaderId = $_GET['house_leader_id'] ?? '';
+$houseNumber = $_GET['house_number'] ?? '';
+$lastname = $_GET['lastname'] ?? '';
+$firstname = $_GET['firstname'] ?? '';
+$middlename = $_GET['middlename'] ?? '';
+$exname = $_GET['exname'] ?? '';
+$province = $_GET['province'] ?? '';
+$municipality = $_GET['municipality'] ?? '';
+$barangay = $_GET['barangay'] ?? '';
+$purok = $_GET['purok'] ?? '';
+$dob = $_GET['dob'] ?? '';
+$age = $_GET['age'] ?? '';
+$sex = $_GET['sex'] ?? '';
+$occupation = $_GET['occupation'] ?? '';
+$lcro = $_GET['lcro'] ?? '';
+$marital_status = $_GET['marital_status'] ?? '';
+$contact_number = $_GET['contact_number'] ?? '';
+$religion = $_GET['religion'] ?? '';
+$location = $_GET['location'] ?? '';
+$lastname_spouse = $_GET['spouse_lastname'] ?? '';
+$firstname_spouse = $_GET['spouse_firstname'] ?? '';
+$middlename_spouse = $_GET['spouse_middlename'] ?? '';
+$extension = $_GET['extension'] ?? '';
+$address = $_GET['address'] ?? '';
+$dob_spouse = $_GET['spouse_dob'] ?? '';
+$age_spouse = $_GET['spouse_age'] ?? '';
+$occupation_spouse = $_GET['spouse_occupation'] ?? '';
+$lcro_spouse = $_GET['spouse_lcro'] ?? '';
+$status_spouse = $_GET['status'] ?? '';
+$tentures = $_GET['tentures_status'] ?? '';
+$housing = $_GET['housing'] ?? '';
+$floor = $_GET['floor'] ?? '';
+$floor2 = $_GET['floor2'] ?? '';
+$bedrooms = $_GET['bedrooms'] ?? '';
+
+// Fetch older members
+$older_members = [];
+$stmt = $conn->prepare("SELECT name, age, working, occupation, income FROM older_household_members WHERE house_leader_id = ?");
+$stmt->bind_param("i", $houseLeaderId);
+$stmt->execute();
+$result = $stmt->get_result();
+while ($row = $result->fetch_assoc()) {
+    $older_members[] = $row;
+}
+
+// Fetch younger members
+$younger_members = [];
+$stmt = $conn->prepare("SELECT name, age, education_level, academic_status FROM younger_household_members WHERE house_leader_id = ?");
+$stmt->bind_param("i", $houseLeaderId);
+$stmt->execute();
+$result = $stmt->get_result();
+while ($row = $result->fetch_assoc()) {
+    $younger_members[] = $row;
+}
+?>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,24 +68,20 @@
 
 
     <style>
-        body {
-            font-family: 'Georgia', serif;
-    background-color: #eaeaea; /* Light gray with a formal tone */
+       body {
+    font-family: 'Georgia', serif;
+    background-color: #ffffff; /* White background for the body */
     color: #000;
     margin: 0;
     padding: 20px;
     line-height: 1.6;
-    background-image: linear-gradient(135deg, #f0f4f8 25%, #eaeaea 75%);
-    background-size: cover;
-    backdrop-filter: blur(20px); /* Adds a slight blur effect */
-        }
+}
         .form-container {
             max-width: 800px;
             margin: 0 auto;
             border: 2px solid #ccc;
             padding: 20px;
             background-color: #fafafa; /* Off-white */
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
         .header {
     display: flex;
@@ -77,7 +134,7 @@
             text-align: center;
             color: #000;
             margin: 0;
-            padding: 10px 0;
+            padding: 5px 0;
         }
 
         h1 {
@@ -173,7 +230,6 @@
             left: 0;
             right: 0;
             bottom: 5px;
-            border-bottom: 1px dotted #ccc;
         }
         .form-title {
     font-weight: bold;
@@ -212,6 +268,169 @@
 .house-number input:focus {
     border-bottom: 2px solid #000; /* Thicker underline on focus */
 }
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+    padding: 20px;
+    margin-right: 16%;
+}
+
+.print-btn, .back-btn {
+    padding: 5px 20px;
+    font-size: 16px;
+    text-decoration: none; /* Remove underline from link */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    margin-left: 10px; /* Adds spacing between buttons */
+}
+
+.print-btn {
+    background-color: #0080FF; /* Green color */
+    color: white;
+}
+
+.print-btn:hover {
+    background-color: #45a049; /* Darker green */
+    transform: scale(1.05);
+}
+
+.back-btn {
+    background-color: #45a049; /* Red color */
+    color: white;
+}
+
+.back-btn:hover {
+    background-color: #0080FF; /* Darker red */
+    transform: scale(1.05);
+}
+</style>
+<style>
+        @media print {
+    /* General font and layout adjustments */
+    body {
+    font-family: 'Georgia', serif;
+    background-color: #ffffff; /* White background for the body */
+    color: #000;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 2px solid #ccc;
+            padding: 20px;
+            background-color: #fafafa; /* Off-white */
+        }
+
+    h1 {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: -20px;
+            margin-bottom: -8px;
+            font-size: 9px;
+        }
+
+        h3 {
+            font-size: 9px;
+        }
+
+
+        h4 {
+            font-size: 9px;
+        }
+
+        h5 {
+            font-size: 9px;
+        }
+
+
+    .header img.logo, .header img.logo-right {
+        max-width: 50px; /* Adjust logo size */
+        margin-bottom: 60px;
+    }
+    
+    /* Table adjustments */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 9px; /* Smaller font size for table text */
+        margin-bottom: 5px;
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 3px; /* Reduced padding */
+        text-align: left;
+    }
+    th {
+        background-color: #f5f5f5;
+        font-weight: bold;
+    }
+
+     /* Adjust the spacing between rows */
+     tr {
+        height: 5px; /* Set a specific height for table rows */
+    }
+
+    /* Form title and header adjustments */
+    .form-title, .house-number {
+        margin-top: -10px;
+        font-size: 7px; /* Smaller form title font */
+    }
+
+    /* Input fields for form content */
+    input[type="text"], input[type="date"], input[type="number"], input[type="email"] {
+        font-size: 7px; /* Smaller input font */
+        border: none;
+        border-bottom: 1px solid #ccc;
+        color: #000;
+        outline: none;
+        text-align: center;
+    }
+
+    /* Checkbox group adjustments */
+    .checkbox-group label {
+        font-size: 9px; /* Smaller font size for checkbox labels */
+    }
+
+    .button-container {
+        display: none; /* Hide the button container during print */
+    }
+
+            .section-title {
+            background-color: #f5f5f5;
+            padding: 2px 2px;
+            margin-top: 5px;
+            border-left: 4px solid #ccc;
+            color: #000;
+        }
+
+        .note {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: #555;
+            font-size: 0.5em;
+        }
+
+        .header-text {
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        text-align: center;
+        padding-top: 30px; /* Adjust this value to control the top spacing */
+        margin-top: -30px; /* Optional, remove any margin if it's being applied */
+        line-height: 1.5; /* Adjust this value to control the spacing between text lines */
+    }
+
+
+}
     </style>
 </head>
 <body>
@@ -220,27 +439,25 @@
         <p class="form-title">POPCEN-CBMS Form 20</p> <!-- Added Title Here -->
         <div class="house-number">
             <label for="house-number-input">House Number:</label>
-            <input type="text" id="house-number-input" placeholder="" /> <!-- Input Field -->
+            <input type="text" id="housenumber" name="housenumber" class="form-control" value="<?php echo $houseNumber; ?>" required readonly>
         </div>
     </div>
     <div class="header">
-        <img src="admin/assets/img/censusformlogo.png" alt="Census Logo" class="logo">
+        <img src="../admin/assets/img/censusformlogo.png" alt="Census Logo" class="logo">
         <div class="header-text">
             <h4>REPUBLIC OF THE PHILIPPINES</h4>
             <h3>PHILIPPINE STATISTICS AUTHORITY</h3>
-            <h5>PROVINCE OF CEBU</h5>
-            <h5>MUNICIPALITY OF MADRIDEJOS</h5>
+            <h4>PROVINCE OF CEBU</h4>
+            <h4>Municipality of <?php echo $municipality; ?></h4>
         </div>
-        <img src="admin/assets/img/censusformlogo2.png" alt="Census Logo 2" class="logo-right">
-    </div>
+        <img src="../admin/assets/img/censusformlogo2.png" alt="Census Logo 2" class="logo-right">
+    </div>  
 
-
-
-        
         <h1>BANTAYAN ISLAND CENSUS FORM</h1>
         
-        <p class="note">Note: Please write LEGIBLY (Pakisulat ng Mahabasa)</p>
-        
+        <div class="section-title">
+                <h4>House Leader (Pinuno ng Bahay)</h4>
+        </div>
         <table>
             <tr>
                 <th>Last Name (Apelyido)</th>
@@ -249,193 +466,197 @@
                 <th>Initial Name (Palayaw)</th>
             </tr>
             <tr>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
+            <td><?php echo $lastname; ?></td>
+            <td><?php echo $firstname; ?></td>
+            <td><?php echo $middlename; ?></td>
+            <td><?php echo $exname; ?></td>
             </tr>
         </table>
         
         <table>
-            <tr>
-                <th class="full-width">Present Address (Kasalukuyang Tirahan)</th>
-            </tr>
-            <tr>
-                <td><input type="text"></td>
-            </tr>
-        </table>
+        <tr>
+            <th>Province</th>
+            <th>Municipality</th>
+            <th>Barangay</th>
+            <th>Purok</th>
+        </tr>
+        <tr>
+            <td><?php echo $province; ?></td>
+            <td><?php echo $municipality; ?></td>
+            <td><?php echo $barangay; ?></td>
+            <td><?php echo $purok; ?></td>
+        </tr>
+    </table>
         
-        <table>
-            <tr>
-                <th class="full-width">Provincial Address (Tirahan sa Probinsya)</th>
-            </tr>
-            <tr>
-                <td><input type="text"></td>
-            </tr>
-        </table>
+    <table>
+        <tr>
+            <th>Date of Birth</th>
+            <th>Age</th>
+            <th>Sex</th>
+            <th>Occupation</th>
+        </tr>
+        <tr>
+            <td><?php echo $dob; ?></td>
+            <td><?php echo $age; ?></td>
+            <td><?php echo $sex; ?></td>
+            <td><?php echo $occupation; ?></td>
+        </tr>
+    </table>
         
-        <table>
-            <tr>
-                <th>Date of Birth (dd/mm/yyyy)</th>
-                <th>Place of Birth</th>
-                <th>Nationality</th>
-                <th>Religion</th>
-                <th>Sex</th>
-            </tr>
-            <tr>
-                <td><input type="date"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-            </tr>
-        </table>
-        
-        <table>
-            <tr>
-                <th>Height (inches)</th>
-                <th>Weight (kilos)</th>
-                <th>Contact No.</th>
-                <th>Email:</th>
-            </tr>
-            <tr>
-                <td><input type="number"></td>
-                <td><input type="number"></td>
-                <td><input type="text"></td>
-                <td><input type="email"></td>
-            </tr>
-        </table>
+    <table>
+        <tr>
+            <th>LCRO Registration</th>
+            <th>Marital Status</th>
+            <th>Contact Number</th>
+            <th>Religion</th>
+        </tr>
+        <tr>
+            <td><?php echo $lcro; ?></td>
+            <td><?php echo $marital_status; ?></td>
+            <td><?php echo $contact_number; ?></td>
+            <td><?php echo $religion; ?></td>
+        </tr>
+    </table>
         
         <div class="section-title">
-                <h4>Marital Status (Estado sa Buhay)</h4>
+                <h4>Spouse (Asawa)</h4>
         </div>
-        <div class="checkbox-group">
-                <label><input type="checkbox" name="marital_status" value="single"> Single (Walang Asawa)</label>
-                <label><input type="checkbox" name="marital_status" value="married"> Married (May Asawa)</label>
-                <label><input type="checkbox" name="marital_status" value="separated"> Separated (Hiwalay sa Asawa)</label>
-                <label><input type="checkbox" name="marital_status" value="widowed"> Widow(er) (Biyudo/Biyuda)</label>
-                <label><input type="checkbox" name="marital_status" value="divorced"> Divorced (Diborsyado)</label>
-        </div>
+        <table>
+            <tr>
+                <th>Last Name (Apelyido)</th>
+                <th>First Name (Pangalan)</th>
+                <th>Middle Name</th>
+                <th>Initial Name (Palayaw)</th>
+            </tr>
+            <tr>
+            <td><?php echo $lastname_spouse; ?></td>
+            <td><?php echo $firstname_spouse; ?></td>
+            <td><?php echo $middlename_spouse; ?></td>
+            <td><?php echo $extension; ?></td>
+            </tr>
+        </table>
+        
+        <table>
+            <tr>
+                <th class="full-width"> Complete Address (Kompletong Address)</th>
+            </tr>
+            <tr>
+                <td><?php echo $address; ?></td>
+            </tr>
+        </table>
 
-        
         <table>
-            <tr>
-                <th class="full-width">Mother's Maiden Name (Last Name, First Name, Middle Name)</th>
-            </tr>
-            <tr>
-                <td><input type="text"></td>
-            </tr>
-        </table>
+        <tr>
+            <th>Date of Birth</th>
+            <th>Age</th>
+            <th>Occupation</th>
+        </tr>
+        <tr>
+            <td><?php echo $dob_spouse; ?></td>
+            <td><?php echo $age_spouse; ?></td>
+            <td><?php echo $occupation_spouse; ?></td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <th>LCRO Registration</th>
+            <th>Marital Status</th>
+        </tr>
+        <tr>
+            <td><?php echo $lcro_spouse; ?></td>
+            <td><?php echo $status_spouse; ?></td>
+        </tr>
+    </table>
         
+    <div class="section-title">
+                <h4>Other House Occupants (Ibang Nakatira sa Bahay)</h4>
+        </div>
+        <p class="note">Older Members</p>
         <table>
-            <tr>
-                <th class="full-width">Father's Name (Last Name, First Name, Middle Name)</th>
+        <tr>
+            <th>Complete Name</th>
+            <th>Age</th>
+            <th>Is Working?</th>
+            <th>Occupation</th>
+            <th>Income</th>
             </tr>
-            <tr>
-                <td><input type="text"></td>
+            <?php foreach ($older_members as $member) : ?>
+                <tr>
+            <td><?php echo htmlspecialchars($member['name']); ?></td>
+                <td><?php echo htmlspecialchars($member['age']); ?></td>
+                <td><?php echo $member['working'] === 'yes' ? 'Yes' : 'No'; ?></td>
+                <td><?php echo htmlspecialchars($member['occupation']); ?></td>
+                <td><?php echo htmlspecialchars($member['income']); ?></td>
             </tr>
+            <?php endforeach; ?>
         </table>
+        <p class="note">Younger Members</p>
+        <table>
+        <tr>
+        <th>Complete Name</th>
+            <th>Age</th>
+            <th>Year Level</th>
+            <th>Academic Year</th>
+        </tr>
+        <?php foreach ($younger_members as $members) : ?>
+            <tr>
+        <td><?php echo htmlspecialchars($members['name']); ?></td>
+                <td><?php echo htmlspecialchars($members['age']); ?></td>
+                <td><?php echo htmlspecialchars($members['education_level']); ?></td>
+                <td><?php echo htmlspecialchars($members['academic_status']); ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
         
         <div class="section-title">
-            <h4>EDUCATION ATTAINMENT</h4>
-        </div>
-        <p class="note">Please give exact titles of degrees in original language. Do not translate or equate to other degrees. (Isulat ang wastong batayan o kursong natapos.)</p>
-        <table>
-            <tr>
-                <th>Name and Address of School</th>
-                <th>Address</th>
-            </tr>
-            <tr>
-                <td>Elementary:</td>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <td>Highschool:</td>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <td>Vocational/Course:</td>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <td>College/Course:</td>
-                <td><input type="text"></td>
-            </tr>
-        </table>
-        
-        <div class="section-title">
-            <h4>EMPLOYMENT RECORD</h4>
-        </div>
-        <p class="note">Starting with your present post, list in REVERSE ORDER your employment history. (Mula sa kasalukuyang posisyon, ilista nang pabaliktad ang mga trabahong pinagdaanan.)</p>
-        <table>
-            <tr>
-                <th>Duration (Tagal)</th>
-                <th>Name of Employer (Pangalan ng Kompanya)</th>
-                <th>Address</th>
-            </tr>
-            <tr>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-            </tr>
-        </table>
-        
-        <div class="section-title">
-            <h4>OTHER HOUSE OCCUPANTS</h4>
+            <h4>Housing Characteristics</h4>
         </div>
         <table>
             <tr>
-                <th>Name</th>
-                <th>Position in the family</th>
-                <th>Age</th>
-                <th>Birth of Date</th>
-                <th>Civil Status</th>
+                <th> Number of Bedrooms (Bilang ng mga Silid-Tulugan)</th>
+                <th> Date of Housing Constructed (Petsa ng Pagtatayo ng Pabahay)</th>
             </tr>
             <tr>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="number"></td>
-                <td><input type="date"></td>
-                <td><input type="text"></td>
+                <td><?php echo $bedrooms; ?></td>
+                <td><?php echo $housing; ?></td>
             </tr>
             <tr>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="number"></td>
-                <td><input type="date"></td>
-                <td><input type="text"></td>
+                <th> Number of Floors (Bilang ng mga Palapag)</th>
+                <th> Estimated Floor Area (Tinatayang Sukat ng Palapag)</th>
             </tr>
             <tr>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="number"></td>
-                <td><input type="date"></td>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="number"></td>
-                <td><input type="date"></td>
-                <td><input type="text"></td>
+                <td><?php echo $floor; ?></td>
+                <td><?php echo $floor2; ?></td>
             </tr>
         </table>
-        
-        <p class="note">I certify that the statements made by me in answering the foregoing questions are true, complete and correct to the best of my knowledge and belief. (Ang lahat ng ibinigay na kasagutan sa mga nabanggit na katanungan ay matapat kong sinagutan at pinatutunayan kong lahat ay totoo, kumpleto at tama sa abot ng aking kaalaman at paniniwala.)</p>
-        
-        <div class="signature-line">
-            <p>Date (day/month/year): <input type="date" style="width: 150px;"> Signature: ___________________</p>
+        <table>
+        <tr>
+                <th class="full-width"> Tentures Status (Katayuan ng Pagmamay-ari)</th>
+            </tr>
+            <tr>
+                <td><?php echo $tentures; ?></td>
+            </tr>
+        </table>
         </div>
-    </div>
+        <div class="button-container">
+    <button class="print-btn" onclick="printForm()">Print Form</button>
+    <a href="form.php" class="back-btn">Back</a>
+</div>
+        <script>
+        function printForm() {
+
+            window.print();
+            var printWindow = window.open('', '', 'height=800,width=600');
+            printWindow.document.write('<html><head><title>Print Census Form</title>');
+            printWindow.document.write('<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;500;700&display=swap" rel="stylesheet">');
+            printWindow.document.write('<style>' + document.querySelector('style').innerHTML + '</style>');
+            printWindow.document.write('</head><body>');
+            printWindow.document.write(document.querySelector('.form-container').outerHTML);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+        }
+    </script>
+
 </body>
 </html>
