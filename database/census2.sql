@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2024 at 09:15 PM
+-- Generation Time: Nov 08, 2024 at 08:17 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -41,9 +41,7 @@ CREATE TABLE `energy_souce_cooking` (
 --
 
 INSERT INTO `energy_souce_cooking` (`house_leader_id`, `electricity`, `kerosene`, `liquefied_petroleum`, `charcoal`, `wood`) VALUES
-(238, '1', '1', '1', '0', '1'),
-(239, '0', '0', '0', '0', '0'),
-(240, '0', '0', '0', '0', '0');
+(238, '1', '1', '1', '0', '1');
 
 -- --------------------------------------------------------
 
@@ -68,9 +66,7 @@ CREATE TABLE `energy_sources` (
 --
 
 INSERT INTO `energy_sources` (`id`, `house_leader_id`, `electricity`, `kerosene`, `liquefied_petroleum`, `oil`, `solar_panel_lamp`, `candle`, `battery`) VALUES
-(129, 238, 1, 1, 1, 0, 1, 1, 1),
-(130, 239, 0, 0, 0, 0, 0, 0, 0),
-(131, 240, 0, 0, 0, 0, 0, 0, 0);
+(129, 238, 1, 1, 1, 0, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -98,9 +94,7 @@ CREATE TABLE `financial_accounts` (
 --
 
 INSERT INTO `financial_accounts` (`id`, `house_leader_id`, `bank_account`, `digital_bank_account`, `emoney_account`, `nssla_account`, `cooperative_account`, `microfinance_ngo_account`, `remittance_center_account`, `prefer_not_answer`, `none`, `other`) VALUES
-(232, 238, 1, 1, 0, 0, 0, 0, 0, 0, NULL, NULL),
-(233, 239, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL),
-(234, 240, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL);
+(232, 238, 1, 1, 0, 0, 0, 0, 0, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -121,9 +115,7 @@ CREATE TABLE `floor_bedroom` (
 --
 
 INSERT INTO `floor_bedroom` (`id`, `house_leader_id`, `floor`, `floor2`, `bedrooms`) VALUES
-(37, 238, 2, 1000.00, 6),
-(38, 239, 0, 0.00, 0),
-(39, 240, 0, 0.00, 0);
+(37, 238, 2, 1000.00, 6);
 
 -- --------------------------------------------------------
 
@@ -148,9 +140,7 @@ CREATE TABLE `garbage` (
 --
 
 INSERT INTO `garbage` (`id`, `house_leader_id`, `SegregatingWaste`, `Lettinggarbagetruckcollectwaste`, `Recycling`, `Composting`, `Burning`, `Dumpinginpitwithcover`, `Throwinginunhabitedlocations`) VALUES
-(63, 238, 1, 1, 0, 1, 1, 0, 1),
-(64, 239, 0, 0, 0, 0, 0, 0, 0),
-(65, 240, 0, 0, 0, 0, 0, 0, 0);
+(63, 238, 1, 1, 0, 1, 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -180,9 +170,7 @@ CREATE TABLE `household_assets` (
 --
 
 INSERT INTO `household_assets` (`id`, `house_leader_id`, `refrigerator`, `air_conditioner`, `washing_machine`, `stove_gas_range`, `radio_cassette`, `television`, `cd_vcd_dvd`, `landline_telephone`, `cellular_phone_basic`, `cellular_phone_smart`, `tablet`, `personal_computer`) VALUES
-(140, 238, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1),
-(141, 239, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(142, 240, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(140, 238, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -217,9 +205,7 @@ CREATE TABLE `house_leader` (
 --
 
 INSERT INTO `house_leader` (`id`, `house_number`, `lastname`, `firstname`, `middlename`, `exname`, `province`, `municipality`, `barangay`, `purok`, `dob`, `sex`, `age`, `occupation`, `lcro`, `marital_status`, `contact_number`, `religion`, `coordinates`) VALUES
-(238, '990429', 'Dela Cruz', 'John Anthon', 'Gidayawan', NULL, 'Cebu', 'madridejos', 'mancilang', 'Tulingan', '1995-06-07', 'Male', 29, 'Software Developer', 'Yes', 'married', '09774167345', 'Catholic', '11.2949711, 123.7359283'),
-(239, '196578', 'Jubay', 'John Rey', '', NULL, 'Cebu', 'madridejos', 'mancilang', 'Tekos', '2003-06-10', 'Male', 21, 'Front end Developer', 'Yes', 'married', '09382296605', 'Catholic', '11.2950348, 123.7381506'),
-(240, '760407', 'awdwad', 'awdawdad', '', NULL, 'awdawd', 'madridejos', 'mancilang', '', '2024-11-14', 'Male', 1, '', NULL, 'married', '06785846748', NULL, '11.2950483, 123.7381353');
+(238, '990429', 'Dela Cruz', 'John Anthon', 'Gidayawan', NULL, 'Cebu', 'madridejos', 'mancilang', 'Tulingan', '1995-06-07', 'Male', 29, 'Software Developer', 'Yes', 'married', '09774167345', 'Catholic', '11.2949711, 123.7359283');
 
 -- --------------------------------------------------------
 
@@ -239,9 +225,7 @@ CREATE TABLE `housing` (
 --
 
 INSERT INTO `housing` (`id`, `house_leader_id`, `housing`, `electricity`) VALUES
-(60, 238, '2021-07-08', 'YES'),
-(61, 239, '0000-00-00', NULL),
-(62, 240, '0000-00-00', NULL);
+(60, 238, '2021-07-08', 'YES');
 
 -- --------------------------------------------------------
 
@@ -287,9 +271,7 @@ CREATE TABLE `housing_characteristics` (
 --
 
 INSERT INTO `housing_characteristics` (`id`, `house_leader_id`, `SINGLEHOUSE`, `DUPLEX`, `AAROW_HOUSE`, `Multi_urb`, `Cominag`, `Institution_living`, `none`, `Othertype`, `Temporaryevac`, `Metalroofing`, `concreteslateslate`, `HG_concrete`, `Woodbamboo`, `Sodthatch`, `Asbestos`, `Msi_materials`, `CMG`, `CBS`, `WBP`, `WTP`, `VCT`, `Linoleum`, `concrete`, `earthsandmud`, `wood`, `coconutlumber`, `bamboo`, `msim`) VALUES
-(37, 238, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0),
-(38, 239, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(39, 240, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(37, 238, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -319,9 +301,7 @@ CREATE TABLE `improved_source` (
 --
 
 INSERT INTO `improved_source` (`id`, `house_leader_id`, `dwelling2`, `yardorplot2`, `PipedtoNeighbor`, `PublicTap2`, `TubeWell2`, `ProtectedWell2`, `RainWater2`, `UnprotectedSpring2`, `TankerTruck`, `CartwithSmallTank`, `WaterRefillingStation`, `BottledWater`) VALUES
-(158, 238, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1),
-(159, 239, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(160, 240, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(158, 238, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -343,9 +323,7 @@ CREATE TABLE `internet_access` (
 --
 
 INSERT INTO `internet_access` (`id`, `house_leader_id`, `fixed_wired`, `fixed_wireless`, `satellite`, `mobile`) VALUES
-(232, 238, 1, 1, 0, 0),
-(233, 239, 0, 0, 0, 0),
-(234, 240, 0, 0, 0, 0);
+(232, 238, 1, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -378,9 +356,7 @@ CREATE TABLE `main_water_source` (
 --
 
 INSERT INTO `main_water_source` (`id`, `house_leader_id`, `PipedintoDwelling`, `Pipedintoyardorplot`, `PipedtoNeighbor`, `PublicTap3`, `TubeWell3`, `ProtectedWell3`, `RainWater3`, `ProtectedSpring3`, `TankerTruck3`, `CartwithSmallTank3`, `WaterRefillingStation3`, `BottledWater3`, `UnprotectedWell3`, `UnprotectedSpring4`, `SurfacedWater4`) VALUES
-(162, 238, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0),
-(163, 239, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(164, 240, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(162, 238, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -403,12 +379,7 @@ CREATE TABLE `older_household_members` (
 --
 
 INSERT INTO `older_household_members` (`id`, `house_leader_id`, `name`, `age`, `working`, `occupation`, `income`) VALUES
-(809, 238, 'awd', 21, 'yes', 'awdawd', 2131.00),
-(810, 239, 'ad', 24, 'yes', 'awd', 11111.00),
-(811, 239, 'ad', 24, NULL, NULL, NULL),
-(812, 239, 'awd', 24, NULL, NULL, NULL),
-(813, 239, 'awd', 24, 'yes', 'awd', 22222.00),
-(814, 239, 'awd', 24, 'yes', 'awd', 33333.00);
+(809, 238, 'awd', 21, 'yes', 'awdawd', 2131.00);
 
 -- --------------------------------------------------------
 
@@ -427,9 +398,7 @@ CREATE TABLE `public_safety` (
 --
 
 INSERT INTO `public_safety` (`id`, `house_leader_id`, `safety_level`) VALUES
-(224, 238, 'Safe'),
-(225, 239, NULL),
-(226, 240, NULL);
+(224, 238, 'Safe');
 
 -- --------------------------------------------------------
 
@@ -448,9 +417,7 @@ CREATE TABLE `public_transportation` (
 --
 
 INSERT INTO `public_transportation` (`id`, `house_leader_id`, `transportation`) VALUES
-(232, 238, 'Yes'),
-(233, 239, 'Yes'),
-(234, 240, NULL);
+(232, 238, 'Yes');
 
 -- --------------------------------------------------------
 
@@ -471,9 +438,7 @@ CREATE TABLE `sanitation` (
 --
 
 INSERT INTO `sanitation` (`id`, `house_leader_id`, `improved_sanitation`, `unimproved_sanitation`, `open_defecation`) VALUES
-(120, 238, 'Flush/Pour flush to piped sewer system', 'Pit Latrine without slab/Open pit', NULL),
-(121, 239, NULL, NULL, NULL),
-(122, 240, NULL, NULL, NULL);
+(120, 238, 'Flush/Pour flush to piped sewer system', 'Pit Latrine without slab/Open pit', NULL);
 
 -- --------------------------------------------------------
 
@@ -518,9 +483,7 @@ CREATE TABLE `social_protection` (
 --
 
 INSERT INTO `social_protection` (`id`, `house_leader_id`, `sss`, `gsis`, `philhealth`, `health_or_medical`, `dont_work`, `sss2`, `gsis2`, `philhealth2`, `health_or_medical2`, `dont_know2`) VALUES
-(221, 238, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0),
-(222, 239, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(223, 240, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(221, 238, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -548,9 +511,7 @@ CREATE TABLE `spouse` (
 --
 
 INSERT INTO `spouse` (`id`, `house_leader_id`, `spouse_lastname`, `spouse_firstname`, `spouse_middlename`, `extension`, `spouse_age`, `spouse_occupation`, `spouse_dob`, `spouse_lcro`, `address`, `status`) VALUES
-(240, 238, 'Illustrisimo', 'Darnie', '', NULL, 26, 'efsf', '1998-06-18', 'yes', 'Mancilang', 'married'),
-(241, 239, 'awd', 'awd', 'wd', NULL, 20, 'Web Designer', '2004-10-14', 'yes', 'Mancilang', 'annulled'),
-(242, 240, '', '', '', NULL, 0, '', '0000-00-00', NULL, '', NULL);
+(240, 238, 'Illustrisimo', 'Darnie', '', NULL, 26, 'efsf', '1998-06-18', 'yes', 'Mancilang', 'married');
 
 -- --------------------------------------------------------
 
@@ -571,8 +532,7 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`id`, `name`, `email`, `password`, `municipality`) VALUES
-(27, 'Mark', 'mark@gmail.com', '$2y$10$GSL2ppodVQ8gzSeaLvGM8uKpPsbGzeHymCF1LJqR.tdclPjEluDga', 'Madridejos'),
-(33, 'John Rey', 'johnrey@gmail.com', '$2y$10$EeknVj1LuAFGLSz9tNHfWu2WmzH7z1GfvbT3GfRirdEO3IgUjDzBq', 'Bantayan');
+(27, 'Mark', 'mark@gmail.com', '$2y$10$xKfDIf2rC9lGKtqzu03nMOfJyo2lWPkx38g9KOXs9R6p3sH7xmzai', 'Madridejos');
 
 -- --------------------------------------------------------
 
@@ -591,9 +551,7 @@ CREATE TABLE `tenturestatus` (
 --
 
 INSERT INTO `tenturestatus` (`id`, `house_leader_id`, `tentures_status`) VALUES
-(63, 238, 'OWNER-LIKE POSSESSION OF THE HOUSE AND LOT'),
-(64, 239, NULL),
-(65, 240, NULL);
+(63, 238, 'OWNER-LIKE POSSESSION OF THE HOUSE AND LOT');
 
 -- --------------------------------------------------------
 
@@ -614,9 +572,7 @@ CREATE TABLE `toiletfacility` (
 --
 
 INSERT INTO `toiletfacility` (`id`, `house_leader_id`, `toilet_facility`, `facility_with_others`, `facility_with_members`) VALUES
-(115, 238, 'In own Dwelling', 'Yes', 'Shared with known household (Not Public)'),
-(116, 239, NULL, NULL, NULL),
-(117, 240, NULL, NULL, NULL);
+(115, 238, 'In own Dwelling', 'Yes', 'Shared with known household (Not Public)');
 
 -- --------------------------------------------------------
 
@@ -651,9 +607,7 @@ CREATE TABLE `unimproved_source` (
 --
 
 INSERT INTO `unimproved_source` (`id`, `house_leader_id`, `UnprotectedWell`, `UnprotectedSpring3`, `SurfacedWater3`) VALUES
-(128, 238, 0, 1, 0),
-(129, 239, 0, 0, 0),
-(130, 240, 0, 0, 0);
+(128, 238, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -677,7 +631,7 @@ INSERT INTO `users` (`id`, `name`, `username`, `password`, `OTP`) VALUES
 (1, 'Queenie', 'admin', '$2y$10$nNzwdh5nZZCnR5zQ6TJSC.sO4aXo2PVM8wYfWvW9A6cm9i4FRSmLK', ''),
 (2, 'Johnskie', 'john', '$2y$10$/nwBqOuhozfCjfD2SpCIHOsFfIMnMDwYPHnq1Ez9hl7zUjMkt13le', ''),
 (3, 'johnrey', 'johnrey@gmail.com', '$2y$10$v2pdmI4IB4DDHpiKPIGIOe9lT8rqWBrUXkDr1/z6pbEob0EJKS4HK', '152783'),
-(4, 'John Rey', 'johnreyjubay315@gmail.com', '$2y$10$UKVk65YDP1zBDopvKdQSaO4EsTd8/fnMRnwsUL5ocDwFVNDGAmr5a', '');
+(6, 'Johnskie', 'johnreyjubay315@gmail.com', '$2y$10$UsarisP6jBWkaP.1xcFuquzXBnGBzF3amxCloEA.6m1hg5dcJCxdS', '0');
 
 -- --------------------------------------------------------
 
@@ -706,9 +660,7 @@ CREATE TABLE `vehicles` (
 --
 
 INSERT INTO `vehicles` (`id`, `house_leader_id`, `car`, `van`, `jeep`, `truck`, `motorcycle_scooter`, `e_bike`, `tricycle`, `bicycle`, `pedicab`, `motorized_boat`, `non_motorized_boat`) VALUES
-(83, 238, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0),
-(84, 239, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(85, 240, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(83, 238, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -728,9 +680,7 @@ CREATE TABLE `water_sanitation_hygiene` (
 --
 
 INSERT INTO `water_sanitation_hygiene` (`id`, `house_leader_id`, `community_water_supply`, `point_source_water_supply`) VALUES
-(158, 238, 'Piped into Dwelling', 'RainWater'),
-(159, 239, NULL, NULL),
-(160, 240, NULL, NULL);
+(158, 238, 'Piped into Dwelling', 'RainWater');
 
 -- --------------------------------------------------------
 
@@ -749,9 +699,7 @@ CREATE TABLE `water_source_location` (
 --
 
 INSERT INTO `water_source_location` (`id`, `house_leader_id`, `watersource_location`) VALUES
-(122, 238, 'In Own Dwelling'),
-(123, 239, NULL),
-(124, 240, NULL);
+(122, 238, 'In Own Dwelling');
 
 -- --------------------------------------------------------
 
@@ -773,12 +721,7 @@ CREATE TABLE `younger_household_members` (
 --
 
 INSERT INTO `younger_household_members` (`id`, `house_leader_id`, `name`, `age`, `education_level`, `academic_status`) VALUES
-(755, 238, 'wadwd', 15, 'Junior', 'Grade 9'),
-(756, 239, 'awd', 21, 'College', '4th Year'),
-(757, 239, 'awd', 21, 'Senior', 'Grade 12'),
-(758, 239, 'awd', 21, 'Senior', 'Grade 11'),
-(759, 239, 'awd', 21, 'Junior', 'Grade 10'),
-(760, 239, 'awd', 21, 'Elementary', 'Grade 6');
+(755, 238, 'wadwd', 15, 'Junior', 'Grade 9');
 
 --
 -- Indexes for dumped tables
@@ -949,12 +892,6 @@ ALTER TABLE `unimproved_source`
   ADD KEY `house_leader_id` (`house_leader_id`);
 
 --
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `vehicles`
 --
 ALTER TABLE `vehicles`
@@ -990,97 +927,97 @@ ALTER TABLE `younger_household_members`
 -- AUTO_INCREMENT for table `energy_souce_cooking`
 --
 ALTER TABLE `energy_souce_cooking`
-  MODIFY `house_leader_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=241;
+  MODIFY `house_leader_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=239;
 
 --
 -- AUTO_INCREMENT for table `energy_sources`
 --
 ALTER TABLE `energy_sources`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 
 --
 -- AUTO_INCREMENT for table `financial_accounts`
 --
 ALTER TABLE `financial_accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=233;
 
 --
 -- AUTO_INCREMENT for table `floor_bedroom`
 --
 ALTER TABLE `floor_bedroom`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `garbage`
 --
 ALTER TABLE `garbage`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `household_assets`
 --
 ALTER TABLE `household_assets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT for table `house_leader`
 --
 ALTER TABLE `house_leader`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=241;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=239;
 
 --
 -- AUTO_INCREMENT for table `housing`
 --
 ALTER TABLE `housing`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `housing_characteristics`
 --
 ALTER TABLE `housing_characteristics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `improved_source`
 --
 ALTER TABLE `improved_source`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 
 --
 -- AUTO_INCREMENT for table `internet_access`
 --
 ALTER TABLE `internet_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=233;
 
 --
 -- AUTO_INCREMENT for table `main_water_source`
 --
 ALTER TABLE `main_water_source`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
 
 --
 -- AUTO_INCREMENT for table `older_household_members`
 --
 ALTER TABLE `older_household_members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=815;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=810;
 
 --
 -- AUTO_INCREMENT for table `public_safety`
 --
 ALTER TABLE `public_safety`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=227;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=225;
 
 --
 -- AUTO_INCREMENT for table `public_transportation`
 --
 ALTER TABLE `public_transportation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=233;
 
 --
 -- AUTO_INCREMENT for table `sanitation`
 --
 ALTER TABLE `sanitation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT for table `schedule`
@@ -1092,31 +1029,31 @@ ALTER TABLE `schedule`
 -- AUTO_INCREMENT for table `social_protection`
 --
 ALTER TABLE `social_protection`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=224;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=222;
 
 --
 -- AUTO_INCREMENT for table `spouse`
 --
 ALTER TABLE `spouse`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=243;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=241;
 
 --
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `tenturestatus`
 --
 ALTER TABLE `tenturestatus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `toiletfacility`
 --
 ALTER TABLE `toiletfacility`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
 -- AUTO_INCREMENT for table `transfers`
@@ -1128,37 +1065,31 @@ ALTER TABLE `transfers`
 -- AUTO_INCREMENT for table `unimproved_source`
 --
 ALTER TABLE `unimproved_source`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- AUTO_INCREMENT for table `vehicles`
 --
 ALTER TABLE `vehicles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `water_sanitation_hygiene`
 --
 ALTER TABLE `water_sanitation_hygiene`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 
 --
 -- AUTO_INCREMENT for table `water_source_location`
 --
 ALTER TABLE `water_source_location`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 
 --
 -- AUTO_INCREMENT for table `younger_household_members`
 --
 ALTER TABLE `younger_household_members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=761;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=756;
 
 --
 -- Constraints for dumped tables
