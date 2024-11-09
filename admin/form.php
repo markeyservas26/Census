@@ -170,7 +170,7 @@ $postData = $_POST ?? [];
         </p>
         <em style="color:red;">* Items with an asterisk (*) are required.</em>
 
-        <form method="post" action="../action/anothertesting.php" onsubmit="return validateForm()">
+        <form method="POST" action="../action/anothertesting.php" id="demographicForm" onsubmit="return validateForm()">
             <h5 class="section-header">CORE DEMOGRAPHIC CHARACTERISTICS</h5>
             <p style="color:red;">NOTICE: Do not include special characters like this *!@$%^&, etc. in your name entry. This will create an issue in the record during verification. Extensions like SR. or JR., etc. must be entered separately by selecting on the box provided below.</p>
             <p><b>House Leader</b></p>
