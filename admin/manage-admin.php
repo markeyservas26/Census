@@ -2,7 +2,6 @@
 include 'header.php';
 include '../database/db_connect.php';
 
-
 $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 10;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $offset = ($page - 1) * $limit;
@@ -129,12 +128,6 @@ $result = $stmt->get_result();
     background-color: yellow;
     font-weight: bold;
   }
-
-  .note {
-            font-style: italic;
-            color: #555;
-            font-size: 0.9em;
-        }
 </style>
 
 <main id="main" class="main">
@@ -156,7 +149,7 @@ $result = $stmt->get_result();
             </div>
             <div class="col-md-6">
               <div class="password-container">
-                <input type="password" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password only 'admin'" required>
+                <input type="password" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password" required>
                 <span class="eye" onclick="togglePasswordVisibility()">
                   <i id="eyeIcon" class="fas fa-eye"></i>
                 </span>
@@ -245,7 +238,7 @@ $result = $stmt->get_result();
         echo "<td>" . htmlspecialchars($row['name']) . "</td>";
         echo "<td>" . htmlspecialchars($row['username']) . "</td>";
         echo "<td>
-               <button class='btn btn-primary edit-btn' data-id='<?php echo htmlspecialchars($row['id']); ?>' data-bs-toggle='modal' data-bs-target='#editModal'>Edit</button> |
+               <button class='btn btn-primary edit-btn' data-id='" . htmlspecialchars($row['id']) . "' data-bs-toggle='modal' data-bs-target='#editModal'>Edit</button> |
                 <button class='btn btn-danger delete-btn' data-id='" . htmlspecialchars($row['id']) . "'>Delete</button> |
                <button class='btn btn-info view-btn' 
     data-id='" . htmlspecialchars($row['id']) . "' 
@@ -491,27 +484,26 @@ document.querySelectorAll(".edit-btn").forEach(button => {
     const adminId = this.getAttribute("data-id");
 
     fetch(`../staffaction/fetch-admin.php?id=${adminId}`)
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);  // Log the fetched data
-    if (data.success) {
-      showEditModal(data.admin);
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: data.message || "Failed to load admin data."
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          showEditModal(data.admin);
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: data.message || "Failed to load admin data."
+          });
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "An error occurred while fetching the admin data."
+        });
       });
-    }
-  })
-  .catch(error => {
-    console.error("Error:", error);
-    Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: "An error occurred while fetching the admin data."
-    });
-  });
   });
 });
 
@@ -524,7 +516,7 @@ document.getElementById("editAdminForm").addEventListener("submit", function(eve
     formData.delete('editPasswordInput');
   }
 
-  fetch("../staffaction/update-admin.php", {
+  fetch("../staffaction/manage-admin.php", {
     method: "POST",
     body: formData
   })
@@ -744,3 +736,4 @@ function printDetails() {
     newWindow.print();
 }
 </script>
+
