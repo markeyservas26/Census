@@ -559,8 +559,7 @@ document.getElementById('editModal').addEventListener('hidden.bs.modal', functio
 
   const addPasswordInput = document.getElementById("passwordInput");
   const addEyeIcon = document.getElementById("eyeIcon");
-  const editPasswordInput = document.getElementById("editPasswordInput");
-  const editEyeIcon = document.getElementById("editEyeIcon");
+  
 
    // Function to validate form before submission
   function validateForm() {
@@ -597,7 +596,20 @@ document.getElementById('editModal').addEventListener('hidden.bs.modal', functio
     }
   }
 
-  function toggleEditPasswordVisibility() {
+  if (addPasswordInput && addEyeIcon) {
+    addEyeIcon.addEventListener("click", function() {
+      togglePasswordVisibility(addPasswordInput, addEyeIcon);
+    });
+  }
+
+  
+})
+</script>
+<script>
+  const editPasswordInput = document.getElementById("editPasswordInput");
+  const editEyeIcon = document.getElementById("editEyeIcon");
+  
+   function toggleEditPasswordVisibility() {
   var passwordInput = document.getElementById('editPasswordInput');
   var eyeIcon = document.getElementById('editEyeIcon');
 
@@ -613,20 +625,12 @@ document.getElementById('editModal').addEventListener('hidden.bs.modal', functio
   }
 }
 
-
-  if (addPasswordInput && addEyeIcon) {
-    addEyeIcon.addEventListener("click", function() {
-      togglePasswordVisibility(addPasswordInput, addEyeIcon);
-    });
-  }
-
   if (editPasswordInput && editEyeIcon) {
     editEyeIcon.addEventListener("click", function() {
       togglePasswordVisibility(editPasswordInput, editEyeIcon);
     });
   }
-})
-</script>
+  </script>
 <script>
    document.addEventListener('DOMContentLoaded', function() {
     // Listen for click events on all view buttons
