@@ -244,7 +244,7 @@ $result = $stmt->get_result();
         echo "<td>" . htmlspecialchars($row['name']) . "</td>";
         echo "<td>" . htmlspecialchars($row['username']) . "</td>";
         echo "<td>
-               <button class='btn btn-primary edit-btn' data-id='" . htmlspecialchars($row['id']) . "' data-bs-toggle='modal' data-bs-target='#editModal'>Edit</button> |
+               <button class='btn btn-primary edit-btn' data-id='<?php echo htmlspecialchars($row['id']); ?>' data-bs-toggle='modal' data-bs-target='#editModal'>Edit</button> |
                 <button class='btn btn-danger delete-btn' data-id='" . htmlspecialchars($row['id']) . "'>Delete</button> |
                <button class='btn btn-info view-btn' 
     data-id='" . htmlspecialchars($row['id']) . "' 
@@ -487,32 +487,41 @@ function hideEditModal() {
 
 document.querySelectorAll(".edit-btn").forEach(button => {
   button.addEventListener("click", function() {
-    const adminId = this.getAttribute("data-id");
-
-    fetch(`../staffaction/fetch-admin.php?id=${adminId}`)
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);  // Log the fetched data
-    if (data.success) {
-      showEditModal(data.admin);
-    } else {
+    const adminId = this.getAttribute("data-id");  // Get the admin ID from the button
+    if (!adminId) {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: data.message || "Failed to load admin data."
+        text: "Invalid ID"
       });
+      return;
     }
-  })
-  .catch(error => {
-    console.error("Error:", error);
-    Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: "An error occurred while fetching the admin data."
-    });
-  });
+
+    fetch(`../staffaction/fetch-admin.php?id=${adminId}`)  // Send the ID to the backend script
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);  // Log the fetched data for debugging
+        if (data.success) {
+          showEditModal(data.admin);  // Populate the modal with data if successful
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: data.message || "Failed to load admin data."
+          });
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "An error occurred while fetching the admin data."
+        });
+      });
   });
 });
+
 
 document.getElementById("editAdminForm").addEventListener("submit", function(event) {
   event.preventDefault();
