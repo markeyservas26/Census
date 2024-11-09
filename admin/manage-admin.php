@@ -147,25 +147,21 @@ $result = $stmt->get_result();
         <div class="modal-body">
           <form id="addAdminForm" class="row g-3" method="POST" action="../staffaction/manage-admin.php" onsubmit="return validateForm()">
             <div class="col-md-12">
-              <label for="nameInput" class="form-label">Name</label>
-              <input type="text" class="form-control" id="nameInput" name="nameInput" placeholder="Enter full name" required>
+              <input type="text" class="form-control" id="nameInput" name="nameInput" placeholder="Name" required>
             </div>
             <div class="col-md-6">
-              <label for="usernameInput" class="form-label">Username</label>
               <input type="text" class="form-control" id="usernameInput" name="usernameInput" placeholder="Username (@gmail.com only)" required>
               <small class="text-muted" id="usernameError" style="color:red; display:none;">Username must end with @gmail.com</small>
             </div>
             <div class="col-md-6">
-              <label for="passwordInput" class="form-label">Password</label>
-              <div class="password-container position-relative">
-                <p class="note" style="font-size: 0.9em; color: #6c757d;">Enter the password only 'admin'</p>
-                <input type="password" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password" required>
-                <span class="eye position-absolute top-50 end-0 translate-middle-y pe-3" onclick="togglePasswordVisibility()">
+              <div class="password-container">
+                <input type="password" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password only 'admin'" required>
+                <span class="eye" onclick="togglePasswordVisibility()">
                   <i id="eyeIcon" class="fas fa-eye"></i>
                 </span>
               </div>
             </div>
-            <div class="text-center mt-4">
+            <div class="text-center">
               <button type="submit" class="btn btn-primary">Submit</button>
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
             </div>
@@ -174,8 +170,6 @@ $result = $stmt->get_result();
       </div>
     </div>
   </div>
-</main>
-
 
   <!-- View Modal -->
 <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
