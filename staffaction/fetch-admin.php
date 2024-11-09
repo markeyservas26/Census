@@ -11,7 +11,6 @@ if ($id <= 0) {
 $sql = "SELECT name, username, password FROM users WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id);
-
 if (!$stmt->execute()) {
     echo json_encode(['success' => false, 'message' => $stmt->error]);
     exit;
