@@ -597,6 +597,23 @@ document.getElementById('editModal').addEventListener('hidden.bs.modal', functio
     }
   }
 
+  function toggleEditPasswordVisibility() {
+  var passwordInput = document.getElementById('editPasswordInput');
+  var eyeIcon = document.getElementById('editEyeIcon');
+
+  // Toggle the type of the password input field
+  if (passwordInput.type === 'password') {
+    passwordInput.type = 'text';
+    eyeIcon.classList.remove('fa-eye');
+    eyeIcon.classList.add('fa-eye-slash');
+  } else {
+    passwordInput.type = 'password';
+    eyeIcon.classList.remove('fa-eye-slash');
+    eyeIcon.classList.add('fa-eye');
+  }
+}
+
+
   if (addPasswordInput && addEyeIcon) {
     addEyeIcon.addEventListener("click", function() {
       togglePasswordVisibility(addPasswordInput, addEyeIcon);
