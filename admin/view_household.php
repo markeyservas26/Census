@@ -61,6 +61,9 @@ function safe_array_value($array, $key, $default = '') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bantayan Island Census Form</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
        @media (max-width: 768px) {
@@ -86,6 +89,102 @@ function safe_array_value($array, $key, $default = '') {
         .required-asterisk {
         color: red;
         margin-left: 3px;
+    }
+
+    .form-control {
+        background-color: #FEFCFF;
+    }
+    .error-message {
+        color: red;
+        font-size: 0.875em;
+    }
+    .alert-label {
+        display: inline-block;
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin-bottom: 10px;
+        font-weight: bold;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .mb-4 {
+        margin-bottom: 1.8rem;
+        font-family: 'Georgia', serif;
+    }
+
+    .mb-3 {
+        margin-bottom: 1.8rem;
+        font-family: 'Georgia', serif;
+    }
+
+    h1 {
+        font-size: 25px;
+        color: #2c3e50;
+    }
+
+    .header1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        position: relative;
+    }
+
+    .logo {
+        max-width: 100px; /* Maximum size for larger screens */
+        width: 100%; /* Responsive scaling */
+    height: auto;
+    position: absolute;
+    left: 0; /* Position the second logo on the right */
+    margin-left: 40px;
+    margin-top: 70px;
+    }
+
+    .logo-right {
+        max-width: 100px; /* Maximum size for larger screens */
+        width: 100%; /* Responsive scaling */
+    height: auto;
+    position: absolute;
+    right: 0; /* Position the second logo on the right */
+    margin-right: 40px;
+    margin-top: 70px;
+    }
+
+    .header-text {
+        text-align: center;
+        width: 100%;
+        padding-top: 10px;
+    }
+
+    h4 {
+        font-size: 20px;
+        color: #34495e;
+        margin: 0;
+    }
+
+    @media (max-width: 768px) {
+        .header1 {
+            flex-direction: column;
+            margin-bottom: 70px;
+        }
+
+        .logo, .logo-right {
+            max-width: 80px; /* Smaller logo size for medium screens */
+            margin-top: 30px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .logo, .logo-right {
+            max-width: 60px; /* Even smaller logo size for small screens */
+        }
     }
 
     /* Style for the button */
@@ -145,11 +244,22 @@ function safe_array_value($array, $key, $default = '') {
 </head>
 <body>
     <main id="main" class="main">
-        <div class="container">
-            <h1 class="text-center mb-4">Bantayan Island Census Form</h1>
-            <p>
-            Please fill up completely and correctly the required information before each item below.  For items that are not associated to you, leave it blank.  Required items are also marked with an asterisk (*) so please fill it up correctly.  Your honest response will help the National Commission of Senior Citizens (NCSC) come up with a good information system of the senior citizens in the country as the basis of designing its programs and activities that will help improve the lives of Filipino older persons.</p>
-            <em style="color:red;">* Items with an asterisk (*) are required.</em>
+    <div class="container">
+    <div class="header1">
+        <img src="assets/img/censusformlogo.png" alt="Census Logo" class="logo">
+        <img src="assets/img/censusformlogo2.png" alt="Census Logo 2" class="logo-right">
+    </div>
+    <h1 class="text-center mb-3">REPUBLIC OF THE PHILIPPINES</h1>
+    <h1 class="text-center mb-3">PHILIPPINE STATISTICS AUTHORITY</h1>
+    <div class="form-header"></div>
+    <div class="header-text">
+        <h4>BANTAYAN ISLAND CENSUS FORM</h4>
+    </div>
+    <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
+        <p>
+        Please complete the required information for each item below. Items marked with an asterisk (*) are mandatory. Your honest and accurate responses will assist in gathering comprehensive data for the Bantayan Island Census. This information will serve as a foundation for designing programs and activities aimed at improving the lives of residents in Bantayan Island.
+        </p>
+        <em style="color:red;">* Items with an asterisk (*) are required.</em>
         
             <form id="demographicForm" method="post" action="../action/update_record.php">
             <input type="hidden" name="house_leader" value="<?php echo $house_leader['id']; ?>">
