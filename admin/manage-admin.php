@@ -487,41 +487,32 @@ function hideEditModal() {
 
 document.querySelectorAll(".edit-btn").forEach(button => {
   button.addEventListener("click", function() {
-    const adminId = this.getAttribute("data-id");  // Get the admin ID from the button
-    if (!adminId) {
+    const adminId = this.getAttribute("data-id");
+
+    fetch(`../staffaction/fetch-admin.php?id=${adminId}`)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);  // Log the fetched data
+    if (data.success) {
+      showEditModal(data.admin);
+    } else {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Invalid ID"
+        text: data.message || "Failed to load admin data."
       });
-      return;
     }
-
-    fetch(`../staffaction/fetch-admin.php?id=${adminId}`)  // Send the ID to the backend script
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);  // Log the fetched data for debugging
-        if (data.success) {
-          showEditModal(data.admin);  // Populate the modal with data if successful
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: data.message || "Failed to load admin data."
-          });
-        }
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "An error occurred while fetching the admin data."
-        });
-      });
+  })
+  .catch(error => {
+    console.error("Error:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "An error occurred while fetching the admin data."
+    });
+  });
   });
 });
-
 
 document.getElementById("editAdminForm").addEventListener("submit", function(event) {
   event.preventDefault();
