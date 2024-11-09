@@ -1,6 +1,12 @@
 <?php 
 include 'header.php';
 include '../database/db_connect.php';
+session_start();
+if (!isset($_SESSION['userid'])) {
+    header("Location:login.php");
+    exit;
+}
+
 
 $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 10;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
