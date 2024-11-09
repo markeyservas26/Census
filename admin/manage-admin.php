@@ -522,7 +522,7 @@ document.getElementById("editAdminForm").addEventListener("submit", function(eve
     formData.delete('editPasswordInput');
   }
 
-  fetch("../staffaction/manage-admin.php", {
+  fetch("../staffaction/update-admin.php", {
     method: "POST",
     body: formData
   })
