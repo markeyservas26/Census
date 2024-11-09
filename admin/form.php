@@ -177,14 +177,11 @@ $postData = $_POST ?? [];
             <div class="row g-3 mb-4">
             <div class="col-12 col-sm-6 col-lg-3">
             <div class="house-number-wrapper">
-    <label for="housenumber" class="form-label">House Number<span class="required-asterisk">*</span></label>
+    <label for="house_number" id="house_number_label">House Number</label>
     <div class="input-group">
         <input type="text" class="form-control" id="house_number" name="house_number" placeholder="000000" required>
     </div>
-
-    <?php if ($status === 'house_number_exists'): ?>
-        <div class="error-message">This house number already exists.</div>
-    <?php endif; ?>
+    <small id="house_number_alert" style="color: red; display: none;">This house number already exists.</small>
 </div>
             </div>
             </div>
@@ -1857,6 +1854,34 @@ function validateForm() {
 
     return isValid; // Prevents form submission if not valid
 }
+</script>
+<script>
+    $(document).ready(function() {
+        $('#house_number').on('blur', function() {
+            const houseNumber = $(this).val();
+
+            if (houseNumber) {
+                $.ajax({
+                    url: 'check_house_number.php',
+                    method: 'POST',
+                    data: { house_number: houseNumber },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.exists) {
+                            $('#house_number_alert').show(); // Show the alert
+                        } else {
+                            $('#house_number_alert').hide(); // Hide the alert if no match
+                        }
+                    },
+                    error: function() {
+                        console.error("An error occurred while checking the house number.");
+                    }
+                });
+            } else {
+                $('#house_number_alert').hide(); // Hide the alert if the input is empty
+            }
+        });
+    });
 </script>
 <?php 
 include 'footer.php';
