@@ -128,6 +128,10 @@ $result = $stmt->get_result();
     background-color: yellow;
     font-weight: bold;
   }
+
+  .view-btn{
+    text-color: white;
+  }
 </style>
 
 <main id="main" class="main">
@@ -608,7 +612,7 @@ document.getElementById('editModal').addEventListener('hidden.bs.modal', functio
 <script>
   const editPasswordInput = document.getElementById("editPasswordInput");
   const editEyeIcon = document.getElementById("editEyeIcon");
-  
+
    function toggleEditPasswordVisibility() {
   var passwordInput = document.getElementById('editPasswordInput');
   var eyeIcon = document.getElementById('editEyeIcon');
