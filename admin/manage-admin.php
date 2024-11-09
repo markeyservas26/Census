@@ -511,8 +511,8 @@ document.getElementById("editAdminForm").addEventListener("submit", function(eve
   event.preventDefault();
   const formData = new FormData(this);
 
-  // Remove password from formData if it's empty
-  if (formData.get('editPasswordInput') === '') {
+  // Check if password input is empty and remove it if so
+  if (!formData.get('editPasswordInput')) {
     formData.delete('editPasswordInput');
   }
 
@@ -549,6 +549,7 @@ document.getElementById("editAdminForm").addEventListener("submit", function(eve
     });
   });
 });
+
 
 document.getElementById('editModal').addEventListener('hidden.bs.modal', function () {
   hideEditModal();

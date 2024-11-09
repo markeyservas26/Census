@@ -1,32 +1,28 @@
 <?php
-header('Content-Type: application/json');
 include '../database/db_connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['nameInput'] ?? '';
-    $username = $_POST['usernameInput'] ?? '';
-    $password = $_POST['passwordInput'] ?? '';
+    $id = $_POST['editId'];
+    $name = $_POST['editNameInput'];
+    $username = $_POST['editUsernameInput'];
+    $password = isset($_POST['editPasswordInput']) && !empty($_POST['editPasswordInput']) ? $_POST['editPasswordInput'] : null;
 
-    if (empty($name) || empty($username) || empty($password)) {
-        echo json_encode(['success' => false, 'message' => 'All fields are required.']);
-        exit;
+    // Prepare SQL statement conditionally based on whether password is provided
+    if ($password) {
+        // Hash the new password
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $conn->prepare("UPDATE users SET name = ?, username = ?, password = ? WHERE id = ?");
+        $stmt->bind_param("sssi", $name, $username, $hashed_password, $id);
+    } else {
+        // Update without password
+        $stmt = $conn->prepare("UPDATE users SET name = ?, username = ? WHERE id = ?");
+        $stmt->bind_param("ssi", $name, $username, $id);
     }
-
-    // Hash the password
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    $stmt = $conn->prepare("INSERT INTO users (name, username, password) VALUES (?, ?, ?)");
-    if ($stmt === false) {
-        echo json_encode(['success' => false, 'message' => 'Error preparing statement: ' . $conn->error]);
-        exit;
-    }
-
-    $stmt->bind_param("sss", $name, $username, $hashed_password);
 
     if ($stmt->execute()) {
-        echo json_encode(['success' => true, 'message' => 'Admin added successfully.']);
+        echo json_encode(['success' => true]);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Error adding new admin: ' . $stmt->error]);
+        echo json_encode(['success' => false, 'message' => 'Error updating admin: ' . $stmt->error]);
     }
 
     $stmt->close();
@@ -34,4 +30,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid request method']);
 }
-?>
