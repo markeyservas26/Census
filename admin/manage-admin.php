@@ -492,7 +492,6 @@ document.querySelectorAll(".edit-btn").forEach(button => {
     fetch(`../staffaction/fetch-admin.php?id=${adminId}`)
   .then(response => response.json())
   .then(data => {
-    console.log(data);  // Log the fetched data
     if (data.success) {
       showEditModal(data.admin);
     } else {
