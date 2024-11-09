@@ -490,26 +490,27 @@ document.querySelectorAll(".edit-btn").forEach(button => {
     const adminId = this.getAttribute("data-id");
 
     fetch(`../staffaction/fetch-admin.php?id=${adminId}`)
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          showEditModal(data.admin);
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: data.message || "Failed to load admin data."
-          });
-        }
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "An error occurred while fetching the admin data."
-        });
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);  // Log the fetched data
+    if (data.success) {
+      showEditModal(data.admin);
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: data.message || "Failed to load admin data."
       });
+    }
+  })
+  .catch(error => {
+    console.error("Error:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "An error occurred while fetching the admin data."
+    });
+  });
   });
 });
 
