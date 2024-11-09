@@ -1,11 +1,6 @@
 <?php 
 include 'header.php';
 include '../database/db_connect.php';
-session_start();
-if (!isset($_SESSION['userid'])) {
-    header("Location:login.php");
-    exit;
-}
 
 
 $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 10;
@@ -317,7 +312,7 @@ $result = $stmt->get_result();
           </div>
           <div class="col-md-6">
             <div class="password-container">
-              <input type="password" class="form-control" id="editPasswordInput" name="editPasswordInput" placeholder="Password must be 'admin' only" required>
+              <input type="password" class="form-control" id="editPasswordInput" name="editPasswordInput" placeholder="Password" required>
               <span class="eye" onclick="toggleEditPasswordVisibility()">
                 <i id="editEyeIcon" class="fas fa-eye"></i>
               </span>
