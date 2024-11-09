@@ -514,10 +514,10 @@ document.querySelectorAll(".edit-btn").forEach(button => {
 document.getElementById("editAdminForm").addEventListener("submit", function(event) {
   event.preventDefault();
   const formData = new FormData(this);
-
-  // Check if password input is empty and remove it if so
-  if (!formData.get('editPasswordInput')) {
-    formData.delete('editPasswordInput');
+  
+  // Log the data being sent
+  for (let [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
   }
 
   fetch("../staffaction/update-admin.php", {
@@ -526,8 +526,9 @@ document.getElementById("editAdminForm").addEventListener("submit", function(eve
   })
   .then(response => response.json())
   .then(data => {
+    hideEditModal();
+    
     if (data.success) {
-      hideEditModal();
       Swal.fire({
         icon: "success",
         title: "Success",
@@ -539,7 +540,7 @@ document.getElementById("editAdminForm").addEventListener("submit", function(eve
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: data.message || "Failed to update admin details."
+        text: data.message
       });
     }
   })
