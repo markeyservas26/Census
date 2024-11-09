@@ -242,7 +242,6 @@ $result = $stmt->get_result();
         echo "<td>" . htmlspecialchars($row['name']) . "</td>";
         echo "<td>" . htmlspecialchars($row['username']) . "</td>";
         echo "<td>
-               <button class='btn btn-success edit-btn' data-id='" . htmlspecialchars($row['id']) . "' data-bs-toggle='modal' data-bs-target='#editModal'>Edit</button> |
                 <button class='btn btn-danger delete-btn' data-id='" . htmlspecialchars($row['id']) . "'>Delete</button> |
                <button class='btn btn-info view-btn' 
     data-id='" . htmlspecialchars($row['id']) . "' 

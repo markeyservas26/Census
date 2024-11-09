@@ -281,7 +281,6 @@ $result = $stmt->get_result();
             $password = ($actual_password !== false) ? htmlspecialchars($actual_password) : 'N/A';
             
             echo "<td>  
-        <button class='btn btn-primary edit-btn' data-id='" . htmlspecialchars($row['id']) . "'>Edit</button> |
         <button class='btn btn-danger delete-btn' data-id='" . htmlspecialchars($row['id']) . "'>Delete</button> |
         <button class='btn btn-info view-btn' 
                 data-id='" . htmlspecialchars($row['id']) . "' 
