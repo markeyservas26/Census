@@ -166,7 +166,7 @@ $result = $stmt->get_result();
                     </div>
                     <div class="col-md-6">
                         <div class="password-container">
-                            <input type="text" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password" required>
+                            <input type="text" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password must be 'staff' only" required>
                             <span class="eye" onclick="togglePasswordVisibility()">
                                 <i id="eyeIcon" class="fas fa-eye"></i>
                             </span>
