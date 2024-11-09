@@ -736,4 +736,3 @@ function printDetails() {
     newWindow.print();
 }
 </script>
-<?php include 'footer.php' ?>
