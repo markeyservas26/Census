@@ -460,12 +460,12 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
   
-  function showEditModal(adminData) {
+function showEditModal(adminData) {
   document.getElementById("editId").value = adminData.id;
   document.getElementById("editNameInput").value = adminData.name;
   document.getElementById("editUsernameInput").value = adminData.username;
   document.getElementById("editAdminForm").setAttribute("data-id", adminData.id);
-  
+
   const editModal = new bootstrap.Modal(document.getElementById('editModal'));
   editModal.show();
 }
@@ -482,7 +482,7 @@ function hideEditModal() {
 document.querySelectorAll(".edit-btn").forEach(button => {
   button.addEventListener("click", function() {
     const adminId = this.getAttribute("data-id");
-    
+
     fetch(`../staffaction/fetch-admin.php?id=${adminId}`)
       .then(response => response.json())
       .then(data => {
@@ -492,7 +492,7 @@ document.querySelectorAll(".edit-btn").forEach(button => {
           Swal.fire({
             icon: "error",
             title: "Error",
-            text: data.message
+            text: data.message || "Failed to load admin data."
           });
         }
       })
@@ -510,21 +510,20 @@ document.querySelectorAll(".edit-btn").forEach(button => {
 document.getElementById("editAdminForm").addEventListener("submit", function(event) {
   event.preventDefault();
   const formData = new FormData(this);
-  
+
   // Remove password from formData if it's empty
-  if (formData.get('password') === '') {
-    formData.delete('password');
+  if (formData.get('editPasswordInput') === '') {
+    formData.delete('editPasswordInput');
   }
-  
+
   fetch("../staffaction/manage-admin.php", {
     method: "POST",
     body: formData
   })
   .then(response => response.json())
   .then(data => {
-    hideEditModal();
-    
     if (data.success) {
+      hideEditModal();
       Swal.fire({
         icon: "success",
         title: "Success",
@@ -536,7 +535,7 @@ document.getElementById("editAdminForm").addEventListener("submit", function(eve
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: data.message
+        text: data.message || "Failed to update admin details."
       });
     }
   })
@@ -554,6 +553,7 @@ document.getElementById("editAdminForm").addEventListener("submit", function(eve
 document.getElementById('editModal').addEventListener('hidden.bs.modal', function () {
   hideEditModal();
 });
+
 
 
   const addPasswordInput = document.getElementById("passwordInput");
