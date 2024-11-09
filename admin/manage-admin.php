@@ -128,6 +128,12 @@ $result = $stmt->get_result();
     background-color: yellow;
     font-weight: bold;
   }
+
+  .note {
+            font-style: italic;
+            color: #555;
+            font-size: 0.9em;
+        }
 </style>
 
 <main id="main" class="main">
@@ -149,6 +155,7 @@ $result = $stmt->get_result();
             </div>
             <div class="col-md-6">
               <div class="password-container">
+              <p class="note">Enter the password only 'admin'</p>
                 <input type="password" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password" required>
                 <span class="eye" onclick="togglePasswordVisibility()">
                   <i id="eyeIcon" class="fas fa-eye"></i>
