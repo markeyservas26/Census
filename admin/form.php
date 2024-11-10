@@ -149,6 +149,17 @@ $postData = $_POST ?? [];
             max-width: 60px; /* Even smaller logo size for small screens */
         }
     }
+
+    /* Hide the up and down arrows in number input */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
     </style>
 </head>
 <body>
