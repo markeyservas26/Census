@@ -147,6 +147,40 @@ $result = $stmt->get_result();
   background-color: yellow; /* Change this to the color you prefer */
   font-weight: bold; /* Optional: makes highlighted text bold */
 }
+
+/* Style for the dropdown container */
+.dropdown {
+  position: relative;
+}
+
+
+/* Style each dropdown item */
+.dropdown-item {
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+/* Add a horizontal line between Delete and View options */
+.dropdown-menu li {
+  border-bottom: 1px solid #ddd;
+}
+
+/* Remove the border from the last item (View) */
+.dropdown-menu li:last-child {
+  border-bottom: none;
+}
+
+
+.dropdown-toggle:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Optionally, add a custom icon style */
+.dropdown-toggle i {
+  margin-right: 5px;
+}
 </style>
 <main id="main" class="main">
   
