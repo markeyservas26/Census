@@ -414,31 +414,6 @@ searchInput.addEventListener("keyup", function(e) {
 });
 
     </script>
-<script>
-    // Handle the dropdown toggle behavior
-    document.addEventListener('DOMContentLoaded', function () {
-        // Close other dropdowns when one is clicked
-        let dropdownButtons = document.querySelectorAll('[id^="dropdownMenuButton"]');
-
-        dropdownButtons.forEach(function(button) {
-            button.addEventListener('click', function (e) {
-                // Close any previously opened dropdown
-                dropdownButtons.forEach(function(otherButton) {
-                    if (otherButton !== button) {
-                        var dropdownMenu = otherButton.nextElementSibling;
-                        if (dropdownMenu.classList.contains('show')) {
-                            dropdownMenu.classList.remove('show');
-                        }
-                    }
-                });
-
-                // Toggle the current dropdown
-                var dropdownMenu = button.nextElementSibling;
-                dropdownMenu.classList.toggle('show');
-            });
-        });
-    });
-</script>
 
 
 
@@ -450,9 +425,6 @@ mysqli_close($conn);
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/quill/quill.js"></script>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
