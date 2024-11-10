@@ -7,15 +7,10 @@ $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 10;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $start = ($page - 1) * $limit;
 
-// Search parameter
-$search = isset($_GET['search']) ? mysqli_real_escape_string($conn, $_POST['search']) : '';
 
 // Fetch total number of rows
 $total_query = "SELECT COUNT(*) as total FROM house_leader WHERE municipality = 'Madridejos'";
-if (!empty($search)) {
-    $total_query .= " AND (house_number LIKE '%$search%' OR 
-                      CONCAT(lastname, ' ', firstname, ' ', middlename) LIKE '%$search%')";
-}
+
 $total_result = mysqli_query($conn, $total_query);
 $total_row = mysqli_fetch_assoc($total_result);
 $total_rows = $total_row['total'];
@@ -29,10 +24,7 @@ $query = "SELECT id, house_number,
           CONCAT(purok, ', ', barangay, ', ', municipality, ', ', province) AS address 
           FROM house_leader
           WHERE municipality = 'Madridejos'";
-if (!empty($search)) {
-    $query .= " AND (house_number LIKE '%$search%' OR 
-                CONCAT(lastname, ' ', firstname, ' ', COALESCE(middlename, '')) LIKE '%$search%')";
-}
+
 $query .= " LIMIT $start, $limit";
 
 $result = mysqli_query($conn, $query);
@@ -44,8 +36,9 @@ $end_entry = min($start + $limit, $total_rows);
 ?>
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-     <!-- Bootstrap CSS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>  
+
+<!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Font Awesome for icons -->
@@ -62,50 +55,32 @@ align-items: center;
 margin-bottom: 15px;
 }
 
-.search-container, .show-entries {
+ .show-entries {
 display: flex;
 align-items: center;
 }
 
 .search-container {
-margin-right: 20px;
-}
+    margin-left: auto;
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+  }
 
-.search-container input {
-max-width: 500px; /* Adjust as needed */
-height: 40px;
-border-radius: 5px;
-border: 1px solid #ced4da;
-padding: 0 10px;
-}
+  #searchInput {
+    width: 200px;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    border: 1px solid #ced4da;
+    font-size: 1rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
 
-.show-entries {
-display: flex;
-align-items: center;
-gap: 10px; /* Space between the label and the select element */
-}
-
-.show-entries label {
-margin: 0;
-font-weight: 500; /* Slightly bolder text */
-color: #495057; /* Subtle dark color */
-font-size: 1rem; /* Adjust size as needed */
-}
-
-.show-entries select {
-height: 40px; /* Match the height of the input field for consistency */
-border-radius: 5px;
-border: 1px solid #ced4da;
-font-size: 1rem;
-padding: 0 10px;
-background-color: #fff; /* Background color of the dropdown */
-color: #495057; /* Text color inside the dropdown */
-}
-
-.show-entries select:focus {
-border-color: #007bff; /* Highlight border color on focus */
-outline: none; /* Remove default outline */
-}
+  #searchInput:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+  }
 
 .footer-pagination {
 display: flex;
@@ -174,6 +149,10 @@ margin: 0;
     .custom-dropdown-btn i {
         margin-right: 5px;
     }
+    .highlight-term {
+    background-color: yellow;
+    font-weight: bold;
+}
 </style>
 <main id="main" class="main">
 
@@ -199,8 +178,8 @@ margin: 0;
                             </select>
                         </div>
                         <div class="search-container">
-                            <input type="text" id="searchInput" placeholder="Search by name or house number" value="<?= htmlspecialchars($search) ?>" />
-                        </div>
+                <input type="text" id="searchInput" class="form-control" placeholder="Search...">
+              </div>
                     </div>
 
                     <table id="dataTable" class="table datatable">
@@ -232,6 +211,7 @@ margin: 0;
         </td>
     </tr>
     <?php endwhile; ?>
+
                         </tbody>
                     </table>
 
@@ -382,6 +362,50 @@ document.querySelectorAll('.edit-btn').forEach(button => {
 });
 </script>
 <script>
+    const searchInput = document.getElementById("searchInput");
+const tableBody = document.querySelector("#dataTable tbody"); // The table body
+const originalRows = Array.from(tableBody.rows); // Store all rows initially
+
+// Highlight the matching text in the row, excluding buttons and non-text elements
+function highlightText(row, searchTerm) {
+    const cells = row.getElementsByTagName('td');
+    for (let i = 0; i < cells.length; i++) {
+        let cell = cells[i];
+        const text = cell.textContent || cell.innerText;
+
+        // Skip cells that contain buttons or links
+        if (cell.querySelector('button') || cell.querySelector('a')) {
+            continue;
+        }
+
+        // Highlight matching term
+        const regex = new RegExp(searchTerm, 'gi');
+        cell.innerHTML = text.replace(regex, match => `<span class="highlight-term">${match}</span>`);
+    }
+}
+
+// Filter and highlight table rows
+function filterTable() {
+    const searchValue = searchInput.value.toLowerCase();
+    tableBody.innerHTML = ""; // Clear the table body before filtering
+
+    // Filter and display rows that match the search term
+    originalRows.forEach(row => {
+        let rowText = row.textContent.toLowerCase();
+        if (rowText.includes(searchValue)) {
+            highlightText(row, searchValue);
+            tableBody.appendChild(row); // Re-add matching row to the table body
+        }
+    });
+}
+
+// Reset highlights when user types
+searchInput.addEventListener("keyup", function(e) {
+    filterTable();
+});
+
+    </script>
+<script>
     // Handle the dropdown toggle behavior
     document.addEventListener('DOMContentLoaded', function () {
         // Close other dropdowns when one is clicked
@@ -407,6 +431,8 @@ document.querySelectorAll('.edit-btn').forEach(button => {
     });
 </script>
 
+
+
 <?php
 // Close the database connection
 mysqli_close($conn);
@@ -426,7 +452,7 @@ mysqli_close($conn);
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-   <!-- Bootstrap JS (optional if you need dropdown functionality to work) -->
+  <!-- Bootstrap JS (optional if you need dropdown functionality to work) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   
 

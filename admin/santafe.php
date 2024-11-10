@@ -7,15 +7,9 @@ $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 10;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $start = ($page - 1) * $limit;
 
-// Search parameter
-$search = isset($_GET['search']) ? mysqli_real_escape_string($conn, $_POST['search']) : '';
 
 // Fetch total number of rows
 $total_query = "SELECT COUNT(*) as total FROM house_leader WHERE municipality = 'Santafe'";
-if (!empty($search)) {
-    $total_query .= " AND (house_number LIKE '%$search%' OR 
-                      CONCAT(lastname, ' ', firstname, ' ', middlename) LIKE '%$search%')";
-}
 $total_result = mysqli_query($conn, $total_query);
 $total_row = mysqli_fetch_assoc($total_result);
 $total_rows = $total_row['total'];
@@ -29,10 +23,7 @@ $query = "SELECT id, house_number,
           CONCAT(purok, ', ', barangay, ', ', municipality, ', ', province) AS address 
           FROM house_leader
           WHERE municipality = 'Santafe'";
-if (!empty($search)) {
-    $query .= " AND (house_number LIKE '%$search%' OR 
-                CONCAT(lastname, ' ', firstname, ' ', COALESCE(middlename, '')) LIKE '%$search%')";
-}
+
 $query .= " LIMIT $start, $limit";
 
 $result = mysqli_query($conn, $query);
@@ -199,8 +190,8 @@ margin: 0;
                             </select>
                         </div>
                         <div class="search-container">
-                            <input type="text" id="searchInput" placeholder="Search by name or house number" value="<?= htmlspecialchars($search) ?>" />
-                        </div>
+                <input type="text" id="searchInput" class="form-control" placeholder="Search...">
+              </div>
                     </div>
 
                     <table id="dataTable" class="table datatable">
@@ -406,6 +397,50 @@ document.querySelectorAll('.edit-btn').forEach(button => {
         });
     });
 </script>
+<script>
+    const searchInput = document.getElementById("searchInput");
+const tableBody = document.querySelector("#dataTable tbody"); // The table body
+const originalRows = Array.from(tableBody.rows); // Store all rows initially
+
+// Highlight the matching text in the row, excluding buttons and non-text elements
+function highlightText(row, searchTerm) {
+    const cells = row.getElementsByTagName('td');
+    for (let i = 0; i < cells.length; i++) {
+        let cell = cells[i];
+        const text = cell.textContent || cell.innerText;
+
+        // Skip cells that contain buttons or links
+        if (cell.querySelector('button') || cell.querySelector('a')) {
+            continue;
+        }
+
+        // Highlight matching term
+        const regex = new RegExp(searchTerm, 'gi');
+        cell.innerHTML = text.replace(regex, match => `<span class="highlight-term">${match}</span>`);
+    }
+}
+
+// Filter and highlight table rows
+function filterTable() {
+    const searchValue = searchInput.value.toLowerCase();
+    tableBody.innerHTML = ""; // Clear the table body before filtering
+
+    // Filter and display rows that match the search term
+    originalRows.forEach(row => {
+        let rowText = row.textContent.toLowerCase();
+        if (rowText.includes(searchValue)) {
+            highlightText(row, searchValue);
+            tableBody.appendChild(row); // Re-add matching row to the table body
+        }
+    });
+}
+
+// Reset highlights when user types
+searchInput.addEventListener("keyup", function(e) {
+    filterTable();
+});
+
+    </script>
 
 <?php
 // Close the database connection
