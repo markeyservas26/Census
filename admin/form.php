@@ -179,7 +179,7 @@ $postData = $_POST ?? [];
             <div class="house-number-wrapper">
     <label for="house_number" id="house_number_label">House Number</label>
     <div class="input-group">
-        <input type="text" class="form-control" id="house_number" name="house_number" placeholder="000000" required>
+        <input type="number" class="form-control" id="house_number" name="house_number" placeholder="000000" required>
     </div>
     <small id="house_number_alert" style="color: red; display: none;">This house number already exists.</small>
 </div>
