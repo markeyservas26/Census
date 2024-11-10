@@ -45,6 +45,11 @@ $end_entry = min($start + $limit, $total_rows);
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+     <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font Awesome for icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
      <style>
         .highlight-term {
     background-color: yellow;
@@ -123,7 +128,52 @@ justify-content: flex-end;
 margin: 0;
 }
 
+    /* Custom Styles for Dropdown */
+    /* Style for dropdown button */
+    .custom-dropdown-btn {
+        background-color: #4CAF50; /* Green background */
+        color: white; /* White text */
+        border-radius: 5px;
+        border: 1px solid #4CAF50;
+        padding: 5px 10px;
+    }
 
+    .custom-dropdown-btn:hover {
+        background-color: #45a049; /* Slightly darker green on hover */
+        border-color: #45a049;
+    }
+
+    .custom-dropdown-btn:focus {
+        box-shadow: 0 0 0 0.2rem rgba(72, 145, 47, 0.5); /* Green focus outline */
+    }
+
+    /* Style for dropdown menu */
+    .custom-dropdown-menu {
+        border-radius: 5px;
+        border: 1px solid #4CAF50; /* Matching border with button */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+
+    /* Style for each item in the dropdown */
+    .custom-dropdown-menu .dropdown-item {
+        color: #333;
+        padding: 8px 16px;
+    }
+
+    .custom-dropdown-menu .dropdown-item:hover {
+        background-color: #f1f1f1; /* Light gray on hover */
+        color: #333;
+    }
+
+    .custom-dropdown-menu .dropdown-item:focus {
+        background-color: #ddd; /* Darker gray on focus */
+        color: #333;
+    }
+
+    /* Styling the dropdown icon */
+    .custom-dropdown-btn i {
+        margin-right: 5px;
+    }
 </style>
 <main id="main" class="main">
 
@@ -153,27 +203,34 @@ margin: 0;
                         </div>
                     </div>
 
-                    <!-- Table with stripped rows -->
                     <table id="dataTable" class="table datatable">
-                        <thead>
-                            <tr>
-                                <th>House Number</th>
-                                <th>Fullname</th>
-                                <th>Address</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+    <thead>
         <tr>
-            <td><?= htmlspecialchars($row['house_number']) ?></td>
-            <td><?= htmlspecialchars($row['fullname']) ?></td>
-            <td><?= htmlspecialchars($row['address']) ?></td>
-            <td>
-    <a href="view_household.php?id=<?= $row['id'] ?>" class="btn btn-primary btn-sm">View</a> |
-    <button type="button" class="btn btn-info btn-sm edit-btn" data-id="<?= $row['id'] ?>">Edit</button>
-</td>
+            <th>House Number</th>
+            <th>Fullname</th>
+            <th>Address</th>
+            <th>Action</th>
         </tr>
+    </thead>
+    <tbody>
+    <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+    <tr>
+        <td><?= htmlspecialchars($row['house_number']) ?></td>
+        <td><?= htmlspecialchars($row['fullname']) ?></td>
+        <td><?= htmlspecialchars($row['address']) ?></td>
+        <td>
+            <!-- Dropdown icon for settings -->
+            <div class="dropdown">
+                <button class="btn btn-sm btn-secondary dropdown-toggle custom-dropdown-btn" type="button" id="dropdownMenuButton<?= $row['id'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-cogs"></i> <!-- You can use any icon here -->
+                </button>
+                <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton<?= $row['id'] ?>">
+                    <li><a class="dropdown-item" href="view_household.php?id=<?= $row['id'] ?>">View</a></li>
+                    <li><a class="dropdown-item" href="edit_house_leader.php?id=<?= $row['id'] ?>">Edit</a></li>
+                </ul>
+            </div>
+        </td>
+    </tr>
     <?php endwhile; ?>
                         </tbody>
                     </table>
@@ -324,7 +381,31 @@ document.querySelectorAll('.edit-btn').forEach(button => {
     });
 });
 </script>
+<script>
+    // Handle the dropdown toggle behavior
+    document.addEventListener('DOMContentLoaded', function () {
+        // Close other dropdowns when one is clicked
+        let dropdownButtons = document.querySelectorAll('[id^="dropdownMenuButton"]');
 
+        dropdownButtons.forEach(function(button) {
+            button.addEventListener('click', function (e) {
+                // Close any previously opened dropdown
+                dropdownButtons.forEach(function(otherButton) {
+                    if (otherButton !== button) {
+                        var dropdownMenu = otherButton.nextElementSibling;
+                        if (dropdownMenu.classList.contains('show')) {
+                            dropdownMenu.classList.remove('show');
+                        }
+                    }
+                });
+
+                // Toggle the current dropdown
+                var dropdownMenu = button.nextElementSibling;
+                dropdownMenu.classList.toggle('show');
+            });
+        });
+    });
+</script>
 
 <?php
 // Close the database connection
@@ -345,6 +426,8 @@ mysqli_close($conn);
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+   <!-- Bootstrap JS (optional if you need dropdown functionality to work) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   
 
 </body>
