@@ -464,8 +464,7 @@ mysqli_close($conn);
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-   <!-- Bootstrap JS (optional if you need dropdown functionality to work) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
   
 
 </body>
