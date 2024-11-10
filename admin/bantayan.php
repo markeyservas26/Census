@@ -164,6 +164,17 @@ margin: 0;
     .custom-dropdown-btn i {
         margin-right: 5px;
     }
+
+    /* Add a horizontal line between Delete and View options */
+.custom-dropdown-menu li {
+  border-bottom: 1px solid #ddd;
+}
+
+/* Remove the border from the last item (View) */
+.custom-dropdown-menu li:last-child {
+  border-bottom: none;
+}
+
     .highlight-term {
     background-color: yellow;
     font-weight: bold;
