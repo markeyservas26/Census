@@ -25,8 +25,11 @@ $result = $stmt->get_result();
 ?>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-QfU7+rwg2rZ5spmt6No5y46/6vY9PVetMzU78vIzYq6G9qkcY0lUkH1COHt0dj5iIw4B5BnLxVKw1VcAVKxvrw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <style>
   .container {
     display: flex;
@@ -226,7 +229,8 @@ $result = $stmt->get_result();
               </div>
             </div>
 
-            <table id="adminTable" class="table datatable">
+            <!-- Table with stripped rows -->
+<table id="adminTable" class="table datatable">
   <thead>
     <tr>
       <th>Name</th>
@@ -242,22 +246,29 @@ $result = $stmt->get_result();
         echo "<td>" . htmlspecialchars($row['name']) . "</td>";
         echo "<td>" . htmlspecialchars($row['username']) . "</td>";
         echo "<td>
-                <button class='btn btn-danger delete-btn' data-id='" . htmlspecialchars($row['id']) . "'>Delete</button> |
-               <button class='btn btn-info view-btn' 
-    data-id='" . htmlspecialchars($row['id']) . "' 
-    data-name='" . htmlspecialchars($row['name']) . "' 
-    data-username='" . htmlspecialchars($row['username']) . "' 
-    data-bs-toggle='modal' data-bs-target='#viewModal'>View</button>
+                <div class='dropdown'>
+                  <button class='btn btn-sm btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton" . $row['id'] . "' data-bs-toggle='dropdown' aria-expanded='false'>
+                    <i class='fas fa-cogs'></i> <!-- Settings icon -->
+                  </button>
+                  <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton" . $row['id'] . "'>
+                    <li><a class='dropdown-item delete-btn' data-id='" . htmlspecialchars($row['id']) . "' href='#'>Delete</a></li>
+                    <li><a class='dropdown-item view-btn' 
+                           data-id='" . htmlspecialchars($row['id']) . "' 
+                           data-name='" . htmlspecialchars($row['name']) . "' 
+                           data-username='" . htmlspecialchars($row['username']) . "' 
+                           href='#' data-bs-toggle='modal' data-bs-target='#viewModal'>View</a></li>
+                  </ul>
+                </div>
               </td>";
         echo "</tr>";
       }
     } else {
       echo "<tr><td colspan='3'>No records found</td></tr>";
     }
-    
     ?>
   </tbody>
 </table>
+
 
             <div class="pagination-info-wrapper">
               <div class="pagination-info">

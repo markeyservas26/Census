@@ -29,6 +29,8 @@ $result = $stmt->get_result();
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 <style>
   /* Custom CSS to position modal on the right side */
   .container {
@@ -255,16 +257,16 @@ $result = $stmt->get_result();
           </div>
 
           <!-- Table with stripped rows -->
-          <table id="staffTable" class="table datatable">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Municipality</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
+<table id="staffTable" class="table datatable">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Municipality</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
     <?php
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -272,39 +274,35 @@ $result = $stmt->get_result();
             echo "<td>" . htmlspecialchars($row['name']) . "</td>";
             echo "<td>" . htmlspecialchars($row['email']) . "</td>";
             echo "<td>" . htmlspecialchars($row['municipality']) . "</td>";
-            
+
             // Fetch the actual password securely from the database
             $userId = $row['id'];
             $actual_password = getPasswordById($userId); // Function to retrieve the actual password
 
-            // Display the actual password or 'N/A' if not found
-            $password = ($actual_password !== false) ? htmlspecialchars($actual_password) : 'N/A';
+            // For security reasons, it's better not to display the actual password.
+            // We'll omit this from being displayed in the table, but you can use it in your view modal.
             
             echo "<td>  
-        <button class='btn btn-danger delete-btn' data-id='" . htmlspecialchars($row['id']) . "'>Delete</button> |
-        <button class='btn btn-info view-btn' 
-                data-id='" . htmlspecialchars($row['id']) . "' 
-                data-name='" . htmlspecialchars($row['name']) . "' 
-                data-email='" . htmlspecialchars($row['email']) . "' 
-                data-municipality='" . htmlspecialchars($row['municipality']) . "' 
-                data-password='" . htmlspecialchars($password) . "'>View</button>
-      </td>";
-    
-
-            // Display the actual password in the table
-            echo "<td>" . $password . "</td>"; // Display the password in the table
+                    <div class='dropdown'>
+                      <button class='btn btn-sm btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton" . $row['id'] . "' data-bs-toggle='dropdown' aria-expanded='false'>
+                        <i class='fas fa-cogs'></i> <!-- Settings icon -->
+                      </button>
+                      <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton" . $row['id'] . "'>
+                        <li><a class='dropdown-item edit-btn' data-id='" . htmlspecialchars($row['id']) . "' href='#' data-bs-toggle='modal' data-bs-target='#editModal'>Edit</a></li>
+                        <li><a class='dropdown-item delete-btn' data-id='" . htmlspecialchars($row['id']) . "' href='#'>Delete</a></li>
+                      </ul>
+                    </div>
+                  </td>";
             echo "</tr>";
         }
     } else {
-        echo "<tr><td colspan='5'>No records found</td></tr>";
+        echo "<tr><td colspan='4'>No records found</td></tr>";
     }
 
     // Function to securely retrieve the actual password
     function getPasswordById($id) {
-        // Connect to your database
         global $conn; // Assuming $conn is your database connection
 
-        // Example query to retrieve the original password (not secure and not recommended)
         $query = "SELECT password FROM users WHERE id = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("i", $id);
@@ -313,15 +311,12 @@ $result = $stmt->get_result();
         $stmt->fetch();
         $stmt->close();
 
-        return $password; // This will return the original password (not secure)
+        return $password; // This returns the password securely, but don't display it directly!
     }
     ?>
-</tbody>
+  </tbody>
+</table>
 
-
-
-
-          </table>
           <!-- End Table with stripped rows -->
           
           <!-- Pagination Info and Controls Wrapper -->
