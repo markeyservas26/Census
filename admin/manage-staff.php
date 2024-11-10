@@ -257,16 +257,16 @@ $result = $stmt->get_result();
           </div>
 
           <!-- Table with stripped rows -->
-          <table id="staffTable" class="table datatable">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Municipality</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
+<table id="staffTable" class="table datatable">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Municipality</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
     <?php
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -282,23 +282,27 @@ $result = $stmt->get_result();
             // Display the actual password or 'N/A' if not found
             $password = ($actual_password !== false) ? htmlspecialchars($actual_password) : 'N/A';
             
-            echo "<td>  
-        <button class='btn btn-danger delete-btn' data-id='" . htmlspecialchars($row['id']) . "'>Delete</button> |
-        <button class='btn btn-info view-btn' 
-                data-id='" . htmlspecialchars($row['id']) . "' 
-                data-name='" . htmlspecialchars($row['name']) . "' 
-                data-email='" . htmlspecialchars($row['email']) . "' 
-                data-municipality='" . htmlspecialchars($row['municipality']) . "' 
-                data-password='" . htmlspecialchars($password) . "'>View</button>
-      </td>";
-    
-
-            // Display the actual password in the table
-            echo "<td>" . $password . "</td>"; // Display the password in the table
+            echo "<td>
+                    <div class='dropdown'>
+                      <button class='btn btn-sm btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton" . $row['id'] . "' data-bs-toggle='dropdown' aria-expanded='false'>
+                        <i class='fas fa-cogs'></i> <!-- Settings icon -->
+                      </button>
+                      <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton" . $row['id'] . "'>
+                        <li><a class='dropdown-item delete-btn' data-id='" . htmlspecialchars($row['id']) . "' href='#'>Delete</a></li>
+                        <li><a class='dropdown-item view-btn' 
+                               data-id='" . htmlspecialchars($row['id']) . "' 
+                               data-name='" . htmlspecialchars($row['name']) . "' 
+                               data-email='" . htmlspecialchars($row['email']) . "' 
+                               data-municipality='" . htmlspecialchars($row['municipality']) . "' 
+                               data-password='" . htmlspecialchars($password) . "' 
+                               href='#' data-bs-toggle='modal' data-bs-target='#viewModal'>View</a></li>
+                      </ul>
+                    </div>
+                  </td>";
             echo "</tr>";
         }
     } else {
-        echo "<tr><td colspan='5'>No records found</td></tr>";
+        echo "<tr><td colspan='4'>No records found</td></tr>";
     }
 
     // Function to securely retrieve the actual password
@@ -318,12 +322,9 @@ $result = $stmt->get_result();
         return $password; // This will return the original password (not secure)
     }
     ?>
-</tbody>
+  </tbody>
+</table>
 
-
-
-
-          </table>
           <!-- End Table with stripped rows -->
           
           <!-- Pagination Info and Controls Wrapper -->
