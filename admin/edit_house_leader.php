@@ -1425,7 +1425,7 @@ function safe_array_value($array, $key, $default = '') {
 <!-- Input field for Latitude and Longitude -->
 <div style="margin-top: 10px;">
   <label for="coordinates">Coordinates (Latitude, Longitude):</label>
-  <input type="text" id="coordinates" name="location" value="<?php echo isset($house_leader['coordinates']) && $house_leader['coordinates'] !== '' ? $house_leader['coordinates'] : '0, 0'; ?>" readonly>
+  <input type="text" id="coordinates" name="location" value="<?php echo isset($house_leader['coordinates']) && $house_leader['coordinates'] !== '' ? $house_leader['coordinates'] : '0, 0'; ?>">
 </div>
 
 
