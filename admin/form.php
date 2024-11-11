@@ -1564,7 +1564,7 @@ input[type="number"] {
 <!-- Input field for Latitude and Longitude -->
 <div style="margin-top: 10px;">
   <label for="coordinates">Coordinates (Latitude, Longitude):</label>
-  <input type="text" id="coordinates" name="location" readonly>
+  <input type="text" id="coordinates" name="location">
 </div>
                     
                 </div>
