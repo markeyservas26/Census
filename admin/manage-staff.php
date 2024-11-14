@@ -184,6 +184,7 @@ $result = $stmt->get_result();
 </style>
 <main id="main" class="main">
   
+<!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-end">
         <div class="modal-content">
@@ -193,7 +194,7 @@ $result = $stmt->get_result();
             </div>
             <div class="modal-body">
                 <!-- Form -->
-                <form id="addStaffForm" class="row g-3" method="POST" action="../staffaction/manage-staff.php" novalidate>
+                <form id="addStaffForm" class="row g-3" method="POST" action="../staffaction/manage-staff.php" novalidate onsubmit="return validatePassword()">
                     <div class="col-md-12">
                         <input type="text" class="form-control" id="nameInput" name="nameInput" placeholder="Name" required>
                     </div>
@@ -216,7 +217,7 @@ $result = $stmt->get_result();
                             <option value="Bantayan">Bantayan</option>
                             <option value="Santafe">Santafe</option>
                         </select>
-                    </div>  
+                    </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
@@ -226,7 +227,8 @@ $result = $stmt->get_result();
             </div>
         </div>
     </div>
-</div><!-- End Modal -->
+</div>
+<!-- End Modal -->
 <!-- Modal -->
 <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
