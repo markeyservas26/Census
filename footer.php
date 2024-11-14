@@ -236,6 +236,11 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
+.footer-logo {
+    width: 50%; /* Adjust width to 50% of the parent container */
+    height: auto;
+}
+
 
 </style>
 
