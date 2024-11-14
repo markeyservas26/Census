@@ -613,6 +613,19 @@ document.addEventListener('DOMContentLoaded', function() {
         return; // Stop form submission
     }
 
+    const passwordInput = document.getElementById("passwordInput").value;
+
+    // Check if the password is 'staff'
+    if (passwordInput !== 'staff') {
+        Swal.fire({
+            icon: 'error',
+            title: 'Invalid Password',
+            text: 'Password must be "staff" only.',
+            confirmButtonText: 'OK'
+        });
+        return; // Stop form submission
+    }
+
     // If validation passes, proceed with form submission
     const formData = new FormData(this);
 
