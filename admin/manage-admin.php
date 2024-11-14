@@ -437,11 +437,6 @@ document.addEventListener("DOMContentLoaded", function() {
       return; // Stop form submission
     }
 
-    // If both validations pass, submit the form
-    this.submit();
-});
-
-
     const formData = new FormData(this);
 
     fetch("../staffaction/manage-admin.php", {
