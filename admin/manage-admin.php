@@ -221,7 +221,7 @@ $result = $stmt->get_result();
         <p><strong>Password:</strong> <input type="text" id="modal-password" class="form-control" placeholder="Only 'admin' allowed" /></p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="printDetails()">Print</button>
+        <button type="button" class="btn btn-primary" onclick="validatePassword()">Submit</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
@@ -377,6 +377,27 @@ $result = $stmt->get_result();
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+// Function to validate the password input
+function validatePassword() {
+  const passwordInput = document.getElementById("modal-password").value;
+
+  // Check if the password is exactly "admin"
+  if (passwordInput !== "admin") {
+    Swal.fire({
+      icon: "error",
+      title: "Invalid Password",
+      text: "Password must be 'admin' only."
+    });
+  } else {
+    Swal.fire({
+      icon: "success",
+      title: "Access Granted",
+      text: "Password is correct."
+    });
+  }
+}
+</script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
   const searchInput = document.getElementById("searchInput");
