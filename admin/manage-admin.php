@@ -293,9 +293,7 @@ $result = $stmt->get_result();
                                                     <li><a class='dropdown-item view-btn' 
                                                            data-id='" . htmlspecialchars($row['id']) . "' 
                                                            data-name='" . htmlspecialchars($row['name']) . "' 
-                                                           data-email='" . htmlspecialchars($row['email']) . "' 
-                                                           data-municipality='" . htmlspecialchars($row['municipality']) . "' 
-                                                           data-password='" . htmlspecialchars($password) . "' 
+                                                           data-username='" . htmlspecialchars($row['username']) . "'  
                                                            href='#' data-bs-toggle='modal' data-bs-target='#viewModal'>View</a></li>
                                                   </ul>
                               </div>
