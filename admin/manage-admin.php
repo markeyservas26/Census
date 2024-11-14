@@ -187,15 +187,12 @@ $result = $stmt->get_result();
                     </div>
                     <div class="col-md-6">
                         <input type="text" class="form-control" id="usernameInput" name="usernameInput" placeholder="Username (@gmail.com only)" required>
-                        <small class="text-muted" id="usernameError" style="color:red; display:none;">Username must end with @gmail.com</small>
+                        <small id="usernameError" class="text-muted" style="color:red; display:none;">Username must end with @gmail.com</small>
                     </div>
                     <div class="col-md-6">
                         <div class="password-container">
                             <input type="password" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password must be 'admin' only" required>
-                            <span class="eye" onclick="togglePasswordVisibility()">
-                                <i id="eyeIcon" class="fas fa-eye"></i>
-                            </span>
-                            <small class="text-muted" id="passwordError" style="color:red; display:none;">Password must be 'admin' only</small>
+                            <small id="passwordError" class="text-muted" style="color:red; display:none;">Password must be 'admin' only</small>
                         </div>
                     </div>
                     <div class="text-center">
@@ -207,6 +204,7 @@ $result = $stmt->get_result();
         </div>
     </div>
 </div>
+
 
   <!-- View Modal -->
 <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
@@ -616,31 +614,29 @@ document.getElementById('editModal').addEventListener('hidden.bs.modal', functio
   const addEyeIcon = document.getElementById("eyeIcon");
   
 
-   // Function to validate form before submission
+  // Function to validate form before submission
 function validateForm() {
     const usernameInput = document.getElementById("usernameInput");
     const usernameError = document.getElementById("usernameError");
     const passwordInput = document.getElementById("passwordInput");
     const passwordError = document.getElementById("passwordError");
 
-    // Regular expression to check if the username ends with @gmail.com and has at least one character before it
+    // Regular expression to check if the username ends with @gmail.com
     const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
 
     // Check if the username matches the pattern
     if (!gmailPattern.test(usernameInput.value)) {
         usernameError.style.display = "block"; // Show the error message
         usernameError.textContent = "Username must end with @gmail.com"; // Update error message
-        alert("Please enter a valid email address ending with @gmail.com."); // Show alert
         return false; // Prevent form submission
     } else {
         usernameError.style.display = "none"; // Hide the error message if valid
     }
 
-    // Check if the password is exactly "admin"
+    // Check if password is exactly 'admin'
     if (passwordInput.value !== "admin") {
         passwordError.style.display = "block"; // Show the error message
         passwordError.textContent = "Password must be 'admin' only."; // Update error message
-        alert("Password must be 'admin' only."); // Show alert
         return false; // Prevent form submission
     } else {
         passwordError.style.display = "none"; // Hide the error message if valid
@@ -648,6 +644,7 @@ function validateForm() {
 
     return true; // Allow form submission if all checks pass
 }
+
 
 
   // Function to toggle password visibility
