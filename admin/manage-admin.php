@@ -413,6 +413,8 @@ document.addEventListener("DOMContentLoaded", function() {
     
     const usernameInput = document.getElementById("usernameInput");
     const usernameValue = usernameInput.value;
+    const passwordInput = document.getElementById("passwordInput");
+    const passwordValue = passwordInput.value;
     const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
 
     // Check if the username matches the @gmail.com pattern
@@ -420,10 +422,25 @@ document.addEventListener("DOMContentLoaded", function() {
       Swal.fire({
         icon: "error",
         title: "Validation Error",
-        text: "Username must have an @gmail.com."
+        text: "Username must end with @gmail.com."
       });
       return; // Stop form submission
     }
+
+    // Check if the password is exactly "admin"
+    if (passwordValue !== "admin") {
+      Swal.fire({
+        icon: "error",
+        title: "Validation Error",
+        text: "Password must be 'admin' only."
+      });
+      return; // Stop form submission
+    }
+
+    // If both validations pass, submit the form
+    this.submit();
+});
+
 
     const formData = new FormData(this);
 
