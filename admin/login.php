@@ -54,14 +54,14 @@
                     <h5 class="card-title text-center pb-0 fs-4"> Admin | Login</h5>
                   </div>
 
-                  <form id="loginForm" class="row g-3 needs-validation" novalidate action="../action/login.php" method="POST">
+                  <form id="loginForm" class="row g-3 needs-validation" method="POST">
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
+                      <label for="yourUsername" class="form-label">Email</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please enter your username.</div>
+                        <input type="email" name="username" class="form-control" id="yourUsername" required>
+                        <div class="invalid-feedback">Please enter your Email.</div>
                       </div>
                     </div>
 
@@ -80,7 +80,7 @@
                     <div class="col-12 d-flex align-items-center">
                       <a href="../forgotpassword/forgot-password.php" style="float:right;"> Forgot password?</a>
                       <!-- Move the link to the right side of the remember me checkbox -->
-                      <a href="http://www.bantayanislandcensus.com" class="back-to-website d-none d-md-block" style="margin-left: 90px; color:black;">Back to Website</a>
+                      <a href="../index.php" class="back-to-website d-block" style="margin-left: 50px; color:black;">Back to Website</a>
                     </div>
                     
                     <div class="col-12">
@@ -99,6 +99,8 @@
       </section>
     </div>
   </main><!-- End #main -->
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
 document.getElementById('loginForm').addEventListener('submit', function(e) {
   e.preventDefault();
@@ -143,6 +145,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
   });
 });
 </script>
+
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->

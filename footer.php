@@ -1,147 +1,333 @@
-<!-- Add this line in your <head> section -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
 <style>
-    .footer {
-        background-color: #002147; /* Dark navy blue for a government feel */
-        color: white; /* White text color */
-        padding: 40px 20px; /* Padding around the footer */
-        opacity: 0; /* Start invisible */
-        transform: translateY(20px); /* Start slightly below */
-        transition: opacity 1s ease, transform 1s ease; /* Animation transition */
+    body {
+    background: #fbfbfd;
+}
+
+.new_footer_area {
+    background: #fbfbfd;
+}
+
+
+.new_footer_top {
+    padding: 120px 0px 270px;
+    position: relative;
+      overflow-x: hidden;
+}
+.new_footer_area .footer_bottom {
+    padding-top: 5px;
+    padding-bottom: 50px;
+}
+.footer_bottom {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    color: #7f88a6;
+    padding: 27px 0px;
+}
+.new_footer_top .company_widget p {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 28px;
+    color: #6a7695;
+    margin-bottom: 20px;
+}
+.new_footer_top .company_widget .f_subscribe_two .btn_get {
+    border-width: 1px;
+    margin-top: 20px;
+}
+.btn_get_two:hover {
+    background: transparent;
+    color: #5e2ced;
+}
+.btn_get:hover {
+    color: #fff;
+    background: #6754e2;
+    border-color: #6754e2;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
+    text-decoration: none;
+    outline: none;
+}
+
+
+
+.new_footer_top .f_widget.about-widget .f_list li a:hover {
+    color: #5e2ced;
+}
+.new_footer_top .f_widget.about-widget .f_list li {
+    margin-bottom: 11px;
+}
+.f_widget.about-widget .f_list li:last-child {
+    margin-bottom: 0px;
+}
+.f_widget.about-widget .f_list li {
+    margin-bottom: 15px;
+}
+.f_widget.about-widget .f_list {
+    margin-bottom: 0px;
+}
+.new_footer_top .f_social_icon a {
+    width: 44px;
+    height: 44px;
+    line-height: 43px;
+    background: transparent;
+    border: 1px solid #e2e2eb;
+    font-size: 24px;
+}
+.f_social_icon a {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    font-size: 14px;
+    line-height: 45px;
+    color: #858da8;
+    display: inline-block;
+    background: #ebeef5;
+    text-align: center;
+    -webkit-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+.ti-facebook:before {
+    content: "\e741";
+}
+.ti-twitter-alt:before {
+    content: "\e74b";
+}
+.ti-vimeo-alt:before {
+    content: "\e74a";
+}
+.ti-pinterest:before {
+    content: "\e731";
+}
+
+.btn_get_two {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background: #5e2ced;
+    border-color: #5e2ced;
+    color: #fff;
+}
+
+.btn_get_two:hover {
+    background: transparent;
+    color: #5e2ced;
+}
+
+.new_footer_top .f_social_icon a:hover {
+    background: #5e2ced;
+    border-color: #5e2ced;
+  color:white;
+}
+.new_footer_top .f_social_icon a + a {
+    margin-left: 4px;
+}
+.new_footer_top .f-title {
+    margin-bottom: 30px;
+    color: #263b5e;
+}
+.f_600 {
+    font-weight: 600;
+}
+.f_size_18 {
+    font-size: 18px;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #4b505e;
+}
+.new_footer_top .f_widget.about-widget .f_list li a {
+    color: #6a7695;
+}
+
+
+.new_footer_top .footer_bg {
+    position: absolute;
+    bottom: 0;
+    background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEigB8iI5tb8WSVBuVUGc9UjjB8O0708X7Fdic_4O1LT4CmLHoiwhanLXiRhe82yw0R7LgACQ2IhZaTY0hhmGi0gYp_Ynb49CVzfmXtYHUVKgXXpWvJ_oYT8cB4vzsnJLe3iCwuzj-w6PeYq_JaHmy_CoGoa6nw0FBo-2xLdOPvsLTh_fmYH2xhkaZ-OGQ/s16000/footer_bg.png") no-repeat scroll center 0;
+    width: 100%;
+    height: 266px;
+}
+
+.new_footer_top .footer_bg .footer_bg_one {
+    background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEia0PYPxwT5ifToyP3SNZeQWfJEWrUENYA5IXM6sN5vLwAKvaJS1pQVu8mOFFUa_ET4JuHNTFAxKURFerJYHDUWXLXl1vDofYXuij45JZelYOjEFoCOn7E6Vxu0fwV7ACPzArcno1rYuVxGB7JY6G7__e4_KZW4lTYIaHSLVaVLzklZBLZnQw047oq5-Q/s16000/volks.gif") no-repeat center center;
+    width: 330px;
+    height: 105px;
+  background-size:100%;
+    position: absolute;
+    bottom: 0;
+    left: 30%;
+    -webkit-animation: myfirst 22s linear infinite;
+    animation: myfirst 22s linear infinite;
+}
+
+.new_footer_top .footer_bg .footer_bg_two {
+    background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhyLGwEUVwPK6Vi8xXMymsc-ZXVwLWyXhogZxbcXQYSY55REw_0D4VTQnsVzCrL7nsyjd0P7RVOI5NKJbQ75koZIalD8mqbMquP20fL3DxsWngKkOLOzoOf9sMuxlbyfkIBTsDw5WFUj-YJiI50yzgVjF8cZPHhEjkOP_PRTQXDHEq8AyWpBiJdN9SfQA/s16000/cyclist.gif") no-repeat center center;
+    width: 88px;
+    height: 100px;
+  background-size:100%;
+    bottom: 0;
+    left: 38%;
+    position: absolute;
+    -webkit-animation: myfirst 30s linear infinite;
+    animation: myfirst 30s linear infinite;
+}
+
+
+
+@-moz-keyframes myfirst {
+  0% {
+    left: -25%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@-webkit-keyframes myfirst {
+  0% {
+    left: -25%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes myfirst {
+  0% {
+    left: -25%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 1199px) {
+    .new_footer_top .container .row {
+        flex-direction: column;
+        align-items: center;
     }
 
-    .footer.visible {
-        opacity: 1; /* Make visible */
-        transform: translateY(0); /* Move to original position */
+    .new_footer_top .container .row > div {
+        margin-bottom: 30px;
+        text-align: center;
     }
 
-    .footer-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex; /* Use flexbox to align items */
-        flex-direction: column; /* Stack items vertically */
-        align-items: center; /* Center items */
+}
+
+@media (max-width: 767px) {
+    .new_footer_top .company_widget p {
+        font-size: 14px;
     }
 
-    .footer-brand {
-        display: flex;
-        flex-direction: column; /* Stack items vertically */
-        align-items: center; /* Center align items */
-        margin-bottom: 10px; /* Space below the brand section */
+    .new_footer_top .f_widget.about-widget .f_list li a {
+        font-size: 14px;
     }
 
-    .footer-logo {
-        max-width: 100px;
-        margin-bottom: 10px; /* Space between logo and title */
-    }
 
-    .footer-title {
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: white; /* Keep title white for contrast */
-        margin: 0;
-        padding: 0;
-        text-align: center; /* Center title text */
+    .f_social_icon a {
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
     }
+}
 
-    .footer-text {
-        font-size: 2.0rem;
-        color: white; /* White color for text */
-        margin: 10px 0; /* Space above and below the text */
-        text-align: center; /* Center the text */
-    }
 
-    /* Centered contact info */
-    .footer-info {
-        text-align: center; /* Centers the email and contact info */
-        margin-top: 10px; /* Adds space between text and contact info */
-    }
-
-    .footer-info p {
-        font-size: 1.2rem;
-        margin: 5px 0;
-    }
-
-    /* Social media links */
-    .social-media {
-        margin-top: 10px; /* Space above social media icons */
-    }
-
-    .social-icon {
-        margin: 0 10px; /* Space between icons */
-        font-size: 1.5rem; /* Icon size */
-        text-decoration: none; /* Remove underline */
-        transition: transform 0.3s; /* Transition effect for hover */
-    }
-
-    /* Specific colors for each icon */
-    .social-icon.facebook {
-        color: #3b5998; /* Facebook blue */
-    }
-
-    .social-icon.twitter {
-        color: #1da1f2; /* Twitter light blue */
-    }
-
-    .social-icon.instagram {
-        background: linear-gradient(45deg, #f36f6f, #fbc94e); /* Instagram gradient */
-        -webkit-background-clip: text; /* Clip background to text */
-        -webkit-text-fill-color: transparent; /* Make text transparent to show gradient */
-    }
-
-    .social-icon:hover {
-        transform: scale(1.1); /* Slightly enlarge icon on hover */
-    }
-
-    .footer-description {
-        font-size: 1rem;
-        margin: 10px 0;
-        text-align: center; /* Keeps the footer description centered */
-    }
 </style>
 
-<footer class="footer" id="footer">
-    <div class="container">
-        <div class="footer-content">
-            <!-- Brand section with logo and title -->
-            <div class="footer-brand">
-                <img src="assets/img/transperlogo.png" alt="Bantayan Island Census Logo" class="footer-logo">
-                <b><h3 class="footer-title">BANISCEN</h3></b>
-            </div>
+<footer class="new_footer_area bg_color">
+    <div class="new_footer_top">
+        <div class="container">
+            <div class="row">
+                <!-- Footer-left section with AOS effect -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-content" data-aos="fade-right">
+                        <div class="footer-left" data-aos="fade-right">
+                            <img src="assets/img/transperlogo.png" alt="Bantayan Island Census Logo" class="footer-logo" data-aos="zoom-in">
+                            <h3 class="footer-title" data-aos="fade-up">BANISCEN</h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Footer Census About section with AOS effect -->
+<div class="col-lg-3 col-md-6">
+    <div class="f_widget about-widget pl_70 wow fadeInLeft" data-aos="fade-left" data-aos-delay="100">
+        <h3 class="f-title f_600 t_color f_size_18">About the Census</h3>
+        <p class="footer-description" style="color: gray; text-align: justify;" data-aos="fade-up">
+            The Bantayan Island Census (BANISCEN) is a comprehensive demographic survey aimed at collecting detailed information on the population, housing, and living conditions within Bantayan Island. This data helps local authorities plan for better public services and sustainable development.
+        </p>
+    </div>
+</div>
 
-            <!-- Centered empowerment text -->
-            <p class="footer-text">Empowering communities through data.</p>
 
-            <!-- Centered contact info -->
-            <div class="footer-info">
-                <p>Email: contact@baniscen.com</p>
-                <p>Contact No: +63 912 345 6789</p>
-            </div>
+                
+                <!-- Footer Help section with AOS effect -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="f_widget about-widget pl_70 wow fadeInLeft" data-aos="fade-left" data-aos-delay="200">
+                        <h3 class="f-title f_600 t_color f_size_18">Help</h3>
+                        <ul class="list-unstyled f_list">
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Term &amp; conditions</a></li>
+                            <li><a href="#">Support Policy</a></li>
+                            <li><a href="#">Privacy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Footer Social section with AOS effect -->
+<div class="col-lg-3 col-md-6">
+    <div class="f_widget social-widget pl_70 wow fadeInLeft" data-aos="fade-left" data-aos-delay="300">
+        <h3 class="f-title f_600 t_color f_size_18">Contact Us</h3>
+        
+        <!-- Added Contact Info Above Icons -->
+        <div class="contact-info" data-aos="fade-up" data-aos-delay="200">
+            <p><b>Email:</b> <a href="mailto:youremail@example.com">youremail@example.com</a></p>
+            <p><b>Phone:</b> <a href="tel:+1234567890">+1 234 567 890</a></p>
+        </div>
 
+        <div class="f_social_icon">
             <!-- Social Media Icons -->
-            <div class="social-media">
-                <a href="https://www.facebook.com" class="social-icon facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://twitter.com" class="social-icon twitter" target="_blank"><i class="fab fa-twitter"></i></a> <!-- X icon -->
-                <a href="https://www.instagram.com" class="social-icon instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="fab fa-facebook" data-aos="zoom-in"></a>
+            <a href="#" class="fab fa-twitter" data-aos="zoom-in" data-aos-delay="100"></a>
+            <!-- Gmail Icon with mailto link -->
+            <a href="mailto:youremail@example.com" class="fab fa-google" data-aos="zoom-in" data-aos-delay="300"></a>
+            <!-- GitHub Icon -->
+            <a href="#" class="fab fa-github" data-aos="zoom-in" data-aos-delay="500"></a>
+        </div>
+    </div>
+</div>
+
+
             </div>
         </div>
-        <p class="footer-description">&copy; 2024 BIC | All rights reserved.</p>
+        <div class="footer_bg">
+            <div class="footer_bg_one"></div>
+            <div class="footer_bg_two"></div>
+        </div>
+    </div>
+    <div class="footer_bottom">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-sm-7">
+                    <p class="mb-0 f_400">© 2024 BIC | All rights reserved.</p>
+                </div>
+            </div>
+        </div>
     </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
 <script>
-    // JavaScript to add the visible class when scrolling to the footer
-    window.addEventListener('scroll', function() {
-        const footer = document.getElementById('footer');
-        const footerPosition = footer.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.2; // Change this to adjust when it triggers
-
-        if (footerPosition < screenPosition) {
-            footer.classList.add('visible');
-        }
-    });
-</script>
-
-
+        document.addEventListener("DOMContentLoaded", function() {
+            AOS.init({
+                duration: 1000,
+                offset: 100,
+            });
+        });
+    </script>
 

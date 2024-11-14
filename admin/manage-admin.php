@@ -229,91 +229,91 @@ $result = $stmt->get_result();
   </div>
 </div>
 
-  <div class="pagetitle">
-    <h1>Admin List</h1>
-  </div>
-  
-  <div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Add Admin
-      </button>
-    </div>
-  </div>
+<div class="pagetitle">
+  <h1>Admin List</h1>
+</div>
 
-  <section class="section mt-3">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="card">
-          <div class="card-body">
-            <div class="form-groups align-items-center">
-              <div class="dropdown-container">
-                <label for="entriesSelect">Show</label>
-                <select id="entriesSelect" class="form-selects">
-                  <option value="5" selected>5</option>
-                  <option value="10">10</option>
-                  <option value="25">25</option>
-                  <option value="50">50</option>
-                  <option value="100">100</option>
-                </select>
-                <span><b>Entries</b></span>
-              </div>
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Add Admin
+    </button>
+  </div>
+</div>
 
-              <div class="search-container">
-                <input type="text" id="searchInput" class="form-control" placeholder="Search...">
-              </div>
+<section class="section mt-3">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex d-md-flex mb-3 flex-column flex-md-row">
+            <!-- Entries dropdown -->
+            <div class="dropdown-container mb-2 mb-md-0">
+              <label for="entriesSelect">Show</label>
+              <select id="entriesSelect" class="form-select form-select-sm">
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+              <span><b>Entries</b></span>
             </div>
 
-            <!-- Table with stripped rows -->
-<table id="adminTable" class="table datatable">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Username</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php
-    if ($result->num_rows > 0) {
-      while ($row = $result->fetch_assoc()) {
-        echo "<tr>";
-        echo "<td>" . htmlspecialchars($row['name']) . "</td>";
-        echo "<td>" . htmlspecialchars($row['username']) . "</td>";
-        echo "<td>
-                <div class='dropdown'>
-                  <button class='btn btn-sm btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton" . $row['id'] . "' data-bs-toggle='dropdown' aria-expanded='false'>
-                    <i class='fas fa-cogs'></i> <!-- Settings icon -->
-                  </button>
-                  <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton" . $row['id'] . "'>
-                    <li><a class='dropdown-item delete-btn' data-id='" . htmlspecialchars($row['id']) . "' href='#'>Delete</a></li>
-                    <li><a class='dropdown-item view-btn' 
-                           data-id='" . htmlspecialchars($row['id']) . "' 
-                           data-name='" . htmlspecialchars($row['name']) . "' 
-                           data-username='" . htmlspecialchars($row['username']) . "' 
-                           href='#' data-bs-toggle='modal' data-bs-target='#viewModal'>View</a></li>
-                  </ul>
-                </div>
-              </td>";
-        echo "</tr>";
-      }
-    } else {
-      echo "<tr><td colspan='3'>No records found</td></tr>";
-    }
-    ?>
-  </tbody>
-</table>
+            <!-- Search input below entries (on smaller screens) -->
+            <div class="search-container mt-2 mt-md-0 ms-md-3">
+              <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search...">
+            </div>
+          </div>
 
+          <!-- Table -->
+          <div class="table-responsive">
+            <table id="adminTable" class="table datatable">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Username</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                  if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                      echo "<tr>";
+                      echo "<td>" . htmlspecialchars($row['name']) . "</td>";
+                      echo "<td>" . htmlspecialchars($row['username']) . "</td>";
+                      echo "<td>
+                              <div class='dropdown'>
+                                <button class='btn btn-sm btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton" . $row['id'] . "' data-bs-toggle='dropdown' aria-expanded='false'>
+                                  <i class='fas fa-cogs'></i> <!-- Settings icon -->
+                                </button>
+                                <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton" . $row['id'] . "'>
+                                  <li><a class='dropdown-item edit-btn' data-id='" . htmlspecialchars($row['id']) . "' href='#' data-bs-toggle='modal' data-bs-target='#editModal'>Edit</a></li>
+                                  <li><a class='dropdown-item delete-btn' data-id='" . htmlspecialchars($row['id']) . "' href='#'>Delete</a></li>
+                                </ul>
+                              </div>
+                            </td>";
+                      echo "</tr>";
+                    }
+                  } else {
+                    echo "<tr><td colspan='3'>No records found</td></tr>";
+                  }
+                ?>
+              </tbody>
+            </table>
+          </div>
 
-            <div class="pagination-info-wrapper">
-              <div class="pagination-info">
-                Showing <?php echo $offset + 1; ?> to <?php echo min($offset + $limit, $total_records); ?> of <?php echo $total_records; ?> entries
-              </div>
+          <!-- Pagination -->
+          <div class="pagination-info-wrapper">
+            <div class="pagination-info">
+              Showing <?php echo $offset + 1; ?> to <?php echo min($offset + $limit, $total_records); ?> of <?php echo $total_records; ?> entries
+            </div>
 
-              <div class="pagination-controls">
-                <nav aria-label="Page navigation">
-                  <ul class="pagination">
-                    <?php
+            <div class="pagination-controls">
+              <nav aria-label="Page navigation">
+                <ul class="pagination">
+                  <?php
                     if ($page > 1) {
                       echo '<li class="page-item"><a class="page-link" href="?page=' . ($page - 1) . '&limit=' . $limit . '">&laquo;</a></li>';
                     }
@@ -324,16 +324,16 @@ $result = $stmt->get_result();
                     if ($page < $total_pages) {
                       echo '<li class="page-item"><a class="page-link" href="?page=' . ($page + 1) . '&limit=' . $limit . '">&raquo;</a></li>';
                     }
-                    ?>
-                  </ul>
-                </nav>
-              </div>
+                  ?>
+                </ul>
+              </nav>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 </main>
 
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">

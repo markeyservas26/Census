@@ -180,7 +180,7 @@ margin: 0;
 <main id="main" class="main">
 
 <div class="pagetitle">
-    <h1>Bantayan List</h1>
+    <h1>Santa Fe List</h1>
 
   </div><!-- End Page Title -->
 
@@ -190,52 +190,60 @@ margin: 0;
             <div class="card">
                 <div class="card-body">
                     <div class="table-controls">
-                        <div class="show-entries">
-                            <label for="entriesPerPage">Show entries:</label>
-                            <select id="entriesPerPage" class="form-select">
-                                <option value="5" <?= $limit == 5 ? 'selected' : '' ?>>5</option>
-                                <option value="10" <?= $limit == 10 ? 'selected' : '' ?>>10</option>
-                                <option value="25" <?= $limit == 25 ? 'selected' : '' ?>>25</option>
-                                <option value="50" <?= $limit == 50 ? 'selected' : '' ?>>50</option>
-                                <option value="100" <?= $limit == 100 ? 'selected' : '' ?>>100</option>
-                            </select>
+                        <div class="row">
+                            <!-- Show entries dropdown, stack on smaller screens -->
+                            <div class="col-12 col-md-6 mb-3 mb-md-0">
+                                <label for="entriesPerPage">Show entries:</label>
+                                <select id="entriesPerPage" class="form-select">
+                                    <option value="5" <?= $limit == 5 ? 'selected' : '' ?>>5</option>
+                                    <option value="10" <?= $limit == 10 ? 'selected' : '' ?>>10</option>
+                                    <option value="25" <?= $limit == 25 ? 'selected' : '' ?>>25</option>
+                                    <option value="50" <?= $limit == 50 ? 'selected' : '' ?>>50</option>
+                                    <option value="100" <?= $limit == 100 ? 'selected' : '' ?>>100</option>
+                                </select>
+                            </div>
+                            <!-- Search input, stack on smaller screens -->
+                            <div class="col-12 col-md-6">
+                                <div class="search-container">
+                                    <input type="text" id="searchInput" class="form-control" placeholder="Search...">
+                                </div>
+                            </div>
                         </div>
-                        <div class="search-container">
-                <input type="text" id="searchInput" class="form-control" placeholder="Search...">
-              </div>
                     </div>
 
-                    <table id="dataTable" class="table datatable">
-    <thead>
-        <tr>
-            <th>House Number</th>
-            <th>Fullname</th>
-            <th>Address</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-    <?php while ($row = mysqli_fetch_assoc($result)) : ?>
-    <tr>
-        <td><?= htmlspecialchars($row['house_number']) ?></td>
-        <td><?= htmlspecialchars($row['fullname']) ?></td>
-        <td><?= htmlspecialchars($row['address']) ?></td>
-        <td>
-            <!-- Dropdown icon for settings -->
-            <div class="dropdown">
-                <button class="btn btn-sm btn-secondary dropdown-toggle custom-dropdown-btn" type="button" id="dropdownMenuButton<?= $row['id'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-cogs"></i> <!-- You can use any icon here -->
-                </button>
-                <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton<?= $row['id'] ?>">
-                    <li><a class="dropdown-item" href="view_household.php?id=<?= $row['id'] ?>">View</a></li>
-                    <li><a class="dropdown-item" href="edit_house_leader.php?id=<?= $row['id'] ?>">Edit</a></li>
-                </ul>
-            </div>
-        </td>
-    </tr>
-    <?php endwhile; ?>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table id="dataTable" class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th>House Number</th>
+                                    <th>Fullname</th>
+                                    <th>Address</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($row['house_number']) ?></td>
+                                    <td><?= htmlspecialchars($row['fullname']) ?></td>
+                                    <td><?= htmlspecialchars($row['address']) ?></td>
+                                    <td>
+                                        <!-- Dropdown icon for settings -->
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-secondary dropdown-toggle custom-dropdown-btn" type="button" id="dropdownMenuButton<?= $row['id'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fas fa-cogs"></i> <!-- You can use any icon here -->
+                                            </button>
+                                            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton<?= $row['id'] ?>">
+                                                <li><a class="dropdown-item" href="view_household.php?id=<?= $row['id'] ?>">View</a></li>
+                                                <li><a class="dropdown-item" href="edit_house_leader.php?id=<?= $row['id'] ?>">Edit</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
+                    </div>
 
                     <!-- Footer Info and Pagination -->
                     <div class="footer-pagination">
@@ -251,9 +259,9 @@ margin: 0;
                                         </a>
                                     </li>
                                     <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
-                                        <li class="page-item <?= $i == $page ? 'active' : '' ?>">
-                                            <a class="page-link" href="?page=<?= $i ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>"><?= $i ?></a>
-                                        </li>
+                                    <li class="page-item <?= $i == $page ? 'active' : '' ?>">
+                                        <a class="page-link" href="?page=<?= $i ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>"><?= $i ?></a>
+                                    </li>
                                     <?php endfor; ?>
                                     <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
                                         <a class="page-link" href="?page=<?= min($total_pages, $page + 1) ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>" aria-label="Next">

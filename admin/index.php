@@ -275,7 +275,7 @@ if ($resultSexCounts->num_rows > 0) {
 .chart-container {
     display: flex;
     justify-content: center; /* Center all charts horizontally */
-    align-items: flex-start; /* Align the charts at the top */
+    align-items: center; /* Align the charts at the top */
     gap: 30px; /* Add a gap between each chart */
    width: 200%;
    margin-left: 33px;
@@ -289,6 +289,9 @@ if ($resultSexCounts->num_rows > 0) {
 margin-left:13%;
 }
 .chart-box {
+    width: 100%;
+        max-width: 800px;
+        padding: 0 15px;
     flex: 1; /* Allow each chart to take equal space */
     text-align: center;
 }
@@ -301,6 +304,42 @@ margin-left:13%;
     margin: 10px 0; /* Margin above and below the box */
     text-align: center; /* Center align text inside the box */
 }
+
+.chart-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        height: 400px; /* Default height */
+    }
+    @media (max-width: 768px) {
+        .chart-wrapper {
+            height: 300px; /* Adjust height on smaller devices */
+        }
+    }
+    @media (max-width: 576px) {
+        .chart-wrapper {
+            height: 200px; /* Further adjust for very small devices */
+        }
+    }
+
+    /* Ensure centering on small screens */
+@media (max-width: 767px) {
+    .chart-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center the entire chart container */
+    }
+    .chart-box-container {
+        margin: 0 auto;
+        text-align: center;
+        margin-right: 59%;
+    }
+    .responsive-chart {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
+
     </style>
 
     <div class="pagetitle">
@@ -353,87 +392,99 @@ margin-left:13%;
     <hr>
     <div class="dashboard-content mt-5">
     <div class="chart-container">
-    <div class="chart-box">
-    <h5 class="card-title" style="text-align: center;">Gender Distribution Bar Chart</h5>
-        <canvas id="sexChart" style="max-width: 800px; max-height: 400px; margin-left: 60px;"></canvas>
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                new Chart(document.querySelector('#sexChart'), {
-                    type: 'bar',
-                    data: {
-                        labels: ['Male', 'Female'],
-                        datasets: [{
-                            label: 'Number of People',
-                            data: [
-                                <?php echo $sexData['Male']; ?>,  // Male count
-                                <?php echo $sexData['Female']; ?>  // Female count
-                            ],
-                            backgroundColor: [
-                               'rgba(54, 162, 235, 0.6)',  // Blue for Male
-                               'rgba(255, 99, 132, 0.6)'   // Red for Female
-                            ],
-                            borderColor: [
-                                'rgba(54, 162, 235, 1)',  // Blue for Male
-                                'rgba(255, 99, 132, 1)'   // Red for Female
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(tooltipItem) {
-                                        return `${tooltipItem.label}: ${tooltipItem.raw}`;
+        <div class="chart-box">
+            <h5 class="card-title text-center">Gender Distribution Bar Chart</h5>
+            <div class="chart-wrapper">
+                <canvas id="sexChart"></canvas>
+            </div>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    const ctx = document.getElementById('sexChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Male', 'Female'],
+                            datasets: [{
+                                label: 'Number of People',
+                                data: [
+                                    <?php echo $sexData['Male']; ?>,  // Male count
+                                    <?php echo $sexData['Female']; ?>  // Female count
+                                ],
+                                backgroundColor: [
+                                    'rgba(54, 162, 235, 0.6)',  // Blue for Male
+                                    'rgba(255, 99, 132, 0.6)'   // Red for Female
+                                ],
+                                borderColor: [
+                                    'rgba(54, 162, 235, 1)',  // Blue for Male
+                                    'rgba(255, 99, 132, 1)'   // Red for Female
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(tooltipItem) {
+                                            return `${tooltipItem.label}: ${tooltipItem.raw}`;
+                                        }
                                     }
                                 }
-                            }
-                        },
-                        scales: {
-                            x: {
-                                beginAtZero: true
                             },
-                            y: {
-                                beginAtZero: true
+                            scales: {
+                                x: {
+                                    beginAtZero: true
+                                },
+                                y: {
+                                    beginAtZero: true
+                                }
                             }
                         }
-                    }
+                    });
                 });
-            });
-        </script>
+            </script>
+        </div>
     </div>
 </div>
-</div>
+
 <hr>
 <div class="dashboard-content">
-<div class="row">
-<div class="col-lg-6 mb-4">
-    <div class="chart-container d-flex justify-content-center">
-        <!-- Doughnut Chart for Barangay Count -->
-        <div class="chart-box-container"> <!-- New box container -->
-    <h5 class="card-title text-center">Barangay Count Per Municipality</h5>
-    <canvas id="barangayChart" style="max-width: 265px; max-height: 265px;"></canvas>
-</div>
-
-        <!-- Doughnut Chart for House Count -->
-        <div class="chart-box-container">
-            <h5 class="card-title text-center">House Count Per Municipality</h5>
-            <canvas id="houseCountChart" style="max-width: 265px; max-height: 265px;"></canvas>
-        </div>
-
-        <!-- Doughnut Chart for Residence Count -->
-        <div class="chart-box-container">
-            <h5 class="card-title text-center">Residence Count Per Municipality</h5>
-            <canvas id="residenceChart" style="max-width: 265px; max-height: 265px;"></canvas>
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="chart-container">
+                <div class="row justify-content-center">
+                    <!-- Doughnut Chart for Barangay Count -->
+                    <div class="col-12 col-md-4 d-flex justify-content-center mb-4">
+                        <div class="chart-box-container text-center">
+                            <h5 class="card-title">Barangay Count Per Municipality</h5>
+                            <canvas id="barangayChart" style="max-width: 265px; max-height: 265px;" class="responsive-chart"></canvas>
+                        </div>
+                    </div>
+                    <!-- Doughnut Chart for House Count -->
+                    <div class="col-12 col-md-4 d-flex justify-content-center mb-4">
+                        <div class="chart-box-container text-center">
+                            <h5 class="card-title">House Count Per Municipality</h5>
+                            <canvas id="houseCountChart" style="max-width: 265px; max-height: 265px;" class="responsive-chart"></canvas>
+                        </div>
+                    </div>
+                    <!-- Doughnut Chart for Residence Count -->
+                    <div class="col-12 col-md-4 d-flex justify-content-center mb-4">
+                        <div class="chart-box-container text-center">
+                            <h5 class="card-title">Residence Count Per Municipality</h5>
+                            <canvas id="residenceChart" style="max-width: 265px; max-height: 265px;" class="responsive-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-        </div>
-        </div>
+
 </main><!-- End #main -->
 
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

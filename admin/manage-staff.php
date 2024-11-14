@@ -249,157 +249,155 @@ $result = $stmt->get_result();
     </div>
 </div>
 
-  <div class="pagetitle">
+<div class="pagetitle">
     <h1>Staff List</h1>
-  </div><!-- End Page Title -->
-  
-  <div class="container">
+</div>
+
+<div class="container">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <!-- Show Entries Dropdown -->
-       
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Add Staff
         </button>
     </div>
 </div>
 
-
 <section class="section mt-3">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-body">
-          <!-- Container for dropdown and search input -->
-          <div class="form-groups align-items-center">
-            <!-- Dropdown for show entries -->
-            <div class="dropdown-container">
-              <label for="entriesSelect">Show</label>
-              <select id="entriesSelect" class="form-selects">
-                <option value="5"selected>5</option>
-                <option value="10" >10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-              </select>
-              <span><b>Entries</b></span>
-            </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <!-- Container for dropdown and search input -->
+                    <div class="form-groups d-flex flex-column flex-md-row align-items-center mb-3">
+                        <!-- Dropdown for show entries -->
+                        <div class="dropdown-container mb-2 mb-md-0">
+                            <label for="entriesSelect">Show</label>
+                            <select id="entriesSelect" class="form-select form-select-sm">
+                                <option value="5" selected>5</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            <span><b>Entries</b></span>
+                        </div>
 
-            <!-- Search bar -->
-            <div class="search-container">
-              <input type="text" id="searchInput" class="form-control" placeholder="Search...">
-            </div>
-          </div>
-
-          <!-- Table with stripped rows -->
-<table id="staffTable" class="table datatable">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Municipality</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>";
-            echo "<td>" . htmlspecialchars($row['name']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['email']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['municipality']) . "</td>";
-            
-            // Fetch the actual password securely from the database
-            $userId = $row['id'];
-            $actual_password = getPasswordById($userId); // Function to retrieve the actual password
-
-            // Display the actual password or 'N/A' if not found
-            $password = ($actual_password !== false) ? htmlspecialchars($actual_password) : 'N/A';
-            
-            echo "<td>
-                    <div class='dropdown'>
-                      <button class='btn btn-sm btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton" . $row['id'] . "' data-bs-toggle='dropdown' aria-expanded='false'>
-                        <i class='fas fa-cogs'></i> <!-- Settings icon -->
-                      </button>
-                      <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton" . $row['id'] . "'>
-                        <li><a class='dropdown-item delete-btn' data-id='" . htmlspecialchars($row['id']) . "' href='#'>Delete</a></li>
-                        <li><a class='dropdown-item view-btn' 
-                               data-id='" . htmlspecialchars($row['id']) . "' 
-                               data-name='" . htmlspecialchars($row['name']) . "' 
-                               data-email='" . htmlspecialchars($row['email']) . "' 
-                               data-municipality='" . htmlspecialchars($row['municipality']) . "' 
-                               data-password='" . htmlspecialchars($password) . "' 
-                               href='#' data-bs-toggle='modal' data-bs-target='#viewModal'>View</a></li>
-                      </ul>
+                        <!-- Search bar -->
+                        <div class="search-container mt-2 mt-md-0 ms-md-3">
+                            <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search...">
+                        </div>
                     </div>
-                  </td>";
-            echo "</tr>";
-        }
-    } else {
-        echo "<tr><td colspan='4'>No records found</td></tr>";
-    }
 
-    // Function to securely retrieve the actual password
-    function getPasswordById($id) {
-        // Connect to your database
-        global $conn; // Assuming $conn is your database connection
+                    <!-- Table with stripped rows -->
+                    <div class="table-responsive">
+                        <table id="staffTable" class="table table-striped datatable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Municipality</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo "<tr>";
+                                        echo "<td>" . htmlspecialchars($row['name']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['municipality']) . "</td>";
 
-        // Example query to retrieve the original password (not secure and not recommended)
-        $query = "SELECT password FROM users WHERE id = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $stmt->bind_result($password);
-        $stmt->fetch();
-        $stmt->close();
+                                        // Fetch the actual password securely from the database
+                                        $userId = $row['id'];
+                                        $actual_password = getPasswordById($userId); // Function to retrieve the actual password
 
-        return $password; // This will return the original password (not secure)
-    }
-    ?>
-  </tbody>
-</table>
+                                        // Display the actual password or 'N/A' if not found
+                                        $password = ($actual_password !== false) ? htmlspecialchars($actual_password) : 'N/A';
 
-          <!-- End Table with stripped rows -->
-          
-          <!-- Pagination Info and Controls Wrapper -->
-<div class="pagination-info-wrapper">
-  <!-- Pagination Info -->
-  <div class="pagination-info">
-    <span class="info-text">Showing</span> 
-    <span id="startEntry" class="range">1</span> 
-    <span class="info-text">to</span> 
-    <span id="endEntry" class="range">5</span> 
-    <span class="info-text">of</span> 
-    <span id="totalEntries" class="total">6</span> 
-    <span class="info-text">entries</span>
-  </div>
+                                        echo "<td>
+                                                <div class='dropdown'>
+                                                  <button class='btn btn-sm btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton" . $row['id'] . "' data-bs-toggle='dropdown' aria-expanded='false'>
+                                                    <i class='fas fa-cogs'></i> <!-- Settings icon -->
+                                                  </button>
+                                                  <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton" . $row['id'] . "'>
+                                                    <li><a class='dropdown-item delete-btn' data-id='" . htmlspecialchars($row['id']) . "' href='#'>Delete</a></li>
+                                                    <li><a class='dropdown-item view-btn' 
+                                                           data-id='" . htmlspecialchars($row['id']) . "' 
+                                                           data-name='" . htmlspecialchars($row['name']) . "' 
+                                                           data-email='" . htmlspecialchars($row['email']) . "' 
+                                                           data-municipality='" . htmlspecialchars($row['municipality']) . "' 
+                                                           data-password='" . htmlspecialchars($password) . "' 
+                                                           href='#' data-bs-toggle='modal' data-bs-target='#viewModal'>View</a></li>
+                                                  </ul>
+                                                </div>
+                                              </td>";
+                                        echo "</tr>";
+                                    }
+                                } else {
+                                    echo "<tr><td colspan='4'>No records found</td></tr>";
+                                }
 
-  <!-- Pagination Controls -->
-  <div class="pagination-controls">
-    <nav aria-label="Page navigation">
-      <ul class="pagination">
-        <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
-          <a class="page-link" href="?page=<?= max(1, $page - 1) ?>&limit=<?= $limit ?>" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-          <li class="page-item <?= $i == $page ? 'active' : '' ?>">
-            <a class="page-link" href="?page=<?= $i ?>&limit=<?= $limit ?>"><?= $i ?></a>
-          </li>
-        <?php endfor; ?>
-        <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
-          <a class="page-link" href="?page=<?= min($total_pages, $page + 1) ?>&limit=<?= $limit ?>" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div>
-</div>
-      </div>
+                                // Function to securely retrieve the actual password
+                                function getPasswordById($id) {
+                                    global $conn; // Assuming $conn is your database connection
+
+                                    $query = "SELECT password FROM users WHERE id = ?";
+                                    $stmt = $conn->prepare($query);
+                                    $stmt->bind_param("i", $id);
+                                    $stmt->execute();
+                                    $stmt->bind_result($password);
+                                    $stmt->fetch();
+                                    $stmt->close();
+
+                                    return $password;
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- End Table with stripped rows -->
+
+                    <!-- Pagination Info and Controls Wrapper -->
+                    <div class="pagination-info-wrapper">
+                        <!-- Pagination Info -->
+                        <div class="pagination-info">
+                            <span class="info-text">Showing</span> 
+                            <span id="startEntry" class="range">1</span> 
+                            <span class="info-text">to</span> 
+                            <span id="endEntry" class="range">5</span> 
+                            <span class="info-text">of</span> 
+                            <span id="totalEntries" class="total">6</span> 
+                            <span class="info-text">entries</span>
+                        </div>
+
+                        <!-- Pagination Controls -->
+                        <div class="pagination-controls">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
+                                        <a class="page-link" href="?page=<?= max(1, $page - 1) ?>&limit=<?= $limit ?>" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                                        <li class="page-item <?= $i == $page ? 'active' : '' ?>">
+                                            <a class="page-link" href="?page=<?= $i ?>&limit=<?= $limit ?>"><?= $i ?></a>
+                                        </li>
+                                    <?php endfor; ?>
+                                    <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
+                                        <a class="page-link" href="?page=<?= min($total_pages, $page + 1) ?>&limit=<?= $limit ?>" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
 </main><!-- End #main -->
 

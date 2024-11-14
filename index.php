@@ -24,18 +24,22 @@
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <!-- AOS CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
   <!-- Main CSS File -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;500;700&display=swap" rel="stylesheet">
   <link href="assets/css/main.css" rel="stylesheet">
   <link href="queenie.css" rel="stylesheet">
 <style>
  /* About Section Styles */
- .about-content {
+.about-content {
     padding: 80px 0;
     position: relative;
     overflow: hidden;
     color: #fff; /* Default text color */
     display: none;
+   
     animation: fadeIn 1.5s ease-out;
 }
 
@@ -59,7 +63,7 @@
     width: 100%;
     height: 100%;
     background: url('assets/img/picture1.jpg') no-repeat center center/cover; /* Background image */
-    filter: blur(6px); /* Increased blur for better effect */
+    filter: blur(4px); /* Adjust the blur amount as needed */
     z-index: 1; /* Place below the content */
 }
 
@@ -70,7 +74,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6); /* Darker overlay */
+    background: rgba(0, 0, 0, 0.5); /* Darker overlay */
     z-index: 2; /* Ensure overlay is above the blurred background but below the content */
 }
 
@@ -79,8 +83,9 @@
     z-index: 3; /* Ensure content is above the overlay */
 }
 
+
 .section-header {
-    margin-top: 60px;
+    margin-top: 80px;
 }
 
 .section-header h2 {
@@ -88,71 +93,71 @@
     color: #ffffff; /* Light color for better contrast */
     font-weight: bold;
     text-transform: uppercase;
-    margin-top: 50px;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8); /* Stronger shadow for depth */
-    letter-spacing: 2px; /* Spacing for elegance */
+    margin-top: 100px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Add shadow for text */
 }
 
 .section-header p {
     font-size: 1.2rem;
     color: #e0e0e0; /* Slightly lighter color */
     font-style: italic;
-    margin-top: 20px;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6); /* Add shadow for text */
+    margin-top: 100px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); /* Add shadow for text */
 }
 
 .about-content .about-texts {
-    background: #fce4ec; /* Light pink background */
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-    transition: background 0.3s, transform 0.3s; /* Smooth transition */
-}
-
-.about-content .about-texts:hover {
-    background: #f8bbd0; /* Darker pink on hover */
-    transform: translateY(-5px); /* Lift effect on hover */
+    background: rgba(255, 255, 255, 0.8); /* Slightly transparent white background */
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 .about-content .about-texts h3 {
-    font-size: 2.5rem;
-    color: #880e4f; /* Darker pink color for titles */
-    margin-bottom: 15px;
+    font-size: 2.2rem;
+    color: #004d40;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #004d40;
+    padding-bottom: 10px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Add shadow for text */
 }
 
 .about-content .about-texts p {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: #4a148c; /* Dark purple for text */
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #004d40;
+}
+
+.about-content .about-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 .mission-vision {
-    background: #e1f5fe; /* Light blue background */
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
     margin-bottom: 30px;
-    transition: background 0.3s, transform 0.3s; /* Smooth transition */
-}
-
-.mission-vision:hover {
-    background: #b3e5fc; /* Darker blue on hover */
-    transform: translateY(-5px); /* Lift effect on hover */
+    background: rgba(255, 255, 255, 0.8);
 }
 
 .mission-vision h3 {
-    font-size: 2.2rem; /* Slightly larger title */
-    color: #01579b; /* Dark blue for titles */
+    font-size: 1.8rem;
+    color: #004d40;
     margin-bottom: 15px;
+    border-bottom: 2px solid #004d40;
+    padding-bottom: 5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Add shadow for text */
 }
 
 .mission-vision p {
-    font-size: 1.2rem;
-    line-height: 1.7;
-    color: #0d47a1; /* Dark blue for text */
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #004d40;
 }
 
-/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
     .section-header h2 {
         font-size: 2.2rem;
@@ -163,7 +168,7 @@
     }
     
     .about-content .about-texts h3 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
     
     .about-content .about-texts p {
@@ -178,6 +183,263 @@
         font-size: 0.9rem;
     }
 }
+
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(45deg, #3a6db1, #2a4d77); /* Brighter blue gradient background */
+    color: #fff; /* White text color */
+    border: none;
+    padding: 12px 24px; /* Adjusted padding */
+    font-size: 18px; /* Adjusted font size */
+    text-decoration: none;
+    border-radius: 30px; /* More rounded corners */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Darker shadow effect */
+    transition: all 0.3s ease;
+}
+
+.btn-primary i {
+    margin-right: 10px; /* Adjusted margin for icon */
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #2a4d77, #3a6db1); /* Swapped gradient on hover */
+    transform: translateY(-3px); /* Slight lift on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Darker shadow on hover */
+}
+/* Footer Styles */
+.footer {
+    background-color: #2a2a2a; /* Change to your desired background color */
+    color: #ffffff; /* Text color */
+    padding: 20px 0; /* Padding for spacing */
+}
+
+.footer p {
+    margin: 0;
+    font-size: 1rem;
+    color: #cccccc; /* Lighter text color for better contrast */
+}
+
+/* General header styling */
+.header {
+    background-color: #f8f9fa;
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-left: 10px;
+}
+
+/* Hide the regular desktop navigation on smaller screens */
+.navmenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.navmenu ul li {
+    display: inline;
+}
+
+.navmenu ul li a {
+    color: #333;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.navmenu ul li a:hover {
+    color: #007bff;
+}
+
+/* Mobile navigation styles */
+#navbarContent .navbar-nav {
+    background-color: #f8f9fa;
+    padding: 10px;
+}
+
+@media (max-width: 768px) {
+    .header-title {
+        font-size: 1.2rem;
+    }
+
+    .navbar-toggler-icon {
+        width: 30px;
+        height: 3px;
+        background-color: #333;
+        display: block;
+        margin: 5px 0;
+    }
+
+/* Collapse menu for mobile view styling */
+#navbarContent {
+    background-color: #f8f9fa; /* Optional: background color for dropdown */
+    padding: 10px;
+}
+
+#navbarContent .nav-link {
+    padding: 10px 0;
+    color: #333;
+}
+
+#navbarContent .nav-link:hover {
+    color: #007bff; /* Optional: color on hover */
+}
+
+.navbar-collapse {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.navbar-nav {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.nav-item:last-child {
+    border-bottom: none;
+}
+
+.nav-link {
+    color: #333;
+    text-decoration: none;
+    display: block;
+    padding: 0.5rem 1rem;
+}
+
+.nav-link:hover {
+    background-color: #f8f9fa;
+}
+
+/* Hamburger icon styles */
+.navbar-toggler {
+    border: none;
+    padding: 0.25rem 0.75rem;
+    background: transparent;
+}
+
+.icon-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: #333;
+    margin: 4px 0;
+}
+
+}
+
+@media (max-width: 768px) {
+    .hero-content p {
+        text-align: justify;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+.hero-content h3, 
+.hero-content p {
+    font-family: 'Lora', serif; /* Elegant serif font */
+    font-weight: normal;  /* Regular weight for formal appearance */
+    font-size: 2.0rem; /* Adjust for readability */
+    line-height: 1.6;  /* Improved readability with more space between lines */
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) { /* lg breakpoint */
+    #logoContainer {
+        display: flex;          /* Use flexbox to center content */
+        justify-content: center; /* Center horizontally */
+        align-items: center;    /* Center vertically (if necessary) */
+        width: 100%;
+        max-width: 400px;
+        margin-left: auto;      /* Remove any left margin */
+        margin-right: auto;     /* Ensure right margin is also auto */
+    }
+
+    #logoImage {
+        width: 100%;
+        max-width: 400px;       /* Limit max width */
+    }
+
+    .hero-content {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .hero-content h3 {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 768px) { /* md breakpoint */
+    #logoContainer {
+        max-width: 350px;
+        margin-left: auto;      /* Ensure centering */
+        margin-right: auto;     /* Ensure centering */
+    }
+}
+
+@media (max-width: 576px) { /* sm breakpoint */
+    #logoContainer {
+        max-width: 300px;
+        margin-left: auto;      /* Ensure centering */
+        margin-right: auto;     /* Ensure centering */
+    }
+
+    .hero-content h3 {
+        font-size: 1.5rem;
+    }
+}
+
+/* For very small devices */
+@media (max-width: 375px) {
+    #logoContainer {
+        max-width: 280px;
+        margin-left: -48px;      /* Ensure centering */
+        margin-right: 150px;     /* Ensure centering */
+    }
+}
+
+.scroll-to-top {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99;
+  font-size: 24px;
+  border: none;
+  outline: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.scroll-to-top:hover {
+  background-color: #0056b3;
+}
+
 .logos-row {
     display: flex; /* Use flexbox for horizontal alignment */
     justify-content: center; /* Center the logos */
@@ -219,96 +481,204 @@
     }
 }
 
-
-.btn-primary {
-    display: inline-flex;
-    align-items: center;
-    background: linear-gradient(45deg, #3a6db1, #2a4d77); /* Brighter blue gradient background */
-    color: #fff; /* White text color */
+/* Custom styles for modern card design */
+.modern-card {
     border: none;
-    padding: 12px 24px; /* Adjusted padding */
-    font-size: 18px; /* Adjusted font size */
-    text-decoration: none;
-    border-radius: 30px; /* More rounded corners */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Darker shadow effect */
-    transition: all 0.3s ease;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
 
-.btn-primary i {
-    margin-right: 10px; /* Adjusted margin for icon */
+.modern-card:hover {
+    box-shadow: 0px 16px 30px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px); /* Lifting effect on hover */
 }
 
-.btn-primary:hover {
-    background: linear-gradient(45deg, #2a4d77, #3a6db1); /* Swapped gradient on hover */
-    transform: translateY(-3px); /* Slight lift on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Darker shadow on hover */
+.gradient-header {
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Modern gradient */
+    color: #fff;
+    padding: 15px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px 12px 0 0;
 }
 
-.scroll-up {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: none; /* Initially hidden */
-    width: 50px; /* Width of the button */
-    height: 50px; /* Height of the button */
-    background-color: #007bff; /* Button color */
-    color: white;
-    border: none;
-    border-radius: 50%; /* Circular shape */
-    font-size: 24px; /* Font size */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s; /* Transition for hover effects */
-    z-index: 1000; /* Ensure it appears above other elements */
+.schedule-box {
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-.scroll-up:hover {
-    background-color: #0056b3; /* Darker shade on hover */
-    transform: scale(1.1); /* Slightly increase size on hover */
+.schedule-item p {
+    font-size: 1.1rem;
+    color: #333;
+    line-height: 1.6;
 }
 
-.scroll-up:focus {
-    outline: none; /* Remove outline */
+.schedule-item p strong {
+    font-weight: bold;
+    color: #555;
 }
+
+.card-body {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 15px;
+    }
+}
+
+/* Grid Layout for Horizontal Alignment */
+@media (min-width: 768px) {
+    .row.justify-content-center {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .col-lg-4 {
+        flex: 1 1 calc(33.33% - 30px); /* Ensures the cards are horizontally aligned */
+        margin-right: 15px;
+    }
+}
+
+/* Background image with blur effect */
+#scheduleSection {
+    background-image: url('assets/img/scheduleb.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 50px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Adding a blur effect to the background */
+#scheduleSection::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    filter: blur(8px); /* Apply blur effect */
+    z-index: 0;
+}
+
+/* Content inside the section */
+#scheduleSection .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Title styling */
+#scheduleSection h2.section-title {
+    color: #fff; /* White color for title */
+    font-weight: bold;
+}
+
+/* Description styling */
+#scheduleSection p.section-description {
+    color: #f0f0f0; /* Lighter color for the description */
+    font-size: 1.2rem;
+}
+
+/* Schedule card header text color */
+.card-header h5.text-white {
+    color: #ffffff; /* White text for the schedule card header */
+}
+
+/* Schedule card body text color */
+.card-body {
+    color: #333; /* Dark color for schedule text for better contrast */
+}
+
+/* Text inside schedule items */
+.schedule-item p {
+    color: #000; /* Ensure the schedule details are dark enough to read */
+}
+
+/* Stay Tuned Section title */
+.stay-tuned-card h3.stay-tuned-title {
+    color: #ffffff; /* White text for the Stay Tuned title */
+}
+
+/* Stay Tuned Section description */
+.stay-tuned-card p.stay-tuned-description {
+    color: #dcdcdc; /* Light gray color for the Stay Tuned description */
+}
+
+
 </style>
 </head>
 
 <body>
   
 
-<header id="header" class="header fixed-top d-flex align-items-center" style="height: 100px;>
-    <div class="d-flex align-items-center justify-content-between w-100>
+<header id="header" class="header fixed-top d-flex align-items-center" style="height: 100px;">
+    <div class="d-flex align-items-center justify-content-between w-100">
         <!-- Logo and title -->
-        <img src="assets/img/trasparlogo.png" alt="" style="width: 150px; height: 90px; margin-left: 20px;">
-        <h1 class="header-title d-none d-md-block text-blue">BANTAYAN ISLAND CENSUS</h1>
-        <h1 class="header-title d-block d-md-none text-blue">BANISCEN</h1>
-        <!-- Navigation Menu and Login Dropdown -->
-        <div class="d-flex align-items-center justify-content-end w-100">
-            <nav id="navmenu" class="navmenu">
-                <ul>
+        <img src="assets/img/trasparlogo.png" alt="" style="width: 150px; height: 90px; margin-left: 20px;" class="d-none d-md-block">
+        
+        <h1 class="header-title">
+            <span class="d-none d-md-inline">BANTAYAN ISLAND CENSUS</span>
+            <span class="d-inline d-md-none">BIC</span>
+        </h1>
+
+        <!-- Desktop Navigation Menu -->
+        <nav id="navmenu" class="navmenu d-none d-md-flex">
+            <ul class="d-flex">
                 <li><a href="#" id="homeLink">Home</a></li>
                 <li><a href="#" id="bantayanLink">Bantayan</a></li>
                 <li><a href="#" id="madridejosLink">Madridejos</a></li>
                 <li><a href="#" id="santafeLink">Santafe</a></li>
                 <li><a href="#" id="schedule">Schedule</a></li>
                 <li><a href="#" id="aboutLink">About</a></li>
-                <br> <br>
-                </ul>
-            </nav>
-            
-            <div class="dropdown flex-md-shrink-0 hey">
-                <button class="btn btn-primarys dropdown-toggle" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    Login
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="loginDropdown">
-                    <li><a class="dropdown-item" href="admin/login.php">Admin</a></li>
-                    <hr>
-                    <li><a class="dropdown-item" href="staff/login.php">Staff</a></li>
-                </ul>
-            </div>
+            </ul>
+        </nav>
+
+        <!-- Mobile Navigation Menu (Hamburger Icon) -->
+        <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+
+        <!-- Login Dropdown -->
+        <div class="dropdown flex-md-shrink-0">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                Login
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="loginDropdown">
+                <li><a class="dropdown-item" href="admin/login.php">Admin</a></li>
+                <hr>
+                <li><a class="dropdown-item" href="staff/login.php">Staff</a></li>
+            </ul>
         </div>
     </div>
+
+    <!-- Moved mobile menu outside the d-flex container -->
+    <div class="collapse navbar-collapse d-md-none" id="navbarContent">
+        <nav>
+            <ul class="navbar-nav">
+                <li class="nav-item"><a href="#" id="homeLink" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#" id="bantayanLink" class="nav-link">Bantayan</a></li>
+                <li class="nav-item"><a href="#" id="madridejosLink" class="nav-link">Madridejos</a></li>
+                <li class="nav-item"><a href="#" id="santafeLink" class="nav-link">Santafe</a></li>
+                <li class="nav-item"><a href="#" id="schedule" class="nav-link">Schedule</a></li>
+                <li class="nav-item"><a href="#" id="aboutLink" class="nav-link">About</a></li>
+            </ul>
+        </nav>
+    </div>
 </header>
+
+
 
 <main class="main">
     <!-- Hero Section -->
@@ -317,13 +687,14 @@
             <div class="container">
                 <div class="row align-items-center">
                     <!-- Left Column: Welcome Text and Paragraph -->
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" data-aos="fade-up" data-aos-duration="1000">
                         <div class="hero-content">
                             <h3>Welcome to the Bantayan Island Census!</h3>
-                            <p>Help us shape the future of our community by participating in the census. Your input is crucial for better planning and services. Thank you for being involved!</p>
+                            <!-- Add text-justify class for text justification -->
+                            <p class="text-justify">Help us shape the future of our community by participating in the census. Your input is crucial for better planning and services. Thank you for being involved!</p>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
                         <div class="hero-image text-center">
                             <!-- Use a container to maintain the size -->
                             <div id="logoContainer">
@@ -345,7 +716,6 @@
        
     <div class="image-container">
         <img src="assets/img/bimage.jpg" alt="Bantayan Island Image" class="imgs-fluid">
-        <img src="assets/img/mayors1.png" style="width: 100%; position: absolute; top: 10%; right: 72%;  height: auto; max-width: 400px;">
 </div>
 
 
@@ -391,7 +761,6 @@
             <div class="col-lg-12 text-center">
                 <div class="image-container">
                     <img src="assets/img/madridejos-hall.jpeg" alt="Madridejos Image" class="img-fluid">
-                    <img src="assets/img/mayors2.png" style="width: 100%; position: absolute; top: 10%; right: 72%;  height: auto; max-width: 400px;">
                 </div>
                 <hr style="margin: 20px; border: none; border-top: 2px solid #000;">
             <!-- About Section -->
@@ -437,7 +806,6 @@
             <div class="col-lg-12 text-center">
                 <div class="image-container">
                     <img src="assets/img/thestaf.jpg" alt="Santa Fe Image" class="img-fluid">
-                    <img src="assets/img/mayors3.png" style="width: 100%; position: absolute; top: 10%; right: 72%;  height: auto; max-width: 400px;">
                 </div>
                 <hr style="margin: 20px; border: none; border-top: 2px solid #000;">
             <!-- About Section -->
@@ -476,61 +844,117 @@
 
 <section id="scheduleSection" class="schedule-content section">
     <div class="container mt-5">
-        <div class="row">
+        <div class="row justify-content-center">
             <!-- Schedule Heading -->
-            <div class="col-lg-12 text-center">
-                <h2 class="section-title">Upcoming Census Schedule</h2>
-                <p class="section-description">Stay informed about the upcoming events and census schedules.</p>
+            <div class="col-lg-12 text-center" data-aos="fade-up">
+                <br> <br>
+                <h2 class="section-title">Upcoming Schedule</h2>
+                <p class="section-description">Check out the upcoming schedules for each municipality!</p>
             </div>
         </div>
-        <!-- Schedule Table -->
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="table-responsive">
-                    <table class="table schedule-table">
-                        <thead>
-                            <tr>
-                                <th>Municipality</th>
-                                <th>Census Date</th>
-                                <th>Census Time</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            // Include the database connection
-                            include 'database/db_connect.php';
 
-                            // Fetch data from the schedule table
-                            $sql = "SELECT municipality, start_census, end_census, start_time, end_time FROM schedule ORDER BY start_census ASC";
-                            $result = $conn->query($sql);
+        <!-- Horizontal Alignment for Schedule Cards -->
+        <div class="row justify-content-center">
+            <!-- Schedule for Bantayan -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-right" data-aos-delay="100">
+                <div class="card modern-card">
+                    <div class="card-header gradient-header">
+                        <h5 class="text-white">Bantayan Schedule</h5>
+                    </div>
+                    <div class="card-body">
+                        <?php
+                        include 'database/db_connect.php';
+                        $sql_bantayan = "SELECT start_census, end_census, start_time, end_time FROM schedule WHERE municipality = 'Bantayan' ORDER BY start_census ASC";
+                        $result_bantayan = $conn->query($sql_bantayan);
 
-                            if ($result->num_rows > 0) {
-                                while($row = $result->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td>" . htmlspecialchars($row["municipality"]) . "</td>";
-                                    echo "<td>" . htmlspecialchars($row["start_census"]) . " to " . htmlspecialchars($row["end_census"]) . "</td>";
-                                    echo "<td>" . htmlspecialchars($row["start_time"]) . " to " . htmlspecialchars($row["end_time"]) . "</td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='3'>No schedules found</td></tr>";
+                        if ($result_bantayan->num_rows > 0) {
+                            while ($row = $result_bantayan->fetch_assoc()) {
+                                echo "<div class='schedule-box'>";
+                                echo "<div class='schedule-item'>";
+                                echo "<p><strong>Census Date:</strong> " . htmlspecialchars($row["start_census"]) . " to " . htmlspecialchars($row["end_census"]) . "</p>";
+                                echo "<p><strong>Census Time:</strong> " . htmlspecialchars($row["start_time"]) . " to " . htmlspecialchars($row["end_time"]) . "</p>";
+                                echo "</div>";
+                                echo "</div>";
                             }
-
-                            // Close the database connection
-                            $conn->close();
-                            ?>
-                        </tbody>
-                    </table>
+                        } else {
+                            echo "<p>No schedules found for Bantayan</p>";
+                        }
+                        ?>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 text-center mt-4">
-                <p class="footer-note">For more information, please contact your local census office.</p>
+
+            <!-- Schedule for Madridejos -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="card modern-card">
+                    <div class="card-header gradient-header">
+                        <h5 class="text-white">Madridejos Schedule</h5>
+                    </div>
+                    <div class="card-body">
+                        <?php
+                        $sql_madridejos = "SELECT start_census, end_census, start_time, end_time FROM schedule WHERE municipality = 'Madridejos' ORDER BY start_census ASC";
+                        $result_madridejos = $conn->query($sql_madridejos);
+
+                        if ($result_madridejos->num_rows > 0) {
+                            while ($row = $result_madridejos->fetch_assoc()) {
+                                echo "<div class='schedule-box'>";
+                                echo "<div class='schedule-item'>";
+                                echo "<p><strong>Census Date:</strong> " . htmlspecialchars($row["start_census"]) . " to " . htmlspecialchars($row["end_census"]) . "</p>";
+                                echo "<p><strong>Census Time:</strong> " . htmlspecialchars($row["start_time"]) . " to " . htmlspecialchars($row["end_time"]) . "</p>";
+                                echo "</div>";
+                                echo "</div>";
+                            }
+                        } else {
+                            echo "<p>No schedules found for Madridejos</p>";
+                        }
+                        ?>
+                    </div>
+                </div>
             </div>
+
+            <!-- Schedule for Santa Fe -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-left" data-aos-delay="300">
+                <div class="card modern-card">
+                    <div class="card-header gradient-header">
+                        <h5 class="text-white">Santa Fe Schedule</h5>
+                    </div>
+                    <div class="card-body">
+                        <?php
+                        $sql_santa_fe = "SELECT start_census, end_census, start_time, end_time FROM schedule WHERE municipality = 'Santafe' ORDER BY start_census ASC";
+                        $result_santa_fe = $conn->query($sql_santa_fe);
+
+                        if ($result_santa_fe->num_rows > 0) {
+                            while ($row = $result_santa_fe->fetch_assoc()) {
+                                echo "<div class='schedule-box'>";
+                                echo "<div class='schedule-item'>";
+                                echo "<p><strong>Census Date:</strong> " . htmlspecialchars($row["start_census"]) . " to " . htmlspecialchars($row["end_census"]) . "</p>";
+                                echo "<p><strong>Census Time:</strong> " . htmlspecialchars($row["start_time"]) . " to " . htmlspecialchars($row["end_time"]) . "</p>";
+                                echo "</div>";
+                                echo "</div>";
+                            }
+                        } else {
+                            echo "<p>No schedules found for Santa Fe</p>";
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+            <!-- Stay Tuned Section -->
+<div class="row justify-content-center mt-5 stay-tuned-section" data-aos="fade-up">
+            <div class="col-lg-8 text-center">
+                <div class="stay-tuned-card">
+                    <h3 class="stay-tuned-title">Stay Tuned for More Updates!</h3>
+                    <p class="stay-tuned-description">We are continuously updating the schedule. Check back soon for more information.</p>
+                </div>
+            </div>
+        </div> 
         </div>
     </div>
+
 </section>
+
+
+
 
 
 
@@ -539,13 +963,13 @@
     <div class="overlay"></div> <!-- Dark overlay -->
     <div class="container">
         <!-- Section Header -->
-        <div class="section-header text-center mb-5">
+        <div class="section-header text-center mb-5" data-aos="fade-up">
             <h2 class="section-title">Join Us in Shaping a Brighter Future</h2>
             <p class="section-subtitle">Discover our mission to empower communities and learn how you can make a meaningful impact today.</p>
         </div>
 
         <!-- Logos Row with Marquee -->
-        <div class="logos-marquee">
+        <div class="logos-marquee" data-aos="fade-left">
             <div class="logos-row text-center">
                 <img src="assets/img/censuslogo1.png" class="logo" alt="Logo 1">
                 <img src="assets/img/bantayanseal.png" class="logo" alt="Bantayan Seal">
@@ -557,7 +981,7 @@
 
         <!-- About Content -->
         <div class="row align-items-center">
-            <div class="col-lg-12">
+            <div class="col-lg-12" data-aos="fade-up">
                 <div class="about-texts">
                     <h3 class="about-title">About Us</h3>
                     <p class="about-description">
@@ -571,7 +995,7 @@
 
             <!-- Mission and Vision -->
             <div class="row mt-5">
-                <div class="col-lg-6">
+                <div class="col-lg-6" data-aos="fade-up">
                     <div class="mission-vision">
                         <div class="mission">
                             <h3 class="mission-title">Our Mission</h3>
@@ -582,7 +1006,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="mission-vision">
                         <div class="vision">
                             <h3 class="vision-title">Our Vision</h3>
@@ -592,13 +1016,56 @@
                         </div>
                     </div>
                 </div>
+                <div class="row mt-5" data-aos="fade-up">
+        <div class="col-lg-12">
+        <h3 class="section-title" style="color: white; text-align: center; font-size: 2rem; font-weight: bold;  text-transform: uppercase; letter-spacing: 1px;">
+    Bantayan Island Municipality Mayors
+</h3>
+
+<div class="mayors-images d-flex justify-content-center flex-wrap">
+    <!-- Mayors Images -->
+    <div class="mayor-image mb-3" style="flex: 1 1 200px; max-width: 300px;" data-aos="fade-up">
+        <img src="assets/img/mayors1.png" alt="Mayor 1" class="img-fluid">
+    </div>
+    <div class="mayor-image mb-3 mx-3" style="flex: 1 1 200px; max-width: 300px;" data-aos="fade-up" data-aos-delay="100">
+        <img src="assets/img/mayors2.png" alt="Mayor 2" class="img-fluid">
+    </div>
+    <div class="mayor-image mb-3" style="flex: 1 1 200px; max-width: 300px;" data-aos="fade-up" data-aos-delay="200">
+        <img src="assets/img/mayors3.png" alt="Mayor 3" class="img-fluid">
+    </div>
+</div>
+
+
+        </div>
+    </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Scroll Up Button -->
-<button id="scrollUp" class="scroll-up" title="Scroll to Top">↑</button>
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            AOS.init({
+                duration: 1000,
+                offset: 100,
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+<a href="#" class="scroll-to-top">
+  <i class="fas fa-chevron-up"></i>
+</a>
+
+<!-- AOS JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
 <!-- Vendor JS Files and Main JS -->
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -632,12 +1099,12 @@
 
     document.addEventListener("DOMContentLoaded", function() {
     // Target all the links
-    var homeLink = document.getElementById('homeLink');
-    var bantayanLink = document.getElementById('bantayanLink');
-    var madridejosLink = document.getElementById('madridejosLink');
-    var santafeLink = document.getElementById('santafeLink');
-    var scheduleLink = document.getElementById('schedule');
-    var aboutLink = document.getElementById('aboutLink');
+    var homeLink = document.querySelectorAll('[id="homeLink"]');
+    var bantayanLink = document.querySelectorAll('[id="bantayanLink"]');
+    var madridejosLink = document.querySelectorAll('[id="madridejosLink"]');
+    var santafeLink = document.querySelectorAll('[id="santafeLink"]');
+    var scheduleLink = document.querySelectorAll('[id="schedule"]');
+    var aboutLink = document.querySelectorAll('[id="aboutLink"]');
     var getStartedBtn = document.getElementById('getStartedBtn');
 
     // Target all the sections
@@ -648,41 +1115,42 @@
     var scheduleSection = document.getElementById('scheduleSection');
     var aboutSection = document.getElementById('about');
 
+    // Get the mobile menu collapse element
+    var navbarCollapse = document.getElementById('navbarContent');
+    var bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+        toggle: false
+    });
+
+    // Function to add click event listener to all instances of a link
+    function addClickListener(links, section) {
+        links.forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                showSection(section);
+                
+                // Close mobile menu if it's open and we're in mobile view
+                if (window.innerWidth < 768) {  // 768px is the md breakpoint
+                    bsCollapse.hide();
+                }
+            });
+        });
+    }
+
     // Add click event listeners for all links
-    bantayanLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        showSection(bantayanSection);
-    });
+    addClickListener(homeLink, heroSection);
+    addClickListener(bantayanLink, bantayanSection);
+    addClickListener(madridejosLink, madridejosSection);
+    addClickListener(santafeLink, santafeSection);
+    addClickListener(scheduleLink, scheduleSection);
+    addClickListener(aboutLink, aboutSection);
 
-    madridejosLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        showSection(madridejosSection);
-    });
-
-    santafeLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        showSection(santafeSection);
-    });
-
-    homeLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        showSection(heroSection);
-    });
-
-    scheduleLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        showSection(scheduleSection);
-    });
-
-    aboutLink.addEventListener('click', function(event) { 
-        event.preventDefault();
-        showSection(aboutSection);
-    });
-
-    getStartedBtn.addEventListener('click', function(event) {
-        event.preventDefault();
-        showSection(bantayanSection);
-    });
+    // Add click event listener for Get Started button
+    if (getStartedBtn) {
+        getStartedBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            showSection(bantayanSection);
+        });
+    }
 
     // Function to hide all sections except the one passed as an argument
     function showSection(section) {
@@ -702,34 +1170,25 @@
 
 </script>
 <script>
-// JavaScript to handle scroll behavior
-window.onscroll = function() {
-    const scrollUpButton = document.getElementById("scrollUp");
-    
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        scrollUpButton.style.display = "block"; // Show button
-    } else {
-        scrollUpButton.style.display = "none"; // Hide button
-    }
-};
+// Get the scroll-to-top button
+const scrollToTopBtn = document.querySelector('.scroll-to-top');
 
-// Scroll to top function
-document.getElementById("scrollUp").onclick = function() {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth" // Smooth scroll
-    });
-};
+// Show the button when the user scrolls down 400px from the top of the document
+window.addEventListener('scroll', () => {
+  if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+    scrollToTopBtn.style.display = 'block';
+  } else {
+    scrollToTopBtn.style.display = 'none';
+  }
+});
+
+// Smooth scroll to the top of the page when the button is clicked
+scrollToTopBtn.addEventListener('click', () => {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+});
 </script>
 
-  <div class="credits">
-    <!-- All the links in the footer should remain intact. -->
-    <!-- You can delete the links only if you've purchased the pro version. -->
-    <!-- Licensing information: https://bootstrapmade.com/license/ -->
-    <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-    <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-  </div>
-</div>
 <?php 
 include 'footer.php';
 ?>

@@ -65,63 +65,65 @@
   </div>
 
   <div class="pagetitle">
-    <h1>Schedule List</h1>
-  </div><!-- End Page Title -->
+  <h1>Schedule List</h1>
+</div><!-- End Page Title -->
 
-  <div class="container">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      Add Schedule
-    </button>
-  </div>
+<div class="container">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add Schedule
+  </button>
+</div>
 
-  <section class="section mt-3">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="card">
-          <div class="card-body">
-            <!-- Table with stripped rows -->
+<section class="section mt-3">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <!-- Table with stripped rows -->
+          <div class="table-responsive">
             <table id="scheduleTable" class="table datatable">
-  <thead>
-    <tr>
-      <th>Municipality</th>
-      <th>Census Date</th>
-      <th>Census Time</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php
-      include '../database/db_connect.php';
-      $sql = "SELECT id, municipality, start_census, end_census, start_time, end_time FROM schedule";
-      $result = $conn->query($sql);
+              <thead>
+                <tr>
+                  <th>Municipality</th>
+                  <th>Census Date</th>
+                  <th>Census Time</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                  include '../database/db_connect.php';
+                  $sql = "SELECT id, municipality, start_census, end_census, start_time, end_time FROM schedule";
+                  $result = $conn->query($sql);
 
-      if ($result->num_rows > 0) {
-          while($row = $result->fetch_assoc()) {
-              $censusDate = date("F d, Y", strtotime($row["start_census"])) . " to " . date("F d, Y", strtotime($row["end_census"]));
-              $censusTime = date("h:i A", strtotime($row["start_time"])) . " to " . date("h:i A", strtotime($row["end_time"]));
-              echo "<tr>
-                      <td>" . htmlspecialchars($row["municipality"]) . "</td>
-                      <td>" . htmlspecialchars($censusDate) . "</td>
-                      <td>" . htmlspecialchars($censusTime) . "</td>
-                      <td>
-                          <button class='btn btn-primary btn-sm' onclick='editSchedule(" . intval($row["id"]) . ")'>Edit</button>
-                          <button class='btn btn-danger btn-sm' onclick='deleteSchedule(" . intval($row["id"]) . ")'>Delete</button>
-                      </td>
-                    </tr>";
-          }
-      } else {
-          echo "<tr><td colspan='4'>No schedules found</td></tr>";
-      }
-      $conn->close();
-    ?>
-  </tbody>
-</table>
-            <!-- End Table with stripped rows -->
+                  if ($result->num_rows > 0) {
+                      while($row = $result->fetch_assoc()) {
+                          $censusDate = date("F d, Y", strtotime($row["start_census"])) . " to " . date("F d, Y", strtotime($row["end_census"]));
+                          $censusTime = date("h:i A", strtotime($row["start_time"])) . " to " . date("h:i A", strtotime($row["end_time"]));
+                          echo "<tr>
+                                  <td>" . htmlspecialchars($row["municipality"]) . "</td>
+                                  <td>" . htmlspecialchars($censusDate) . "</td>
+                                  <td>" . htmlspecialchars($censusTime) . "</td>
+                                  <td>
+                                      <button class='btn btn-primary btn-sm' onclick='editSchedule(" . intval($row["id"]) . ")'>Edit</button>
+                                      <button class='btn btn-danger btn-sm' onclick='deleteSchedule(" . intval($row["id"]) . ")'>Delete</button>
+                                  </td>
+                                </tr>";
+                      }
+                  } else {
+                      echo "<tr><td colspan='4'>No schedules found</td></tr>";
+                  }
+                  $conn->close();
+                ?>
+              </tbody>
+            </table>
           </div>
+          <!-- End Table with stripped rows -->
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 </main><!-- End #main -->
 
 <!-- Edit Modal -->
