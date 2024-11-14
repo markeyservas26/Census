@@ -288,10 +288,16 @@ $result = $stmt->get_result();
                                 <button class='btn btn-sm btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton" . $row['id'] . "' data-bs-toggle='dropdown' aria-expanded='false'>
                                   <i class='fas fa-cogs'></i> <!-- Settings icon -->
                                 </button>
-                                <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton" . $row['id'] . "'>
-                                  <li><a class='dropdown-item edit-btn' data-id='" . htmlspecialchars($row['id']) . "' href='#' data-bs-toggle='modal' data-bs-target='#editModal'>Edit</a></li>
-                                  <li><a class='dropdown-item delete-btn' data-id='" . htmlspecialchars($row['id']) . "' href='#'>Delete</a></li>
-                                </ul>
+                               <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton" . $row['id'] . "'>
+                                                    <li><a class='dropdown-item delete-btn' data-id='" . htmlspecialchars($row['id']) . "' href='#'>Delete</a></li>
+                                                    <li><a class='dropdown-item view-btn' 
+                                                           data-id='" . htmlspecialchars($row['id']) . "' 
+                                                           data-name='" . htmlspecialchars($row['name']) . "' 
+                                                           data-email='" . htmlspecialchars($row['email']) . "' 
+                                                           data-municipality='" . htmlspecialchars($row['municipality']) . "' 
+                                                           data-password='" . htmlspecialchars($password) . "' 
+                                                           href='#' data-bs-toggle='modal' data-bs-target='#viewModal'>View</a></li>
+                                                  </ul>
                               </div>
                             </td>";
                       echo "</tr>";
