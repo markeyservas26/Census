@@ -145,6 +145,11 @@ if ($resultSexCounts->num_rows > 0) {
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<!-- AOS CSS -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<!-- AOS JS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <style>
         body {
             background: #FEFCFF;
@@ -342,15 +347,16 @@ margin-left:13%;
 
     </style>
 
-    <div class="pagetitle">
-      <br>
-        <h1>Dashboard</h1>
-    </div><!-- End Page Title -->
+<div class="pagetitle" data-aos="fade-up">
+  <br>
+  <h1>Dashboard</h1>
+</div><!-- End Page Title -->
+
 <br>
-<section class="section dashboard">
+<section class="section dashboard" data-aos="fade-up">
     <div class="container">
-        <div class="row card-container"> <!-- Added card-container class here -->
-            <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
+        <div class="row card-container" data-aos="fade-up">
+            <div class="col-xl-3 col-lg-6 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="100">
                 <div class="card-box bg-blue">
                     <div class="inner">
                         <h3 class="total-barangay"><?php echo $totalBarangayCount; ?></h3>
@@ -362,7 +368,7 @@ margin-left:13%;
                 </div>
             </div>
 
-            <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
+            <div class="col-xl-3 col-lg-6 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="200">
                 <div class="card-box bg-green">
                     <div class="inner">
                         <h3 class="total-houses"><?php echo array_sum($data['totalHouseNumbers']); ?></h3>
@@ -374,7 +380,7 @@ margin-left:13%;
                 </div>
             </div>
 
-            <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
+            <div class="col-xl-3 col-lg-6 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
                 <div class="card-box bg-red">
                     <div class="inner">
                         <h3 class="total-residence"><?php echo array_sum($totalCombinedCounts); ?></h3>
@@ -388,12 +394,12 @@ margin-left:13%;
         </div>
     </div>
 </section>
-    <br>
-    <hr>
-    <div class="dashboard-content mt-5">
+<br>
+<hr>
+<div class="dashboard-content mt-5" data-aos="fade-up">
     <div class="chart-container">
         <div class="chart-box">
-            <h5 class="card-title text-center">Gender Distribution Bar Chart</h5>
+        <h5 class="card-title text-center">Gender Distribution Bar Chart</h5>
             <div class="chart-wrapper">
                 <canvas id="sexChart"></canvas>
             </div>
@@ -453,27 +459,26 @@ margin-left:13%;
 </div>
 
 <hr>
-<div class="dashboard-content">
+<div class="dashboard-content" data-aos="fade-up">
     <div class="row">
         <div class="col-lg-6 mb-4">
             <div class="chart-container">
                 <div class="row justify-content-center">
-                    <!-- Doughnut Chart for Barangay Count -->
-                    <div class="col-12 col-md-4 d-flex justify-content-center mb-4">
+                    <div class="col-12 col-md-4 d-flex justify-content-center mb-4" data-aos="flip-left" data-aos-delay="100">
                         <div class="chart-box-container text-center">
                             <h5 class="card-title">Barangay Count Per Municipality</h5>
                             <canvas id="barangayChart" style="max-width: 265px; max-height: 265px;" class="responsive-chart"></canvas>
                         </div>
                     </div>
-                    <!-- Doughnut Chart for House Count -->
-                    <div class="col-12 col-md-4 d-flex justify-content-center mb-4">
+
+                    <div class="col-12 col-md-4 d-flex justify-content-center mb-4" data-aos="flip-left" data-aos-delay="200">
                         <div class="chart-box-container text-center">
                             <h5 class="card-title">House Count Per Municipality</h5>
                             <canvas id="houseCountChart" style="max-width: 265px; max-height: 265px;" class="responsive-chart"></canvas>
                         </div>
                     </div>
-                    <!-- Doughnut Chart for Residence Count -->
-                    <div class="col-12 col-md-4 d-flex justify-content-center mb-4">
+
+                    <div class="col-12 col-md-4 d-flex justify-content-center mb-4" data-aos="flip-left" data-aos-delay="300">
                         <div class="chart-box-container text-center">
                             <h5 class="card-title">Residence Count Per Municipality</h5>
                             <canvas id="residenceChart" style="max-width: 265px; max-height: 265px;" class="responsive-chart"></canvas>
@@ -484,8 +489,6 @@ margin-left:13%;
         </div>
     </div>
 </div>
-
-</main><!-- End #main -->
 
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -572,4 +575,12 @@ margin-left:13%;
         });
     });
 </script>
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            AOS.init({
+                duration: 1000,
+                offset: 100,
+            });
+        });
+    </script>
 <?php include 'footer.php'; ?>
