@@ -189,27 +189,29 @@ margin: 0;
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="table-controls">
-                        <div class="row">
-                            <!-- Show entries dropdown, stack on smaller screens -->
-                            <div class="col-12 col-md-6 mb-3 mb-md-0">
-                                <label for="entriesPerPage">Show entries:</label>
-                                <select id="entriesPerPage" class="form-select">
-                                    <option value="5" <?= $limit == 5 ? 'selected' : '' ?>>5</option>
-                                    <option value="10" <?= $limit == 10 ? 'selected' : '' ?>>10</option>
-                                    <option value="25" <?= $limit == 25 ? 'selected' : '' ?>>25</option>
-                                    <option value="50" <?= $limit == 50 ? 'selected' : '' ?>>50</option>
-                                    <option value="100" <?= $limit == 100 ? 'selected' : '' ?>>100</option>
-                                </select>
-                            </div>
-                            <!-- Search input, stack on smaller screens -->
-                            <div class="col-12 col-md-6">
-                                <div class="search-container">
-                                    <input type="text" id="searchInput" class="form-control" placeholder="Search...">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="table-controls">
+    <div class="row">
+        <!-- Show entries dropdown, stack on smaller screens -->
+        <div class="col-12 col-md-6 mb-3 mb-md-0">
+            <label for="entriesPerPage">Show entries:</label>
+            <select id="entriesPerPage" class="form-select">
+                <option value="5" <?= $limit == 5 ? 'selected' : '' ?>>5</option>
+                <option value="10" <?= $limit == 10 ? 'selected' : '' ?>>10</option>
+                <option value="25" <?= $limit == 25 ? 'selected' : '' ?>>25</option>
+                <option value="50" <?= $limit == 50 ? 'selected' : '' ?>>50</option>
+                <option value="100" <?= $limit == 100 ? 'selected' : '' ?>>100</option>
+            </select>
+        </div>
+
+        <!-- Empty column for spacing, only for larger screens -->
+        <div class="col-12 col-md-6"></div>
+        
+        <!-- Search input, align to the right on larger screens -->
+        <div class="col-12 col-md-6 mb-3 mb-md-0 d-flex justify-content-md-end">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search...">
+        </div>
+    </div>
+</div>
 
                     <div class="table-responsive">
                         <table id="dataTable" class="table datatable">
