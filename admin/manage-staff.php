@@ -468,13 +468,14 @@ $result = $stmt->get_result();
 function printDetails() {
   const passwordInput = document.getElementById("modal-password").value;
 
-  // Check if the password is exactly "admin"
+  // Check if the password is exactly "staff"
   if (passwordInput !== "staff") {
     Swal.fire({
       icon: "error",
       title: "Invalid Password",
       text: "Password must be 'staff' only to proceed with printing."
     });
+    return; // Prevents further action if password is incorrect
   } else {
     // If password is correct, proceed to print
     window.print();
