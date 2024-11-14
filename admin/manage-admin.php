@@ -211,22 +211,23 @@ $result = $stmt->get_result();
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="viewModalLabel">Bantyan Island Census</h5>
+        <h5 class="modal-title" id="viewModalLabel">Bantayan Island Census</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <p><strong>Name:</strong> <span id="modal-name"></span></p>
         <p><strong>Username:</strong> <span id="modal-username"></span></p>
         <p>Type the password:</p>
-        <p><strong>Password:</strong> <input type="text" id="modal-password" class="form-control" /></p>
+        <p><strong>Password:</strong> <input type="text" id="modal-password" class="form-control" placeholder="Only 'admin' allowed" /></p>
       </div>
       <div class="modal-footer">
-      <button type="button" class="btn btn-primary" onclick="printDetails()">Print</button>
+        <button type="button" class="btn btn-primary" onclick="printDetails()">Print</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
+
 
 <div class="pagetitle">
   <h1>Admin List</h1>
