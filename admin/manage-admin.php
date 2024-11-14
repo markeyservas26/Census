@@ -221,13 +221,12 @@ $result = $stmt->get_result();
         <p><strong>Password:</strong> <input type="text" id="modal-password" class="form-control" placeholder="Only 'admin' allowed" /></p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="validatePassword()">Submit</button>
+        <button type="button" class="btn btn-primary" onclick="printDetails()">Print</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
-
 
 <div class="pagetitle">
   <h1>Admin List</h1>
@@ -378,8 +377,8 @@ $result = $stmt->get_result();
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-// Function to validate the password input
-function validatePassword() {
+// Function to validate password and print if valid
+function printDetails() {
   const passwordInput = document.getElementById("modal-password").value;
 
   // Check if the password is exactly "admin"
@@ -387,14 +386,11 @@ function validatePassword() {
     Swal.fire({
       icon: "error",
       title: "Invalid Password",
-      text: "Password must be 'admin' only."
+      text: "Password must be 'admin' only to proceed with printing."
     });
   } else {
-    Swal.fire({
-      icon: "success",
-      title: "Access Granted",
-      text: "Password is correct."
-    });
+    // If password is correct, proceed to print
+    window.print();
   }
 }
 </script>
