@@ -150,6 +150,7 @@ if ($resultSexCounts->num_rows > 0) {
 
 <!-- AOS JS -->
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
     <style>
         body {
             background: #FEFCFF;
@@ -179,6 +180,9 @@ if ($resultSexCounts->num_rows > 0) {
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
 }
 
 /* Container for the section */
@@ -194,7 +198,7 @@ if ($resultSexCounts->num_rows > 0) {
 
         .card-box:hover {
             text-decoration: none;
-            color: #f1f1f1;
+            color: #333333;
             transform: translateY(-5px);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
@@ -203,6 +207,7 @@ if ($resultSexCounts->num_rows > 0) {
             font-size: 100px;
             transition: 1s;
             -webkit-transition: 1s;
+            color: #468189;
         }
 
         .card-box .inner {
@@ -252,19 +257,19 @@ if ($resultSexCounts->num_rows > 0) {
         }
 
         .bg-blue {
-            background-color: #c7b37b !important;
+            background-color: #EDEDED !important;
         }
 
         .bg-green {
-            background-color: #c7b37b !important;
+            background-color: #EDEDED !important;
         }
 
         .bg-orange {
-            background-color: #c7b37b !important;
+            background-color: #EDEDED !important;
         }
 
         .bg-red {
-            background-color: #c7b37b !important;
+            background-color: #EDEDED !important;
         }
 
        
@@ -347,7 +352,7 @@ margin-left:13%;
 
     </style>
 
-<div class="pagetitle" data-aos="fade-up">
+    <div class="pagetitle" data-aos="fade-up">
   <br>
   <h1>Dashboard</h1>
 </div><!-- End Page Title -->
@@ -490,6 +495,7 @@ margin-left:13%;
     </div>
 </div>
 
+
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
@@ -576,11 +582,12 @@ margin-left:13%;
     });
 </script>
 <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            AOS.init({
-                duration: 1000,
-                offset: 100,
-            });
-        });
-    </script>
+  document.addEventListener('DOMContentLoaded', function () {
+    AOS.init({
+      duration: 1200,  // Optional: Adjust animation duration
+      once: true,      // Optional: Run animation only once
+    });
+  });
+</script>
+
 <?php include 'footer.php'; ?>
