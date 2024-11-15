@@ -46,49 +46,71 @@ session_start();
     .toggle-sidebar-btn {
       margin-left: 100px; /* Adjust the margin as needed */
     }
+
+    /* Hide the logo on smaller screens (below md) */
+@media (max-width: 767px) {
+  .custom-logo {
+    display: none; /* Hide the logo */
+  }
+
+  .logo-container {
+    display: none; /* Optionally, hide the container entirely if no space needed */
+  }
+
+  /* Move the hamburger menu to the left side */
+  .toggle-sidebar-btn {
+    margin-left: 10px;
+    order: -1; /* Moves the icon to the left */
+  }
+
+  /* Adjust the header layout on mobile */
+  .header .d-flex {
+    justify-content: flex-start; /* Align items to the left */
+  }
+}
+
   </style>
 </head>
 
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center custom-header">
-    <div class="d-flex align-items-center justify-content-between">
-      <img src="../assets/img/trasparlogo.png" class="custom-logo"> <!-- Adjusted the width and height -->
-      <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
+<header id="header" class="header fixed-top d-flex align-items-center custom-header">
+  <div class="d-flex align-items-center justify-content-between w-100">
+    <!-- The logo is wrapped in a div for better control in responsive designs -->
+    <div class="logo-container">
+      <img src="../assets/img/trasparlogo.png" class="custom-logo" alt="Logo">
+    </div>
 
-  
+    <!-- Hamburger Icon on the left side for mobile views -->
+    <i class="bi bi-list toggle-sidebar-btn d-md-none"></i>
+  </div><!-- End Logo -->
 
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-        <li class="nav-item dropdown pe-3">
+  <nav class="header-nav ms-auto">
+    <ul class="d-flex align-items-center">
+      <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/icon.webp" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo "Welcome staff, " . $_SESSION['user_name'] . "!" ?></span>
-          </a><!-- End Profile Iamge Icon -->
+        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <img src="assets/img/icon.webp" alt="Profile" class="rounded-circle">
+          <span class="d-none d-md-block dropdown-toggle ps-2">
+            <?php echo "Welcome staff, " . $_SESSION['user_name'] . "!" ?>
+          </span>
+        </a><!-- End Profile Iamge Icon -->
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6><?php echo "Welcome staff,  " . $_SESSION['user_name'] . "!" ?></h6>
-              <span>Staff</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+          <li class="dropdown-header">
+            <h6><?php echo "Welcome staff,  " . $_SESSION['user_name'] . "!" ?></h6>
+            <span>Staff</span>
+          </li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item d-flex align-items-center" href="changepassword.php"><i class="fas fa-lock"></i><span>Change Password</span></a></li>
+          <li><a class="dropdown-item d-flex align-items-center" href="logout.php"><i class="bi bi-box-arrow-right"></i><span>Sign Out</span></a></li>
+        </ul><!-- End Profile Dropdown Items -->
+      </li><!-- End Profile Nav -->
+    </ul>
+  </nav><!-- End Icons Navigation -->
+</header><!-- End Header -->
 
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item d-flex align-items-center" href="changepassword.php"><i class="fas fa-lock"></i><span>Change Password</span></a></li>
-            <li><a class="dropdown-item d-flex align-items-center" href="logout.php"><i class="bi bi-box-arrow-right"></i><span>Sign Out</span></a></li>
-
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
-      </ul>
-    </nav><!-- End Icons Navigation -->
-
-  </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
