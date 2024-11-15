@@ -614,7 +614,24 @@
     color: #dcdcdc; /* Light gray color for the Stay Tuned description */
 }
 
+/* Default text size */
+#census-paragraph {
+    font-family: 'Georgia', serif;
+    font-size: 30px; /* Default size */
+}
 
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    #census-paragraph {
+        font-size: 26px; /* Slightly smaller text for medium screens */
+    }
+}
+
+@media (max-width: 576px) {
+    #census-paragraph {
+        font-size: 18px; /* Smaller text for small screens like mobile devices */
+    }
+}
 </style>
 </head>
 
@@ -690,8 +707,9 @@
                     <div class="col-lg-6" data-aos="fade-up" data-aos-duration="1000">
                         <div class="hero-content">
                             <h3>Welcome to the Bantayan Island Census!</h3>
+                            <br>
                             <!-- Add text-justify class for text justification -->
-                            <p class="text-justify">Help us shape the future of our community by participating in the census. Your input is crucial for better planning and services. Thank you for being involved!</p>
+                            <p class="text-justify" id="census-paragraph">Help us shape the future of our community by participating in the census. Your input is crucial for better planning and services. Thank you for being involved!</p>
                         </div>
                     </div>
                     <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
