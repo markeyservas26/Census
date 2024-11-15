@@ -477,7 +477,7 @@ function printDetails() {
       title: "Invalid Password",
       text: "Password must be 'staff' only to proceed with printing."
     });
-    return; // Prevents further action if password is incorrect
+    return false; // Prevents print action if password is incorrect
   } else {
     // If password is correct, proceed to print
     window.print();
