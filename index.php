@@ -550,7 +550,7 @@
 
 /* Background image with blur effect */
 #scheduleSection {
-    background-image: url('assets/img/scheduleb.jpg');
+    background-image: url('../assets/img/scheduleb.jpg');
     background-size: cover;
     background-position: center;
     padding: 50px 0;
