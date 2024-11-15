@@ -155,8 +155,8 @@ $postData = $_POST ?? [];
 <main id="main" class="main">
 <div class="container">
     <div class="header1">
-        <img src="../sttaf/assets/img/censusformlogo.png" alt="Census Logo" class="logo">
-        <img src="../staff/assets/img/censusformlogo2.png" alt="Census Logo 2" class="logo-right">
+        <img src="../staffbantayan/assets/img/censusformlogo.png" alt="Census Logo" class="logo">
+        <img src="../staffbantayan/assets/img/censusformlogo2.png" alt="Census Logo 2" class="logo-right">
     </div>
     <h1 class="text-center mb-3">REPUBLIC OF THE PHILIPPINES</h1>
     <h1 class="text-center mb-3">PHILIPPINE STATISTICS AUTHORITY</h1>
@@ -170,7 +170,7 @@ $postData = $_POST ?? [];
         </p>
         <em style="color:red;">* Items with an asterisk (*) are required.</em>
 
-        <form method="POST" action="../staffaction/anothertesting.php" id="demographicForm" onsubmit="return validateForm()">
+        <form method="POST" action="../action/anothertesting.php" id="demographicForm" onsubmit="return validateForm()">
             <h5 class="section-header">CORE DEMOGRAPHIC CHARACTERISTICS</h5>
             <p style="color:red;">NOTICE: Do not include special characters like this *!@$%^&, etc. in your name entry. This will create an issue in the record during verification. Extensions like SR. or JR., etc. must be entered separately by selecting on the box provided below.</p>
             <p><b>House Leader</b></p>

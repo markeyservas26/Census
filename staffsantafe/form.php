@@ -155,8 +155,8 @@ $postData = $_POST ?? [];
 <main id="main" class="main">
 <div class="container">
     <div class="header1">
-        <img src="../sttaf/assets/img/censusformlogo.png" alt="Census Logo" class="logo">
-        <img src="../staff/assets/img/censusformlogo2.png" alt="Census Logo 2" class="logo-right">
+        <img src="../staffsantafe/assets/img/censusformlogo.png" alt="Census Logo" class="logo">
+        <img src="../staffsantafe/assets/img/censusformlogo2.png" alt="Census Logo 2" class="logo-right">
     </div>
     <h1 class="text-center mb-3">REPUBLIC OF THE PHILIPPINES</h1>
     <h1 class="text-center mb-3">PHILIPPINE STATISTICS AUTHORITY</h1>
