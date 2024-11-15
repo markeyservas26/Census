@@ -65,6 +65,12 @@ function safe_array_value($array, $key, $default = '') {
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Include SweetAlert2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+<!-- Include SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <style>
        @media (max-width: 768px) {
             .form-label {
@@ -1447,6 +1453,55 @@ function safe_array_value($array, $key, $default = '') {
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Assuming the form uses AJAX to submit the data
+$(document).ready(function() {
+    $('#demographicForm').on('submit', function(e) {
+        e.preventDefault();
+
+        var formData = $(this).serialize();
+
+        $.ajax({
+            type: "POST",
+            url: "../action/update_record.php", // Your PHP script for processing
+            data: formData,
+            dataType: "json",
+            success: function(response) {
+                if (response.status == 'success') {
+                    // Success: Display a success SweetAlert
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: response.message,
+                        confirmButtonText: 'OK'
+                    }).then(function() {
+                        // Optionally, redirect to another page or refresh the current page
+                        location.reload(); // Or replace with window.location.href = 'another-page.php';
+                    });
+                } else {
+                    // Error: Display an error SweetAlert
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: response.message,
+                        confirmButtonText: 'OK'
+                    });
+                }
+            },
+            error: function() {
+                // If the AJAX request fails
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong with the server.',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    });
+});
+
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const contactNumberInput = document.querySelector('input[name="contactnumber_hl"]');
