@@ -217,11 +217,13 @@ $result = $stmt->get_result();
       <div class="modal-body">
         <p><strong>Name:</strong> <span id="modal-name"></span></p>
         <p><strong>Username:</strong> <span id="modal-username"></span></p>
-        <p>Type the password:</p>
-        <p><strong>Password:</strong> <input type="text" id="modal-password" class="form-control" placeholder="Only 'admin' allowed" /></p>
+        <div>
+                    <label for="modal-password" class="form-label"><strong>Password (admin only):</strong></label>
+                    <input type="text" id="modal-password" class="form-control" placeholder="Enter admin password">
+                </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="printDetails()">Print</button>
+        <button type="button" class="btn btn-primary" onclick="validatePassword()">Print</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
@@ -377,21 +379,23 @@ $result = $stmt->get_result();
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-// Function to validate password and print if valid
-function printDetails() {
-  const passwordInput = document.getElementById("modal-password").value;
+function validatePassword() {
+    const password = document.getElementById('modal-password').value;
 
-  // Check if the password is exactly "admin"
-  if (passwordInput !== "admin") {
-    Swal.fire({
-      icon: "error",
-      title: "Invalid Password",
-      text: "Password must be 'admin' only to proceed with printing."
-    });
-  } else {
-    // If password is correct, proceed to print
-    window.print();
-  }
+    // Example staff password for validation (can be adjusted based on your requirements)
+    const validStaffPassword = 'admin'; 
+
+    if (password === validStaffPassword) {
+        // If password is valid, proceed with the print function
+        printDetails();
+    } else {
+        // If password is invalid, show an error using SweetAlert2
+        Swal.fire({
+            icon: 'error',
+            title: 'Invalid Password',
+            text: 'Only the "admin" is allowed to be input as the password.',
+        });
+    }
 }
 </script>
 <script>
