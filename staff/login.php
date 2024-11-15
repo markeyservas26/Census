@@ -64,14 +64,15 @@ if (isset($_SESSION['user_id'])) {
               </div>
 
               <form class="row g-3 needs-validation" novalidate action="../staffaction/login.php" method="POST">
+
   <div class="col-12">
-    <label for="yourEmail" class="form-label">Email</label>
-    <div class="input-group has-validation">
-      <span class="input-group-text" id="inputGroupPrepend">@</span>
-      <input type="email" name="email" class="form-control" id="yourEmail" required>
-      <div class="invalid-feedback">Please enter your email.</div>
-    </div>
-  </div>
+                      <label for="yourEmail" class="form-label">Email</label>
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <input type="email" name="email" class="form-control" id="yourEmail" required>
+                        <div class="invalid-feedback">Please enter your Email.</div>
+                      </div>
+                    </div>
 
   <div class="col-12">
     <label for="yourPassword" class="form-label">Password</label>
@@ -85,12 +86,10 @@ if (isset($_SESSION['user_id'])) {
   </div>
 
   <div class="col-12 d-flex align-items-center">
-    <div class="form-check me-3">
-      <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-      <label class="form-check-label" for="rememberMe">Remember me</label>
-    </div>
-    <a href="../index.php" class="back-to-website d-none d-md-block" style="margin-left: 90px; color:black;">Back to Website</a>
-  </div>
+                      <a href="../forgotpassword/forgot-password.php" style="float:right;"> Forgot password?</a>
+                      <!-- Move the link to the right side of the remember me checkbox -->
+                      <a href="../index.php" class="back-to-website d-block" style="margin-left: 50px; color:black;">Back to Website</a>
+                    </div>
 
   <div class="col-12">
     <button class="btn btn-primary w-100" type="submit">Login</button>
@@ -187,6 +186,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+</script>
+<script>
+  // Validation for the login form
+  document.getElementById('loginForm').addEventListener('submit', function(event) {
+      const usernameInput = document.getElementById('yourEmail');
+      const usernameValue = usernameInput.value;
+      const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
+      // Check if the username matches the @gmail.com pattern
+      if (!gmailPattern.test(usernameValue)) {
+        event.preventDefault(); // Prevent form submission
+        Swal.fire({
+          icon: 'error',
+          title: 'Validation Error',
+          text: 'Username must have an @gmail.com.'
+        });
+      }
+    });
 </script>
 
 
