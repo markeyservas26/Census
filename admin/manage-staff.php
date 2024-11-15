@@ -242,7 +242,7 @@ $result = $stmt->get_result();
                 <p><strong>Municipality:</strong> <span id="modal-municipality"></span></p>
                 <div>
                     <label for="modal-password" class="form-label"><strong>Password (staff only):</strong></label>
-                    <input type="text" id="modal-password" class="form-control" value="staff">
+                    <input type="text" id="modal-password" class="form-control" placeholder="staff" readonly />
                 </div>
             </div>
             <div class="modal-footer">
@@ -252,6 +252,7 @@ $result = $stmt->get_result();
         </div>
     </div>
 </div>
+
 
 
 
