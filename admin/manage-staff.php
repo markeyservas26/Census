@@ -242,7 +242,7 @@ $result = $stmt->get_result();
                 <p><strong>Municipality:</strong> <span id="modal-municipality"></span></p>
                 <p>Type the password:</p>
                 <p><strong>Password:</strong> 
-                    <input type="text" id="modal-password" class="form-control" placeholder="Password must be 'staff' only" />
+                    <input type="text" id="modal-password" class="form-control" value="staff" readonly />
                 </p>
             </div>
             <div class="modal-footer">
@@ -252,6 +252,7 @@ $result = $stmt->get_result();
         </div>
     </div>
 </div>
+
 
 <div class="pagetitle">
     <h1>Staff List</h1>
@@ -465,25 +466,7 @@ $result = $stmt->get_result();
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-3wYIVjO+VV7lRuLefk7hVBrCoPeOb8Dh4v2eSQq8tcoQ0X6D/YStJcI/ZQf3t1iF" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-lJ1eF3ABhksSrfUwSHFrA7pNDo4+v3/t7hC8pXKJr0k0oUp2H4UQj3z2f0xKi2uB" crossorigin="anonymous"></script>
-<script>
-// Function to validate password and print if valid
-function printDetails() {
-  const passwordInput = document.getElementById("modal-password").value;
 
-  // Check if the password is exactly "staff"
-  if (passwordInput !== "staff") {
-    Swal.fire({
-      icon: "error",
-      title: "Invalid Password",
-      text: "Password must be 'staff' only to proceed with printing."
-    });
-    return false; // Prevents print action if password is incorrect
-  } else {
-    // If password is correct, proceed to print
-    window.print();
-  }
-}
-</script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
