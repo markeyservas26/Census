@@ -52,43 +52,41 @@ session_start();
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center custom-header">
-    <div class="d-flex align-items-center justify-content-between">
-      <img src="../assets/img/trasparlogo.png" class="custom-logo"> <!-- Adjusted the width and height -->
-      <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
+<header id="header" class="header fixed-top d-flex align-items-center custom-header">
+  <div class="d-flex align-items-center justify-content-between w-100">
+    <!-- The logo is wrapped in a div for better control in responsive designs -->
+    <div class="logo-container">
+      <img src="../assets/img/trasparlogo.png" class="custom-logo" alt="Logo">
+    </div>
 
-  
+    <!-- Hamburger Icon on the left side for mobile views -->
+    <i class="bi bi-list toggle-sidebar-btn d-md-none"></i>
+  </div><!-- End Logo -->
 
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-        <li class="nav-item dropdown pe-3">
+  <nav class="header-nav ms-auto">
+    <ul class="d-flex align-items-center">
+      <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/icon.webp" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo "Welcome staff, " . $_SESSION['user_name'] . "!" ?></span>
-          </a><!-- End Profile Iamge Icon -->
+        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <img src="assets/img/icon.webp" alt="Profile" class="rounded-circle">
+          <span class="d-none d-md-block dropdown-toggle ps-2">
+            <?php echo "Welcome staff, " . $_SESSION['user_name'] . "!" ?>
+          </span>
+        </a><!-- End Profile Iamge Icon -->
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6><?php echo "Welcome staff,  " . $_SESSION['user_name'] . "!" ?></h6>
-              <span>Staff</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item d-flex align-items-center" href="changepassword.php"><i class="fas fa-lock"></i><span>Change Password</span></a></li>
-            <li><a class="dropdown-item d-flex align-items-center" href="logout.php"><i class="bi bi-box-arrow-right"></i><span>Sign Out</span></a></li>
-
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
-      </ul>
-    </nav><!-- End Icons Navigation -->
-
-  </header><!-- End Header -->
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+          <li class="dropdown-header">
+            <h6><?php echo "Welcome staff,  " . $_SESSION['user_name'] . "!" ?></h6>
+            <span>Staff</span>
+          </li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item d-flex align-items-center" href="changepassword.php"><i class="fas fa-lock"></i><span>Change Password</span></a></li>
+          <li><a class="dropdown-item d-flex align-items-center" href="logout.php"><i class="bi bi-box-arrow-right"></i><span>Sign Out</span></a></li>
+        </ul><!-- End Profile Dropdown Items -->
+      </li><!-- End Profile Nav -->
+    </ul>
+  </nav><!-- End Icons Navigation -->
+</header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
