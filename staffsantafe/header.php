@@ -118,6 +118,11 @@ session_start();
           <i class="bi bi-file-text"></i><span>Form</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="map.php">
+          <i class="bi bi-map"></i><span>Map</span>
+        </a>
+      </li>
 <!-- add lng dir -->
 
     </ul>
