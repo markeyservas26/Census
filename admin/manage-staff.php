@@ -484,7 +484,7 @@ function validatePassword() {
         Swal.fire({
             icon: 'error',
             title: 'Invalid Password',
-            text: 'Only staff members can proceed with this action.',
+            text: 'Only the "staff" is allowed to be input as the password.',
         });
     }
 }
