@@ -233,9 +233,9 @@ input[type="number"] {
                     <label for="status" class="form-label">Municipality<span class="required-asterisk">*</span></label>
                     <select id="status" name="municipality_hl" class="form-select" required>
                         <option value="" selected disabled>Select an option</option>
-                        <option value="madridejos">Madridejos</option>
-                        <option value="bantayan">Bantayan</option>
-                        <option value="santafe">Santafe</option>
+                        <option value="Madridejos">Madridejos</option>
+                        <option value="Bantayan">Bantayan</option>
+                        <option value="Santafe">Santafe</option>
                     </select>
                 </div>
 
@@ -1713,23 +1713,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Define barangay options for each municipality
     const barangayOptions = {
-        bantayan: [
+        Mantayan: [
             'Atop-Atop', 'Bigad', 'Bantigue', 'Baod', 'Binaobao', 'Botigues', 'Doong', 'Guiwanon', 'Hilotongan',
             'Kabac', 'Kabangbang', 'Kampingganon', 'Kangkaibe', 'Lipayran', 'Luyongbaybay', 'Mojon',
             'Oboob', 'Patao', 'Putian', 'Sillion', 'Suba', 'Sulangan', 'Sungko', 'Tamiao', 'Ticad'
         ],
-        madridejos: [
+        Madridejos: [
             'Poblacion', 'Mancilang', 'Malbago', 'Kaongkod', 'San Agustin', 'Kangwayan', 'Pili', 'Kodia',
             'Tabagak', 'Bunakan', 'Maalat', 'Tugas', 'Tarong', 'Talangnan'
         ],
-        santafe: [
+        Santafe: [
             'Balidbid', 'Hagdan', 'Hilantagaan', 'Kinatarkan', 'Langub', 'Marikaban', 'Okoy', 'Poblacion',
             'Pooc', 'Talisay'
         ]
     };
 
-    // Function to update barangay options
-    function updateBarangayOptions(municipality) {
+   // Function to update barangay options
+   function updateBarangayOptions(municipality) {
         // Clear existing options
         barangaySelect.innerHTML = '';
 
@@ -1737,8 +1737,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (barangayOptions[municipality]) {
             barangayOptions[municipality].forEach(function(barangay) {
                 const option = document.createElement('option');
-                option.value = barangay.toLowerCase().replace(/\s+/g, '_');
-                option.textContent = barangay;
+                // Keep the value in uppeSrcase, but display text with proper capitalization
+                option.value = barangay;
+                option.textContent = barangay.charAt(0).toUpperCase() + barangay.slice(1).toLowerCase();
                 barangaySelect.appendChild(option);
             });
         }

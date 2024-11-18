@@ -52,11 +52,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contactnumber_hl = sanitize_input('contactnumber_hl');
     $religion = sanitize_input('religion');
     $location = sanitize_input('location');
-
-    try {
-        // Begin transaction
-        $conn->begin_transaction();
-        
     // Insert House Leader
     $sql_house_leader = "INSERT INTO house_leader (house_number, lastname, firstname, middlename, exname, 
                          province, municipality, barangay, purok, dob, sex, age, occupation, lcro, 
@@ -67,7 +62,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("ssssssssssssssssssi", $house_number, $lastname_hl, $firstname_hl, $middlename_hl, 
                       $exname_hl, $province_hl, $municipality_hl, $barangay_hl, $purok_hl, $dob_hl, 
                       $sex_hl, $age_hl, $occupation_hl, $lcro_hl, $marital_hl, $contactnumber_hl, $religion, $location, $staff_id);
-
     $stmt->execute();
     $house_leader_id = $stmt->insert_id;
     $stmt->close();
@@ -561,6 +555,5 @@ $stmt->close();
    }
 
    $conn->close();
-}
 }
 ?>
