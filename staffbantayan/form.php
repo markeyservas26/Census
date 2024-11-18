@@ -149,14 +149,25 @@ $postData = $_POST ?? [];
             max-width: 60px; /* Even smaller logo size for small screens */
         }
     }
+
+    /* Hide the up and down arrows in number input */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
     </style>
 </head>
 <body>
 <main id="main" class="main">
 <div class="container">
     <div class="header1">
-        <img src="../staffbantayan/assets/img/censusformlogo.png" alt="Census Logo" class="logo">
-        <img src="../staffbantayan/assets/img/censusformlogo2.png" alt="Census Logo 2" class="logo-right">
+        <img src="assets/img/censusformlogo.png" alt="Census Logo" class="logo">
+        <img src="assets/img/censusformlogo2.png" alt="Census Logo 2" class="logo-right">
     </div>
     <h1 class="text-center mb-3">REPUBLIC OF THE PHILIPPINES</h1>
     <h1 class="text-center mb-3">PHILIPPINE STATISTICS AUTHORITY</h1>
@@ -179,7 +190,7 @@ $postData = $_POST ?? [];
             <div class="house-number-wrapper">
     <label for="house_number" id="house_number_label">House Number</label>
     <div class="input-group">
-        <input type="text" class="form-control" id="house_number" name="house_number" placeholder="000000" required>
+        <input type="number" class="form-control" id="house_number" name="house_number" placeholder="000000" required>
     </div>
     <small id="house_number_alert" style="color: red; display: none;">This house number already exists.</small>
 </div>
@@ -222,9 +233,9 @@ $postData = $_POST ?? [];
                     <label for="status" class="form-label">Municipality<span class="required-asterisk">*</span></label>
                     <select id="status" name="municipality_hl" class="form-select" required>
                         <option value="" selected disabled>Select an option</option>
-                        <option value="madridejos">Madridejos</option>
-                        <option value="bantayan">Bantayan</option>
-                        <option value="santafe">Santafe</option>
+                        <option value="Madridejos">Madridejos</option>
+                        <option value="Bantayan">Bantayan</option>
+                        <option value="Santafe">Santafe</option>
                     </select>
                 </div>
 
@@ -1553,7 +1564,7 @@ $postData = $_POST ?? [];
 <!-- Input field for Latitude and Longitude -->
 <div style="margin-top: 10px;">
   <label for="coordinates">Coordinates (Latitude, Longitude):</label>
-  <input type="text" id="coordinates" name="location" readonly> <!-- Empty initially, will fill with actual location -->
+  <input type="text" id="coordinates" name="location">
 </div>
                     
                 </div>
@@ -1562,7 +1573,7 @@ $postData = $_POST ?? [];
                 <div class="text-center mt-4">
            
     <!-- Your form fields here -->
-    <button type="submit" id="submit_btn" class="btn btn-primary  mt-4">Submit</button>
+    <button type="submit"  class="btn btn-primary  mt-4">Submit</button>
 
                 </div>
             </form>
@@ -1574,24 +1585,38 @@ $postData = $_POST ?? [];
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    function getLocation() {
-        if (navigator.geolocation) {
-            // Get current position
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var lat = position.coords.latitude;   // Get latitude
-                var lng = position.coords.longitude;  // Get longitude
-
-                // Update the input field with the user's current location
-                document.getElementById("coordinates").value = lat + ", " + lng;
-            }, function(error) {
-                // Handle errors if geolocation fails (denied or unavailable)
-                alert("Geolocation failed or was denied. Please enable location access.");
-            });
-        } else {
-            // Handle if geolocation is not supported by the browser
-            alert("Geolocation is not supported by this browser.");
-        }
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+      alert("Geolocation is not supported by this browser.");
     }
+  }
+
+  function showPosition(position) {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+
+    // Set the latitude and longitude as a single string in the input field
+    document.getElementById("coordinates").value = `${lat}, ${lon}`;
+  }
+
+  function showError(error) {
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        alert("User denied the request for Geolocation.");
+        break;
+      case error.POSITION_UNAVAILABLE:
+        alert("Location information is unavailable.");
+        break;
+      case error.TIMEOUT:
+        alert("The request to get user location timed out.");
+        break;
+      case error.UNKNOWN_ERROR:
+        alert("An unknown error occurred.");
+        break;
+    }
+  }
 </script>
 
 <script>
@@ -1688,23 +1713,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Define barangay options for each municipality
     const barangayOptions = {
-        bantayan: [
+        Mantayan: [
             'Atop-Atop', 'Bigad', 'Bantigue', 'Baod', 'Binaobao', 'Botigues', 'Doong', 'Guiwanon', 'Hilotongan',
             'Kabac', 'Kabangbang', 'Kampingganon', 'Kangkaibe', 'Lipayran', 'Luyongbaybay', 'Mojon',
             'Oboob', 'Patao', 'Putian', 'Sillion', 'Suba', 'Sulangan', 'Sungko', 'Tamiao', 'Ticad'
         ],
-        madridejos: [
+        Madridejos: [
             'Poblacion', 'Mancilang', 'Malbago', 'Kaongkod', 'San Agustin', 'Kangwayan', 'Pili', 'Kodia',
             'Tabagak', 'Bunakan', 'Maalat', 'Tugas', 'Tarong', 'Talangnan'
         ],
-        santafe: [
+        Santafe: [
             'Balidbid', 'Hagdan', 'Hilantagaan', 'Kinatarkan', 'Langub', 'Marikaban', 'Okoy', 'Poblacion',
             'Pooc', 'Talisay'
         ]
     };
 
-    // Function to update barangay options
-    function updateBarangayOptions(municipality) {
+   // Function to update barangay options
+   function updateBarangayOptions(municipality) {
         // Clear existing options
         barangaySelect.innerHTML = '';
 
@@ -1712,8 +1737,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (barangayOptions[municipality]) {
             barangayOptions[municipality].forEach(function(barangay) {
                 const option = document.createElement('option');
-                option.value = barangay.toLowerCase().replace(/\s+/g, '_');
-                option.textContent = barangay;
+                // Keep the value in uppeSrcase, but display text with proper capitalization
+                option.value = barangay;
+                option.textContent = barangay.charAt(0).toUpperCase() + barangay.slice(1).toLowerCase();
                 barangaySelect.appendChild(option);
             });
         }
@@ -1747,20 +1773,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-</script>
-<script>
-    // Function to generate a random house number
-    function generateHouseNumber() {
-        const prefix = '';
-        const randomNumber = Math.floor(100000 + Math.random() * 900000); // Random 6-digit number
-        return prefix + randomNumber;
-    }
-
-    // Add an event listener to the icon
-    document.getElementById('generate-house-number').addEventListener('click', function() {
-        const houseNumberInput = document.getElementById('house_number');
-        houseNumberInput.value = generateHouseNumber(); // Set the generated number to the input field
-    });
 </script>
 <script>
     function calculateAge() {
