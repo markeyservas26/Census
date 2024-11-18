@@ -1713,7 +1713,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Define barangay options for each municipality
     const barangayOptions = {
-        Mantayan: [
+        Bantayan: [
             'Atop-Atop', 'Bigad', 'Bantigue', 'Baod', 'Binaobao', 'Botigues', 'Doong', 'Guiwanon', 'Hilotongan',
             'Kabac', 'Kabangbang', 'Kampingganon', 'Kangkaibe', 'Lipayran', 'Luyongbaybay', 'Mojon',
             'Oboob', 'Patao', 'Putian', 'Sillion', 'Suba', 'Sulangan', 'Sungko', 'Tamiao', 'Ticad'
