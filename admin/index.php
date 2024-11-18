@@ -155,12 +155,11 @@ if ($resultSexCounts->num_rows > 0) {
        body {
         background: #FEFCFF;
         max-width: 100vw;
-        overflow-x: hidden;
     }
 
-     .main {
-        overflow-x: hidden;
-    }
+main{
+    overflow: hidden;
+}
 
         /* Adjusting the card container to center the cards */
 .card-container {
@@ -449,12 +448,22 @@ margin-left:13%;
         max-width: 100%;
         height: 400px; /* Default height */
     }
-    @media (max-width: 768px) {
-        .chart-wrapper {
-            height: 300px; /* Adjust height on smaller devices */
-        }
+    @media screen and (max-width: 768px) {
+    .chart-wrapper {
+        height: 300px; /* Adjust height on smaller devices */
+        margin-right: 50px;
+        width: 85%;
     }
-    @media (max-width: 576px) {
+
+    /* Adjust the size of the h5 title and ensure it's centered */
+    .card-title.text-center {
+        margin-top: -50px !important;
+        font-size: 14px !important;  /* Adjust the font size */
+        text-align: center !important; /* Ensure the text is centered */
+        margin-right: 20px !important;
+    }
+}
+    @media screen and (max-width: 576px) {
         .chart-wrapper {
             height: 200px; /* Further adjust for very small devices */
         }
