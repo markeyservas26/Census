@@ -1619,57 +1619,57 @@ input[type="number"] {
   }
 </script>
 
-<script>
-$(document).ready(function() {
-    $('#demographicForm').on('submit', function(e) {
-        e.preventDefault(); // Prevent the form from submitting normally
+!--<script>
+// $(document).ready(function() {
+//     $('#demographicForm').on('submit', function(e) {
+//         e.preventDefault(); // Prevent the form from submitting normally
 
-        console.log('Submitting form to:', $(this).attr('action')); // Debugging URL
-        console.log('Serialized data:', $(this).serialize()); // Debugging serialized data
+//         console.log('Submitting form to:', $(this).attr('action')); // Debugging URL
+//         console.log('Serialized data:', $(this).serialize()); // Debugging serialized data
 
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function(response) {
-                console.log('Response from server:', response); // Debugging response
-                if (response.status === 'success') {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        text: response.message,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = 'form.php';
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: response.message,
-                        confirmButtonColor: '#d33',
-                        confirmButtonText: 'OK'
-                    });
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('AJAX error:', status, error); // Log more error details
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                    confirmButtonColor: '#d33',
-                    confirmButtonText: 'OK'
-                });
-            }
-        });
-    });
-});
-</script>
+//         $.ajax({
+//             type: 'POST',
+//             url: $(this).attr('action'),
+//             data: $(this).serialize(),
+//             dataType: 'json',
+//             success: function(response) {
+//                 console.log('Response from server:', response); // Debugging response
+//                 if (response.status === 'success') {
+//                     Swal.fire({
+//                         icon: 'success',
+//                         title: 'Success!',
+//                         text: response.message,
+//                         confirmButtonColor: '#3085d6',
+//                         confirmButtonText: 'OK'
+//                     }).then((result) => {
+//                         if (result.isConfirmed) {
+//                             window.location.href = 'form.php';
+//                         }
+//                     });
+//                 } else {
+//                     Swal.fire({
+//                         icon: 'error',
+//                         title: 'Oops...',
+//                         text: response.message,
+//                         confirmButtonColor: '#d33',
+//                         confirmButtonText: 'OK'
+//                     });
+//                 }
+//             },
+//             error: function(xhr, status, error) {
+//                 console.error('AJAX error:', status, error); // Log more error details
+//                 Swal.fire({
+//                     icon: 'error',
+//                     title: 'Oops...',
+//                     text: 'Something went wrong!',
+//                     confirmButtonColor: '#d33',
+//                     confirmButtonText: 'OK'
+//                 });
+//             }
+//         });
+//     });
+// });
+// </script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
