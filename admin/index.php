@@ -152,7 +152,7 @@ if ($resultSexCounts->num_rows > 0) {
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
     <style>
-        body {
+       body {
         background: #FEFCFF;
         max-width: 100vw;
         overflow-x: hidden;
@@ -200,6 +200,128 @@ if ($resultSexCounts->num_rows > 0) {
     margin-right: auto;
 }
 
+/* Media queries for mobile devices */
+@media screen and (max-width: 767px) {
+    .section .container {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .card-container {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: visible;
+        padding: 0 5px;
+        gap: 5px; /* Reduced gap between cards */
+        margin-bottom: 15px;
+    }
+
+    .card-box {
+        width: 103px;  /* Further reduced width */
+        min-width: 103px;
+        height: 90px;  /* Further reduced height */
+        padding: 8px 0px;
+        margin-right: 5px;
+    }
+
+    .card-box .inner {
+        padding: 2px 2px 0 2px;
+    }
+
+    .card-box h3 {
+        font-size: 16px !important;
+        margin: 0 0 2px 0 !important;
+        text-align: left !important;
+        line-height: 1.2 !important;
+    }
+
+    .card-box p {
+        font-size: 8px !important;
+        margin-top: 30px !important;
+        white-space: normal !important;
+        line-height: 1.1 !important;
+        padding: 0 2px !important;
+    }
+
+    .card-box .icon {
+        margin-bottom: 20px;
+        right: 2px;
+    }
+
+    .card-box .icon i {
+        font-size: 30px;
+    }
+
+    .card-box:hover .icon i {
+        font-size: 30px !important; /* Disable hover effect by resetting size */
+        color: inherit !important; /* Remove hover color change */
+        transition: none !important; /* Remove hover transition */
+    }
+
+    .col-xl-3.col-lg-6.col-md-6.mb-4 {
+        flex: 0 0 auto;
+        width: auto;
+        max-width: none;
+        padding: 0 2px; /* Reduced padding */
+        margin-bottom: 0 !important;
+    }
+}
+
+/* Extra small devices */
+@media screen and (max-width: 375px) {
+    .card-box {
+        width: 90px !important;
+        min-width: 90px !important;
+        height: 90px !important;
+    }
+
+    .card-box h3 {
+        font-size: 14px !important;
+        margin: 0 0 2px 0 !important;
+    }
+
+    .card-box p {
+        font-size: 8px !important;
+        line-height: 1 !important;
+    }
+
+    .card-box .icon i {
+        font-size: 16px !important;
+    }
+}
+
+/* Very small devices */
+@media screen and (max-width: 320px) {
+    .card-box {
+        width: 80px !important;
+        min-width: 80px !important;
+        height: 80px !important;
+    }
+
+    .card-box h3 {
+        font-size: 12px !important;
+    }
+
+    .card-box p {
+        font-size: 7px !important;
+    }
+
+    .card-box .icon i {
+        font-size: 14px !important;
+    }
+}
+
+/* Hide scrollbar but keep functionality */
+.card-container::-webkit-scrollbar {
+    display: none;
+}
+
+.card-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+
 
         .card-box:hover {
             text-decoration: none;
@@ -220,17 +342,18 @@ if ($resultSexCounts->num_rows > 0) {
         }
 
         .card-box h3 {
-            font-size: 35px;
-            font-weight: bold;
-            margin: 0 0 8px 0;
-            white-space: nowrap;
-            padding: 0;
-            text-align: left;
-        }
+    font-size: 35px;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+    white-space: nowrap;
+    padding: 0;
+    text-align: left;
+}
 
-        .card-box p {
-            font-size: 15px;
-        }
+.card-box p {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
 
         .card-box .icon {
             position: absolute;
