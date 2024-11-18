@@ -153,9 +153,14 @@ if ($resultSexCounts->num_rows > 0) {
 
     <style>
         body {
-            background: #FEFCFF;
-            overflow-x: hidden;
-        }
+        background: #FEFCFF;
+        max-width: 100vw;
+        overflow-x: hidden;
+    }
+
+     .main {
+        overflow-x: hidden;
+    }
 
         /* Adjusting the card container to center the cards */
 .card-container {
