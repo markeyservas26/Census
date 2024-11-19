@@ -249,23 +249,26 @@ $result = $stmt->get_result();
         <div class="card-body">
           <div class="d-flex d-md-flex mb-3 flex-column flex-md-row">
             <!-- Entries dropdown -->
-            <div class="dropdown-container mb-2 mb-md-0">
-              <label for="entriesSelect">Show</label>
-              <select id="entriesSelect" class="form-select form-select-sm">
+            <div class="col-md-6 col-12 mb-2 mb-md-0">
+        <div class="dropdown-container">
+            <label for="entriesSelect">Show</label>
+            <select id="entriesSelect" class="form-select form-select-sm">
                 <option value="5" selected>5</option>
                 <option value="10">10</option>
                 <option value="25">25</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
-              </select>
-              <span><b>Entries</b></span>
-            </div>
+            </select>
+            <span><b>Entries</b></span>
+        </div>
+    </div>
 
-            <!-- Search input below entries (on smaller screens) -->
-            <div class="search-container mt-2 mt-md-0 ms-md-3">
-              <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search...">
-            </div>
-          </div>
+    <!-- Search on the right for larger screens -->
+    <div class="col-md-6 col-12">
+        <div class="search-container">
+            <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search...">
+        </div>
+    </div>
 
           <!-- Table -->
           <div class="table-responsive">
