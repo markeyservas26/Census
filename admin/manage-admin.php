@@ -264,7 +264,7 @@ $result = $stmt->get_result();
     <!-- Search Input -->
     <div class="col-md-4 col-12 ms-md-auto">
         <label for="searchInput" class="form-label">Search:</label>
-        <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search...">
+        <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search housenumber or fullname">
     </div>
 </div>
 
@@ -376,7 +376,9 @@ $result = $stmt->get_result();
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 function validatePassword() {
     const password = document.getElementById('modal-password').value;
