@@ -293,7 +293,7 @@ $result = $stmt->get_result();
     <!-- Search Input -->
     <div class="col-md-4 col-12 ms-md-auto">
         <label for="searchInput" class="form-label">Search:</label>
-        <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search housenumber or fullname">
+        <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search...">
     </div>
 </div>
 
