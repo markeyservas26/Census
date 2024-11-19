@@ -164,140 +164,129 @@ margin: 0;
     font-weight: bold;
 }
 </style>
+<style>
+/* Adjust layout for the "Show entries" and "Search" controls on smaller screens */
+@media screen and (max-width: 576px) {
+    .table-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem; /* Adjust spacing between stacked elements */
+    }
+
+    .table-controls > div {
+        width: 100%; /* Make each control take full width */
+    }
+}
+
+@media (max-width: 768px) {
+    .table-controls {
+        gap: 0.5rem; /* Reduce gap between controls for slightly larger screens */
+    }
+}
+</style>
 <main id="main" class="main">
 
-<div class="pagetitle">
-    <h1>Madridejos List</h1>
+    <div class="pagetitle">
+        <h1>Madridejos List</h1>
+    </div><!-- End Page Title -->
 
-  </div><!-- End Page Title -->
+    <section class="sections">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Table Controls -->
+                        <div class="row mb-3">
+                            <!-- Show Entries -->
+                            <div class="row mb-3 table-controls align-items-center">
+    <!-- Show Entries -->
+    <div class="col-md-2 col-12">
+        <label for="entriesPerPage" class="form-label">Show entries:</label>
+        <select id="entriesPerPage" class="form-select form-select-sm">
+            <option value="5" <?= $limit == 5 ? 'selected' : '' ?>>5</option>
+            <option value="10" <?= $limit == 10 ? 'selected' : '' ?>>10</option>
+            <option value="25" <?= $limit == 25 ? 'selected' : '' ?>>25</option>
+            <option value="50" <?= $limit == 50 ? 'selected' : '' ?>>50</option>
+            <option value="100" <?= $limit == 100 ? 'selected' : '' ?>>100</option>
+        </select>
+    </div>
+    <!-- Search Input -->
+    <div class="col-md-4 col-12 ms-md-auto">
+        <label for="searchInput" class="form-label">Search:</label>
+        <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search housenumber or fullname">
+    </div>
+</div>
 
-  <section class="sections">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-controls">
-                        <div class="show-entries">
-                            <label for="entriesPerPage">Show entries:</label>
-                            <select id="entriesPerPage" class="form-select">
-                                <option value="5" <?= $limit == 5 ? 'selected' : '' ?>>5</option>
-                                <option value="10" <?= $limit == 10 ? 'selected' : '' ?>>10</option>
-                                <option value="25" <?= $limit == 25 ? 'selected' : '' ?>>25</option>
-                                <option value="50" <?= $limit == 50 ? 'selected' : '' ?>>50</option>
-                                <option value="100" <?= $limit == 100 ? 'selected' : '' ?>>100</option>
-                            </select>
+
+
+                        <!-- Responsive Table -->
+                        <div class="table-responsive">
+                        <table id="dataTable" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>House Number</th>
+                                        <th>Fullname</th>
+                                        <th>Address</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+                                        <tr class="<?= $row['house_number'] == $highlightHouseNumber ? 'highlight-term' : '' ?>">
+                                            <td><?= htmlspecialchars($row['house_number']) ?></td>
+                                            <td><?= htmlspecialchars($row['fullname']) ?></td>
+                                            <td><?= htmlspecialchars($row['address']) ?></td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-secondary dropdown-toggle custom-dropdown-btn" type="button" id="dropdownMenuButton<?= $row['id'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fas fa-cogs"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton<?= $row['id'] ?>">
+                                                        <li><a class="dropdown-item" href="view_household.php?id=<?= $row['id'] ?>">View</a></li>
+                                                        <li><a class="dropdown-item" href="edit_house_leader.php?id=<?= $row['id'] ?>">Edit</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="search-container">
-                <input type="text" id="searchInput" class="form-control" placeholder="Search...">
-              </div>
-                    </div>
 
-                    <table id="dataTable" class="table datatable">
-    <thead>
-        <tr>
-            <th>House Number</th>
-            <th>Fullname</th>
-            <th>Address</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-    <?php while ($row = mysqli_fetch_assoc($result)) : ?>
-        <tr class="<?= $row['house_number'] == $highlightHouseNumber ? 'highlight-term' : '' ?>">
-    <td><?= htmlspecialchars($row['house_number']) ?></td>
-    <td><?= htmlspecialchars($row['fullname']) ?></td>
-    <td><?= htmlspecialchars($row['address']) ?></td>
-            <td>
-            <!-- Dropdown icon for settings -->
-            <div class="dropdown">
-                <button class="btn btn-sm btn-secondary dropdown-toggle custom-dropdown-btn" type="button" id="dropdownMenuButton<?= $row['id'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-cogs"></i> <!-- You can use any icon here -->
-                </button>
-                <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton<?= $row['id'] ?>">
-                    <li><a class="dropdown-item" href="view_household.php?id=<?= $row['id'] ?>">View</a></li>
-                    <li><a class="dropdown-item" href="edit_house_leader.php?id=<?= $row['id'] ?>">Edit</a></li>
-                </ul>
-            </div>
-        </td>
-    </tr>
-    <?php endwhile; ?>
-
-                        </tbody>
-                    </table>
-
-                    <!-- Footer Info and Pagination -->
-                    <div class="footer-pagination">
-                        <div class="footer-info">
-                            Showing <?= $start_entry ?> to <?= $end_entry ?> of <?= $total_rows ?> entries
-                        </div>
-                        <div class="pagination-wrapper">
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination">
-                                    <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
-                                        <a class="page-link" href="?page=<?= max(1, $page - 1) ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
-                                        <li class="page-item <?= $i == $page ? 'active' : '' ?>">
-                                            <a class="page-link" href="?page=<?= $i ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>"><?= $i ?></a>
+                        <!-- Footer Info and Pagination -->
+                        <div class="row align-items-center">
+                            <div class="col-md-6 col-12 text-center text-md-start mb-2 mb-md-0">
+                                Showing <?= $start_entry ?> to <?= $end_entry ?> of <?= $total_rows ?> entries
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center justify-content-md-end">
+                                        <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
+                                            <a class="page-link" href="?page=<?= max(1, $page - 1) ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
                                         </li>
-                                    <?php endfor; ?>
-                                    <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
-                                        <a class="page-link" href="?page=<?= min($total_pages, $page + 1) ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
+                                        <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                                            <li class="page-item <?= $i == $page ? 'active' : '' ?>">
+                                                <a class="page-link" href="?page=<?= $i ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>"><?= $i ?></a>
+                                            </li>
+                                        <?php endfor; ?>
+                                        <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
+                                            <a class="page-link" href="?page=<?= min($total_pages, $page + 1) ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<div class="modal fade" id="transferModal" tabindex="-1" aria-labelledby="transferModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="transferModalLabel">Transfer Household Leader</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="transferForm">
-          <div class="form-group">
-            <label for="houseNumber">House Number</label>
-            <input type="text" class="form-control" id="houseNumber" readonly>
-          </div>
-          <div class="form-group">
-            <label for="fullName">Full Name</label>
-            <input type="text" class="form-control" id="fullName" readonly>
-          </div>
-          <div class="form-group">
-            <label for="address">Address</label>
-            <input type="text" class="form-control" id="address" readonly>
-          </div>
-          <div class="form-group">
-            <label for="municipality">New Municipality</label>
-            <select class="form-control" id="municipality">
-              <option value="Madridejos">Madridejos</option>
-              <option value="Bantayan">Bantayan</option>
-              <option value="Santa Fe">Santa Fe</option>
-            </select>
-          </div>
-          <input type="hidden" id="leaderId">
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="saveTransfer">Save Transfer</button>
-      </div>
-    </div>
-  </div>
-</div>
+    </section>
+
+</main>
 
 <script>
 document.getElementById('entriesPerPage').addEventListener('change', function() {
@@ -422,7 +411,6 @@ searchInput.addEventListener("keyup", function(e) {
 // Close the database connection
 mysqli_close($conn);
 ?>
-</main><!-- End #main -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

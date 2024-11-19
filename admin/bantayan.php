@@ -181,6 +181,28 @@ margin: 0;
     font-weight: bold;
 }
 </style>
+
+<style>
+/* Adjust layout for the "Show entries" and "Search" controls on smaller screens */
+@media screen and (max-width: 576px) {
+    .table-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem; /* Adjust spacing between stacked elements */
+    }
+
+    .table-controls > div {
+        width: 100%; /* Make each control take full width */
+    }
+}
+
+@media (max-width: 768px) {
+    .table-controls {
+        gap: 0.5rem; /* Reduce gap between controls for slightly larger screens */
+    }
+}
+</style>
+
 <main id="main" class="main">
 
     <div class="pagetitle">
@@ -195,26 +217,30 @@ margin: 0;
                         <!-- Table Controls -->
                         <div class="row mb-3">
                             <!-- Show Entries -->
-                            <div class="col-md-6 col-12 mb-2 mb-md-0">
-                                <label for="entriesPerPage" class="form-label">Show entries:</label>
-                                <select id="entriesPerPage" class="form-select">
-                                    <option value="5" <?= $limit == 5 ? 'selected' : '' ?>>5</option>
-                                    <option value="10" <?= $limit == 10 ? 'selected' : '' ?>>10</option>
-                                    <option value="25" <?= $limit == 25 ? 'selected' : '' ?>>25</option>
-                                    <option value="50" <?= $limit == 50 ? 'selected' : '' ?>>50</option>
-                                    <option value="100" <?= $limit == 100 ? 'selected' : '' ?>>100</option>
-                                </select>
-                            </div>
-                            <!-- Search Input -->
-                            <div class="col-md-6 col-12">
-                                <label for="searchInput" class="form-label">Search:</label>
-                                <input type="text" id="searchInput" class="form-control" placeholder="Search...">
-                            </div>
-                        </div>
+                            <div class="row mb-3 table-controls align-items-center">
+    <!-- Show Entries -->
+    <div class="col-md-2 col-12">
+        <label for="entriesPerPage" class="form-label">Show entries:</label>
+        <select id="entriesPerPage" class="form-select form-select-sm">
+            <option value="5" <?= $limit == 5 ? 'selected' : '' ?>>5</option>
+            <option value="10" <?= $limit == 10 ? 'selected' : '' ?>>10</option>
+            <option value="25" <?= $limit == 25 ? 'selected' : '' ?>>25</option>
+            <option value="50" <?= $limit == 50 ? 'selected' : '' ?>>50</option>
+            <option value="100" <?= $limit == 100 ? 'selected' : '' ?>>100</option>
+        </select>
+    </div>
+    <!-- Search Input -->
+    <div class="col-md-4 col-12 ms-md-auto">
+        <label for="searchInput" class="form-label">Search:</label>
+        <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search housenumber or fullname">
+    </div>
+</div>
+
+
 
                         <!-- Responsive Table -->
                         <div class="table-responsive">
-                            <table id="dataTable" class="table table-striped table-bordered">
+                        <table id="dataTable" class="table">
                                 <thead>
                                     <tr>
                                         <th>House Number</th>
