@@ -1,17 +1,15 @@
 <?php
-
+session_start();
 include '../database/db_connect.php';
 
 function sanitize_input($key) {
     global $conn;
     return isset($_POST[$key]) ? mysqli_real_escape_string($conn, trim($_POST[$key])) : null;
 }
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Debug session information
-    error_log("Session data: " . print_r($_SESSION, true));
-    
     // Get staff ID from session
-    $staff_id = $_SESSION['userid'] ?? null;a
+    $staff_id = $_SESSION['userid'] ?? null;
     
     // Verify staff exists
     if ($staff_id) {
@@ -33,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'message' => 'No staff member logged in'
         ]));
     }
+
     // House Leader
     $house_number = sanitize_input('house_number');
     $lastname_hl = sanitize_input('lastname_hl');
@@ -52,19 +51,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contactnumber_hl = sanitize_input('contactnumber_hl');
     $religion = sanitize_input('religion');
     $location = sanitize_input('location');
-    // Insert House Leader
-    $sql_house_leader = "INSERT INTO house_leader (house_number, lastname, firstname, middlename, exname, 
-                         province, municipality, barangay, purok, dob, sex, age, occupation, lcro, 
-                         marital_status, contact_number, religion, coordinates, staff_id) 
-                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    
-    $stmt = $conn->prepare($sql_house_leader);
-    $stmt->bind_param("ssssssssssssssssssi", $house_number, $lastname_hl, $firstname_hl, $middlename_hl, 
-                      $exname_hl, $province_hl, $municipality_hl, $barangay_hl, $purok_hl, $dob_hl, 
-                      $sex_hl, $age_hl, $occupation_hl, $lcro_hl, $marital_hl, $contactnumber_hl, $religion, $location, $staff_id);
-    $stmt->execute();
-    $house_leader_id = $stmt->insert_id;
-    $stmt->close();
+
+    try {
+        // Begin transaction
+        $conn->begin_transaction();
+
+        $sql_house_leader = "INSERT INTO house_leader (house_number, lastname, firstname, middlename, exname, 
+                            province, municipality, barangay, purok, dob, sex, age, occupation, lcro, 
+                            marital_status, contact_number, religion, coordinates, staff_id) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        $stmt = $conn->prepare($sql_house_leader);
+        $stmt->bind_param("ssssssssssssssssssi", 
+            $house_number, $lastname_hl, $firstname_hl, $middlename_hl, $exname_hl, 
+            $province_hl, $municipality_hl, $barangay_hl, $purok_hl, $dob_hl, 
+            $sex_hl, $age_hl, $occupation_hl, $lcro_hl, $marital_hl, 
+            $contactnumber_hl, $religion, $location, $staff_id
+        );
+
+        if (!$stmt->execute()) {
+            throw new Exception($conn->error);
+        }
+        
+        $house_leader_id = $stmt->insert_id;
+        $stmt->close();
 
 
      // Spouse
@@ -545,15 +555,22 @@ $stmt->close();
    $stmt->execute();
    $stmt->close();
 
-   header('Content-Type: application/json');
-   if (!$conn->error) {
-       $conn->commit();
-       echo json_encode(['status' => 'success', 'message' => 'New record created successfully']);
-   } else {
-       $conn->rollback();
-       echo json_encode(['status' => 'error', 'message' => 'Error: ' . $conn->error]);
-   }
+   $conn->commit();
+   echo json_encode([
+       'status' => 'success',
+       'message' => 'New record created successfully',
+       'house_leader_id' => $house_leader_id
+   ]);
 
-   $conn->close();
+} catch (Exception $e) {
+   // If any operation fails, roll back the transaction
+   $conn->rollback();
+   echo json_encode([
+       'status' => 'error',
+       'message' => 'Error: ' . $e->getMessage()
+   ]);
+}
+
+$conn->close();
 }
 ?>

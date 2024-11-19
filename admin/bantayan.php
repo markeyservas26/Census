@@ -2,6 +2,7 @@
 include 'header.php'; 
 include '../database/db_connect.php';
 
+$highlightHouseNumber = isset($_GET['highlight']) ? $_GET['highlight'] : null;
 // Pagination parameters
 $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 10;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -266,47 +267,6 @@ margin: 0;
         </div>
     </div>
 </section>
-<div class="modal fade" id="transferModal" tabindex="-1" aria-labelledby="transferModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="transferModalLabel">Transfer Household Leader</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="transferForm">
-          <div class="form-group">
-            <label for="houseNumber">House Number</label>
-            <input type="text" class="form-control" id="houseNumber" readonly>
-          </div>
-          <div class="form-group">
-            <label for="fullName">Full Name</label>
-            <input type="text" class="form-control" id="fullName" readonly>
-          </div>
-          <div class="form-group">
-            <label for="address">Address</label>
-            <input type="text" class="form-control" id="address" readonly>
-          </div>
-          <div class="form-group">
-            <label for="municipality">New Municipality</label>
-            <select class="form-control" id="municipality">
-              <option value="Madridejos">Madridejos</option>
-              <option value="Bantayan">Bantayan</option>
-              <option value="Santa Fe">Santa Fe</option>
-            </select>
-          </div>
-          <input type="hidden" id="leaderId">
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="saveTransfer">Save Transfer</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <script>
 document.getElementById('entriesPerPage').addEventListener('change', function() {
