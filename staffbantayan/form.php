@@ -232,10 +232,8 @@ input[type="number"] {
                 <div class="col-12 col-sm-6 col-lg-3">
                     <label for="status" class="form-label">Municipality<span class="required-asterisk">*</span></label>
                     <select id="status" name="municipality_hl" class="form-select" required>
-                        <option value="" selected disabled>Select an option</option>
-                        <option value="Madridejos">Madridejos</option>
+                        <option value="" selected disabled></option>
                         <option value="Bantayan">Bantayan</option>
-                        <option value="Santafe">Santafe</option>
                     </select>
                 </div>
 
