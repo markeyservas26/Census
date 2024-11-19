@@ -187,7 +187,7 @@ margin: 0;
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Madridejos List</h1>
+        <h1>Bantayan List</h1>
     </div><!-- End Page Title -->
 
     <section class="sections">
