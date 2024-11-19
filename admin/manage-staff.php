@@ -270,31 +270,32 @@ $result = $stmt->get_result();
     </div>
 </div>
 
-<section class="section mt-3">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <!-- Container for dropdown and search input -->
-                    <div class="form-groups d-flex flex-column flex-md-row align-items-center mb-3">
-                        <!-- Dropdown for show entries -->
-                        <div class="dropdown-container mb-2 mb-md-0">
-                            <label for="entriesSelect">Show</label>
-                            <select id="entriesSelect" class="form-select form-select-sm">
-                                <option value="5" selected>5</option>
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                            <span><b>Entries</b></span>
-                        </div>
-
-                        <!-- Search bar -->
-                        <div class="search-container mt-2 mt-md-0 ms-md-3">
-                            <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search...">
-                        </div>
-                    </div>
+< <section class="sections">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Table Controls -->
+                        <div class="row mb-3">
+                            <!-- Show Entries -->
+                            <div class="row mb-3 table-controls align-items-center">
+    <!-- Show Entries -->
+    <div class="col-md-2 col-12">
+        <label for="entriesSelect" class="form-label">Show entries:</label>
+        <select id="entriesSelect" class="form-select form-select-sm">
+            <option value="5" <?= $limit == 5 ? 'selected' : '' ?>>5</option>
+            <option value="10" <?= $limit == 10 ? 'selected' : '' ?>>10</option>
+            <option value="25" <?= $limit == 25 ? 'selected' : '' ?>>25</option>
+            <option value="50" <?= $limit == 50 ? 'selected' : '' ?>>50</option>
+            <option value="100" <?= $limit == 100 ? 'selected' : '' ?>>100</option>
+        </select>
+    </div>
+    <!-- Search Input -->
+    <div class="col-md-4 col-12 ms-md-auto">
+        <label for="searchInput" class="form-label">Search:</label>
+        <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search housenumber or fullname">
+    </div>
+</div>
 
                     <!-- Table with stripped rows -->
                     <div class="table-responsive">
