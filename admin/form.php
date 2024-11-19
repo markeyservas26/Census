@@ -1713,7 +1713,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Define barangay options for each municipality
     const barangayOptions = {
-        Mantayan: [
+        Bantayan: [
             'Atop-Atop', 'Bigad', 'Bantigue', 'Baod', 'Binaobao', 'Botigues', 'Doong', 'Guiwanon', 'Hilotongan',
             'Kabac', 'Kabangbang', 'Kampingganon', 'Kangkaibe', 'Lipayran', 'Luyongbaybay', 'Mojon',
             'Oboob', 'Patao', 'Putian', 'Sillion', 'Suba', 'Sulangan', 'Sungko', 'Tamiao', 'Ticad'
@@ -1729,7 +1729,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
    // Function to update barangay options
-   function updateBarangayOptions(municipality) {
+    function updateBarangayOptions(municipality) {
         // Clear existing options
         barangaySelect.innerHTML = '';
 
@@ -1737,7 +1737,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (barangayOptions[municipality]) {
             barangayOptions[municipality].forEach(function(barangay) {
                 const option = document.createElement('option');
-                // Keep the value in uppeSrcase, but display text with proper capitalization
+                // Keep the value in uppercase, but display text with proper capitalization
                 option.value = barangay;
                 option.textContent = barangay.charAt(0).toUpperCase() + barangay.slice(1).toLowerCase();
                 barangaySelect.appendChild(option);
