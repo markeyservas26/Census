@@ -173,27 +173,37 @@ function loadNotifications() {
 }
 
 
+// Function to handle notification click and navigate to the correct municipality page
 function handleNotificationClick(municipality, houseNumber, createdAt) {
-    // Mark notification as read
-    fetch('mark_notification_read.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            house_number: houseNumber,
-            created_at: createdAt
+    const validMunicipalities = ['bantayan', 'madridejos', 'santafe'];
+    
+    // Check if the municipality is valid
+    if (validMunicipalities.includes(municipality.toLowerCase())) {
+        // Mark notification as read
+        fetch('mark_notification_read.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                house_number: houseNumber,
+                created_at: createdAt
+            })
         })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Redirect to the municipality page with highlight parameters
-            window.location.href = `${municipality}.php?highlight=${houseNumber}`;
-        }
-    })
-    .catch(error => console.error('Error marking notification as read:', error));
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Redirect to the municipality page with highlight parameters
+                const url = `${municipality.toLowerCase()}.php?highlight=${houseNumber}`;
+                window.location.href = url;
+            }
+        })
+        .catch(error => console.error('Error marking notification as read:', error));
+    } else {
+        alert('Invalid municipality');
+    }
 }
+
 
 // Function to navigate to the specific municipality page
 function navigateToMunicipality(municipality) {
