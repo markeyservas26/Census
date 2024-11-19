@@ -195,9 +195,16 @@ function handleNotificationClick(municipality, houseNumber, createdAt) {
     .catch(error => console.error('Error marking notification as read:', error));
 }
 
-// Function to navigate to municipality page
+// Function to navigate to the specific municipality page
 function navigateToMunicipality(municipality) {
-    window.location.href = `${municipality}.php`;
+    const validMunicipalities = ['bantayan', 'madridejos', 'santafe'];
+    
+    // Check if the municipality is valid
+    if (validMunicipalities.includes(municipality.toLowerCase())) {
+        window.location.href = `${municipality.toLowerCase()}.php`;
+    } else {
+        alert('Invalid municipality name');
+    }
 }
 
 
