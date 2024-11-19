@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2024 at 02:44 AM
+-- Generation Time: Nov 09, 2024 at 09:15 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -209,20 +209,17 @@ CREATE TABLE `house_leader` (
   `marital_status` varchar(20) DEFAULT NULL,
   `contact_number` varchar(20) DEFAULT NULL,
   `religion` varchar(50) DEFAULT NULL,
-  `coordinates` varchar(255) DEFAULT NULL,
-  `staff_id` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `notification_read` tinyint(1) NOT NULL DEFAULT 0
+  `coordinates` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `house_leader`
 --
 
-INSERT INTO `house_leader` (`id`, `house_number`, `lastname`, `firstname`, `middlename`, `exname`, `province`, `municipality`, `barangay`, `purok`, `dob`, `sex`, `age`, `occupation`, `lcro`, `marital_status`, `contact_number`, `religion`, `coordinates`, `staff_id`, `created_at`, `notification_read`) VALUES
-(238, '990429', 'Dela Cruz', 'John Anthon', 'Gidayawan', NULL, 'Cebu', 'madridejos', 'mancilang', 'Tulingan', '1995-06-07', 'Male', 29, 'Software Developer', 'Yes', 'married', '09774167345', 'Catholic', '11.2949711, 123.7359283', 0, '2024-11-18 22:31:21', 0),
-(239, '196578', 'Jubay', 'John Rey', '', NULL, 'Cebu', 'madridejos', 'mancilang', 'Tekos', '2003-06-10', 'Male', 21, 'Front end Developer', 'Yes', 'married', '09382296605', 'Catholic', '11.2950348, 123.7381506', 0, '2024-11-18 22:31:21', 0),
-(240, '760407', 'awdwad', 'awdawdad', '', NULL, 'awdawd', 'madridejos', 'mancilang', '', '2024-11-14', 'Male', 1, '', NULL, 'married', '06785846748', NULL, '11.2950483, 123.7381353', 0, '2024-11-18 22:31:21', 0);
+INSERT INTO `house_leader` (`id`, `house_number`, `lastname`, `firstname`, `middlename`, `exname`, `province`, `municipality`, `barangay`, `purok`, `dob`, `sex`, `age`, `occupation`, `lcro`, `marital_status`, `contact_number`, `religion`, `coordinates`) VALUES
+(238, '990429', 'Dela Cruz', 'John Anthon', 'Gidayawan', NULL, 'Cebu', 'madridejos', 'mancilang', 'Tulingan', '1995-06-07', 'Male', 29, 'Software Developer', 'Yes', 'married', '09774167345', 'Catholic', '11.2949711, 123.7359283'),
+(239, '196578', 'Jubay', 'John Rey', '', NULL, 'Cebu', 'madridejos', 'mancilang', 'Tekos', '2003-06-10', 'Male', 21, 'Front end Developer', 'Yes', 'married', '09382296605', 'Catholic', '11.2950348, 123.7381506'),
+(240, '760407', 'awdwad', 'awdawdad', '', NULL, 'awdawd', 'madridejos', 'mancilang', '', '2024-11-14', 'Male', 1, '', NULL, 'married', '06785846748', NULL, '11.2950483, 123.7381353');
 
 -- --------------------------------------------------------
 
@@ -575,7 +572,7 @@ CREATE TABLE `staff` (
 
 INSERT INTO `staff` (`id`, `name`, `email`, `password`, `municipality`) VALUES
 (27, 'Mark', 'mark@gmail.com', '$2y$10$GSL2ppodVQ8gzSeaLvGM8uKpPsbGzeHymCF1LJqR.tdclPjEluDga', 'Madridejos'),
-(34, 'John Rey', 'johnrey@gmail.com', '$2y$10$mGeFDDLYtGJ8fYryMDyl3OVR2gERqYpC8UcSkv6yBhBSVawMcgIse', 'Bantayan');
+(33, 'John Rey', 'johnrey@gmail.com', '$2y$10$EeknVj1LuAFGLSz9tNHfWu2WmzH7z1GfvbT3GfRirdEO3IgUjDzBq', 'Bantayan');
 
 -- --------------------------------------------------------
 
@@ -1107,7 +1104,7 @@ ALTER TABLE `spouse`
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `tenturestatus`
