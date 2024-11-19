@@ -219,11 +219,11 @@ margin: 0;
     </thead>
     <tbody>
     <?php while ($row = mysqli_fetch_assoc($result)) : ?>
-    <tr>
-        <td><?= htmlspecialchars($row['house_number']) ?></td>
-        <td><?= htmlspecialchars($row['fullname']) ?></td>
-        <td><?= htmlspecialchars($row['address']) ?></td>
-        <td>
+        <tr class="<?= $row['house_number'] == $highlightHouseNumber ? 'highlight-term' : '' ?>">
+    <td><?= htmlspecialchars($row['house_number']) ?></td>
+    <td><?= htmlspecialchars($row['fullname']) ?></td>
+    <td><?= htmlspecialchars($row['address']) ?></td>
+            <td>
             <!-- Dropdown icon for settings -->
             <div class="dropdown">
                 <button class="btn btn-sm btn-secondary dropdown-toggle custom-dropdown-btn" type="button" id="dropdownMenuButton<?= $row['id'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
