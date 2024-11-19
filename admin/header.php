@@ -144,5 +144,68 @@ if (!isset($_SESSION['userid'])) {
       });
     });
   </script>
+  <script>
+function loadNotifications() {
+    fetch('notification.php')
+        .then(response => response.json())
+        .then(data => {
+            const notificationList = document.getElementById('notification-list');
+            const notificationCount = document.getElementById('notification-count');
+            
+            // Update notification count
+            notificationCount.textContent = data.length;
+            
+            // Generate notification items
+            notificationList.innerHTML = data.map(notification => `
+                <li class="notification-item" 
+                    onclick="handleNotificationClick('${notification.staff_municipality}', '${notification.house_number}', '${notification.created_at}')" 
+                    style="cursor: pointer;">
+                    <p class="mb-0"><strong>Staff:</strong> ${notification.staff_name}</p>
+                    <small class="text-muted">
+                        ${notification.staff_municipality} - House #${notification.house_number}
+                    </small>
+                </li>
+            `).join('');
+        })
+        .catch(error => {
+            console.error('Error loading notifications:', error);
+        });
+}
+
+
+function handleNotificationClick(municipality, houseNumber, createdAt) {
+    // Mark notification as read
+    fetch('mark_notification_read.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            house_number: houseNumber,
+            created_at: createdAt
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Redirect to the municipality page with highlight parameters
+            window.location.href = `${municipality}.php?highlight=${houseNumber}`;
+        }
+    })
+    .catch(error => console.error('Error marking notification as read:', error));
+}
+
+// Function to navigate to municipality page
+function navigateToMunicipality(municipality) {
+    window.location.href = `${municipality}.php`;
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadNotifications();
+    setInterval(loadNotifications, 30000);
+});
+
+</script>
 </body>
 </html>
