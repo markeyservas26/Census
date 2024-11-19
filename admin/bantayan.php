@@ -194,6 +194,7 @@ margin: 0;
                     <div class="card-body">
                         <!-- Table Controls -->
                         <div class="row mb-3">
+                            <!-- Show Entries -->
                             <div class="col-md-6 col-12 mb-2 mb-md-0">
                                 <label for="entriesPerPage" class="form-label">Show entries:</label>
                                 <select id="entriesPerPage" class="form-select">
@@ -204,6 +205,7 @@ margin: 0;
                                     <option value="100" <?= $limit == 100 ? 'selected' : '' ?>>100</option>
                                 </select>
                             </div>
+                            <!-- Search Input -->
                             <div class="col-md-6 col-12">
                                 <label for="searchInput" class="form-label">Search:</label>
                                 <input type="text" id="searchInput" class="form-control" placeholder="Search...">
@@ -278,6 +280,7 @@ margin: 0;
     </section>
 
 </main>
+
 
 
 
