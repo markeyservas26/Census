@@ -69,17 +69,26 @@ session_start();
   }
 }
 
+/* Responsive adjustments */
+@media (max-width: 768px) {
+      .custom-logo {
+        display: none; /* Hide logo on small screens */
+      }
+      .toggle-sidebar-btn {
+        margin-left: 0; /* Move menu icon to the left */
+      }
+    }
+
   </style>
 </head>
 
 <body>
 
   <!-- ======= Header ======= -->
-<header id="header" class="header fixed-top d-flex align-items-center custom-header">
-  <div class="d-flex align-items-center justify-content-between w-100">
-    <!-- The logo is wrapped in a div for better control in responsive designs -->
-    <div class="logo-container">
-      <img src="../assets/img/trasparlogo.png" class="custom-logo" alt="Logo">
+  <header id="header" class="header fixed-top d-flex align-items-center custom-header">
+    <div class="d-flex align-items-center justify-content-between">
+      <img src="../assets/img/trasparlogo.png" class="custom-logo">
+      <i class="bi bi-list toggle-sidebar-btn"></i>
     </div>
 
     <!-- Hamburger Icon on the left side for mobile views -->
