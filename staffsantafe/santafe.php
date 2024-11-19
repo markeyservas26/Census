@@ -181,7 +181,7 @@ margin: 0;
 <main id="main" class="main">
 
 <div class="pagetitle">
-    <h1>Santa Fe List</h1>
+    <h1>Bantayan List</h1>
 
   </div><!-- End Page Title -->
 
@@ -202,32 +202,38 @@ margin: 0;
                             </select>
                         </div>
                         <div class="search-container">
-                            <input type="text" id="searchInput" placeholder="Search by name or house number" value="<?= htmlspecialchars($search) ?>" />
-                        </div>
+                <input type="text" id="searchInput" class="form-control" placeholder="Search...">
+              </div>
                     </div>
 
-                    <!-- Table with stripped rows -->
                     <table id="dataTable" class="table datatable">
-                        <thead>
-                            <tr>
-                                <th>House Number</th>
-                                <th>Fullname</th>
-                                <th>Address</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php while ($row = mysqli_fetch_assoc($result)) : ?>
-                            <tr class="<?= $row['house_number'] == $highlightHouseNumber ? 'highlight-term' : '' ?>">
+    <thead>
+        <tr>
+            <th>House Number</th>
+            <th>Fullname</th>
+            <th>Address</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+        <tr class="<?= $row['house_number'] == $highlightHouseNumber ? 'highlight-term' : '' ?>">
     <td><?= htmlspecialchars($row['house_number']) ?></td>
     <td><?= htmlspecialchars($row['fullname']) ?></td>
     <td><?= htmlspecialchars($row['address']) ?></td>
             <td>
-    <a href="view_household.php?id=<?= $row['id'] ?>" class="btn btn-primary btn-sm">View</a>
-    <button type="button" class="btn btn-secondary btn-sm transfer-btn" data-id="<?= $row['id'] ?>" data-house="<?= htmlspecialchars($row['house_number']) ?>" data-fullname="<?= htmlspecialchars($row['fullname']) ?>" data-address="<?= htmlspecialchars($row['address']) ?>" data-municipality="Bantayan" data-toggle="modal" data-target="#transferModal">Transfer</button>
-    <button type="button" class="btn btn-info btn-sm edit-btn" data-id="<?= $row['id'] ?>">Edit</button>
-</td>
-        </tr>
+            <!-- Dropdown icon for settings -->
+            <div class="dropdown">
+                <button class="btn btn-sm btn-secondary dropdown-toggle custom-dropdown-btn" type="button" id="dropdownMenuButton<?= $row['id'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-cogs"></i> <!-- You can use any icon here -->
+                </button>
+                <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton<?= $row['id'] ?>">
+                    <li><a class="dropdown-item" href="view_household.php?id=<?= $row['id'] ?>">View</a></li>
+                    <li><a class="dropdown-item" href="edit_house_leader.php?id=<?= $row['id'] ?>">Edit</a></li>
+                </ul>
+            </div>
+        </td>
+    </tr>
     <?php endwhile; ?>
                         </tbody>
                     </table>
@@ -241,19 +247,19 @@ margin: 0;
                             <nav aria-label="Page navigation">
                                 <ul class="pagination">
                                     <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
-                                    <a href="?page=<?= $page - 1 ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>&highlight=<?= htmlspecialchars($highlightHouseNumber) ?>">Previous</a>
+                                        <a class="page-link" href="?page=<?= max(1, $page - 1) ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
                                     </li>
                                     <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
                                         <li class="page-item <?= $i == $page ? 'active' : '' ?>">
-                                        <a href="?page=<?= $page + 1 ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>&highlight=<?= htmlspecialchars($highlightHouseNumber) ?>">
-    <?= $i ?>
-</a>
+                                            <a class="page-link" href="?page=<?= $i ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>"><?= $i ?></a>
                                         </li>
                                     <?php endfor; ?>
                                     <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
-                                    <a href="?page=<?= $page + 1 ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>&highlight=<?= htmlspecialchars($highlightHouseNumber) ?>">Next</a>
-    <?= $i ?>
-</a>
+                                        <a class="page-link" href="?page=<?= min($total_pages, $page + 1) ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
                                     </li>
                                 </ul>
                             </nav>
@@ -264,6 +270,47 @@ margin: 0;
         </div>
     </div>
 </section>
+<div class="modal fade" id="transferModal" tabindex="-1" aria-labelledby="transferModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="transferModalLabel">Transfer Household Leader</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="transferForm">
+          <div class="form-group">
+            <label for="houseNumber">House Number</label>
+            <input type="text" class="form-control" id="houseNumber" readonly>
+          </div>
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" class="form-control" id="fullName" readonly>
+          </div>
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" id="address" readonly>
+          </div>
+          <div class="form-group">
+            <label for="municipality">New Municipality</label>
+            <select class="form-control" id="municipality">
+              <option value="Madridejos">Madridejos</option>
+              <option value="Bantayan">Bantayan</option>
+              <option value="Santa Fe">Santa Fe</option>
+            </select>
+          </div>
+          <input type="hidden" id="leaderId">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="saveTransfer">Save Transfer</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 document.getElementById('entriesPerPage').addEventListener('change', function() {
