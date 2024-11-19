@@ -2,6 +2,7 @@
 include 'header.php'; 
 include '../database/db_connect.php';
 
+$highlightHouseNumber = isset($_GET['highlight']) ? $_GET['highlight'] : null;
 // Pagination parameters
 $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 10;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
