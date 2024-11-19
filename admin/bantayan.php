@@ -192,9 +192,10 @@ margin: 0;
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="table-controls d-flex flex-wrap justify-content-between mb-3">
-                            <div class="show-entries">
-                                <label for="entriesPerPage">Show entries:</label>
+                        <!-- Table Controls -->
+                        <div class="row mb-3">
+                            <div class="col-md-6 col-12 mb-2 mb-md-0">
+                                <label for="entriesPerPage" class="form-label">Show entries:</label>
                                 <select id="entriesPerPage" class="form-select">
                                     <option value="5" <?= $limit == 5 ? 'selected' : '' ?>>5</option>
                                     <option value="10" <?= $limit == 10 ? 'selected' : '' ?>>10</option>
@@ -203,7 +204,8 @@ margin: 0;
                                     <option value="100" <?= $limit == 100 ? 'selected' : '' ?>>100</option>
                                 </select>
                             </div>
-                            <div class="search-container">
+                            <div class="col-md-6 col-12">
+                                <label for="searchInput" class="form-label">Search:</label>
                                 <input type="text" id="searchInput" class="form-control" placeholder="Search...">
                             </div>
                         </div>
@@ -243,11 +245,11 @@ margin: 0;
                         </div>
 
                         <!-- Footer Info and Pagination -->
-                        <div class="footer-pagination d-flex flex-wrap justify-content-between align-items-center">
-                            <div class="footer-info">
+                        <div class="row align-items-center">
+                            <div class="col-md-6 col-12 text-center text-md-start mb-2 mb-md-0">
                                 Showing <?= $start_entry ?> to <?= $end_entry ?> of <?= $total_rows ?> entries
                             </div>
-                            <div class="pagination-wrapper">
+                            <div class="col-md-6 col-12">
                                 <nav aria-label="Page navigation">
                                     <ul class="pagination justify-content-center justify-content-md-end">
                                         <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
@@ -276,6 +278,7 @@ margin: 0;
     </section>
 
 </main>
+
 
 
 <script>
