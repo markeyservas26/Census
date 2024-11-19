@@ -270,7 +270,7 @@ $result = $stmt->get_result();
     </div>
 </div>
 
-< <section class="sections">
+<section class="sections">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
