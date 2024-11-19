@@ -288,7 +288,6 @@ margin: 0;
     </section>
 
 </main>
-
 <script>
 document.getElementById('entriesPerPage').addEventListener('change', function() {
     window.location.href = '?page=1&limit=' + this.value + '&search=<?= urlencode($search) ?>';
