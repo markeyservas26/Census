@@ -205,11 +205,12 @@ margin: 0;
 
 <main id="main" class="main">
 
-    <div class="pagetitle">
-        <h1>Bantayan List</h1>
-    </div><!-- End Page Title -->
+<div class="pagetitle">
+    <h1>Bantayan List</h1>
 
-    <section class="sections">
+  </div><!-- End Page Title -->
+
+  <section class="sections">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -306,9 +307,6 @@ margin: 0;
     </section>
 
 </main>
-
-
-
 
 <script>
 document.getElementById('entriesPerPage').addEventListener('change', function() {
