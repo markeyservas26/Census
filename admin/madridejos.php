@@ -37,9 +37,8 @@ $end_entry = min($start + $limit, $total_rows);
 ?>
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>  
-
-<!-- Bootstrap CSS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+     <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Font Awesome for icons -->
@@ -56,32 +55,50 @@ align-items: center;
 margin-bottom: 15px;
 }
 
- .show-entries {
+.search-container, .show-entries {
 display: flex;
 align-items: center;
 }
 
 .search-container {
-    margin-left: auto;
-    margin-right: 1rem;
-    display: flex;
-    align-items: center;
-  }
+margin-right: 20px;
+}
 
-  #searchInput {
-    width: 200px;
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
-    border: 1px solid #ced4da;
-    font-size: 1rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  }
+.search-container input {
+max-width: 500px; /* Adjust as needed */
+height: 40px;
+border-radius: 5px;
+border: 1px solid #ced4da;
+padding: 0 10px;
+}
 
-  #searchInput:focus {
-    border-color: #80bdff;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
-  }
+.show-entries {
+display: flex;
+align-items: center;
+gap: 10px; /* Space between the label and the select element */
+}
+
+.show-entries label {
+margin: 0;
+font-weight: 500; /* Slightly bolder text */
+color: #495057; /* Subtle dark color */
+font-size: 1rem; /* Adjust size as needed */
+}
+
+.show-entries select {
+height: 40px; /* Match the height of the input field for consistency */
+border-radius: 5px;
+border: 1px solid #ced4da;
+font-size: 1rem;
+padding: 0 10px;
+background-color: #fff; /* Background color of the dropdown */
+color: #495057; /* Text color inside the dropdown */
+}
+
+.show-entries select:focus {
+border-color: #007bff; /* Highlight border color on focus */
+outline: none; /* Remove default outline */
+}
 
 .footer-pagination {
 display: flex;
@@ -150,6 +167,7 @@ margin: 0;
     .custom-dropdown-btn i {
         margin-right: 5px;
     }
+
     /* Add a horizontal line between Delete and View options */
 .custom-dropdown-menu li {
   border-bottom: 1px solid #ddd;
@@ -159,11 +177,13 @@ margin: 0;
 .custom-dropdown-menu li:last-child {
   border-bottom: none;
 }
+
     .highlight-term {
     background-color: yellow;
     font-weight: bold;
 }
 </style>
+
 <style>
 /* Adjust layout for the "Show entries" and "Search" controls on smaller screens */
 @media screen and (max-width: 576px) {
@@ -184,6 +204,7 @@ margin: 0;
     }
 }
 </style>
+
 <main id="main" class="main">
 
 <div class="pagetitle">
@@ -288,6 +309,7 @@ margin: 0;
     </section>
 
 </main>
+
 <script>
 document.getElementById('entriesPerPage').addEventListener('change', function() {
     window.location.href = '?page=1&limit=' + this.value + '&search=<?= urlencode($search) ?>';
@@ -405,8 +427,6 @@ searchInput.addEventListener("keyup", function(e) {
 
     </script>
 
-
-
 <?php
 // Close the database connection
 mysqli_close($conn);
@@ -417,7 +437,7 @@ mysqli_close($conn);
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-  <!-- Bootstrap JS (optional if you need dropdown functionality to work) -->
+   <!-- Bootstrap JS (optional if you need dropdown functionality to work) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   
 
