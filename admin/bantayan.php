@@ -43,7 +43,7 @@ $end_entry = min($start + $limit, $total_rows);
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
      <style>
         .highlight-term {
-    background-color: yellow;
+    background-color: #A3BCE8;
     font-weight: bold;
 }
 .table-controls {
@@ -177,7 +177,7 @@ margin: 0;
 }
 
     .highlight-term {
-    background-color: yellow;
+    background-color: #A3BCE8;
     font-weight: bold;
 }
 </style>
