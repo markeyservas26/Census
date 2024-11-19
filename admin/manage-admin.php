@@ -249,31 +249,23 @@ $result = $stmt->get_result();
         <div class="card-body">
           <div class="d-flex d-md-flex mb-3 flex-column flex-md-row">
             <!-- Entries dropdown -->
-            <section class="section mt-3">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <!-- Container for dropdown and search input -->
-                    <div class="form-groups d-flex flex-column flex-md-row align-items-center mb-3">
-                        <!-- Dropdown for show entries -->
-                        <div class="dropdown-container mb-2 mb-md-0">
-                            <label for="entriesSelect">Show</label>
-                            <select id="entriesSelect" class="form-select form-select-sm">
-                                <option value="5" selected>5</option>
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                            <span><b>Entries</b></span>
-                        </div>
+            <div class="dropdown-container mb-2 mb-md-0">
+              <label for="entriesSelect">Show</label>
+              <select id="entriesSelect" class="form-select form-select-sm">
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+              <span><b>Entries</b></span>
+            </div>
 
-                        <!-- Search bar -->
-                        <div class="search-container mt-2 mt-md-0 ms-md-3">
-                            <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search...">
-                        </div>
-                    </div>
+            <!-- Search input below entries (on smaller screens) -->
+            <div class="search-container mt-2 mt-md-0 ms-md-3">
+              <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search...">
+            </div>
+          </div>
 
           <!-- Table -->
           <div class="table-responsive">
