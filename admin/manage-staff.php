@@ -246,7 +246,7 @@ $result = $stmt->get_result();
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="validatePassword()">Print</button>
+                <button type="button" class="btn btn-primary" onclick="validateStaffPassword()">Print</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -470,7 +470,7 @@ $result = $stmt->get_result();
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-3wYIVjO+VV7lRuLefk7hVBrCoPeOb8Dh4v2eSQq8tcoQ0X6D/YStJcI/ZQf3t1iF" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-lJ1eF3ABhksSrfUwSHFrA7pNDo4+v3/t7hC8pXKJr0k0oUp2H4UQj3z2f0xKi2uB" crossorigin="anonymous"></script>
 <script>
-function validatePassword() {
+function validateStaffPassword() {
     const password = document.getElementById('modal-password').value;
 
     // Example staff password for validation (can be adjusted based on your requirements)
