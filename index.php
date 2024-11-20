@@ -26,6 +26,8 @@
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
   <!-- AOS CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
 
   <!-- Main CSS File -->
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;500;700&display=swap" rel="stylesheet">
@@ -241,7 +243,7 @@
     padding: 0;
     margin: 0;
     display: flex;
-    gap: 20px;
+    gap: 10px;
 }
 
 .navmenu ul li {
@@ -356,11 +358,15 @@
 
 .hero-content h3, 
 .hero-content p {
-    font-family: 'Lora', serif; /* Elegant serif font */
-    font-weight: normal;  /* Regular weight for formal appearance */
-    font-size: 2.0rem; /* Adjust for readability */
-    line-height: 1.6;  /* Improved readability with more space between lines */
+    font-family: 'Merriweather', serif; /* Elegant and italic */
+    font-style: italic; /* Adds a stylish slant */
+    font-weight: 100; /* Regular weight for balance */
+    font-size: 1.5rem;
+    line-height: 1.6;
 }
+
+
+
 
 /* Responsive adjustments */
 @media (max-width: 991px) { /* lg breakpoint */
@@ -377,6 +383,7 @@
     #logoImage {
         width: 100%;
         max-width: 400px;       /* Limit max width */
+        margin-right: 70px;
     }
 
     .hero-content {
@@ -550,7 +557,7 @@
 
 /* Background image with blur effect */
 #scheduleSection {
-    background-image: url('../assets/img/scheduleb.jpg');
+    background-image: url('assets/img/scheduleb.jpg');
     background-size: cover;
     background-position: center;
     padding: 50px 0;
@@ -632,6 +639,7 @@
         font-size: 18px; /* Smaller text for small screens like mobile devices */
     }
 }
+
 </style>
 </head>
 
@@ -639,18 +647,19 @@
   
 
 <header id="header" class="header fixed-top d-flex align-items-center" style="height: 100px;">
-    <div class="d-flex align-items-center justify-content-between w-100">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
         <!-- Logo and title -->
-        <img src="assets/img/trasparlogo.png" alt="" style="width: 150px; height: 90px; margin-left: 20px;" class="d-none d-md-block">
-        
-        <h1 class="header-title">
-            <span class="d-none d-md-inline">BANTAYAN ISLAND CENSUS</span>
-            <span class="d-inline d-md-none">BIC</span>
-        </h1>
+        <div class="d-flex align-items-center" style="margin-left: -50px;">
+            <img src="assets/img/trasparlogo.png" alt="" class="logo d-none d-md-block">
+            <h1 class="header-title ms-3">
+                <span class="d-none d-md-inline">BANTAYAN ISLAND CENSUS</span>
+                <span class="d-inline d-md-none" style="margin-left: 20px;">BIC</span>
+            </h1>
+        </div>
 
         <!-- Desktop Navigation Menu -->
-        <nav id="navmenu" class="navmenu d-none d-md-flex">
-            <ul class="d-flex">
+        <nav id="navmenu" class="navmenu d-none d-md-flex" style="margin-left: 170px;">
+            <ul class="d-flex gap-1">
                 <li><a href="#" id="homeLink">Home</a></li>
                 <li><a href="#" id="bantayanLink">Bantayan</a></li>
                 <li><a href="#" id="madridejosLink">Madridejos</a></li>
@@ -668,7 +677,7 @@
         </button>
 
         <!-- Login Dropdown -->
-        <div class="dropdown flex-md-shrink-0">
+        <div class="dropdown flex-md-shrink-0 ms-3" style="margin-right: -20px;">
             <button class="btn btn-primary dropdown-toggle" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                 Login
             </button>
@@ -680,7 +689,7 @@
         </div>
     </div>
 
-    <!-- Moved mobile menu outside the d-flex container -->
+    <!-- Mobile Navigation Menu -->
     <div class="collapse navbar-collapse d-md-none" id="navbarContent">
         <nav>
             <ul class="navbar-nav">
@@ -697,6 +706,7 @@
 
 
 
+
 <main class="main">
     <!-- Hero Section -->
     <section id="hero" class="hero section">
@@ -705,11 +715,11 @@
                 <div class="row align-items-center">
                     <!-- Left Column: Welcome Text and Paragraph -->
                     <div class="col-lg-6" data-aos="fade-up" data-aos-duration="1000">
-                        <div class="hero-content">
+                        <div class="hero-content" style="margin-top: 30px;">
                             <h3>Welcome to the Bantayan Island Census!</h3>
                             <br>
                             <!-- Add text-justify class for text justification -->
-                            <p class="text-justify" id="census-paragraph">Help us shape the future of our community by participating in the census. Your input is crucial for better planning and services. Thank you for being involved!</p>
+                            <p class="text-justify" id="census-paragraph" style="margin-top: 30px;">Help us shape the future of our community by participating in the census. Your input is crucial for better planning and services. Thank you for being involved!</p>
                         </div>
                     </div>
                     <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
@@ -728,11 +738,12 @@
 
 
 
+
    <!-- Bantayan Section -->
 <section id="bantayan" class="bantayan-content section">
     <div class="container">
        
-    <div class="image-container">
+    <div class="image-container" >
         <img src="assets/img/bimage.jpg" alt="Bantayan Island Image" class="imgs-fluid">
 </div>
 
@@ -778,7 +789,9 @@
             <!-- Image Section -->
             <div class="col-lg-12 text-center">
                 <div class="image-container">
-                    <img src="assets/img/madridejos-hall.jpeg" alt="Madridejos Image" class="img-fluid">
+                    <video width="100%" controls autoplay muted loop>
+                        <source src="assets/img/Bahandi-Short.mp4" type="video/mp4">
+</video>
                 </div>
                 <hr style="margin: 20px; border: none; border-top: 2px solid #000;">
             <!-- About Section -->
