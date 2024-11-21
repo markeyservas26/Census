@@ -3,9 +3,10 @@ include 'header.php';
 include '../database/db_connect.php';
 
 $highlightHouseNumber = isset($_GET['highlight']) ? $_GET['highlight'] : null;
+
 // Pagination parameters
-$limit = isset($_GET['limit']) ? intval($_GET['limit']) : 10;
-$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+$limit = isset($_GET['limit']) ? (int) $_GET['limit'] : 10;
 $start = ($page - 1) * $limit;
 
 // Fetch total number of rows
@@ -24,13 +25,14 @@ $query = "SELECT id, house_number,
           FROM house_leader
           WHERE municipality = 'Bantayan'";
 
+// Apply the LIMIT
 $query .= " LIMIT $start, $limit";
 
 $result = mysqli_query($conn, $query);
 
 // Calculate showing entries
-$start_entry = $total_rows > 0 ? $start + 1 : 0;
-$end_entry = min($start + $limit, $total_rows);
+$start_entry = ($total_rows > 0) ? $start + 1 : 0; // Make sure start entry is correct
+$end_entry = min($start + $limit, $total_rows);    // Make sure end entry does not exceed total rows
 
 ?>
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -273,33 +275,38 @@ margin: 0;
                             </table>
                         </div>
 
-                        <!-- Footer Info and Pagination -->
-                        <div class="row align-items-center">
-                            <div class="col-md-6 col-12 text-center text-md-start mb-2 mb-md-0">
-                                Showing <?= $start_entry ?> to <?= $end_entry ?> of <?= $total_rows ?> entries
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <nav aria-label="Page navigation">
-                                    <ul class="pagination justify-content-center justify-content-md-end">
-                                        <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
-                                            <a class="page-link" href="?page=<?= max(1, $page - 1) ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
-                                            <li class="page-item <?= $i == $page ? 'active' : '' ?>">
-                                                <a class="page-link" href="?page=<?= $i ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>"><?= $i ?></a>
-                                            </li>
-                                        <?php endfor; ?>
-                                        <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
-                                            <a class="page-link" href="?page=<?= min($total_pages, $page + 1) ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
+                       <!-- Footer Info and Pagination -->
+<div class="row align-items-center">
+    <div class="col-md-6 col-12 text-center text-md-start mb-2 mb-md-0">
+        Showing <?= $start_entry ?> to <?= $end_entry ?> of <?= $total_rows ?> entries
+    </div>
+    <div class="col-md-6 col-12">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center justify-content-md-end">
+                <!-- Previous Page Link -->
+                <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= max(1, $page - 1) ?>&limit=<?= $limit ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <!-- Page Number Links -->
+                <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                    <li class="page-item <?= $i == $page ? 'active' : '' ?>">
+                        <a class="page-link" href="?page=<?= $i ?>&limit=<?= $limit ?>"><?= $i ?></a>
+                    </li>
+                <?php endfor; ?>
+
+                <!-- Next Page Link -->
+                <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= min($total_pages, $page + 1) ?>&limit=<?= $limit ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
                     </div>
                 </div>
             </div>
