@@ -3,15 +3,14 @@ include 'header.php';
 include '../database/db_connect.php';
 
 $highlightHouseNumber = isset($_GET['highlight']) ? $_GET['highlight'] : null;
-// Pagination parameters
-$limit = isset($_GET['limit']) ? intval($_GET['limit']) : 10;
-$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-$start = ($page - 1) * $limit;
 
+// Pagination parameters
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+$limit = isset($_GET['limit']) ? (int) $_GET['limit'] : 10;
+$start = ($page - 1) * $limit;
 
 // Fetch total number of rows
 $total_query = "SELECT COUNT(*) as total FROM house_leader WHERE municipality = 'Madridejos'";
-
 $total_result = mysqli_query($conn, $total_query);
 $total_row = mysqli_fetch_assoc($total_result);
 $total_rows = $total_row['total'];
@@ -26,13 +25,14 @@ $query = "SELECT id, house_number,
           FROM house_leader
           WHERE municipality = 'Madridejos'";
 
+// Apply the LIMIT
 $query .= " LIMIT $start, $limit";
 
 $result = mysqli_query($conn, $query);
 
 // Calculate showing entries
-$start_entry = $total_rows > 0 ? $start + 1 : 0;
-$end_entry = min($start + $limit, $total_rows);
+$start_entry = ($total_rows > 0) ? $start + 1 : 0; // Make sure start entry is correct
+$end_entry = min($start + $limit, $total_rows);    // Make sure end entry does not exceed total rows
 
 ?>
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -45,7 +45,7 @@ $end_entry = min($start + $limit, $total_rows);
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
      <style>
         .highlight-term {
-    background-color: yellow;
+    background-color: #A3BCE8;
     font-weight: bold;
 }
 .table-controls {
@@ -179,7 +179,7 @@ margin: 0;
 }
 
     .highlight-term {
-    background-color: yellow;
+    background-color: #A3BCE8;
     font-weight: bold;
 }
 </style>
@@ -223,15 +223,15 @@ margin: 0;
                             <div class="row mb-3 table-controls align-items-center">
     <!-- Show Entries -->
     <div class="col-md-2 col-12">
-        <label for="entriesPerPage" class="form-label">Show entries:</label>
-        <select id="entriesPerPage" class="form-select form-select-sm">
-            <option value="5" <?= $limit == 5 ? 'selected' : '' ?>>5</option>
-            <option value="10" <?= $limit == 10 ? 'selected' : '' ?>>10</option>
-            <option value="25" <?= $limit == 25 ? 'selected' : '' ?>>25</option>
-            <option value="50" <?= $limit == 50 ? 'selected' : '' ?>>50</option>
-            <option value="100" <?= $limit == 100 ? 'selected' : '' ?>>100</option>
-        </select>
-    </div>
+    <label for="entriesPerPage" class="form-label">Show entries:</label>
+    <select id="entriesPerPage" class="form-select form-select-sm" onchange="updateEntriesPerPage()">
+        <option value="5" <?= $limit == 5 ? 'selected' : '' ?>>5</option>
+        <option value="10" <?= $limit == 10 ? 'selected' : '' ?>>10</option>
+        <option value="25" <?= $limit == 25 ? 'selected' : '' ?>>25</option>
+        <option value="50" <?= $limit == 50 ? 'selected' : '' ?>>50</option>
+        <option value="100" <?= $limit == 100 ? 'selected' : '' ?>>100</option>
+    </select>
+</div>
     <!-- Search Input -->
     <div class="col-md-4 col-12 ms-md-auto">
         <label for="searchInput" class="form-label">Search:</label>
@@ -275,33 +275,38 @@ margin: 0;
                             </table>
                         </div>
 
-                        <!-- Footer Info and Pagination -->
-                        <div class="row align-items-center">
-                            <div class="col-md-6 col-12 text-center text-md-start mb-2 mb-md-0">
-                                Showing <?= $start_entry ?> to <?= $end_entry ?> of <?= $total_rows ?> entries
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <nav aria-label="Page navigation">
-                                    <ul class="pagination justify-content-center justify-content-md-end">
-                                        <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
-                                            <a class="page-link" href="?page=<?= max(1, $page - 1) ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
-                                            <li class="page-item <?= $i == $page ? 'active' : '' ?>">
-                                                <a class="page-link" href="?page=<?= $i ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>"><?= $i ?></a>
-                                            </li>
-                                        <?php endfor; ?>
-                                        <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
-                                            <a class="page-link" href="?page=<?= min($total_pages, $page + 1) ?>&limit=<?= $limit ?>&search=<?= urlencode($search) ?>" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
+                       <!-- Footer Info and Pagination -->
+<div class="row align-items-center">
+    <div class="col-md-6 col-12 text-center text-md-start mb-2 mb-md-0">
+        Showing <?= $start_entry ?> to <?= $end_entry ?> of <?= $total_rows ?> entries
+    </div>
+    <div class="col-md-6 col-12">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center justify-content-md-end">
+                <!-- Previous Page Link -->
+                <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= max(1, $page - 1) ?>&limit=<?= $limit ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <!-- Page Number Links -->
+                <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                    <li class="page-item <?= $i == $page ? 'active' : '' ?>">
+                        <a class="page-link" href="?page=<?= $i ?>&limit=<?= $limit ?>"><?= $i ?></a>
+                    </li>
+                <?php endfor; ?>
+
+                <!-- Next Page Link -->
+                <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= min($total_pages, $page + 1) ?>&limit=<?= $limit ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
                     </div>
                 </div>
             </div>
@@ -309,11 +314,17 @@ margin: 0;
     </section>
 
 </main>
-
 <script>
-document.getElementById('entriesPerPage').addEventListener('change', function() {
-    window.location.href = '?page=1&limit=' + this.value + '&search=<?= urlencode($search) ?>';
-});
+    function updateEntriesPerPage() {
+        const limit = document.getElementById('entriesPerPage').value; // Get the selected value
+        const urlParams = new URLSearchParams(window.location.search); // Get the current URL parameters
+        urlParams.set('limit', limit); // Update the 'limit' parameter
+        
+        // Update the URL and reload the page
+        window.location.search = urlParams.toString();
+    }
+</script>
+<script>
 
 document.getElementById('searchInput').addEventListener('keyup', function(e) {
     if (e.key === 'Enter') {
