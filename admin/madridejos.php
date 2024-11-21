@@ -223,15 +223,15 @@ margin: 0;
                             <div class="row mb-3 table-controls align-items-center">
     <!-- Show Entries -->
     <div class="col-md-2 col-12">
-        <label for="entriesPerPage" class="form-label">Show entries:</label>
-        <select id="entriesPerPage" class="form-select form-select-sm">
-            <option value="5" <?= $limit == 5 ? 'selected' : '' ?>>5</option>
-            <option value="10" <?= $limit == 10 ? 'selected' : '' ?>>10</option>
-            <option value="25" <?= $limit == 25 ? 'selected' : '' ?>>25</option>
-            <option value="50" <?= $limit == 50 ? 'selected' : '' ?>>50</option>
-            <option value="100" <?= $limit == 100 ? 'selected' : '' ?>>100</option>
-        </select>
-    </div>
+    <label for="entriesPerPage" class="form-label">Show entries:</label>
+    <select id="entriesPerPage" class="form-select form-select-sm" onchange="updateEntriesPerPage()">
+        <option value="5" <?= $limit == 5 ? 'selected' : '' ?>>5</option>
+        <option value="10" <?= $limit == 10 ? 'selected' : '' ?>>10</option>
+        <option value="25" <?= $limit == 25 ? 'selected' : '' ?>>25</option>
+        <option value="50" <?= $limit == 50 ? 'selected' : '' ?>>50</option>
+        <option value="100" <?= $limit == 100 ? 'selected' : '' ?>>100</option>
+    </select>
+</div>
     <!-- Search Input -->
     <div class="col-md-4 col-12 ms-md-auto">
         <label for="searchInput" class="form-label">Search:</label>
@@ -314,11 +314,17 @@ margin: 0;
     </section>
 
 </main>
-
 <script>
-document.getElementById('entriesPerPage').addEventListener('change', function() {
-    window.location.href = '?page=1&limit=' + this.value + '&search=<?= urlencode($search) ?>';
-});
+    function updateEntriesPerPage() {
+        const limit = document.getElementById('entriesPerPage').value; // Get the selected value
+        const urlParams = new URLSearchParams(window.location.search); // Get the current URL parameters
+        urlParams.set('limit', limit); // Update the 'limit' parameter
+        
+        // Update the URL and reload the page
+        window.location.search = urlParams.toString();
+    }
+</script>
+<script>
 
 document.getElementById('searchInput').addEventListener('keyup', function(e) {
     if (e.key === 'Enter') {
