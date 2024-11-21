@@ -27,15 +27,17 @@ function update_house_leader($conn, $data) {
 function update_spouse($conn, $data) {
     $sql = "UPDATE spouse SET 
             spouse_lastname = ?, spouse_firstname = ?, spouse_middlename = ?, extension = ?,
-            spouse_age = ?, spouse_occupation = ?, spouse_dob = ?, spouse_lcro = ?, address = ?, status = ?
+            spouse_age = ?, spouse_occupation = ?, spouse_dob = ?, spouse_lcro = ?, province_spouse = ?, municipality_spouse = ?, barangay_spouse = ?,
+            purok_spouse = ?, status = ?, spouse_sex = ?
             WHERE house_leader_id = ?";
     
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssssssssi",
+    $stmt->bind_param("ssssssssssssssi",
         $data['lastname_spouse'], $data['firstname_spouse'], $data['middlename_spouse'],
         $data['extension_spouse'], $data['age_spouse'], $data['occupation_spouse'],
-        $data['dob_spouse'], $data['lcro_spouse'], $data['address_spouse'],
-        $data['status_spouse'], $data['house_leader_id']
+        $data['dob_spouse'], $data['lcro_spouse'], $data['province_spouse'], $data['municipality_spouse'], $data['Barangay_spouse'],
+        $data['purok_spouse'],
+        $data['status_spouse'], $data['sex_spouse'], $data['house_leader_id']
     );
     
     return $stmt->execute();

@@ -119,12 +119,22 @@ foreach ($houseLabels as $key => $municipality) {
     $totalCombinedCounts[$municipality] = $houseValues[$key] + $occupantValues[$key];
 }
 
-// Prepare SQL to get counts of males and females
-$sqlSexCounts = "SELECT sex, COUNT(*) as count FROM house_leader 
-                 WHERE municipality IN ('Madridejos', 'Bantayan', 'Santafe')
-                 GROUP BY sex";
+$sqlSexCounts = "
+    SELECT sex, COUNT(*) as count
+    FROM (
+        SELECT sex FROM house_leader WHERE municipality IN ('Madridejos', 'Bantayan', 'Santafe')
+        UNION ALL
+        SELECT spouse_sex AS sex FROM spouse WHERE municipality_spouse IN ('Madridejos', 'Bantayan', 'Santafe')
+    ) AS combined_sex_counts
+    GROUP BY sex
+";
 
 $resultSexCounts = $conn->query($sqlSexCounts);
+
+// Debugging the query result
+if ($resultSexCounts === false) {
+    echo "Error executing query: " . $conn->error;
+}
 
 $sexData = [
     'Male' => 0,
@@ -139,7 +149,14 @@ if ($resultSexCounts->num_rows > 0) {
             $sexData['Female'] = $row['count'];
         }
     }
+} else {
+    echo "No results found for the gender counts.";
 }
+
+// Output to verify
+echo "Male: " . $sexData['Male'] . "<br>";
+echo "Female: " . $sexData['Female'] . "<br>";
+
 ?>
 <main id="main" class="main">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">

@@ -86,18 +86,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $occupation_spouse = sanitize_input('occupation_spouse');
      $dob_spouse = sanitize_input('dob_spouse');
      $lcro_spouse = sanitize_input('lcro_spouse');
-     $address_spouse = sanitize_input('address_spouse');
+     $province_spouse = sanitize_input('province_spouse');
+     $municipality_spouse = sanitize_input('municipality_spouse');
+     $barangay_spouse = sanitize_input('Barangay_spouse');
+     $purok_spouse = sanitize_input('purok_spouse');
      $status_spouse = sanitize_input('status_spouse');
+     $sex_spouse = sanitize_input('sex_spouse');
  
      // Insert Spouse
      $sql_spouse = "INSERT INTO spouse (house_leader_id, spouse_lastname, spouse_firstname, spouse_middlename, extension, 
-                    spouse_age, spouse_occupation, spouse_dob, spouse_lcro, address, status) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    spouse_age, spouse_occupation, spouse_dob, spouse_lcro, province_spouse, municipality_spouse, barangay_spouse, purok_spouse, status, spouse_sex) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
      
      $stmt = $conn->prepare($sql_spouse);
-     $stmt->bind_param("issssssssss", $house_leader_id, $lastname_spouse, $firstname_spouse, $middlename_spouse, 
+     $stmt->bind_param("issssssssssssss", $house_leader_id, $lastname_spouse, $firstname_spouse, $middlename_spouse, 
                        $extension_spouse, $age_spouse, $occupation_spouse, $dob_spouse, $lcro_spouse, 
-                       $address_spouse, $status_spouse);
+                       $province_spouse, $municipality_spouse, $barangay_spouse, $purok_spouse, $status_spouse, $sex_spouse);
      $stmt->execute();
      $stmt->close();
  
