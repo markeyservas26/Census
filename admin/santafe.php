@@ -307,7 +307,11 @@ margin: 0;
             </div>
         </div>
     </section>
-
+    <div class="center-button" style="text-align: right;">
+  <button type="button" class="btn btn-primary text-white" style="background-color: #3388FF; margin-right: 20px;" onclick="printTable()">
+    <i class="fas fa-print"></i> Reports
+  </button>
+</div>
 </main>
 
 <script>
@@ -446,7 +450,159 @@ mysqli_close($conn);
   <script src="assets/js/main.js"></script>
    <!-- Bootstrap JS (optional if you need dropdown functionality to work) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-  
+<script>
+  function printTable() {
+    var table = document.getElementById('dataTable'); // Get the table to print
+    var width = 800;
+    var height = 600;
+
+    // Calculate the position to center the print window
+    var left = (window.innerWidth / 2) - (width / 2);
+    var top = (window.innerHeight / 2) - (height / 2);
+
+    // Open a new window for printing
+    var printWindow = window.open('', '', `height=${height},width=${width},top=${top},left=${left}`);
+
+    // Check if the window opened successfully
+    if (printWindow) {
+      printWindow.document.open();
+      printWindow.document.write('<html><head><title>Print Report</title>');
+
+      // Add external CSS (e.g., from the page) into the print window
+      printWindow.document.write('<style>');
+      var styles = document.querySelectorAll('style, link[rel="stylesheet"]');
+      styles.forEach(function(style) {
+        printWindow.document.write(style.innerHTML || '<link rel="stylesheet" href="' + style.href + '">');
+      });
+
+      // Add custom print styles
+      printWindow.document.write(`
+        @media print {
+          body {
+            margin: 0;
+            padding: 0;
+            font-size: 8px;
+          }
+          .print-content {
+            max-width: 200%;
+            margin: 0;
+            padding: 8px;
+            background: #fff;
+            page-break-before: auto;
+            page-break-after: auto;
+            page-break-inside: avoid;
+          }
+
+          .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+          }
+          .header img {
+            width: 80px; /* Adjust the logo size */
+          }
+          .header .right-logo {
+            position: absolute;
+            right: 0; /* Position the first logo on the right */
+            margin-bottom: 50px;
+          }
+          .header .left-logo {
+            position: absolute;
+            left: 0; /* Position the second logo on the left */
+            margin-bottom: 50px;
+          }
+           h5 {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            text-align: center;
+            width: 100%;
+            margin-left: 85px;
+            margin-top: 20px;
+          }
+          .header h3 {
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+          }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+          }
+          th, td {
+            border: 1px solid #ddd;
+            padding: 3px;
+            text-align: left;
+          }
+          th {
+            background-color: #f2f2f2;
+          }
+        }
+      `);
+
+      printWindow.document.write('</style></head><body>');
+
+      // Add the custom header to the print window
+      printWindow.document.write('<div class="header">');
+      
+      // First logo on the left side
+      printWindow.document.write('<img src="assets/img/censusformlogo.png" alt="Census Logo" class="left-logo">');
+
+      // Header content in the center
+      printWindow.document.write('<div>');
+      printWindow.document.write('<h5>REPUBLIC OF THE PHILIPPINES</h5>');
+      printWindow.document.write('<h5>PROVINCE OF CEBU</h5>');
+      printWindow.document.write('<h5>MUNICIPALITY OF SANTA FE</h5>');
+      printWindow.document.write('<br><h5>BANTAYAN ISLAND CENSUS REPORTS</h5>');
+      printWindow.document.write('</div>');
+      
+      // Second logo on the right side
+      printWindow.document.write('<img src="../assets/img/santafe.jpg" alt="Logo" class="right-logo">');
+      printWindow.document.write('</div>');
+
+      // Prepare the table content to print (exclude the "Action" column)
+      var printTable = table.cloneNode(true); // Clone the original table
+      var headers = printTable.querySelectorAll('th');
+      var rows = printTable.querySelectorAll('tbody tr');
+
+      // Remove the "Action" column from the cloned table
+      for (var i = 0; i < headers.length; i++) {
+        if (headers[i].innerText === 'Action') {
+          // Remove "Action" column from the header
+          headers[i].remove();
+          // Remove "Action" column from each row
+          rows.forEach(function(row) {
+            row.deleteCell(i);
+          });
+          break;
+        }
+      }
+
+      // Add the content to the print window
+      printWindow.document.write('<div class="print-content">');
+      printWindow.document.write(printTable.outerHTML);
+      printWindow.document.write('</div>');
+
+      printWindow.document.write('</body></html>');
+      printWindow.document.close(); // Complete the document
+
+      // Focus the print window and trigger the print dialog
+      printWindow.focus();
+      printWindow.onload = function() {
+        printWindow.print();
+      };
+
+      // Close the window after printing
+      printWindow.onafterprint = function() {
+        printWindow.close();
+      };
+    } else {
+      console.error('Failed to open print window.');
+    }
+  }
+</script>
 
 </body>
 

@@ -506,11 +506,10 @@ margin-left:13%;
 
     </style>
 
-    <div class="pagetitle" data-aos="fade-up">
-  <br>
-  <h1>Dashboard</h1>
+<div class="pagetitle" data-aos="fade-up">
+  <h1 style="margin-top:-20px;">Dashboard</h1>
 </div><!-- End Page Title -->
-
+<br>
 <br>
 <section class="section dashboard" data-aos="fade-up">
     <div class="container">
