@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION['user_id'])) {
-    header("Location:madridejos.php"); // Redirect to login page if not logged in
+    header("Location:index.php"); // Redirect to login page if not logged in
     exit();
 }
 ?>
@@ -64,15 +64,14 @@ if (isset($_SESSION['user_id'])) {
               </div>
 
               <form class="row g-3 needs-validation" novalidate action="../staffaction/login.php" method="POST">
-
   <div class="col-12">
-                      <label for="yourEmail" class="form-label">Email</label>
-                      <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="email" name="email" class="form-control" id="yourEmail" required>
-                        <div class="invalid-feedback">Please enter your Email.</div>
-                      </div>
-                    </div>
+    <label for="yourEmail" class="form-label">Email</label>
+    <div class="input-group has-validation">
+      <span class="input-group-text" id="inputGroupPrepend">@</span>
+      <input type="email" name="email" class="form-control" id="yourEmail" required>
+      <div class="invalid-feedback">Please enter your email.</div>
+    </div>
+  </div>
 
   <div class="col-12">
     <label for="yourPassword" class="form-label">Password</label>
@@ -86,7 +85,7 @@ if (isset($_SESSION['user_id'])) {
   </div>
 
   <div class="col-12 d-flex align-items-center">
-                      <a href="../Staffforgotpassword/forgot-password.php" style="float:right;"> Forgot password?</a>
+  <a href="../Staffforgotpassword/forgot-password.php" style="float:right;"> Forgot password?</a>
                       <!-- Move the link to the right side of the remember me checkbox -->
                       <a href="../index.php" class="back-to-website d-block" style="margin-left: 50px; color:black;">Back to Website</a>
                     </div>
@@ -105,6 +104,52 @@ if (isset($_SESSION['user_id'])) {
 </div>
 
   </main><!-- End #main -->
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  var formData = new FormData(this);
+  
+  fetch('../staffaction/login.php', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.text())
+  .then(data => {
+    try {
+      var result = JSON.parse(data);
+      Swal.fire({
+        icon: result.icon,
+        title: result.title,
+        text: result.text,
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "OK"
+      }).then((swalResult) => {
+        if (swalResult.isConfirmed && result.redirect) {
+          window.location.href = result.redirect;
+        }
+      });
+    } catch (error) {
+      console.error('Error parsing JSON:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+      });
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong!',
+    });
+  });
+});
+</script>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -187,24 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-<script>
-  // Validation for the login form
-  document.getElementById('loginForm').addEventListener('submit', function(event) {
-      const usernameInput = document.getElementById('yourEmail');
-      const usernameValue = usernameInput.value;
-      const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
 
-      // Check if the username matches the @gmail.com pattern
-      if (!gmailPattern.test(usernameValue)) {
-        event.preventDefault(); // Prevent form submission
-        Swal.fire({
-          icon: 'error',
-          title: 'Validation Error',
-          text: 'Username must have an @gmail.com.'
-        });
-      }
-    });
-</script>
 
 
 </body>
