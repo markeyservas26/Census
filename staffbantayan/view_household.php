@@ -61,9 +61,6 @@ function safe_array_value($array, $key, $default = '') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bantayan Island Census Form</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
        @media (max-width: 768px) {
@@ -89,102 +86,6 @@ function safe_array_value($array, $key, $default = '') {
         .required-asterisk {
         color: red;
         margin-left: 3px;
-    }
-
-    .form-control {
-        background-color: #FEFCFF;
-    }
-    .error-message {
-        color: red;
-        font-size: 0.875em;
-    }
-    .alert-label {
-        display: inline-block;
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-        border-radius: 5px;
-        padding: 5px 10px;
-        margin-bottom: 10px;
-        font-weight: bold;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .text-center {
-        text-align: center;
-    }
-
-    .mb-4 {
-        margin-bottom: 1.8rem;
-        font-family: 'Georgia', serif;
-    }
-
-    .mb-3 {
-        margin-bottom: 1.8rem;
-        font-family: 'Georgia', serif;
-    }
-
-    h1 {
-        font-size: 25px;
-        color: #2c3e50;
-    }
-
-    .header1 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 10px;
-        position: relative;
-    }
-
-    .logo {
-        max-width: 100px; /* Maximum size for larger screens */
-        width: 100%; /* Responsive scaling */
-    height: auto;
-    position: absolute;
-    left: 0; /* Position the second logo on the right */
-    margin-left: 40px;
-    margin-top: 70px;
-    }
-
-    .logo-right {
-        max-width: 100px; /* Maximum size for larger screens */
-        width: 100%; /* Responsive scaling */
-    height: auto;
-    position: absolute;
-    right: 0; /* Position the second logo on the right */
-    margin-right: 40px;
-    margin-top: 70px;
-    }
-
-    .header-text {
-        text-align: center;
-        width: 100%;
-        padding-top: 10px;
-    }
-
-    h4 {
-        font-size: 20px;
-        color: #34495e;
-        margin: 0;
-    }
-
-    @media (max-width: 768px) {
-        .header1 {
-            flex-direction: column;
-            margin-bottom: 70px;
-        }
-
-        .logo, .logo-right {
-            max-width: 80px; /* Smaller logo size for medium screens */
-            margin-top: 30px;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .logo, .logo-right {
-            max-width: 60px; /* Even smaller logo size for small screens */
-        }
     }
 
     /* Style for the button */
@@ -244,22 +145,11 @@ function safe_array_value($array, $key, $default = '') {
 </head>
 <body>
     <main id="main" class="main">
-    <div class="container">
-    <div class="header1">
-        <img src="assets/img/censusformlogo.png" alt="Census Logo" class="logo">
-        <img src="assets/img/censusformlogo2.png" alt="Census Logo 2" class="logo-right">
-    </div>
-    <h1 class="text-center mb-3">REPUBLIC OF THE PHILIPPINES</h1>
-    <h1 class="text-center mb-3">PHILIPPINE STATISTICS AUTHORITY</h1>
-    <div class="form-header"></div>
-    <div class="header-text">
-        <h4>BANTAYAN ISLAND CENSUS FORM</h4>
-    </div>
-    <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
-        <p>
-        Please complete the required information for each item below. Items marked with an asterisk (*) are mandatory. Your honest and accurate responses will assist in gathering comprehensive data for the Bantayan Island Census. This information will serve as a foundation for designing programs and activities aimed at improving the lives of residents in Bantayan Island.
-        </p>
-        <em style="color:red;">* Items with an asterisk (*) are required.</em>
+        <div class="container">
+            <h1 class="text-center mb-4">Bantayan Island Census Form</h1>
+            <p>
+            Please fill up completely and correctly the required information before each item below.  For items that are not associated to you, leave it blank.  Required items are also marked with an asterisk (*) so please fill it up correctly.  Your honest response will help the National Commission of Senior Citizens (NCSC) come up with a good information system of the senior citizens in the country as the basis of designing its programs and activities that will help improve the lives of Filipino older persons.</p>
+            <em style="color:red;">* Items with an asterisk (*) are required.</em>
         
             <form id="demographicForm" method="post" action="../action/update_record.php">
             <input type="hidden" name="house_leader" value="<?php echo $house_leader['id']; ?>">
@@ -371,15 +261,32 @@ function safe_array_value($array, $key, $default = '') {
         <input type="text" id="occupation" name="occupation_spouse" value="<?php echo $spouse['spouse_occupation']; ?>" class="form-control" placeholder="Occupation" readonly>
     </div>
     <div class="col-12 col-sm-6 col-lg-3">
+    <label for="spouse_sex" class="form-label">Sex at Birth:</label>
+    <input type="text" id="spouse_sex" name="sex_spouse" class="form-control" value="<?php echo $spouse['spouse_sex']; ?>" readonly>
+</div>
+    <div class="col-12 col-sm-6 col-lg-3">
     <label for="registered" class="form-label">Registered with LCRO?</label>
     <input type="text" id="registered" name="lcro_spouse" class="form-control" value="<?php echo $spouse['spouse_lcro'] == 'yes' ? 'Yes' : ($spouse['spouse_lcro'] == 'no' ? 'No' : ($spouse['spouse_lcro'] == 'dont_know' ? "I Don't know" : '')); ?>" readonly>
 </div>
+<div class="col-12 col-sm-6 col-lg-3">
+                <label for="provinceSpouse" class="form-label">Province</label>
+                <input type="text" id="provinceSpouse" name="province_spouse" class="form-control" value="<?php echo $spouse['province_spouse']; ?>" required readonly>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+    <label for="municipalitySpouse" class="form-label">Municipality</label>
+    <input type="text" id="municipalitySpouse" name="municipality_spouse" class="form-control" value="<?php echo $spouse['municipality_spouse']; ?>" readonly>
+</div>
+<div class="col-12 col-sm-6 col-lg-3">
+    <label for="barangaySpouse" class="form-label">Barangay</label>
+    <input type="text" id="barangaySpouse" name="Barangay_spouse" class="form-control" value="<?php echo $spouse['barangay_spouse']; ?>" readonly>
+</div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <label for="purokSpouse" class="form-label">Street/Purok/Sitio/Subd.</label>
+                <input type="text" id="purokSpouse" name="purok_spouse" class="form-control" value="<?php echo $spouse['purok_spouse']; ?>" readonly>
+            </div>
     <div class="col-12 col-sm-6 col-lg-3">
-        <label for="address" class="form-label">Address</label>
-        <input type="text" id="address" name="address_spouse" value="<?php echo $spouse['address']; ?>" class="form-control" placeholder="Address" readonly>
-    </div>
-    <div class="col-12 col-sm-6 col-lg-3">
-    <label for="status" class="form-label">Status:<span class="required-asterisk">*</span></label>
+    <label for="status" class="form-label">Status:</label>
     <input type="text" id="status" name="status_spouse" class="form-control" value="<?php echo $spouse['status']; ?>" readonly>
 </div>
                 </div>
@@ -1723,10 +1630,14 @@ function goToPrintForm() {
     const firstname_spouse = "<?php echo $spouse['spouse_firstname']; ?>";
     const middlename_spouse = "<?php echo $spouse['spouse_middlename']; ?>";
     const extension = "<?php echo $spouse['extension']; ?>";
-    const address = "<?php echo $spouse['address']; ?>";
+    const province_spouse = "<?php echo $spouse['province_spouse']; ?>";
+    const municipality_spouse = "<?php echo $spouse['municipality_spouse']; ?>";
+    const barangay_spouse = "<?php echo $spouse['barangay_spouse']; ?>";
+    const purok_spouse = "<?php echo $spouse['purok_spouse']; ?>";
     const dob_spouse = "<?php echo $spouse['spouse_dob']; ?>";
     const age_spouse = "<?php echo $spouse['spouse_age']; ?>";
     const occupation_spouse = "<?php echo $spouse['spouse_occupation']; ?>";
+    const sex_spouse = "<?php echo $spouse['spouse_sex']; ?>";
     const lcro_spouse = "<?php echo $spouse['spouse_lcro']; ?>";
     const status_spouse = "<?php echo $spouse['status']; ?>";
     const tentures = "<?php echo $tenturestatus['tentures_status']; ?>";
@@ -1750,7 +1661,7 @@ function goToPrintForm() {
     }).join('&');
 
     // Construct the full URL with all parameters
-    const url = `testing.php?house_leader_id=${encodeURIComponent(houseLeaderId)}&house_number=${encodeURIComponent(houseNumber)}&lastname=${encodeURIComponent(lastname)}&firstname=${encodeURIComponent(firstname)}&middlename=${encodeURIComponent(middlename)}&exname=${encodeURIComponent(exname)}&province=${encodeURIComponent(province)}&municipality=${encodeURIComponent(municipality)}&barangay=${encodeURIComponent(barangay)}&purok=${encodeURIComponent(purok)}&dob=${encodeURIComponent(dob)}&age=${encodeURIComponent(age)}&sex=${encodeURIComponent(sex)}&occupation=${encodeURIComponent(occupation)}&lcro=${encodeURIComponent(lcro)}&marital_status=${encodeURIComponent(marital_status)}&contact_number=${encodeURIComponent(contact_number)}&religion=${encodeURIComponent(religion)}&coordinates=${encodeURIComponent(location)}&spouse_lastname=${encodeURIComponent(lastname_spouse)}&spouse_firstname=${encodeURIComponent(firstname_spouse)}&spouse_middlename=${encodeURIComponent(middlename_spouse)}&extension=${encodeURIComponent(extension)}&address=${encodeURIComponent(address)}&spouse_dob=${encodeURIComponent(dob_spouse)}&spouse_age=${encodeURIComponent(age_spouse)}&spouse_occupation=${encodeURIComponent(occupation_spouse)}&spouse_lcro=${encodeURIComponent(lcro_spouse)}&status=${encodeURIComponent(status_spouse)}&tentures_status=${encodeURIComponent(tentures)}&housing=${encodeURIComponent(housing)}&floor=${encodeURIComponent(floor)}&floor2=${encodeURIComponent(floor2)}&bedrooms=${encodeURIComponent(bedrooms)}&${olderMembersParams}&${youngerMembersParams}`;
+    const url = `testing.php?house_leader_id=${encodeURIComponent(houseLeaderId)}&house_number=${encodeURIComponent(houseNumber)}&lastname=${encodeURIComponent(lastname)}&firstname=${encodeURIComponent(firstname)}&middlename=${encodeURIComponent(middlename)}&exname=${encodeURIComponent(exname)}&province=${encodeURIComponent(province)}&municipality=${encodeURIComponent(municipality)}&barangay=${encodeURIComponent(barangay)}&purok=${encodeURIComponent(purok)}&dob=${encodeURIComponent(dob)}&age=${encodeURIComponent(age)}&sex=${encodeURIComponent(sex)}&occupation=${encodeURIComponent(occupation)}&lcro=${encodeURIComponent(lcro)}&marital_status=${encodeURIComponent(marital_status)}&contact_number=${encodeURIComponent(contact_number)}&religion=${encodeURIComponent(religion)}&coordinates=${encodeURIComponent(location)}&spouse_lastname=${encodeURIComponent(lastname_spouse)}&spouse_firstname=${encodeURIComponent(firstname_spouse)}&spouse_middlename=${encodeURIComponent(middlename_spouse)}&extension=${encodeURIComponent(extension)}&province_spouse=${encodeURIComponent(province_spouse)}&municipality_spouse=${encodeURIComponent(municipality_spouse)}&barangay_spouse=${encodeURIComponent(barangay_spouse)}&purok_spouse=${encodeURIComponent(purok_spouse)}&spouse_dob=${encodeURIComponent(dob_spouse)}&spouse_age=${encodeURIComponent(age_spouse)}&spouse_occupation=${encodeURIComponent(occupation_spouse)}&spouse_sex=${encodeURIComponent(sex_spouse)}&spouse_lcro=${encodeURIComponent(lcro_spouse)}&status=${encodeURIComponent(status_spouse)}&tentures_status=${encodeURIComponent(tentures)}&housing=${encodeURIComponent(housing)}&floor=${encodeURIComponent(floor)}&floor2=${encodeURIComponent(floor2)}&bedrooms=${encodeURIComponent(bedrooms)}&${olderMembersParams}&${youngerMembersParams}`;
 
     // Redirect the user to the testing.php file
     window.location.href = url;

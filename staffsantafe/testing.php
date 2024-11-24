@@ -25,8 +25,12 @@ $lastname_spouse = $_GET['spouse_lastname'] ?? '';
 $firstname_spouse = $_GET['spouse_firstname'] ?? '';
 $middlename_spouse = $_GET['spouse_middlename'] ?? '';
 $extension = $_GET['extension'] ?? '';
-$address = $_GET['address'] ?? '';
+$province_spouse = $_GET['province_spouse'] ?? '';
+$municipality_spouse = $_GET['municipality_spouse'] ?? '';
+$barangay_spouse = $_GET['barangay_spouse'] ?? '';
+$purok_spouse = $_GET['purok_spouse'] ?? '';
 $dob_spouse = $_GET['spouse_dob'] ?? '';
+$sex_spouse = $_GET['spouse_sex'] ?? '';
 $age_spouse = $_GET['spouse_age'] ?? '';
 $occupation_spouse = $_GET['spouse_occupation'] ?? '';
 $lcro_spouse = $_GET['spouse_lcro'] ?? '';
@@ -537,24 +541,32 @@ while ($row = $result->fetch_assoc()) {
         </table>
         
         <table>
-            <tr>
-                <th class="full-width"> Complete Address (Kompletong Address)</th>
-            </tr>
-            <tr>
-                <td><?php echo $address; ?></td>
-            </tr>
-        </table>
+        <tr>
+            <th>Province</th>
+            <th>Municipality</th>
+            <th>Barangay</th>
+            <th>Purok</th>
+        </tr>
+        <tr>
+            <td><?php echo $province_spouse; ?></td>
+            <td><?php echo $municipality_spouse; ?></td>
+            <td><?php echo $barangay_spouse; ?></td>
+            <td><?php echo $purok_spouse; ?></td>
+        </tr>
+    </table>
 
         <table>
         <tr>
             <th>Date of Birth</th>
             <th>Age</th>
             <th>Occupation</th>
+            <th>Sex</th>
         </tr>
         <tr>
             <td><?php echo $dob_spouse; ?></td>
             <td><?php echo $age_spouse; ?></td>
             <td><?php echo $occupation_spouse; ?></td>
+            <td><?php echo $sex_spouse; ?></td>
         </tr>
     </table>
 
