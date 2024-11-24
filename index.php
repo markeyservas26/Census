@@ -376,8 +376,6 @@
         align-items: center;    /* Center vertically (if necessary) */
         width: 100%;
         max-width: 400px;
-        margin-left: auto;      /* Remove any left margin */
-        margin-right: auto;     /* Ensure right margin is also auto */
     }
 
     #logoImage {
