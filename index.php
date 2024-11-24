@@ -383,7 +383,7 @@
     #logoImage {
         width: 100%;
         max-width: 400px;       /* Limit max width */
-        margin-right: -30px;
+        margin-right: -25px;
     }
 
     .hero-content {
