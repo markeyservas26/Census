@@ -379,7 +379,7 @@
     }
 
     #logoImage {
-        width: 100%;
+        width: 80%;
         max-width: 400px;       /* Limit max width */
         margin-left: 80px;
     }
