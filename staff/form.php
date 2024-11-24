@@ -149,17 +149,6 @@ $postData = $_POST ?? [];
             max-width: 60px; /* Even smaller logo size for small screens */
         }
     }
-
-    /* Hide the up and down arrows in number input */
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield; /* Firefox */
-}
     </style>
 </head>
 <body>
@@ -190,7 +179,7 @@ input[type="number"] {
             <div class="house-number-wrapper">
     <label for="house_number" id="house_number_label">House Number</label>
     <div class="input-group">
-        <input type="number" class="form-control" id="house_number" name="house_number" placeholder="000000" required>
+        <input type="text" class="form-control" id="house_number" name="house_number" placeholder="000000" required>
     </div>
     <small id="house_number_alert" style="color: red; display: none;">This house number already exists.</small>
 </div>
@@ -232,8 +221,10 @@ input[type="number"] {
                 <div class="col-12 col-sm-6 col-lg-3">
                     <label for="status" class="form-label">Municipality<span class="required-asterisk">*</span></label>
                     <select id="status" name="municipality_hl" class="form-select" required>
-                        <option value="" selected disabled></option>
+                        <option value="" selected disabled>Select an option</option>
                         <option value="Madridejos">Madridejos</option>
+                        <option value="Bantayan">Bantayan</option>
+                        <option value="Santafe">Santafe</option>
                     </select>
                 </div>
 
@@ -364,6 +355,14 @@ input[type="number"] {
         <input type="text" id="occupation" name="occupation_spouse" class="form-control" placeholder="Occupation">
     </div>
     <div class="col-12 col-sm-6 col-lg-3">
+                    <label for="spouse_sex" class="form-label">Sex at Birth</label>
+                    <select id="spouse_sex" name="sex_spouse" class="form-select" required>
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+    <div class="col-12 col-sm-6 col-lg-3">
         <label for="registered" class="form-label">Registered with LCRO?</label>
         <select id="registered" name="lcro_spouse" class="form-select">
             <option value="" selected disabled>Select an option</option>
@@ -373,9 +372,31 @@ input[type="number"] {
         </select>
     </div>
     <div class="col-12 col-sm-6 col-lg-3">
-        <label for="address" class="form-label">Address</label>
-        <input type="text" id="address" name="address_spouse" class="form-control" placeholder="Address">
-    </div>
+                    <label for="provinceSpouse" class="form-label">Province</label>
+                    <input type="text" id="provinceSpouse" name="province_spouse" class="form-control" placeholder="Province" required>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <label for="statusSpouse" class="form-label">Municipality</label>
+                    <select id="statusSpouse" name="municipality_spouse" class="form-select" required>
+                        <option value="" selected disabled>Select an option</option>
+                        <option value="Madridejos">Madridejos</option>
+                        <option value="Bantayan">Bantayan</option>
+                        <option value="Santafe">Santafe</option>
+                    </select>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <label for="statusSpouse" class="form-label">Barangay</label>
+                    <select class="form-select" name="Barangay_spouse" id="barangay_spouse" required>
+                        <!-- Options will be populated based on selected municipality -->
+                    </select>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <label for="purokSpouse" class="form-label">Street/Purok/Sitio/Subd.</label>
+                    <input type="text" id="purokSpouse" name="purok_spouse" class="form-control" placeholder="Street/Purok/Sitio/Subd.">
+                </div>
     <div class="col-12 col-sm-6 col-lg-3">
         <label for="status" class="form-label">Status:</label>
         <select id="status" name="status_spouse" class="form-select">
@@ -1562,7 +1583,7 @@ input[type="number"] {
 <!-- Input field for Latitude and Longitude -->
 <div style="margin-top: 10px;">
   <label for="coordinates">Coordinates (Latitude, Longitude):</label>
-  <input type="text" id="coordinates" name="location">
+  <input type="text" id="coordinates" name="location" readonly> <!-- Empty initially, will fill with actual location -->
 </div>
                     
                 </div>
@@ -1571,7 +1592,7 @@ input[type="number"] {
                 <div class="text-center mt-4">
            
     <!-- Your form fields here -->
-    <button type="submit"  class="btn btn-primary  mt-4">Submit</button>
+    <button type="submit" id="submit_btn" class="btn btn-primary  mt-4">Submit</button>
 
                 </div>
             </form>
@@ -1583,38 +1604,24 @@ input[type="number"] {
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-  function getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition, showError);
-    } else {
-      alert("Geolocation is not supported by this browser.");
+    function getLocation() {
+        if (navigator.geolocation) {
+            // Get current position
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var lat = position.coords.latitude;   // Get latitude
+                var lng = position.coords.longitude;  // Get longitude
+
+                // Update the input field with the user's current location
+                document.getElementById("coordinates").value = lat + ", " + lng;
+            }, function(error) {
+                // Handle errors if geolocation fails (denied or unavailable)
+                alert("Geolocation failed or was denied. Please enable location access.");
+            });
+        } else {
+            // Handle if geolocation is not supported by the browser
+            alert("Geolocation is not supported by this browser.");
+        }
     }
-  }
-
-  function showPosition(position) {
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
-
-    // Set the latitude and longitude as a single string in the input field
-    document.getElementById("coordinates").value = `${lat}, ${lon}`;
-  }
-
-  function showError(error) {
-    switch(error.code) {
-      case error.PERMISSION_DENIED:
-        alert("User denied the request for Geolocation.");
-        break;
-      case error.POSITION_UNAVAILABLE:
-        alert("Location information is unavailable.");
-        break;
-      case error.TIMEOUT:
-        alert("The request to get user location timed out.");
-        break;
-      case error.UNKNOWN_ERROR:
-        alert("An unknown error occurred.");
-        break;
-    }
-  }
 </script>
 
 <script>
@@ -1726,8 +1733,8 @@ document.addEventListener('DOMContentLoaded', function() {
         ]
     };
 
-   // Function to update barangay options
-   function updateBarangayOptions(municipality) {
+    // Function to update barangay options
+    function updateBarangayOptions(municipality) {
         // Clear existing options
         barangaySelect.innerHTML = '';
 
@@ -1735,7 +1742,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (barangayOptions[municipality]) {
             barangayOptions[municipality].forEach(function(barangay) {
                 const option = document.createElement('option');
-                // Keep the value in uppeSrcase, but display text with proper capitalization
+                // Keep the value in uppercase, but display text with proper capitalization
                 option.value = barangay;
                 option.textContent = barangay.charAt(0).toUpperCase() + barangay.slice(1).toLowerCase();
                 barangaySelect.appendChild(option);
@@ -1751,6 +1758,56 @@ document.addEventListener('DOMContentLoaded', function() {
         updateBarangayOptions(this.value);
     });
 });
+
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const municipalitySelect = document.querySelector('select[name="municipality_spouse"]');
+    const barangaySelect = document.getElementById('barangay_spouse');
+
+    // Define barangay options for each municipality
+    const barangayOptions = {
+        Bantayan: [
+            'Atop-Atop', 'Bigad', 'Bantigue', 'Baod', 'Binaobao', 'Botigues', 'Doong', 'Guiwanon', 'Hilotongan',
+            'Kabac', 'Kabangbang', 'Kampingganon', 'Kangkaibe', 'Lipayran', 'Luyongbaybay', 'Mojon',
+            'Oboob', 'Patao', 'Putian', 'Sillion', 'Suba', 'Sulangan', 'Sungko', 'Tamiao', 'Ticad'
+        ],
+        Madridejos: [
+            'Poblacion', 'Mancilang', 'Malbago', 'Kaongkod', 'San Agustin', 'Kangwayan', 'Pili', 'Kodia',
+            'Tabagak', 'Bunakan', 'Maalat', 'Tugas', 'Tarong', 'Talangnan'
+        ],
+        Santafe: [
+            'Balidbid', 'Hagdan', 'Hilantagaan', 'Kinatarkan', 'Langub', 'Marikaban', 'Okoy', 'Poblacion',
+            'Pooc', 'Talisay'
+        ]
+    };
+
+    // Function to update barangay options
+    function updateBarangayOptions(municipality) {
+        // Clear existing options
+        barangaySelect.innerHTML = '';
+
+        // Add new options
+        if (barangayOptions[municipality]) {
+            barangayOptions[municipality].forEach(function(barangay) {
+                const option = document.createElement('option');
+                // Keep the value in uppercase, but display text with proper capitalization
+                option.value = barangay;
+                option.textContent = barangay.charAt(0).toUpperCase() + barangay.slice(1).toLowerCase();
+                barangaySelect.appendChild(option);
+            });
+        }
+    }
+
+    // Initialize barangay options based on the current municipality
+    updateBarangayOptions(municipalitySelect.value);
+
+    // Update barangay options when municipality changes
+    municipalitySelect.addEventListener('change', function() {
+        updateBarangayOptions(this.value);
+    });
+});
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
@@ -1771,6 +1828,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+</script>
+<script>
+    // Function to generate a random house number
+    function generateHouseNumber() {
+        const prefix = '';
+        const randomNumber = Math.floor(100000 + Math.random() * 900000); // Random 6-digit number
+        return prefix + randomNumber;
+    }
+
+    // Add an event listener to the icon
+    document.getElementById('generate-house-number').addEventListener('click', function() {
+        const houseNumberInput = document.getElementById('house_number');
+        houseNumberInput.value = generateHouseNumber(); // Set the generated number to the input field
+    });
 </script>
 <script>
     function calculateAge() {
