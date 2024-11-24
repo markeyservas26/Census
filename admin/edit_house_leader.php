@@ -415,7 +415,7 @@ function safe_array_value($array, $key, $default = '') {
     </div>
     <div class="col-12 col-sm-6 col-lg-3">
                 <label for="provinceSpouse" class="form-label">Province</label>
-                <input type="text" id="provinceSpouse" name="province_spouse" class="form-control" value="<?php echo $spouse['province_spouse']; ?>" required>
+                <input type="text" id="provinceSpouse" name="province_spouse" class="form-control" value="<?php echo $spouse['province_spouse']; ?>">
             </div>
             <div class="col-12 col-sm-6 col-lg-3">
     <label for="municipalitySpouse" class="form-label">Municipality</label>

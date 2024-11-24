@@ -397,6 +397,14 @@ function safe_array_value($array, $key, $default = '') {
         <input type="text" id="occupation" name="occupation_spouse" value="<?php echo $spouse['spouse_occupation']; ?>" class="form-control" placeholder="Occupation">
     </div>
     <div class="col-12 col-sm-6 col-lg-3">
+                <label for="spouse_sex" class="form-label">Sex at Birth</label>
+                <select id="spouse_sex" name="sex_spouse" class="form-select">
+                    <option value="" <?php echo $spouse['spouse_sex'] == '' ? 'selected' : ''; ?>>Select an option</option>
+                    <option value="Male" <?php echo $spouse['spouse_sex'] == 'Male' ? 'selected' : ''; ?>>Male</option>
+                    <option value="Female" <?php echo $spouse['spouse_sex'] == 'Female' ? 'selected' : ''; ?>>Female</option>
+                </select>
+            </div>
+    <div class="col-12 col-sm-6 col-lg-3">
         <label for="registered" class="form-label">Registered with LCRO?</label>
         <select id="registered" name="lcro_spouse" class="form-select">
             <option value="" <?php echo $spouse['spouse_lcro'] == '' ? 'selected' : ''; ?> selected disabled>Select an option</option>
@@ -406,9 +414,21 @@ function safe_array_value($array, $key, $default = '') {
         </select>
     </div>
     <div class="col-12 col-sm-6 col-lg-3">
-        <label for="address" class="form-label">Address</label>
-        <input type="text" id="address" name="address_spouse" value="<?php echo $spouse['address']; ?>" class="form-control" placeholder="Address">
-    </div>
+                <label for="provinceSpouse" class="form-label">Province</label>
+                <input type="text" id="provinceSpouse" name="province_spouse" class="form-control" value="<?php echo $spouse['province_spouse']; ?>">
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+    <label for="municipalitySpouse" class="form-label">Municipality</label>
+    <input type="text" id="municipalitySpouse" name="municipality_spouse" class="form-control" value="<?php echo $spouse['municipality_spouse']; ?>" readonly>
+</div>
+<div class="col-12 col-sm-6 col-lg-3">
+    <label for="barangaySpouse" class="form-label">Barangay</label>
+    <input type="text" id="barangaySpouse" name="Barangay_spouse" class="form-control" value="<?php echo $spouse['barangay_spouse']; ?>" readonly>
+</div>
+<div class="col-12 col-sm-6 col-lg-3">
+                <label for="purokSpouse" class="form-label">Street/Purok/Sitio/Subd.</label>
+                <input type="text" id="purokSpouse" name="puroks_spouse" class="form-control" value="<?php echo $spouse['purok_spouse']; ?>">
+            </div>
     <div class="col-12 col-sm-6 col-lg-3">
         <label for="status" class="form-label">Status:</label>
         <select id="status" name="status_spouse" class="form-select">
