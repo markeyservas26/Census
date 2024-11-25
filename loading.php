@@ -29,7 +29,7 @@
         }
 
         .loading-gif {
-            width: 300px; /* Width of the loading GIF */
+            width: 200px; /* Width of the loading GIF */
             height: auto;
         }
     </style>
