@@ -27,7 +27,7 @@ if($email == false){
         .verification-container {
             max-width: 500px;
             width: 100%;
-            background: linear-gradient(145deg, #e0f7fa, #b3e5fc);
+            background-color: #d1dbfc;
             border-radius: 15px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             padding: 2rem;
@@ -36,11 +36,10 @@ if($email == false){
             text-align: center;
         }
         .verification-container img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
+            width: 250px;
+            height: 120px;
+            border-radius: 5%;
             margin-bottom: 1rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .verification-container .content {
             position: relative;
