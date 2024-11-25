@@ -10,91 +10,40 @@
             height: 100%;
             margin: 0;
             font-family: Arial, sans-serif;
+            background-color: black; /* Changed background color to black */
+        }
+        
+        .loading-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f4f4f4;
-            overflow: hidden;
-        }
-
-        .loading-container {
-            text-align: center;
-        }
-
-        /* Progress bar styling */
-        .progress-bar-background {
-            width: 100%;
-            height: 30px;
-            background-color: #ddd;
-            border-radius: 15px;
-            overflow: hidden;
-            margin-top: 30px;
-        }
-
-        .progress-bar {
             height: 100%;
-            width: 0;
-            background-color: #2a9d8f;
-            text-align: center;
-            line-height: 30px;
-            color: white;
-            font-weight: bold;
-            border-radius: 15px 0 0 15px;
-            transition: width 0.03s;
-        }
-        
-        /* Lottie animation container */
-        #lottie-container {
-            width: 150px;
-            height: 150px;
-            margin-bottom: 20px;
+            flex-direction: column; /* Make sure GIF and text align vertically */
         }
 
+        .loading-text {
+            font-size: 24px;
+            color: #fff; /* Changed text color to white for better contrast on black background */
+            margin-top: 20px;
+        }
+
+        .loading-gif {
+            width: 100px; /* Set a width for the loading GIF */
+            height: auto;
+        }
     </style>
 </head>
 <body>
     <div class="loading-container">
-        <!-- Lottie animation container -->
-        <div id="lottie-container"></div>
-
-        <!-- Progress bar container -->
-        <div class="progress-bar-background">
-            <div class="progress-bar" id="progress-bar">0%</div>
-        </div>
+        <img class="loading-gif" src="assets/img/loading.gif" alt="Loading..."> <!-- Loading GIF -->
+        <div class="loading-text">Loading... Please wait</div>
     </div>
 
-    <!-- Lottie Web script -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
-
     <script>
-        var progressBar = document.getElementById("progress-bar");
-        var width = 0;
-
-        // Initialize the Lottie animation (you can replace this with your own Lottie file)
-        var animation = lottie.loadAnimation({
-            container: document.getElementById('lottie-container'), // the DOM element that will hold the animation
-            renderer: 'svg', // Render type (svg, canvas, or html)
-            loop: true, // Loop the animation
-            autoplay: true, // Start animation automatically
-            path: 'https://lottiefiles.com/free-animation/material-loading-2-jXCJh6GPUx' // URL to the Lottie JSON animation (a loading spinner)
-        });
-
-        // Function to simulate loading and increment progress bar
-        function moveProgressBar() {
-            if (width >= 100) {
-                clearInterval(interval);  // Stop once it reaches 100%
-                setTimeout(function() {
-                    window.location.href = "../index.php";  // Redirect after loading is complete
-                }, 500);  // Add delay before redirect (optional)
-            } else {
-                width++;
-                progressBar.style.width = width + "%";
-                progressBar.innerText = width + "%";
-            }
-        }
-
-        // Simulate the loading process by incrementing the progress bar every 30ms
-        var interval = setInterval(moveProgressBar, 30);
+        // Wait for 3 seconds (3000 milliseconds) before redirecting
+        setTimeout(function() {
+            window.location.href = "../index.php";  // Redirect to your main website
+        }, 3000);  // 3000ms = 3 seconds
     </script>
 </body>
 </html>
