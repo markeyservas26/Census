@@ -36,7 +36,7 @@
     <script>
         // Wait for 3 seconds (3000 milliseconds) before redirecting
         setTimeout(function() {
-            window.location.href = "https://www.bantayanislandcensus.com/";  // Redirect to your main website
+            window.location.href = "/index.php";  // Redirect to your main website
         }, 3000);  // 3000ms = 3 seconds
     </script>
 </body>
