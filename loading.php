@@ -10,18 +10,13 @@
 
     <h2>Please complete the verification to proceed</h2>
 
-    <!-- Invisible reCAPTCHA -->
+    <!-- Form with only reCAPTCHA -->
     <form action="submit_form.php" method="POST">
-        <button class="g-recaptcha" 
-                data-sitekey="6LdRWokqAAAAAFrLVJR3SMkPjDqtu6JvFWEr7AAI" 
-                data-callback="onSubmit">Submit</button>
-    </form>
+        <!-- Google reCAPTCHA -->
+        <div class="g-recaptcha" data-sitekey="6LdRWokqAAAAAFrLVJR3SMkPjDqtu6JvFWEr7AAI"></div><br><br>
 
-    <script>
-        function onSubmit(token) {
-            document.getElementsByTagName("form")[0].submit();
-        }
-    </script>
+        <button type="submit">Submit</button>
+    </form>
 
 </body>
 </html>
