@@ -76,7 +76,7 @@
             renderer: 'svg', // Render type (svg, canvas, or html)
             loop: true, // Loop the animation
             autoplay: true, // Start animation automatically
-            path: 'https://assets10.lottiefiles.com/packages/lf20_pvhsq8.json' // URL to the Lottie JSON animation (a loading spinner)
+            path: 'https://lottiefiles.com/free-animation/material-loading-2-jXCJh6GPUx' // URL to the Lottie JSON animation (a loading spinner)
         });
 
         // Function to simulate loading and increment progress bar
