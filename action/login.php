@@ -70,32 +70,62 @@ function sendJsonResponse($icon, $title, $text, $redirect = null) {
     exit;
 }
 
+// Function to validate reCAPTCHA
+function verifyRecaptcha($token) {
+    $secretKey = '6LcqT4kqAAAAAISjS-JW3zVhOZy0yKoBzgmDR47s'; // Replace with your reCAPTCHA secret key
+    $url = 'https://www.google.com/recaptcha/api/siteverify';
+    
+    $data = [
+        'secret' => $secretKey,
+        'response' => $token
+    ];
+
+    $options = [
+        'http' => [
+            'header'  => "Content-Type: application/x-www-form-urlencoded\r\n",
+            'method'  => 'POST',
+            'content' => http_build_query($data)
+        ]
+    ];
+
+    $context = stream_context_create($options);
+    $response = file_get_contents($url, false, $context);
+
+    if ($response === false) {
+        return false;
+    }
+
+    $result = json_decode($response, true);
+    return isset($result['success']) && $result['success'] === true && $result['score'] > 0.5;
+}
+
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $recaptchaToken = $_POST['recaptcha_token'] ?? '';
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
 
+    // Validate reCAPTCHA
+    if (empty($recaptchaToken) || !verifyRecaptcha($recaptchaToken)) {
+        echo json_encode([
+            'icon' => 'error',
+            'title' => 'reCAPTCHA Failed',
+            'text' => 'Failed to validate reCAPTCHA. Try again.'
+        ]);
+        exit;
+    }
+
     // Validate input
     if (empty($username) || empty($password)) {
-        sendJsonResponse("error", "Invalid Input", "Please enter both email and password.");
+        echo json_encode([
+            'icon' => 'error',
+            'title' => 'Invalid Input',
+            'text' => 'Please enter both email and password.'
+        ]);
+        exit;
     }
 
-    // Check for SQL injection attempts
-    if (checkSqlInjection($username) || checkSqlInjection($password)) {
-        // Log the attempt here (implement proper logging mechanism)
-        sendJsonResponse("error", "Security Alert", "Potential SQL injection detected. This incident has been logged and reported.");
-    }
-
-    // Check for XSS attempts
-    if (checkXss($username) || checkXss($password)) {
-        // Log the attempt here (implement proper logging mechanism)
-        sendJsonResponse("error", "Security Alert", "Potential XSS attack detected. This incident has been logged and reported.");
-    }
-
-    // Sanitize inputs
-    $username = htmlspecialchars($username, ENT_QUOTES, 'UTF-8');
-
-    // Prepare and bind
+    // Check for user in the database
     $stmt = $conn->prepare("SELECT id, name, password FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -103,23 +133,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
-        
-        // Verify password
+
         if (password_verify($password, $user['password'])) {
-            // Set session variables
+            // Successful login
             $_SESSION['userid'] = $user['id'];
             $_SESSION['name'] = $user['name'];
 
-            sendJsonResponse("success", "Login Successful", "Welcome, " . htmlspecialchars($user['name'], ENT_QUOTES, 'UTF-8') . "!", "../admin/index.php");
+            echo json_encode([
+                'icon' => 'success',
+                'title' => 'Login Successful',
+                'text' => 'Welcome, ' . htmlspecialchars($user['name']) . '!',
+                'redirect' => '../admin/index.php'
+            ]);
         } else {
-            sendJsonResponse("error", "Invalid Login", "Email or password is incorrect!");
+            // Invalid credentials
+            echo json_encode([
+                'icon' => 'error',
+                'title' => 'Invalid Login',
+                'text' => 'Email or password is incorrect!'
+            ]);
         }
     } else {
-        sendJsonResponse("error", "Invalid Login", "Email or password is incorrect!");
+        // User not found
+        echo json_encode([
+            'icon' => 'error',
+            'title' => 'Invalid Login',
+            'text' => 'Email or password is incorrect!'
+        ]);
     }
 
     $stmt->close();
     $conn->close();
 }
 ?>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

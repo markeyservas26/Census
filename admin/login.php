@@ -29,7 +29,8 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-  
+  <script src="https://www.google.com/recaptcha/api.js?render=6LcqT4kqAAAAAOkPnbZCeDx8KNaPHcNMscOiFChA"></script>
+
   <!-- Custom CSS for Logo Size -->
 
 </head>
@@ -55,6 +56,7 @@
                   </div>
 
                   <form id="loginForm" class="row g-3 needs-validation" method="POST">
+                 
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Email</label>
@@ -78,11 +80,11 @@
                     </div>
 
                     <div class="col-12 d-flex align-items-center">
-                      <a href="../forgotpassword/forgot-password.php" style="float:right;"> Forgot password?</a>
+                      <a href="chooseaway.php" style="float:right;"> Forgot password?</a>
                       <!-- Move the link to the right side of the remember me checkbox -->
                       <a href="../index.php" class="back-to-website d-block" style="margin-left: 50px; color:black;">Back to Website</a>
                     </div>
-                    
+                    <input type="hidden" name="recaptcha_token" id="recaptchaToken">
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Login</button>
                     </div>
@@ -103,47 +105,56 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
 document.getElementById('loginForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  
-  var formData = new FormData(this);
-  
-  fetch('../action/login.php', {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => response.text())
-  .then(data => {
-    try {
-      var result = JSON.parse(data);
-      Swal.fire({
-        icon: result.icon,
-        title: result.title,
-        text: result.text,
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "OK"
-      }).then((swalResult) => {
-        if (swalResult.isConfirmed && result.redirect) {
-          window.location.href = result.redirect;
-        }
-      });
-    } catch (error) {
-      console.error('Error parsing JSON:', error);
+  e.preventDefault(); // Prevent default form submission
+
+  // Execute reCAPTCHA and handle the token
+  grecaptcha.execute('6LcqT4kqAAAAAOkPnbZCeDx8KNaPHcNMscOiFChA', { action: 'login' }).then(function(token) {
+    // Set the reCAPTCHA token in the hidden input field
+    document.getElementById('recaptchaToken').value = token;
+
+    // Prepare form data
+    var formData = new FormData(e.target);
+
+    // Send the form data to the server via fetch
+    fetch('../action/login.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+      try {
+        var result = JSON.parse(data);
+        Swal.fire({
+          icon: result.icon,
+          title: result.title,
+          text: result.text,
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "OK"
+        }).then((swalResult) => {
+          if (swalResult.isConfirmed && result.redirect) {
+            window.location.href = result.redirect; // Redirect if applicable
+          }
+        });
+      } catch (error) {
+        console.error('Error parsing JSON:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!'
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Something went wrong!',
+        text: 'Something went wrong!'
       });
-    }
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Something went wrong!',
     });
   });
 });
+
 </script>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
