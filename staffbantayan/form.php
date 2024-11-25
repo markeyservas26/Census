@@ -356,7 +356,7 @@ $postData = $_POST ?? [];
     </div>
     <div class="col-12 col-sm-6 col-lg-3">
                     <label for="spouse_sex" class="form-label">Sex at Birth</label>
-                    <select id="spouse_sex" name="sex_spouse" class="form-select" required>
+                    <select id="spouse_sex" name="sex_spouse" class="form-select">
                         <option value="" selected disabled>Select an option</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -373,22 +373,20 @@ $postData = $_POST ?? [];
     </div>
     <div class="col-12 col-sm-6 col-lg-3">
                     <label for="provinceSpouse" class="form-label">Province</label>
-                    <input type="text" id="provinceSpouse" name="province_spouse" class="form-control" placeholder="Province" required>
+                    <input type="text" id="provinceSpouse" name="province_spouse" class="form-control" placeholder="Province">
                 </div>
 
                 <div class="col-12 col-sm-6 col-lg-3">
                     <label for="statusSpouse" class="form-label">Municipality</label>
-                    <select id="statusSpouse" name="municipality_spouse" class="form-select" required>
+                    <select id="statusSpouse" name="municipality_spouse" class="form-select">
                         <option value="" selected disabled>Select an option</option>
-                        <option value="Madridejos">Madridejos</option>
                         <option value="Bantayan">Bantayan</option>
-                        <option value="Santafe">Santafe</option>
                     </select>
                 </div>
 
                 <div class="col-12 col-sm-6 col-lg-3">
                     <label for="statusSpouse" class="form-label">Barangay</label>
-                    <select class="form-select" name="Barangay_spouse" id="barangay_spouse" required>
+                    <select class="form-select" name="Barangay_spouse" id="barangay_spouse" >
                         <!-- Options will be populated based on selected municipality -->
                     </select>
                 </div>

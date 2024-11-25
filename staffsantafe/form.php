@@ -380,8 +380,6 @@ $postData = $_POST ?? [];
                     <label for="statusSpouse" class="form-label">Municipality</label>
                     <select id="statusSpouse" name="municipality_spouse" class="form-select">
                         <option value="" selected disabled>Select an option</option>
-                        <option value="Madridejos">Madridejos</option>
-                        <option value="Bantayan">Bantayan</option>
                         <option value="Santafe">Santafe</option>
                     </select>
                 </div>
