@@ -70,9 +70,13 @@ function sendJsonResponse($icon, $title, $text, $redirect = null) {
     exit;
 }
 
-// Function to validate reCAPTCHA
+<?php
+include '../session.php';
+include '../database/db_connect.php';
+
+// Verify reCAPTCHA token
 function verifyRecaptcha($token) {
-    $secretKey = '6LcqT4kqAAAAAISjS-JW3zVhOZy0yKoBzgmDR47s'; // Replace with your reCAPTCHA secret key
+    $secretKey = '6LcqT4kqAAAAAISjS-JW3zVhOZy0yKoBzgmDR47s';
     $url = 'https://www.google.com/recaptcha/api/siteverify';
     
     $data = [
@@ -80,90 +84,104 @@ function verifyRecaptcha($token) {
         'response' => $token
     ];
 
-    $options = [
-        'http' => [
-            'header'  => "Content-Type: application/x-www-form-urlencoded\r\n",
-            'method'  => 'POST',
-            'content' => http_build_query($data)
-        ]
-    ];
-
-    $context = stream_context_create($options);
-    $response = file_get_contents($url, false, $context);
-
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    
+    $response = curl_exec($ch);
+    curl_close($ch);
+    
     if ($response === false) {
+        error_log('reCAPTCHA verification failed: CURL error');
         return false;
     }
-
+    
     $result = json_decode($response, true);
-    return isset($result['success']) && $result['success'] === true && $result['score'] > 0.5;
+    return isset($result['success']) && $result['success'] === true && 
+           isset($result['score']) && $result['score'] >= 0.5 && 
+           isset($result['action']) && $result['action'] === 'login';
 }
 
-// Check if form is submitted
+// Send JSON response
+function sendJsonResponse($icon, $title, $text, $redirect = null) {
+    $response = [
+        'icon' => $icon,
+        'title' => $title,
+        'text' => $text
+    ];
+    if ($redirect) {
+        $response['redirect'] = $redirect;
+    }
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit;
+}
+
+// Handle login request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $recaptchaToken = $_POST['recaptcha_token'] ?? '';
-    $username = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
-
-    // Validate reCAPTCHA
-    if (empty($recaptchaToken) || !verifyRecaptcha($recaptchaToken)) {
-        echo json_encode([
-            'icon' => 'error',
-            'title' => 'reCAPTCHA Failed',
-            'text' => 'Failed to validate reCAPTCHA. Try again.'
-        ]);
-        exit;
+    // Validate required fields
+    if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['recaptcha_token'])) {
+        sendJsonResponse('error', 'Missing Data', 'Please provide all required information.');
     }
 
-    // Validate input
-    if (empty($username) || empty($password)) {
-        echo json_encode([
-            'icon' => 'error',
-            'title' => 'Invalid Input',
-            'text' => 'Please enter both email and password.'
-        ]);
-        exit;
+    // Verify reCAPTCHA
+    if (!verifyRecaptcha($_POST['recaptcha_token'])) {
+        sendJsonResponse('error', 'reCAPTCHA Failed', 'Please try again.');
     }
 
-    // Check for user in the database
-    $stmt = $conn->prepare("SELECT id, name, password FROM users WHERE username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    // Sanitize inputs
+    $username = filter_var($_POST['username'], FILTER_SANITIZE_EMAIL);
+    $password = $_POST['password'];
 
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
+    // Validate email format
+    if (!filter_var($username, FILTER_VALIDATE_EMAIL)) {
+        sendJsonResponse('error', 'Invalid Email', 'Please enter a valid email address.');
+    }
 
-        if (password_verify($password, $user['password'])) {
-            // Successful login
-            $_SESSION['userid'] = $user['id'];
-            $_SESSION['name'] = $user['name'];
-
-            echo json_encode([
-                'icon' => 'success',
-                'title' => 'Login Successful',
-                'text' => 'Welcome, ' . htmlspecialchars($user['name']) . '!',
-                'redirect' => '../admin/index.php'
-            ]);
-        } else {
-            // Invalid credentials
-            echo json_encode([
-                'icon' => 'error',
-                'title' => 'Invalid Login',
-                'text' => 'Email or password is incorrect!'
-            ]);
+    try {
+        // Check user credentials
+        $stmt = $conn->prepare("SELECT id, name, password FROM users WHERE username = ?");
+        if (!$stmt) {
+            throw new Exception("Database preparation failed");
         }
-    } else {
-        // User not found
-        echo json_encode([
-            'icon' => 'error',
-            'title' => 'Invalid Login',
-            'text' => 'Email or password is incorrect!'
-        ]);
-    }
 
-    $stmt->close();
-    $conn->close();
+        $stmt->bind_param("s", $username);
+        if (!$stmt->execute()) {
+            throw new Exception("Database execution failed");
+        }
+
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows === 1) {
+            $user = $result->fetch_assoc();
+            
+            if (password_verify($password, $user['password'])) {
+                // Set session variables
+                $_SESSION['userid'] = $user['id'];
+                $_SESSION['name'] = $user['name'];
+                
+                sendJsonResponse('success', 'Login Successful', 
+                    'Welcome, ' . htmlspecialchars($user['name']), 
+                    '../admin/index.php');
+            }
+        }
+        
+        // Invalid credentials (don't specify which one)
+        sendJsonResponse('error', 'Login Failed', 'Invalid email or password.');
+        
+    } catch (Exception $e) {
+        error_log("Login error: " . $e->getMessage());
+        sendJsonResponse('error', 'System Error', 'An error occurred. Please try again later.');
+    } finally {
+        if (isset($stmt)) {
+            $stmt->close();
+        }
+        if (isset($conn)) {
+            $conn->close();
+        }
+    }
 }
 ?>
 

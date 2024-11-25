@@ -104,58 +104,51 @@
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-  e.preventDefault(); // Prevent default form submission
-
-  // Execute reCAPTCHA and handle the token
-  grecaptcha.execute('6LcqT4kqAAAAAOkPnbZCeDx8KNaPHcNMscOiFChA', { action: 'login' }).then(function(token) {
-    // Set the reCAPTCHA token in the hidden input field
-    document.getElementById('recaptchaToken').value = token;
-
-    // Prepare form data
-    var formData = new FormData(e.target);
-
-    // Send the form data to the server via fetch
-    fetch('../action/login.php', {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => response.text())
-    .then(data => {
+    // Fixed reCAPTCHA and form submission handling
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
       try {
-        var result = JSON.parse(data);
-        Swal.fire({
+        // Get reCAPTCHA token
+        const token = await grecaptcha.execute('6LcqT4kqAAAAAOkPnbZCeDx8KNaPHcNMscOiFChA', { action: 'login' });
+        document.getElementById('recaptchaToken').value = token;
+        
+        // Create FormData
+        const formData = new FormData(this);
+        
+        // Send request
+        const response = await fetch('../action/login.php', {
+          method: 'POST',
+          body: formData
+        });
+        
+        // Parse response
+        const data = await response.text();
+        const result = JSON.parse(data);
+        
+        // Show result
+        await Swal.fire({
           icon: result.icon,
           title: result.title,
           text: result.text,
           confirmButtonColor: "#3085d6",
           confirmButtonText: "OK"
-        }).then((swalResult) => {
-          if (swalResult.isConfirmed && result.redirect) {
-            window.location.href = result.redirect; // Redirect if applicable
-          }
         });
+        
+        // Handle redirect if successful
+        if (result.redirect) {
+          window.location.href = result.redirect;
+        }
       } catch (error) {
-        console.error('Error parsing JSON:', error);
-        Swal.fire({
+        console.error('Error:', error);
+        await Swal.fire({
           icon: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong!'
+          title: 'Error',
+          text: 'An error occurred during login. Please try again.'
         });
       }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!'
-      });
     });
-  });
-});
-
-</script>
+  </script>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
