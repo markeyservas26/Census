@@ -1,9 +1,7 @@
 <?php
-// Include the session and database connection files
 include '../session.php';
 include '../database/db_connect.php';
 
-// Enhanced function to check for potential SQL injection
 function checkSqlInjection($input) {
     $sqlPatterns = array(
         '/\b(union|select|from|where|drop|table|insert|delete|update|alter)\b/i',
@@ -55,25 +53,6 @@ function checkXss($input) {
 
     return strip_tags($input) !== $input;
 }
-
-// Function to send JSON response
-function sendJsonResponse($icon, $title, $text, $redirect = null) {
-    $response = [
-        'icon' => $icon,
-        'title' => $title,
-        'text' => $text
-    ];
-    if ($redirect) {
-        $response['redirect'] = $redirect;
-    }
-    echo json_encode($response);
-    exit;
-}
-
-<?php
-include '../session.php';
-include '../database/db_connect.php';
-
 // Verify reCAPTCHA token
 function verifyRecaptcha($token) {
     $secretKey = '6LcqT4kqAAAAAISjS-JW3zVhOZy0yKoBzgmDR47s';
