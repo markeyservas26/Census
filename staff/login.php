@@ -85,7 +85,7 @@ if (isset($_SESSION['user_id'])) {
   </div>
 
   <div class="col-12 d-flex align-items-center">
-  <a href="../Staffforgotpassword/forgot-password.php" style="float:right;"> Forgot password?</a>
+  <a href="../staffforgotpassword/forgot-password.php" style="float:right;"> Forgot password?</a>
                       <!-- Move the link to the right side of the remember me checkbox -->
                       <a href="../index.php" class="back-to-website d-block" style="margin-left: 50px; color:black;">Back to Website</a>
                     </div>
