@@ -102,13 +102,13 @@ session_start();
         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
           <img src="assets/img/icon.webp" alt="Profile" class="rounded-circle">
           <span class="d-none d-md-block dropdown-toggle ps-2">
-            <?php echo "Welcome staff, " . $_SESSION['username'] . "!" ?>
+            <?php echo "Welcome staff, " . $_SESSION['name'] . "!" ?>
           </span>
         </a><!-- End Profile Iamge Icon -->
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
           <li class="dropdown-header">
-            <h6><?php echo "Welcome staff,  " . $_SESSION['username'] . "!" ?></h6>
+            <h6><?php echo "Welcome staff,  " . $_SESSION['name'] . "!" ?></h6>
             <span>Staff</span>
           </li>
           <li><hr class="dropdown-divider"></li>
