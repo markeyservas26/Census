@@ -8,6 +8,29 @@ function sanitize_input($key) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get staff ID from session
+    $staff_id = $_SESSION['userid'] ?? null;
+    
+    // Verify staff exists
+    if ($staff_id) {
+        $check_staff = $conn->prepare("SELECT id FROM staff WHERE id = ?");
+        $check_staff->bind_param("i", $staff_id);
+        $check_staff->execute();
+        $staff_result = $check_staff->get_result();
+        
+        if ($staff_result->num_rows === 0) {
+            die(json_encode([
+                'status' => 'error',
+                'message' => 'Invalid staff ID'
+            ]));
+        }
+        $check_staff->close();
+    } else {
+        die(json_encode([
+            'status' => 'error',
+            'message' => 'No staff member logged in'
+        ]));
+    }
 
     // House Leader
     $house_number = sanitize_input('house_number');
@@ -28,6 +51,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contactnumber_hl = sanitize_input('contactnumber_hl');
     $religion = sanitize_input('religion');
     $location = sanitize_input('location');
+
+    try {
+        // Begin transaction
+        $conn->begin_transaction();
 
         $sql_house_leader = "INSERT INTO house_leader (house_number, lastname, firstname, middlename, exname, 
                             province, municipality, barangay, purok, dob, sex, age, occupation, lcro, 
@@ -532,14 +559,21 @@ $stmt->close();
    $stmt->execute();
    $stmt->close();
 
-   header('Content-Type: application/json');
-   if (!$conn->error) {
-       $conn->commit();
-       echo json_encode(['status' => 'success', 'message' => 'New record created successfully']);
-   } else {
-       $conn->rollback();
-       echo json_encode(['status' => 'error', 'message' => 'Error: ' . $conn->error]);
-   }
+   $conn->commit();
+   echo json_encode([
+       'status' => 'success',
+       'message' => 'New record created successfully',
+       'house_leader_id' => $house_leader_id
+   ]);
+
+} catch (Exception $e) {
+   // If any operation fails, roll back the transaction
+   $conn->rollback();
+   echo json_encode([
+       'status' => 'error',
+       'message' => 'Error: ' . $e->getMessage()
+   ]);
+}
 
 $conn->close();
 }
