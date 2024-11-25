@@ -28,8 +28,8 @@
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300%;
-            max-width: 600px;
+            width: 100%;
+            max-width: 400px;
             text-align: center;
         }
 
@@ -73,7 +73,7 @@
 <body>
 
     <div class="container">
-        <h2>Verifying you are human</h2>
+        <h2>Verifying you are human.</h2>
         <!-- Form with only reCAPTCHA -->
         <form action="submit_form.php" method="POST">
             <!-- Google reCAPTCHA -->
