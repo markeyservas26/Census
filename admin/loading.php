@@ -10,10 +10,10 @@
             height: 100%;
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             display: flex;
             justify-content: center;
             align-items: center;
+            background-color: #f4f4f4;
             overflow: hidden;
         }
 
@@ -24,7 +24,7 @@
         .loading-text {
             font-size: 24px;
             color: #333;
-            margin-bottom: 20px;
+            margin-top: 20px;
         }
 
         /* Progress bar styling */
@@ -34,6 +34,7 @@
             background-color: #ddd;
             border-radius: 15px;
             overflow: hidden;
+            margin-top: 30px;
         }
 
         .progress-bar {
@@ -52,6 +53,9 @@
 </head>
 <body>
     <div class="loading-container">
+        <!-- Lottie animation container -->
+        <div id="lottie-container" style="width: 150px; height: 150px;"></div>
+        <!-- Loading text -->
         <div class="loading-text">Loading... Please wait</div>
 
         <!-- Progress bar container -->
@@ -60,9 +64,21 @@
         </div>
     </div>
 
+    <!-- Lottie Web script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
+
     <script>
         var progressBar = document.getElementById("progress-bar");
         var width = 0;
+
+        // Initialize the Lottie animation
+        var animation = lottie.loadAnimation({
+            container: document.getElementById('lottie-container'), // the DOM element that will hold the animation
+            renderer: 'svg', // Render type (svg, canvas, or html)
+            loop: true, // Loop the animation
+            autoplay: true, // Start animation automatically
+            path: 'https://assets10.lottiefiles.com/packages/lf20_pvhsq8.json' // URL to the Lottie JSON animation
+        });
 
         // Function to simulate loading and increment progress bar
         function moveProgressBar() {
