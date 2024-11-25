@@ -36,7 +36,7 @@
 </head>
 <body>
     <div class="loading-container">
-        <img class="loading-gif" src="assets/img/loading.gif" alt="Loading..."> <!-- Loading GIF -->
+        <img class="loading-gif" src="../assets/img/loading.gif" alt="Loading..."> <!-- Loading GIF -->
         <div class="loading-text">Loading... Please wait</div>
     </div>
 
