@@ -3,32 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading...</title>
+    <title>Just Wait a Moment...</title>
     <style>
         /* Full screen loading screen styling */
         html, body {
             height: 100%;
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: black; /* Changed background color to black */
+            background-color: black; /* Ensure the background color is black */
         }
-        
+
         .loading-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
-            flex-direction: column; /* Make sure GIF and text align vertically */
+            height: 100vh; /* Make the container take the full height of the viewport */
+            flex-direction: column; /* Center items vertically */
+            color: white; /* White text on black background */
         }
 
         .loading-text {
             font-size: 24px;
-            color: #fff; /* Changed text color to white for better contrast on black background */
+            color: white; /* Ensure text is white */
             margin-top: 20px;
         }
 
         .loading-gif {
-            width: 100px; /* Set a width for the loading GIF */
+            width: 100px; /* Width of the loading GIF */
             height: auto;
         }
     </style>
