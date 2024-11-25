@@ -78,7 +78,7 @@
 </head>
 <body>
     <div class="forgot-password-container">
-        <img src="win.png" alt="Logo">
+        <img src="../assets/img/forgotpassword.gif" alt="Logo">
         <div class="content">
             <h2>Forgot Password?</h2>
             <p>Enter your email address and we'll send you instructions to reset your password.</p>

@@ -83,7 +83,7 @@ if($email == false){
 </head>
 <body>
     <div class="verification-container">
-        <img src="win.png" alt="Logo">
+        <img src="../assets/img/enterotp1.gif" alt="Logo">
         <div class="content">
             <h2>Enter OTP</h2>
             <p>Enter the OTP sent to your email.</p>

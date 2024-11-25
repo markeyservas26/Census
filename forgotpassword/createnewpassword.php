@@ -135,7 +135,7 @@ if($email == false){
 </head>
 <body>
     <div class="new-password-container">
-        <img src="win.png" alt="Logo">
+        <img src="../assets/img/newpass.gif" alt="Logo">
         <div class="content">
             <h2>Create New Password</h2>
             <p>Please enter your new password and confirm it.</p>
