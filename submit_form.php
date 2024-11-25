@@ -1,23 +1,32 @@
 <?php
-// The secret key you received from Google reCAPTCHA
-$recaptcha_secret = '6LdRWokqAAAAAOuHkI6EUm7rCURzTuwM23AphhJs';
+// Your secret key from reCAPTCHA v3
+$recaptcha_secret = '6LdRWokqAAAAAOuHkI6EUm7rCURzTuwM23AphhJs'; // Replace with your secret key
 
-// The reCAPTCHA response from the user's form submission
+// The reCAPTCHA response from the user (token sent by the form)
 $recaptcha_response = $_POST['g-recaptcha-response'];
 
-// Verify the reCAPTCHA response with Google's API
-$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$recaptcha_secret&response=$recaptcha_response");
+// Google reCAPTCHA verification URL
+$verify_url = 'https://www.google.com/recaptcha/api/siteverify';
 
-// Decode the JSON response from Google's API
+// Make the API request to Google for verification
+$response = file_get_contents($verify_url . '?secret=' . $recaptcha_secret . '&response=' . $recaptcha_response);
+
+// Decode the response from JSON format
 $response_keys = json_decode($response, true);
 
-// Check if the reCAPTCHA was successful
-if (intval($response_keys["success"]) !== 1) {
-    // If reCAPTCHA failed, show an error message
-    echo 'Please complete the CAPTCHA correctly.';
+// Get the reCAPTCHA score (0 to 1)
+$recaptcha_score = $response_keys['score'];
+
+// Check the score to determine if the user is human
+if ($recaptcha_score >= 0.5) {
+    // Score is high enough, human verified
+    echo 'Human verification successful. You may now proceed!';
+    // Redirect or show the main website content
+    header('Location: ../index.php'); // Redirect to your actual website
+    exit;
 } else {
-    // If reCAPTCHA passed, redirect to the main website page
-    header('Location: ../index.php'); // Replace with your actual website or page
+    // Score is low, suspicious behavior detected
+    echo 'Verification failed. Please try again.';
     exit;
 }
 ?>
