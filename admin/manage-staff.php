@@ -299,7 +299,7 @@ $result = $stmt->get_result();
 
                     <!-- Table with stripped rows -->
                     <div class="table-responsive">
-                        <table id="staffTable" class="table table-striped datatable">
+                        <table id="staffTable" class="table datatable">
                             <thead>
                                 <tr>
                                     <th>Name</th>
