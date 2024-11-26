@@ -17,13 +17,15 @@
             overflow: hidden;
         }
 
-        .button-container {
+        .container {
             text-align: center;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 40px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
+            width: 100%;
+            max-width: 500px;
         }
 
         h1 {
@@ -31,6 +33,20 @@
             font-size: 32px;
             margin-bottom: 20px;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .option-text {
+            color: white;
+            font-size: 18px;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+
+        .info-text {
+            color: white;
+            font-size: 20px;
+            margin-top: 20px;
+            font-weight: bold;
         }
 
         a {
@@ -84,7 +100,7 @@
         }
 
         @media screen and (max-width: 768px) {
-            .button-container {
+            .container {
                 padding: 30px;
             }
 
@@ -101,10 +117,11 @@
     </style>
 </head>
 <body>
-    <div class="button-container">
-        <h1>Choose OTP Method</h1>
+    <div class="container">
+        <p class="option-text">Select one of the following methods to proceed:</p>
         <a href="../forgotpassword/forgot-password.php" class="gmail-btn">Send Via Gmail OTP</a>
         <a href="../sms/send-otp.php" class="sms-btn">Send SMS</a>
+        <p id="infoText" class="info-text"></p>
     </div>
 </body>
 </html>
