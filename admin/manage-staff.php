@@ -205,7 +205,7 @@ $result = $stmt->get_result();
                           <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" required>
                       </div>
                     <div class="col-md-6">
-                        <div class="password-container" style="margin-top: 10px;">
+                        <div class="password-container" style="margin-top: -5px;">
                             <input type="text" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password must be 'staff' only" required>
                             <span class="eye" onclick="togglePasswordVisibility()">
                                 <i id="eyeIcon" class="fas fa-eye"></i>
