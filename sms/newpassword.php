@@ -17,7 +17,6 @@ if (isset($_SESSION['verification_success'])) {
     unset($_SESSION['verification_success']); // Clear the message after displaying
 }
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize the incoming user input (new password and confirm password)
     $password = $_POST['new-password'];
@@ -62,127 +61,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/img/travelogo.png" rel="icon">
     <title>Reset Password</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 100%;
-            max-width: 400px;
-        }
-        h2 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #333;
-        }
-        label {
-            font-size: 16px;
-            color: #333;
-            display: block;
-            margin-bottom: 8px;
-        }
-        input[type="password"] {
-            padding: 10px;
-            width: 100%;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            background-color: #fd2323;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        button:hover {
-            background-color: #45a049;
-            transform: translateY(-2px);
-        }
-        button:active {
-            transform: translateY(0);
-        }
-        .error {
-            color: red;
-            margin-bottom: 20px;
-        }
-        .instructions {
-            font-size: 14px;
-            color: #555;
-            margin-top: 10px;
-        }
-
-        .success {
-            color: green;
-            background-color: #e8f5e9;
-            border: 1px solid #c8e6c9;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-    </style>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen">
 
-    <div class="container">
-        <h2>Reset Your Password</h2>
+    <div class="bg-white rounded-lg p-8 shadow-md w-full max-w-md text-center">
+        <h2 class="text-gray-800 text-2xl font-bold mb-6">Reset Your Password</h2>
+
+        <!-- Success message -->
         <?php if ($success): ?>
-            <div class="success"><?php echo htmlspecialchars($success); ?></div>
+            <div class="text-green-600 mb-4">
+                <?php 
+                    echo htmlspecialchars($success); 
+                    unset($_SESSION['verification_success']); 
+                ?>
+            </div>
         <?php endif; ?>
 
         <!-- Display error message if passwords don't match or update fails -->
         <?php if ($error): ?>
-            <div class="error"><?php echo htmlspecialchars($error); ?></div>
+            <div class="text-red-600 mb-4"><?php echo htmlspecialchars($error); ?></div>
         <?php endif; ?>
 
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" onsubmit="return validatePassword()">
-            <label for="new-password">New Password:</label>
-            <input type="password" id="new-password" name="new-password" required placeholder="Enter new password" minlength="8">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" class="mb-6">
+            <div class="mb-4">
+                <label for="new-password" class="block text-left text-gray-600">New Password:</label>
+                <input type="password" id="new-password" name="new-password" required placeholder="Enter new password" minlength="8"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent">
+            </div>
 
-            <label for="confirm-password">Confirm Password:</label>
-            <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirm your password" minlength="8">
+            <div class="mb-4">
+                <label for="confirm-password" class="block text-left text-gray-600">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirm your password" minlength="8"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent">
+            </div>
 
-            <button type="submit">Reset Password</button>
+            <button type="submit" class="w-full py-3 bg-gray-800 text-white rounded-md font-semibold text-lg shadow-md hover:bg-gray-700">
+                Reset Password
+            </button>
         </form>
 
-        <div class="instructions">
+        <div class="text-gray-600 text-sm mb-4">
             <p>Password must be at least 8 characters long.</p>
         </div>
+
+        <div class="text-gray-600 text-sm font-semibold mt-4">
+            <a href="../admin/login.php" class="text-gray-600 hover:text-gray-800">Back to Login</a>
+        </div>
     </div>
-
-    <script>
-        function validatePassword() {
-            // Get the password values
-            var newPassword = document.getElementById("new-password").value;
-            var confirmPassword = document.getElementById("confirm-password").value;
-
-            // Check if passwords match
-            if (newPassword !== confirmPassword) {
-                // Show error message and prevent form submission
-                alert("Passwords do not match!");
-                return false;
-            }
-
-            // If passwords match, allow form submission
-            return true;
-        }
-    </script>
 
 </body>
 </html>
