@@ -202,8 +202,8 @@ $result = $stmt->get_result();
                         <input type="email" class="form-control" id="emailInput" name="emailInput" placeholder="Username (@gmail.com only)" required>
                     </div>
                     <div class="col-md-6">
-                          <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" required>
-                      </div>
+    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" required maxlength="11" oninput="validatePhoneNumber()">
+</div>
                     <div class="col-md-6">
                         <div class="password-container" style="margin-top: -5px; z-index: 10;">
                             <input type="text" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password must be 'staff' only" required>
@@ -894,6 +894,22 @@ document.addEventListener('DOMContentLoaded', function() {
         $('#viewModal').modal('show');
     });
 });
+</script>
+<script>
+    function validatePhoneNumber() {
+        var phoneInput = document.getElementById('phone');
+        var phoneError = document.getElementById('phoneError');
+        
+        // Remove non-numeric characters
+        phoneInput.value = phoneInput.value.replace(/\D/g, '');
+
+        // Check if the phone number is 11 digits long
+        if (phoneInput.value.length === 11) {
+            phoneError.style.display = 'none';
+        } else {
+            phoneError.style.display = 'block';
+        }
+    }
 </script>
 <script>
 function printDetails() {
