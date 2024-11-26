@@ -54,7 +54,7 @@
           <div>
             <label for="yourUsername" class="block text-left text-gray-600 text-lg font-semibold mb-2">Email</label>
             <div class="relative">
-              <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">@</span>|
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">@</span>
               <input type="email" name="username" id="yourUsername" required
                 class="w-full px-4 py-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
             </div>
