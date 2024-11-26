@@ -87,6 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php endif; ?>
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" class="mb-6">
+            <!-- New Password -->
             <div class="mb-4 relative">
                 <label for="new-password" class="block text-left text-gray-600">New Password:</label>
                 <input type="password" id="new-password" name="new-password" required placeholder="Enter new password" minlength="8"
@@ -94,6 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <i id="toggleNewPassword" class="fas fa-eye absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-600" onclick="togglePasswordVisibility('new-password')"></i>
             </div>
 
+            <!-- Confirm Password -->
             <div class="mb-4 relative">
                 <label for="confirm-password" class="block text-left text-gray-600">Confirm Password:</label>
                 <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirm your password" minlength="8"
