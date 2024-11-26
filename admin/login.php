@@ -27,80 +27,74 @@
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
   <script src="https://www.google.com/recaptcha/api.js?render=6LcqT4kqAAAAAOkPnbZCeDx8KNaPHcNMscOiFChA"></script>
 
   <!-- Custom CSS for Logo Size -->
 
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen p-0 m-0">
 
-  <main>
-    <div class="container">
-      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-
-              <div class="card mb-3">
-
-                <div class="card-body">
-
-                  <div class="d-flex justify-content-center py-4">
-                    <img src="../assets/img/trasparlogo.png" alt="" style="height: 150px; width: 200px;">
-                  </div><!-- End Logo -->
-                  <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4"> Admin | Login</h5>
-                  </div>
-
-                  <form id="loginForm" class="row g-3 needs-validation" method="POST">
-                 
-
-                    <div class="col-12">
-                      <label for="yourUsername" class="form-label">Email</label>
-                      <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="email" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please enter your Email.</div>
-                      </div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <div class="input-group">
-                        <input type="password" name="password" class="form-control" id="yourPassword" required>
-                        <span class="input-group-text" id="togglePassword">
-                          <i class="fas fa-eye"></i>
-                        </span>
-                        <div class="invalid-feedback">Please enter your password!</div>
-                      </div>
-                      <!-- Add the back to website link below the password field -->
-                    </div>
-
-                    <div class="col-12 d-flex align-items-center">
-                      <a href="chooseaway.php" style="float:right;"> Forgot password?</a>
-                      <!-- Move the link to the right side of the remember me checkbox -->
-                      <a href="../index.php" class="back-to-website d-block" style="margin-left: 50px; color:black;">Back to Website</a>
-                    </div>
-                    <input type="hidden" name="recaptcha_token" id="recaptchaToken">
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Login</button>
-                    </div>
-                    <!-- <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="register.php">Create an account</a></p>
-                    </div> -->
-                  </form>
-
-                </div>
-              </div>
-            </div>
-          </div>
+  <main class="w-full max-w-md">
+    <section class="min-h-screen flex flex-col items-center justify-center py-4">
+      <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+        <!-- Logo -->
+        <div class="flex justify-center py-4 mb-6">
+          <img src="../assets/img/trasparlogo.png" alt="" class="h-32 w-auto">
         </div>
-      </section>
-    </div>
-  </main><!-- End #main -->
+
+        <!-- Title -->
+        <h5 class="text-center text-gray-800 text-2xl font-semibold mb-4">Admin | Login</h5>
+
+        <!-- Login Form -->
+        <form id="loginForm" method="POST" class="space-y-6">
+
+          <!-- Email Input -->
+          <div>
+            <label for="yourUsername" class="block text-left text-gray-600 text-lg font-semibold mb-2">Email</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">@</span>
+              <input type="email" name="username" id="yourUsername" required
+                class="w-full px-4 py-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
+            </div>
+            <div class="text-sm text-red-500 mt-1" id="usernameError"></div>
+          </div>
+
+          <!-- Password Input -->
+          <div>
+            <label for="yourPassword" class="block text-left text-gray-600 text-lg font-semibold mb-2">Password</label>
+            <div class="relative">
+              <input type="password" name="password" id="yourPassword" required
+                class="w-full px-4 py-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
+              <span class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" id="togglePassword">
+                <i class="fas fa-eye"></i>
+              </span>
+            </div>
+            <div class="text-sm text-red-500 mt-1" id="passwordError"></div>
+          </div>
+
+          <!-- Forgot Password & Back to Website Links -->
+          <div class="flex justify-between text-gray-600 text-sm">
+            <a href="chooseaway.php" class="hover:text-gray-800">Forgot password?</a>
+            <a href="../index.php" class="hover:text-gray-800">Back to Website</a>
+          </div>
+
+          <!-- Submit Button -->
+          <div>
+            <button type="submit"
+              class="w-full py-3 px-4 bg-gray-800 text-white rounded-md font-semibold shadow-md hover:bg-gray-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-400">
+              Login
+            </button>
+          </div>
+
+          <!-- Hidden reCAPTCHA Token -->
+          <input type="hidden" name="recaptcha_token" id="recaptchaToken">
+
+        </form>
+      </div>
+    </section>
+  </main>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
