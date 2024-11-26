@@ -275,46 +275,50 @@ $result = $stmt->get_result();
 </div>
 
           <!-- Table -->
-          <div class="table-responsive">
-            <table id="adminTable" class="table datatable">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Username</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                  if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                      echo "<tr>";
-                      echo "<td>" . htmlspecialchars($row['name']) . "</td>";
-                      echo "<td>" . htmlspecialchars($row['username']) . "</td>";
-                      echo "<td>
-                              <div class='dropdown'>
-                                <button class='btn btn-sm btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton" . $row['id'] . "' data-bs-toggle='dropdown' aria-expanded='false'>
-                                  <i class='fas fa-cogs'></i> <!-- Settings icon -->
-                                </button>
-                               <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton" . $row['id'] . "'>
-                                                    <li><a class='dropdown-item delete-btn' data-id='" . htmlspecialchars($row['id']) . "' href='#'>Delete</a></li>
-                                                    <li><a class='dropdown-item view-btn' 
-                                                           data-id='" . htmlspecialchars($row['id']) . "' 
-                                                           data-name='" . htmlspecialchars($row['name']) . "' 
-                                                           data-username='" . htmlspecialchars($row['username']) . "'  
-                                                           href='#' data-bs-toggle='modal' data-bs-target='#viewModal'>View</a></li>
-                                                  </ul>
-                              </div>
-                            </td>";
-                      echo "</tr>";
-                    }
-                  } else {
-                    echo "<tr><td colspan='3'>No records found</td></tr>";
-                  }
-                ?>
-              </tbody>
-            </table>
-          </div>
+<div class="table-responsive">
+  <table id="adminTable" class="table datatable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Phone Number</th> <!-- Added phone number column -->
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+        if ($result->num_rows > 0) {
+          while ($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<td>" . htmlspecialchars($row['name']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['username']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['phone']) . "</td>"; <!-- Added phone number here -->
+            echo "<td>
+                    <div class='dropdown'>
+                      <button class='btn btn-sm btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton" . $row['id'] . "' data-bs-toggle='dropdown' aria-expanded='false'>
+                        <i class='fas fa-cogs'></i> <!-- Settings icon -->
+                      </button>
+                      <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton" . $row['id'] . "'>
+                        <li><a class='dropdown-item delete-btn' data-id='" . htmlspecialchars($row['id']) . "' href='#'>Delete</a></li>
+                        <li><a class='dropdown-item view-btn' 
+                               data-id='" . htmlspecialchars($row['id']) . "' 
+                               data-name='" . htmlspecialchars($row['name']) . "' 
+                               data-username='" . htmlspecialchars($row['username']) . "'  
+                               data-phone='" . htmlspecialchars($row['phone']) . "' <!-- Added phone number to view button -->
+                               href='#' data-bs-toggle='modal' data-bs-target='#viewModal'>View</a></li>
+                      </ul>
+                    </div>
+                  </td>";
+            echo "</tr>";
+          }
+        } else {
+          echo "<tr><td colspan='4'>No records found</td></tr>"; <!-- Adjusted colspan -->
+        }
+      ?>
+    </tbody>
+  </table>
+</div>
+
 
           <!-- Pagination -->
           <div class="pagination-info-wrapper">
