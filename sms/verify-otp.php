@@ -21,8 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $clear_stmt->close();
         
         $_SESSION['verification_success'] = "OTP Verified Successfully! You can now change your password.";
-    header("Location: newpassword.php");
-    exit();
+        header("Location: newpassword.php");
+        exit();
     } else {
         $error = "Invalid OTP or OTP has expired.";
     }
@@ -37,106 +37,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/img/travelogo.png" rel="icon">
     <title>Enter OTP</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+            font-family: 'Open Sans', sans-serif;
         }
-        .container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 100%;
-            max-width: 400px;
-        }
-        h2 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #333;
-        }
-        label {
-            font-size: 16px;
-            color: #333;
-            display: block;
-            margin-bottom: 8px;
-        }
-        input[type="text"] {
-            padding: 10px;
-            width: 100%;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            background-color: #fd2323;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        button:hover {
-            background-color: #45a049;
-            transform: translateY(-2px);
-        }
-        button:active {
-            transform: translateY(0);
-        }
-        .instructions {
-            font-size: 14px;
-            color: #555;
-            margin-top: 10px;
-        }
-        .error {
-            color: red;
-            margin-bottom: 20px;
-        }
-    /* Add this to your existing styles */
-    .success {
-            color: green;
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: #e8f5e9;
-            border-radius: 5px;
-            border: 1px solid #c8e6c9;
-        }
-        
     </style>
 </head>
-<body>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
-    <div class="container">
-        <h2>Enter OTP</h2>
-        <?php if (isset($_SESSION['success_message'])): ?>
-            <div class="success">
+    <div class="bg-white rounded-lg shadow-md p-8 w-full max-w-md text-center">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Enter OTP</h2>
+
+        <?php if (isset($_SESSION['verification_success'])): ?>
+            <div class="text-green-600 bg-green-100 p-4 rounded-md mb-4">
                 <?php 
-                    echo htmlspecialchars($_SESSION['success_message']); 
-                    unset($_SESSION['success_message']); 
+                    echo htmlspecialchars($_SESSION['verification_success']); 
+                    unset($_SESSION['verification_success']); 
                 ?>
             </div>
         <?php endif; ?>
 
         <?php if (isset($error)): ?>
-            <div class="error"><?php echo htmlspecialchars($error); ?></div>
+            <div class="text-red-600 bg-red-100 p-4 rounded-md mb-4"><?php echo htmlspecialchars($error); ?></div>
         <?php endif; ?>
+
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-            <label for="otp">One-Time Password (OTP):</label>
-            <input type="text" id="otp" name="otp" required placeholder="Enter OTP" maxlength="6" pattern="[0-9]{6}">
-            <button type="submit">Verify OTP</button>
+            <label for="otp" class="text-lg text-gray-700 mb-2 block">One-Time Password (OTP):</label>
+            <input type="text" id="otp" name="otp" class="w-full px-4 py-2 border border-gray-300 rounded-md text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent mb-4" required placeholder="Enter OTP" maxlength="6" pattern="[0-9]{6}">
+            <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded-md font-semibold text-lg shadow-md hover:bg-blue-700 transition duration-300">
+                Verify OTP
+            </button>
         </form>
-        <div class="instructions">
+
+        <div class="text-gray-600 text-sm mt-4">
             <p>The OTP was sent to your phone/email. Please enter it above to proceed.</p>
+        </div>
+
+        <div class="mt-4 text-sm">
+            <a href="resend-otp.php" class="text-blue-600 hover:underline">Resend OTP</a>
+        </div>
+
+        <div class="mt-6">
+            <a href="../admin/login.php" class="text-blue-600 hover:underline">Back to Login</a>
         </div>
     </div>
 
