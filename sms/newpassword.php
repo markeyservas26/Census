@@ -66,6 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Font Awesome for eye icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        .password-toggle {
         position: absolute;
         right: 12px;
         top: 50px;
@@ -73,6 +74,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         cursor: pointer;
         color: #718096;
         z-index: 10;
+        }
+        .password-toggle:hover {
+            color: #4A5568;
+        }
     </style>
 </head>
 <body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen">
