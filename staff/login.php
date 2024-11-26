@@ -103,55 +103,51 @@ if (isset($_SESSION['user_id'])) {
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-
-  try {
+    // Fixed reCAPTCHA and form submission handling
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      try {
         // Get reCAPTCHA token
         const token = await grecaptcha.execute('6LcqT4kqAAAAAOkPnbZCeDx8KNaPHcNMscOiFChA', { action: 'login' });
         document.getElementById('recaptchaToken').value = token;
-  
-  var formData = new FormData(this);
-  
-  fetch('../staffaction/login.php', {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => response.text())
-  .then(data => {
-    try {
-      var result = JSON.parse(data);
-      Swal.fire({
-        icon: result.icon,
-        title: result.title,
-        text: result.text,
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "OK"
-      }).then((swalResult) => {
-        if (swalResult.isConfirmed && result.redirect) {
+        
+        // Create FormData
+        const formData = new FormData(this);
+        
+        // Send request
+        const response = await fetch('../staffaction/login.php', {
+          method: 'POST',
+          body: formData
+        });
+        
+        // Parse response
+        const data = await response.text();
+        const result = JSON.parse(data);
+        
+        // Show result
+        await Swal.fire({
+          icon: result.icon,
+          title: result.title,
+          text: result.text,
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "OK"
+        });
+        
+        // Handle redirect if successful
+        if (result.redirect) {
           window.location.href = result.redirect;
         }
-      });
-    } catch (error) {
-      console.error('Error parsing JSON:', error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-      });
-    }
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Something went wrong!',
+      } catch (error) {
+        console.error('Error:', error);
+        await Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'An error occurred during login. Please try again.'
+        });
+      }
     });
-  });
-});
-</script>
-
+  </script>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
