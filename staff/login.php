@@ -37,6 +37,8 @@ if (isset($_SESSION['user_id'])) {
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="https://www.google.com/recaptcha/api.js?render=6LcqT4kqAAAAAOkPnbZCeDx8KNaPHcNMscOiFChA"></script>
 </head>
 
 <body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen p-0 m-0">
@@ -102,56 +104,7 @@ if (isset($_SESSION['user_id'])) {
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script>
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-
-  try {
-        // Get reCAPTCHA token
-        const token = await grecaptcha.execute('6LcqT4kqAAAAAOkPnbZCeDx8KNaPHcNMscOiFChA', { action: 'login' });
-        document.getElementById('recaptchaToken').value = token;
   
-  var formData = new FormData(this);
-  
-  fetch('../staffaction/login.php', {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => response.text())
-  .then(data => {
-    try {
-      var result = JSON.parse(data);
-      Swal.fire({
-        icon: result.icon,
-        title: result.title,
-        text: result.text,
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "OK"
-      }).then((swalResult) => {
-        if (swalResult.isConfirmed && result.redirect) {
-          window.location.href = result.redirect;
-        }
-      });
-    } catch (error) {
-      console.error('Error parsing JSON:', error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-      });
-    }
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Something went wrong!',
-    });
-  });
-});
-</script>
-
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
