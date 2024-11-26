@@ -63,6 +63,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Reset Password</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for eye icon -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 <body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen">
 
@@ -85,16 +87,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php endif; ?>
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" class="mb-6">
-            <div class="mb-4">
+            <div class="mb-4 relative">
                 <label for="new-password" class="block text-left text-gray-600">New Password:</label>
                 <input type="password" id="new-password" name="new-password" required placeholder="Enter new password" minlength="8"
                     class="w-full px-4 py-2 border border-gray-300 rounded-md text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent">
+                <i id="toggleNewPassword" class="fas fa-eye absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-600" onclick="togglePasswordVisibility('new-password')"></i>
             </div>
 
-            <div class="mb-4">
+            <div class="mb-4 relative">
                 <label for="confirm-password" class="block text-left text-gray-600">Confirm Password:</label>
                 <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirm your password" minlength="8"
                     class="w-full px-4 py-2 border border-gray-300 rounded-md text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent">
+                <i id="toggleConfirmPassword" class="fas fa-eye absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-600" onclick="togglePasswordVisibility('confirm-password')"></i>
             </div>
 
             <button type="submit" class="w-full py-3 bg-gray-800 text-white rounded-md font-semibold text-lg shadow-md hover:bg-gray-700">
@@ -110,6 +114,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a href="../admin/login.php" class="text-gray-600 hover:text-gray-800">Back to Login</a>
         </div>
     </div>
+
+    <script>
+        // Toggle password visibility
+        function togglePasswordVisibility(fieldId) {
+            var passwordField = document.getElementById(fieldId);
+            var icon = document.getElementById("toggle" + fieldId.charAt(0).toUpperCase() + fieldId.slice(1));
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";  // Show password
+                icon.classList.remove("fa-eye");  // Change to open eye icon
+                icon.classList.add("fa-eye-slash");  // Change to closed eye icon
+            } else {
+                passwordField.type = "password";  // Hide password
+                icon.classList.remove("fa-eye-slash");  // Change to closed eye icon
+                icon.classList.add("fa-eye");  // Change to open eye icon
+            }
+        }
+    </script>
 
 </body>
 </html>
