@@ -7,24 +7,24 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-r from-gray-600 to-gray-300 flex justify-center items-center min-h-screen p-0 m-0">
+<body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen p-0 m-0">
 
-    <div class="bg-white bg-opacity-90 rounded-3xl p-12 shadow-2xl backdrop-blur-lg w-full max-w-md text-center transition-all ease-in-out transform hover:scale-105">
-        <h1 class="text-gray-900 text-4xl font-extrabold mb-6">Choose an Option</h1>
-        <p class="text-gray-600 text-lg mb-8 font-medium">Select one of the following methods to proceed:</p>
+    <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md text-center">
+        <h1 class="text-gray-800 text-3xl font-bold mb-6">Choose an Option</h1>
+        <p class="text-gray-600 text-lg mb-8">Please select one of the following methods to proceed:</p>
 
         <!-- Button Links -->
         <a href="../forgotpassword/forgot-password.php" 
-            class="inline-block bg-gray-800 text-white rounded-full px-8 py-4 mb-6 text-xl font-semibold shadow-lg transform transition-all duration-300 hover:bg-gray-700 hover:shadow-xl hover:scale-105 active:scale-95">
+            class="block bg-gray-800 text-white rounded-md px-6 py-3 mb-6 text-xl font-semibold shadow-md hover:bg-gray-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-400">
             Send Via Gmail OTP
         </a>
         <a href="../sms/send-otp.php" 
-            class="inline-block bg-gray-800 text-white rounded-full px-8 py-4 text-xl font-semibold shadow-lg transform transition-all duration-300 hover:bg-gray-700 hover:shadow-xl hover:scale-105 active:scale-95">
+            class="block bg-gray-800 text-white rounded-md px-6 py-3 text-xl font-semibold shadow-md hover:bg-gray-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-400">
             Send SMS
         </a>
 
         <!-- Info Text -->
-        <p id="infoText" class="text-gray-500 text-lg font-semibold mt-8"></p>
+        <p id="infoText" class="text-gray-500 text-lg mt-8">For account recovery, choose one of the available methods.</p>
     </div>
 
 </body>
