@@ -26,6 +26,11 @@
 
         <!-- Info Text -->
         <p id="infoText" class="text-gray-500 text-lg mt-8">For account recovery, choose one of the available methods.</p>
+    
+        <div class="text-gray-600 text-sm font-semibold mt-4">
+            <a href="../admin/login.php" class="text-gray-600 hover:text-gray-800">Back to Log in</a>
+        </div>
+    
     </div>
 
 </body>
