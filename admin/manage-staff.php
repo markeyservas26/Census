@@ -244,7 +244,7 @@ $result = $stmt->get_result();
                 <p><strong>Municipality:</strong> <span id="modal-municipality"></span></p>
                 <div>
                     <label for="modal-password" class="form-label"><strong>Password (staff only):</strong></label>
-                    <input type="text" id="modal-password" class="form-control" placeholder="Enter staff password">
+                    <input type="text" id="modal-password" class="form-control" placeholder="Password must be 'staff' only">
                 </div>
             </div>
             <div class="modal-footer">

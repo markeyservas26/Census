@@ -225,7 +225,7 @@ $result = $stmt->get_result();
         <p><strong>Username:</strong> <span id="modal-username"></span></p>
         <div>
                     <label for="modal-password" class="form-label"><strong>Password (admin only):</strong></label>
-                    <input type="text" id="modal-password" class="form-control" placeholder="Enter admin password">
+                    <input type="text" id="modal-password" class="form-control" placeholder="Password must be 'admin' only">
                 </div>
       </div>
       <div class="modal-footer">
