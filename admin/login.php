@@ -16,110 +16,22 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
   <script src="https://www.google.com/recaptcha/api.js?render=6LcqT4kqAAAAAOkPnbZCeDx8KNaPHcNMscOiFChA"></script>
 
   <!-- Custom CSS for Logo Size -->
-  <style>
-    body {
-      background-color: #f1f5f8;
-      font-family: 'Open Sans', sans-serif;
-    }
-
-    .container {
-      max-width: 600px;
-      margin-top: 5%;
-    }
-
-    .card {
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      padding: 2rem;
-      background-color: white;
-    }
-
-    .card-title {
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: #2c3e50;
-    }
-
-    .card-body {
-      padding: 2rem;
-    }
-
-    .form-label {
-      font-size: 1rem;
-      font-weight: 500;
-      color: #2c3e50;
-    }
-
-    .form-control {
-      border-radius: 5px;
-      border: 1px solid #ccd1d9;
-      padding: 0.75rem;
-    }
-
-    .form-control:focus {
-      border-color: #5c6bc0;
-      box-shadow: 0 0 0 0.2rem rgba(92, 107, 192, 0.25);
-    }
-
-    .input-group-text {
-      background-color: #f4f6f8;
-    }
-
-    .btn-primary {
-      background-color: #2c3e50;
-      border: none;
-      padding: 0.75rem;
-      width: 100%;
-      font-size: 1.1rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .btn-primary:hover {
-      background-color: #34495e;
-    }
-
-    .back-to-website {
-      color: #2980b9;
-      text-decoration: none;
-      font-size: 0.9rem;
-    }
-
-    .back-to-website:hover {
-      text-decoration: underline;
-    }
-
-    .forgot-password {
-      color: #e74c3c;
-      font-size: 0.9rem;
-      text-decoration: none;
-      margin-left: auto;
-    }
-
-    .forgot-password:hover {
-      text-decoration: underline;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 2rem;
-      color: #7f8c8d;
-    }
-  </style>
 
 </head>
 
@@ -128,52 +40,60 @@
   <main>
     <div class="container">
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-        <div class="row justify-content-center">
-          <div class="col-lg-6 col-md-8 d-flex flex-column align-items-center justify-content-center">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
-            <div class="card mb-3">
-              <div class="card-body">
-                <div class="d-flex justify-content-center py-4">
-                  <img src="../assets/img/trasparlogo.png" alt="" style="height: 100px; width: 150px;">
-                </div><!-- End Logo -->
-                <div class="pt-4 pb-2">
-                  <h5 class="card-title text-center pb-0 fs-4"> Admin | Login</h5>
+              <div class="card mb-3">
+
+                <div class="card-body">
+
+                  <div class="d-flex justify-content-center py-4">
+                    <img src="../assets/img/trasparlogo.png" alt="" style="height: 150px; width: 200px;">
+                  </div><!-- End Logo -->
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4"> Admin | Login</h5>
+                  </div>
+
+                  <form id="loginForm" class="row g-3 needs-validation" method="POST">
+                 
+
+                    <div class="col-12">
+                      <label for="yourUsername" class="form-label">Email</label>
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <input type="email" name="username" class="form-control" id="yourUsername" required>
+                        <div class="invalid-feedback">Please enter your Email.</div>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourPassword" class="form-label">Password</label>
+                      <div class="input-group">
+                        <input type="password" name="password" class="form-control" id="yourPassword" required>
+                        <span class="input-group-text" id="togglePassword">
+                          <i class="fas fa-eye"></i>
+                        </span>
+                        <div class="invalid-feedback">Please enter your password!</div>
+                      </div>
+                      <!-- Add the back to website link below the password field -->
+                    </div>
+
+                    <div class="col-12 d-flex align-items-center">
+                      <a href="chooseaway.php" style="float:right;"> Forgot password?</a>
+                      <!-- Move the link to the right side of the remember me checkbox -->
+                      <a href="../index.php" class="back-to-website d-block" style="margin-left: 50px; color:black;">Back to Website</a>
+                    </div>
+                    <input type="hidden" name="recaptcha_token" id="recaptchaToken">
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit">Login</button>
+                    </div>
+                    <!-- <div class="col-12">
+                      <p class="small mb-0">Don't have account? <a href="register.php">Create an account</a></p>
+                    </div> -->
+                  </form>
+
                 </div>
-
-                <form id="loginForm" class="row g-3 needs-validation" method="POST">
-
-                  <div class="col-12">
-                    <label for="yourUsername" class="form-label">Email</label>
-                    <div class="input-group has-validation">
-                      <span class="input-group-text" id="inputGroupPrepend">@</span>
-                      <input type="email" name="username" class="form-control" id="yourUsername" required>
-                      <div class="invalid-feedback">Please enter your Email.</div>
-                    </div>
-                  </div>
-
-                  <div class="col-12">
-                    <label for="yourPassword" class="form-label">Password</label>
-                    <div class="input-group">
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <span class="input-group-text" id="togglePassword">
-                        <i class="fas fa-eye"></i>
-                      </span>
-                    </div>
-                    <div class="invalid-feedback">Please enter your password!</div>
-                  </div>
-
-                  <div class="col-12 d-flex align-items-center justify-content-between">
-                    <a href="chooseaway.php" class="forgot-password">Forgot password?</a>
-                    <a href="../index.php" class="back-to-website">Back to Website</a>
-                  </div>
-
-                  <input type="hidden" name="recaptcha_token" id="recaptchaToken">
-
-                  <div class="col-12">
-                    <button class="btn btn-primary" type="submit">Login</button>
-                  </div>
-                </form>
-
               </div>
             </div>
           </div>
@@ -225,6 +145,54 @@
           icon: 'error',
           title: 'Error',
           text: 'An error occurred during login. Please try again.'
+        });
+      }
+    });
+  </script>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="assets/vendor/quill/quill.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const togglePassword = document.querySelector('#togglePassword');
+      const passwordField = document.querySelector('#yourPassword');
+
+      togglePassword.addEventListener('click', function() {
+        // Toggle the type attribute
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+
+        // Toggle the eye icon
+        this.querySelector('i').classList.toggle('fa-eye-slash');
+      });
+    });
+
+    // Validation for the login form
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      const usernameInput = document.getElementById('yourUsername');
+      const usernameValue = usernameInput.value;
+      const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
+      // Check if the username matches the @gmail.com pattern
+      if (!gmailPattern.test(usernameValue)) {
+        event.preventDefault(); // Prevent form submission
+        Swal.fire({
+          icon: 'error',
+          title: 'Validation Error',
+          text: 'Username must have an @gmail.com.'
         });
       }
     });
