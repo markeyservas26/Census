@@ -429,6 +429,9 @@ $result = $stmt->get_result();
             <input type="email" class="form-control" id="editEmailInput" name="emailInput" placeholder="Username" required>
           </div>
           <div class="col-md-6">
+                          <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" required>
+                      </div>
+          <div class="col-md-6">
           <div class="password-container">
     <input type="password" class="form-control" id="editPasswordInput" name="passwordInput" placeholder="Password">
     <span class="eye" onclick="toggleEditPasswordVisibility()">
