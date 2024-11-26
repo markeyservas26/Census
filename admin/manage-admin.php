@@ -292,7 +292,7 @@ $result = $stmt->get_result();
             echo "<tr>";
             echo "<td>" . htmlspecialchars($row['name']) . "</td>";
             echo "<td>" . htmlspecialchars($row['username']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['phone']) . "</td>"; <!-- Added phone number here -->
+            echo "<td>" . htmlspecialchars($row['phone']) . "</td>";
             echo "<td>
                     <div class='dropdown'>
                       <button class='btn btn-sm btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton" . $row['id'] . "' data-bs-toggle='dropdown' aria-expanded='false'>
