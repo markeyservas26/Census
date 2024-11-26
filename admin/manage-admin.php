@@ -191,7 +191,6 @@ $result = $stmt->get_result();
                     </div>
                     <div class="col-md-6">
     <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" required maxlength="11" oninput="validatePhoneNumber()" pattern="\d{11}">
-    <small class="text-muted" id="phoneError" style="color:red; display:none;">Phone Number must be exactly 11 digits.</small>
 </div>
                     <div class="col-md-6">
                         <div class="password-container">
