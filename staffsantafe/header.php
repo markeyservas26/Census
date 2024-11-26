@@ -87,7 +87,7 @@ session_start();
             <span>Staff</span>
           </li>
           <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item d-flex align-items-center" href="changepassword.php"><i class="fas fa-user-cog"></i><span>My Account</span></a></li>
+          <li><a class="dropdown-item d-flex align-items-center" href="myaccount.php"><i class="fas fa-user-cog"></i><span>My Account</span></a></li>
           <li><a class="dropdown-item d-flex align-items-center" href="logout.php"><i class="fas fa-sign-out-alt"></i><span>Sign Out</span></a></li>
         </ul><!-- End Profile Dropdown Items -->
       </li><!-- End Profile Nav -->
