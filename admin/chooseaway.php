@@ -9,7 +9,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             height: 100vh;
-            background: linear-gradient(to right, #6a11cb, #2575fc);
+            background: linear-gradient(to right, #a0a0a0, #dcdcdc); /* Soft gray gradient */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -19,31 +19,29 @@
 
         .container {
             text-align: center;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.9); /* Slightly opaque white */
             border-radius: 15px;
             padding: 40px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
             width: 100%;
             max-width: 500px;
         }
 
         h1 {
-            color: white;
+            color: #333333; /* Dark gray for the heading */
             font-size: 32px;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .option-text {
-            color: white;
+            color: #555555; /* Lighter gray for option text */
             font-size: 18px;
             margin-top: 20px;
             font-weight: 500;
         }
 
         .info-text {
-            color: white;
+            color: #777777; /* Even lighter gray for the info text */
             font-size: 20px;
             margin-top: 20px;
             font-weight: bold;
@@ -58,45 +56,21 @@
             border-radius: 30px;
             font-size: 18px;
             font-weight: bold;
+            background-color: #777777; /* Medium gray for buttons */
             transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             position: relative;
         }
 
-        .gmail-btn {
-            background: linear-gradient(45deg, #ea4335, #f44336);
-        }
-
-        .sms-btn {
-            background: linear-gradient(45deg, #34a853, #1b8f3a);
-        }
-
-        .gmail-btn:hover, .sms-btn:hover {
-            background: linear-gradient(45deg, #c62828, #b71c1c);
+        a:hover {
+            background-color: #555555; /* Darker gray for hover */
             transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .gmail-btn:active, .sms-btn:active {
+        a:active {
             transform: translateY(2px);
             box-shadow: none;
-        }
-
-        .gmail-btn::after, .sms-btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: 30px;
-            transition: opacity 0.3s ease;
-            opacity: 0;
-        }
-
-        .gmail-btn:hover::after, .sms-btn:hover::after {
-            opacity: 1;
         }
 
         @media screen and (max-width: 768px) {
@@ -118,6 +92,7 @@
 </head>
 <body>
     <div class="container">
+        <h1>Choose an Option</h1>
         <p class="option-text">Select one of the following methods to proceed:</p>
         <a href="../forgotpassword/forgot-password.php" class="gmail-btn">Send Via Gmail OTP</a>
         <a href="../sms/send-otp.php" class="sms-btn">Send SMS</a>
