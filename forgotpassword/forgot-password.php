@@ -5,44 +5,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forgot Password</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
     <style>
         html, body {
             height: 100%;
             margin: 0;
-            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #e2e2e2, #ffffff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+        }
+        .forgot-password-container {
+            max-width: 500px;
+            width: 100%;
+            background-color:#d1dbfc;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .forgot-password-container img {
+            width: 250px;
+            height: 120px;
+            border-radius: 5%;
+            margin-bottom: 1rem;
+        }
+        .forgot-password-container .content {
+            position: relative;
+            z-index: 1;
+        }
+        h2 {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        p {
+            color: #555;
+            margin-bottom: 2rem;
+        }
+        .btn-danger {
+            background: #007bff;
+            border: none;
+            border-radius: 25px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .btn-danger:hover {
+            background: #0056b3;
+        }
+        .alert-danger {
+            margin-top: 1rem;
+            border-radius: 8px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <div class="bg-white w-full max-w-md rounded-lg shadow-lg p-6 space-y-6">
-        <div class="text-center">
-            <img src="../assets/img/forgotpassword.gif" alt="Logo" class="w-56 h-28 mx-auto mb-4 rounded-lg">
-            <h2 class="text-2xl font-semibold text-gray-800">Forgot Password?</h2>
-            <p class="text-gray-600 mb-6">Enter your email address, and we'll send you instructions to reset your password.</p>
+<body>
+    <div class="forgot-password-container">
+        <img src="../assets/img/forgotpassword.gif" alt="Logo">
+        <div class="content">
+            <h2>Forgot Password?</h2>
+            <p>Enter your email address and we'll send you instructions to reset your password.</p>
+            <?php if(count($errors) > 0): ?>
+                <div class="alert alert-danger text-center">
+                    <?php foreach($errors as $error): ?>
+                        <div><?php echo htmlspecialchars($error); ?></div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+            <form action="forgot-password.php" method="POST" autocomplete="off">
+                <div class="mb-3">
+                    <input type="email" name="email" class="form-control" value="<?php echo htmlspecialchars($email); ?>" placeholder="Enter your email" required>
+                </div>
+                <button type="submit" name="check-email" value="Continue" class="btn btn-danger w-100 mb-3">Send Reset Link</button>
+                <p class="mb-0">Remember your password? <a href="../admin/login.php">Sign In</a></p>
+            </form>
         </div>
-
-        <?php if(count($errors) > 0): ?>
-            <div class="alert alert-danger text-center bg-red-100 text-red-800 p-4 rounded-lg mb-4">
-                <?php foreach($errors as $error): ?>
-                    <div><?php echo htmlspecialchars($error); ?></div>
-                <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
-
-        <form action="forgot-password.php" method="POST" autocomplete="off">
-            <div class="mb-4">
-                <input type="email" name="email" class="w-full p-3 border rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" value="<?php echo htmlspecialchars($email); ?>" placeholder="Enter your email" required>
-            </div>
-            <button type="submit" name="check-email" value="Continue" class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition duration-300">Send Reset Link</button>
-            <p class="mt-4 text-gray-600">Remember your password? <a href="../admin/login.php" class="text-blue-600 hover:underline">Sign In</a></p>
-        </form>
-
     </div>
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         <?php if ($emailSent): ?>
             Swal.fire({
