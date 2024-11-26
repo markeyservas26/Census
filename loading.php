@@ -23,7 +23,7 @@
 
         <!-- Google reCAPTCHA -->
         <form action="submit_form.php" method="POST">
-  <div class="captcha-container flex justify-center items-center my-6 p-4 border border-gray-300 rounded-lg bg-gray-50">
+  <div class="captcha-container flex justify-center items-center my-6 p-4 border border-gray-300 rounded-lg bg-gray-50 bg-transparent">
     <div class="g-recaptcha" data-sitekey="6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8"></div>
   </div>
 
