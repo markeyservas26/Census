@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 }
 
 // SQL query to add the OTP_TIMESTAMP and phone columns to the 'users' table
-$sql = "ALTER TABLE users 
+$sql = "ALTER TABLE staff 
         ADD COLUMN OTP_TIMESTAMP DATETIME DEFAULT NULL, 
         ADD COLUMN phone VARCHAR(20) DEFAULT NULL";
 
