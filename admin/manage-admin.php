@@ -190,9 +190,9 @@ $result = $stmt->get_result();
                         <small id="usernameError" class="text-muted" style="color:red; display:none;">Username must end with @gmail.com</small>
                     </div>
                     <div class="col-md-6">
-              <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" required>
-              <small class="text-muted" id="phone" style="color:red; display:none;" >Phone Number</small>
-            </div>
+    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" required maxlength="11" oninput="validatePhoneNumber()" pattern="\d{11}">
+    <small class="text-muted" id="phoneError" style="color:red; display:none;">Phone Number must be exactly 11 digits.</small>
+</div>
                     <div class="col-md-6">
                         <div class="password-container">
                             <input type="password" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password must be 'admin' only" required>
@@ -766,6 +766,22 @@ function validateForm() {
     });
 });
 
+</script>
+<script>
+    function validatePhoneNumber() {
+        var phoneInput = document.getElementById('phone');
+        var phoneError = document.getElementById('phoneError');
+        
+        // Remove non-numeric characters
+        phoneInput.value = phoneInput.value.replace(/\D/g, '');
+
+        // Check if the phone number is 11 digits long
+        if (phoneInput.value.length === 11) {
+            phoneError.style.display = 'none';
+        } else {
+            phoneError.style.display = 'block';
+        }
+    }
 </script>
 <script>
 function printDetails() {
