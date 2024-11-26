@@ -114,8 +114,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($update_stmt)) $update_stmt->close();
     }
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -123,117 +121,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OTP Verification</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 100%;
-            max-width: 400px;
-        }
-        h2 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #333;
-        }
-        label {
-            font-size: 16px;
-            color: #333;
-            display: block;
-            margin-bottom: 8px;
-        }
-        input[type="tel"] {
-            padding: 10px;
-            width: 85%;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            background-color:  #fd2323;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        button:hover {
-            background-color: #45a049;
-            transform: translateY(-2px);
-        }
-        button:active {
-            transform: translateY(0);
-        }
-        .instructions {
-            font-size: 14px;
-            color: #555;
-            margin-top: 10px;
-        }
-
-        .error {
-            color: red;
-            margin-bottom: 10px;
-        }
-        .success {
-            color: green;
-            margin-bottom: 10px;
-        }
-
-        .login {
-            font-size: 14px;
-            color: black;
-            margin-top: 10px;
-            font-weight:bold;
-            cursor:pointer;
-        }
-
-        .login a{
-            text-decoration:none;
-            color: grey;
-        }
-    </style>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gradient-to-r from-gray-600 to-gray-400 flex justify-center items-center min-h-screen p-0 m-0">
 
-    <div class="container">
-        <h2>Enter Your Phone Number</h2>
+    <div class="bg-white rounded-xl p-12 shadow-2xl w-full max-w-md text-center transition-transform transform hover:scale-105">
+        <h2 class="text-gray-800 text-3xl font-extrabold mb-6">Enter Your Phone Number</h2>
+        
+        <!-- Error Handling -->
         <?php if ($error): ?>
-        <div class="error"><?php echo htmlspecialchars($error); ?></div>
-    <?php endif; ?>
-    
-    <?php if ($success): ?>
-        <div class="success"><?php echo htmlspecialchars($success); ?></div>
-    <?php endif; ?>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-            <input type="tel" id="phone" name="phone" pattern="[0-9]*" required placeholder="Enter your phone number (e.g., 09123456789)"  maxlength="11">
-            <button type="submit">Send OTP</button>
+        <div class="text-red-500 mb-4"><?php echo htmlspecialchars($error); ?></div>
+        <?php endif; ?>
+        
+        <?php if ($success): ?>
+        <div class="text-green-500 mb-4"><?php echo htmlspecialchars($success); ?></div>
+        <?php endif; ?>
+        
+        <!-- Form to Submit Phone Number -->
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" class="mb-6">
+            <input type="tel" id="phone" name="phone" pattern="[0-9]*" required placeholder="Enter your phone number (e.g., 09123456789)" maxlength="11" 
+            class="w-full px-6 py-3 mb-4 border border-gray-300 rounded-lg text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent">
+            <button type="submit" class="w-full py-3 bg-gray-800 text-white rounded-lg font-semibold text-lg shadow-md hover:bg-gray-700 transition-all transform hover:scale-105 active:scale-95">
+                Send OTP
+            </button>
         </form>
-        <div class="instructions">
+        
+        <!-- Instructions -->
+        <div class="text-gray-600 text-sm mb-4">
             <p>Please enter your 11-digit phone number. An OTP will be sent to this number.</p>
         </div>
-
-        <div class="login">
-            <a href="../admin/chooseaway.php"> Back to Login</a>
+        
+        <!-- Login Link -->
+        <div class="text-gray-600 text-sm font-semibold mt-4">
+            <a href="../admin/chooseaway.php" class="text-gray-600 hover:text-gray-800">Back to Login</a>
         </div>
     </div>
+
     <script>
-    document.getElementById('phone').addEventListener('input', function (e) {
-        this.value = this.value.replace(/[^0-9]/g, ''); // Remove any non-numeric characters
-    });
-</script>
+        // Remove non-numeric characters
+        document.getElementById('phone').addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^0-9]/g, ''); // Remove any non-numeric characters
+        });
+    </script>
+
 </body>
 </html>
