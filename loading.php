@@ -23,7 +23,9 @@
 
         <!-- Google reCAPTCHA -->
         <form action="submit_form.php" method="POST">
-            <div class="g-recaptcha" data-sitekey="6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8"></div><br><br>
+  <div class="captcha-container flex justify-center items-center my-6 p-4 border border-gray-300 rounded-lg bg-gray-50">
+    <div class="g-recaptcha" data-sitekey="6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8"></div>
+  </div>
 
             <!-- Submit Button -->
             <button type="submit" class="bg-green-500 text-white rounded-md px-6 py-3 text-xl font-semibold shadow-md hover:bg-green-400 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-green-400 w-full">
