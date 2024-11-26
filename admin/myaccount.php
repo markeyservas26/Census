@@ -23,7 +23,7 @@
         </a>
         <a href="contactinfo.php" 
             class="block bg-gray-800 text-white rounded-md px-6 py-3 mb-6 text-xl font-semibold shadow-md hover:bg-gray-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-400">
-            Email and Phone Number
+            Contact Info
         </a>
         <a href="changepassword.php" 
             class="block bg-gray-800 text-white rounded-md px-6 py-3 mb-6 text-xl font-semibold shadow-md hover:bg-gray-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-400">
