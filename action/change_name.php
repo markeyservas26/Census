@@ -16,13 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validate the new name
     if (!empty($newName)) {
         // Assuming you have a connection to the database, adjust the credentials as needed
-        $host = 'localhost'; // Database host
-        $username = 'root'; // Database username
-        $password = ''; // Database password
-        $dbname = 'census'; // Database name
+        $servername = "127.0.0.1";
+$username = "u510162695_bantayanisland"; // Change to your MySQL username
+$password = "1Bantayan"; // Change to your MySQL password
+$dbname = "u510162695_bantayanisland"; // Database name
 
         // Create a connection to the database
-        $conn = new mysqli($host, $username, $password, $dbname);
+        $conn = new mysqli($servername, $username, $password, $dbname);
 
         // Check for database connection errors
         if ($conn->connect_error) {
