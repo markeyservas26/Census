@@ -197,7 +197,7 @@ $result = $stmt->get_result();
                         <div class="password-container">
                             <input type="password" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password must be 'admin' only" required>
                             <span class="eye" onclick="togglePasswordVisibility()">
-                <i id="EyeIcon" class="fas fa-eye"></i>
+                <i id="eyeIcon" class="fas fa-eye"></i>
               </span>
                             <small id="passwordError" class="text-muted" style="color:red; display:none;">Password must be 'admin' only</small>
                         </div>
