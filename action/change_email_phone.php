@@ -3,7 +3,7 @@ session_start();
 
 // Assuming session variables hold the current user's information
 // Validate and sanitize the input data
-$newEmail = filter_var($_POST['username'], FILTER_SANITIZE_EMAIL);
+$newEmail = filter_var($_POST['usernameInput'], FILTER_SANITIZE_EMAIL);
 $newPhone = filter_var($_POST['phone'], FILTER_SANITIZE_STRING);
 
 // Perform necessary validation (e.g., check if new email is valid, phone number format, etc.)

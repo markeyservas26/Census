@@ -4,7 +4,7 @@ session_start();
 
 // Fetch the current user's email and phone number from the session or database
 // For example, let's assume the session holds the user's information
-$currentUserEmail = $_SESSION['username'];  // Replace with actual session variable
+$currentUserEmail = $_SESSION['usernameInput'];  // Replace with actual session variable
 $currentUserPhone = $_SESSION['phone'];  // Replace with actual session variable
 ?>
 
@@ -28,8 +28,8 @@ $currentUserPhone = $_SESSION['phone'];  // Replace with actual session variable
         <form id="changeEmailPhoneForm" method="POST" action="../action/change_email_phone.php" class="space-y-6">
             <!-- Email -->
             <div>
-                <label for="username" class="block text-left text-gray-600 text-sm mt-1">Email</label>
-                <input type="email" class="w-full px-4 py-3 border rounded-md text-lg text-gray-700" id="email" name="username" value="<?php echo $currentUserEmail; ?>" placeholder="New Email">
+                <label for="usernameInput" class="block text-left text-gray-600 text-sm mt-1">Email</label>
+                <input type="email" class="w-full px-4 py-3 border rounded-md text-lg text-gray-700" id="usernameInput" name="usernameInput" value="<?php echo $currentUserEmail; ?>" placeholder="New Email">
             </div>
 
             <!-- Phone Number -->
