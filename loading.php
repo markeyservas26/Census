@@ -22,7 +22,7 @@
         </p>
 
         <!-- Google reCAPTCHA -->
-        <form action="submit_form.php" method="POST" class="flex justify-center items-center">
+        <form action="submit_form.php" method="POST">
             <div class="g-recaptcha" data-sitekey="6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8"></div><br><br>
 
             <!-- Submit Button -->
