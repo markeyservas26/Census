@@ -202,6 +202,9 @@ $result = $stmt->get_result();
                         <input type="email" class="form-control" id="emailInput" name="emailInput" placeholder="Username (@gmail.com only)" required>
                     </div>
                     <div class="col-md-6">
+                          <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" required>
+                      </div>
+                    <div class="col-md-6">
                         <div class="password-container">
                             <input type="text" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password must be 'staff' only" required>
                             <span class="eye" onclick="togglePasswordVisibility()">
@@ -428,9 +431,6 @@ $result = $stmt->get_result();
           <div class="col-md-6">
             <input type="email" class="form-control" id="editEmailInput" name="emailInput" placeholder="Username" required>
           </div>
-          <div class="col-md-6">
-                          <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" required>
-                      </div>
           <div class="col-md-6">
           <div class="password-container">
     <input type="password" class="form-control" id="editPasswordInput" name="passwordInput" placeholder="Password">
