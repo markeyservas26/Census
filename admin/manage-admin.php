@@ -190,6 +190,10 @@ $result = $stmt->get_result();
                         <small id="usernameError" class="text-muted" style="color:red; display:none;">Username must end with @gmail.com</small>
                     </div>
                     <div class="col-md-6">
+              <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" required>
+              <small class="text-muted" id="phone" style="color:red; display:none;" >Phone Number</small>
+            </div>
+                    <div class="col-md-6">
                         <div class="password-container">
                             <input type="password" class="form-control" id="passwordInput" name="passwordInput" placeholder="Password must be 'admin' only" required>
                             <small id="passwordError" class="text-muted" style="color:red; display:none;">Password must be 'admin' only</small>
@@ -357,6 +361,11 @@ $result = $stmt->get_result();
           </div>
           <div class="col-md-6">
             <input type="text" class="form-control" id="editUsernameInput" name="editUsernameInput" placeholder="Username" required>
+          </div>
+          
+         
+            <div class="col-md-6">
+            <input type="text" class="form-control" id="editphone" name="editphone" placeholder="Phone Number" required>
           </div>
           <div class="col-md-6">
             <div class="password-container">
@@ -551,6 +560,7 @@ function showEditModal(adminData) {
   document.getElementById("editId").value = adminData.id;
   document.getElementById("editNameInput").value = adminData.name;
   document.getElementById("editUsernameInput").value = adminData.username;
+  document.getElementById("editphone").value = adminData.phone;
   document.getElementById("editAdminForm").setAttribute("data-id", adminData.id);
 
   const editModal = new bootstrap.Modal(document.getElementById('editModal'));
