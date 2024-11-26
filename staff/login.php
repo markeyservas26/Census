@@ -52,7 +52,7 @@ if (isset($_SESSION['user_id'])) {
         </div>
 
         <!-- Title -->
-        <h5 class="text-center text-gray-800 text-2xl font-semibold mb-4">STAFF | Login</h5>
+        <h5 class="text-center text-gray-800 text-2xl font-semibold mb-4">Staff | Login</h5>
 
         <!-- Login Form -->
         <form id="loginForm" method="POST" action="../staffaction/login.php" class="space-y-6">
