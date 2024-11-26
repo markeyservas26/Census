@@ -7,6 +7,8 @@
     <title>Human Verification</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google reCAPTCHA API -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen p-0 m-0">
 
@@ -21,7 +23,7 @@
 
         <!-- Google reCAPTCHA -->
         <form action="submit_form.php" method="POST">
-        <div class="g-recaptcha" data-sitekey="6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8"></div><br><br>
+            <div class="g-recaptcha" data-sitekey="6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8"></div><br><br>
 
             <!-- Submit Button -->
             <button type="submit" class="bg-green-500 text-white rounded-md px-6 py-3 text-xl font-semibold shadow-md hover:bg-green-400 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-green-400 w-full">
@@ -31,9 +33,9 @@
 
         <!-- Info Text -->
         <p id="infoText" class="text-gray-500 text-lg mt-8">
-    Please complete the CAPTCHA to verify that you are not a robot. If you experience any issues, 
-    <a href="javascript:location.reload()" class="text-blue-500 hover:text-blue-700">refresh the page</a> or contact support for assistance.
-</p>
+            Please complete the CAPTCHA to verify that you are not a robot. If you experience any issues, 
+            <a href="javascript:location.reload()" class="text-blue-500 hover:text-blue-700">refresh the page</a> or contact support for assistance.
+        </p>
 
     </div>
 
