@@ -12,7 +12,7 @@
 </head>
 <body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen p-0 m-0">
 
-    <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md text-center">
+    <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-lg text-center">
         <!-- Heading -->
         <h2 class="text-gray-800 text-3xl font-bold mb-4">Human Verification</h2>
         
