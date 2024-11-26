@@ -124,25 +124,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-r from-gray-600 to-gray-400 flex justify-center items-center min-h-screen p-0 m-0">
+<body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen">
 
-    <div class="bg-white rounded-xl p-12 shadow-2xl w-full max-w-md text-center transition-transform transform hover:scale-105">
-        <h2 class="text-gray-800 text-3xl font-extrabold mb-6">Enter Your Phone Number</h2>
+    <div class="bg-white rounded-lg p-8 shadow-md w-full max-w-md text-center">
+        <h2 class="text-gray-800 text-2xl font-bold mb-6">Enter Your Phone Number</h2>
         
         <!-- Error Handling -->
         <?php if ($error): ?>
-        <div class="text-red-500 mb-4"><?php echo htmlspecialchars($error); ?></div>
+        <div class="text-red-600 mb-4"><?php echo htmlspecialchars($error); ?></div>
         <?php endif; ?>
         
         <?php if ($success): ?>
-        <div class="text-green-500 mb-4"><?php echo htmlspecialchars($success); ?></div>
+        <div class="text-green-600 mb-4"><?php echo htmlspecialchars($success); ?></div>
         <?php endif; ?>
         
         <!-- Form to Submit Phone Number -->
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" class="mb-6">
             <input type="tel" id="phone" name="phone" pattern="[0-9]*" required placeholder="Enter your phone number (e.g., 09123456789)" maxlength="11" 
-            class="w-full px-6 py-3 mb-4 border border-gray-300 rounded-lg text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent">
-            <button type="submit" class="w-full py-3 bg-gray-800 text-white rounded-lg font-semibold text-lg shadow-md hover:bg-gray-700 transition-all transform hover:scale-105 active:scale-95">
+            class="w-full px-4 py-2 mb-4 border border-gray-300 rounded-md text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent">
+            <button type="submit" class="w-full py-3 bg-gray-800 text-white rounded-md font-semibold text-lg shadow-md hover:bg-gray-700">
                 Send OTP
             </button>
         </form>
