@@ -3,83 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../assets/img/travelogo.png" rel="icon">
     <title>Human Verification</title>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <style>
-        /* Basic reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .g-recaptcha {
-            margin-bottom: 20px;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            font-size: 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            width: 100%;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        /* Add responsiveness */
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px;
-            }
-
-            button {
-                font-size: 14px;
-            }
-        }
-    </style>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen p-0 m-0">
 
-    <div class="container">
-        <h2>Verifying you are human.</h2>
-        <!-- Form with only reCAPTCHA -->
+    <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md text-center">
+        <!-- Heading -->
+        <h2 class="text-gray-800 text-3xl font-bold mb-4">Human Verification</h2>
+        
+        <!-- Paragraph -->
+        <p class="text-gray-600 text-lg mb-6">
+            Please verify that you are a human by completing the CAPTCHA below. This helps us prevent automated spam and ensures a secure experience for everyone.
+        </p>
+
+        <!-- Google reCAPTCHA -->
         <form action="submit_form.php" method="POST">
-            <!-- Google reCAPTCHA -->
-            <div class="g-recaptcha" data-sitekey="6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8"></div><br><br>
-            <button type="submit">Submit</button>
+            <div class="g-recaptcha mb-6" data-sitekey="6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8"></div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="bg-green-500 text-white rounded-md px-6 py-3 text-xl font-semibold shadow-md hover:bg-green-400 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-green-400 w-full">
+                Verify
+            </button>
         </form>
+
+        <!-- Info Text -->
+        <p id="infoText" class="text-gray-500 text-lg mt-8">
+    Please complete the CAPTCHA to verify that you are not a robot. If you experience any issues, please refresh the page or contact support for assistance.
+</p>
+
     </div>
 
 </body>
