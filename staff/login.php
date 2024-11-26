@@ -36,79 +36,80 @@ if (isset($_SESSION['user_id'])) {
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-  
-  <!-- Custom CSS for Logo Size -->
-
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen p-0 m-0">
 
-  <main>
-  <div class="container">
-  <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-
-          <div class="card mb-3">
-
-            <div class="card-body">
-
-              <div class="d-flex justify-content-center py-4">
-                <img src="../assets/img/trasparlogo.png" alt="" style="height: 150px; width: 200px;">
-              </div><!-- End Logo -->
-              <div class="pt-4 pb-2">
-                <h5 class="card-title text-center pb-0 fs-4">STAFF | Login </h5>
-              </div>
-
-              <form class="row g-3 needs-validation" novalidate action="../staffaction/login.php" method="POST">
-  <div class="col-12">
-    <label for="yourEmail" class="form-label">Email</label>
-    <div class="input-group has-validation">
-      <span class="input-group-text" id="inputGroupPrepend">@</span>
-      <input type="email" name="email" class="form-control" id="yourEmail" required>
-      <div class="invalid-feedback">Please enter your email.</div>
-    </div>
-  </div>
-
-  <div class="col-12">
-    <label for="yourPassword" class="form-label">Password</label>
-    <div class="input-group">
-      <input type="password" name="password" class="form-control" id="yourPassword" required>
-      <span class="input-group-text" id="togglePassword">
-        <i class="fas fa-eye"></i>
-      </span>
-      <div class="invalid-feedback">Please enter your password!</div>
-    </div>
-  </div>
-
-  <div class="col-12 d-flex align-items-center">
-  <a href="../chooseforgot.php" style="float:right;"> Forgot password?</a>
-                      <!-- Move the link to the right side of the remember me checkbox -->
-                      <a href="../index.php" class="back-to-website d-block" style="margin-left: 50px; color:black;">Back to Website</a>
-                    </div>
-
-  <div class="col-12">
-    <button class="btn btn-primary w-100" type="submit">Login</button>
-  </div>
-</form>
-
-            </div>
-          </div>
+  <main class="w-full max-w-md">
+    <section class="min-h-screen flex flex-col items-center justify-center py-4">
+      <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+        <!-- Logo -->
+        <div class="flex justify-center py-4 mb-6">
+          <img src="../assets/img/trasparlogo.png" alt="Logo" class="h-32 w-auto">
         </div>
-      </div>
-    </div>
-  </section>
-</div>
 
-  </main><!-- End #main -->
+        <!-- Title -->
+        <h5 class="text-center text-gray-800 text-2xl font-semibold mb-4">STAFF | Login</h5>
+
+        <!-- Login Form -->
+        <form id="loginForm" method="POST" action="../staffaction/login.php" class="space-y-6">
+
+          <!-- Email Input -->
+          <div>
+            <label for="yourEmail" class="block text-left text-gray-600 text-lg font-semibold mb-2">Email</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">@</span>
+              <input type="email" name="email" id="yourEmail" required
+                class="w-full px-4 py-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
+            </div>
+            <div class="text-sm text-red-500 mt-1" id="usernameError"></div>
+          </div>
+
+          <!-- Password Input -->
+          <div>
+            <label for="yourPassword" class="block text-left text-gray-600 text-lg font-semibold mb-2">Password</label>
+            <div class="relative">
+              <input type="password" name="password" id="yourPassword" required
+                class="w-full px-4 py-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
+              <span class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" id="togglePassword">
+                <i class="fas fa-eye"></i>
+              </span>
+            </div>
+            <div class="text-sm text-red-500 mt-1" id="passwordError"></div>
+          </div>
+
+          <!-- Forgot Password & Back to Website Links -->
+          <div class="flex justify-between text-gray-600 text-sm">
+            <a href="../chooseforgot.php" class="hover:text-gray-800">Forgot password?</a>
+            <a href="../index.php" class="hover:text-gray-800">Back to Website</a>
+          </div>
+
+          <!-- Submit Button -->
+          <div>
+            <button type="submit"
+              class="w-full py-3 px-4 bg-gray-800 text-white rounded-md font-semibold shadow-md hover:bg-gray-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-400">
+              Login
+            </button>
+          </div>
+
+          <!-- Hidden reCAPTCHA Token -->
+          <input type="hidden" name="recaptcha_token" id="recaptchaToken">
+
+        </form>
+      </div>
+    </section>
+  </main>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
 document.getElementById('loginForm').addEventListener('submit', function(e) {
   e.preventDefault();
+
+  try {
+        // Get reCAPTCHA token
+        const token = await grecaptcha.execute('6LcqT4kqAAAAAOkPnbZCeDx8KNaPHcNMscOiFChA', { action: 'login' });
+        document.getElementById('recaptchaToken').value = token;
   
   var formData = new FormData(this);
   
@@ -232,7 +233,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-
+<script>
+    // Toggle password visibility
+    document.getElementById('togglePassword').addEventListener('click', function () {
+      const passwordField = document.getElementById('yourPassword');
+      const type = passwordField.type === 'password' ? 'text' : 'password';
+      passwordField.type = type;
+      this.querySelector('i').classList.toggle('fa-eye-slash');
+    });
+  </script>
 
 
 </body>
