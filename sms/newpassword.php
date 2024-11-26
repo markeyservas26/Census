@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="new-password" class="block text-left text-gray-600">New Password:</label>
                 <input type="password" id="new-password" name="new-password" required placeholder="Enter new password" minlength="8"
                     class="w-full px-4 py-2 border border-gray-300 rounded-md text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent">
-                <i id="toggleNewPassword" class="fas fa-eye  text-gray-600" onclick="togglePasswordVisibility('new-password')"></i>
+                <i id="toggleNewPassword" class="fas fa-eye  text-gray-600 password-toggle" onclick="togglePasswordVisibility('new-password')"></i>
             </div>
 
             <!-- Confirm Password -->
@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="confirm-password" class="block text-left text-gray-600">Confirm Password:</label>
                 <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirm your password" minlength="8"
                     class="w-full px-4 py-2 border border-gray-300 rounded-md text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent">
-                <i id="toggleConfirmPassword" class="fas fa-eye  text-gray-600" onclick="togglePasswordVisibility('confirm-password')"></i>
+                <i id="toggleConfirmPassword" class="fas fa-eye  text-gray-600 password-toggle" onclick="togglePasswordVisibility('confirm-password')"></i>
             </div>
 
             <button type="submit" class="w-full py-3 bg-gray-800 text-white rounded-md font-semibold text-lg shadow-md hover:bg-gray-700">
