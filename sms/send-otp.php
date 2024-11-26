@@ -154,7 +154,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         <!-- Login Link -->
         <div class="text-gray-600 text-sm font-semibold mt-4">
-            <a href="../admin/chooseaway.php" class="text-gray-600 hover:text-gray-800">Back to Login</a>
+            <a href="../admin/login.php" class="text-gray-600 hover:text-gray-800">Back to Login</a>
         </div>
     </div>
 
