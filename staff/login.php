@@ -152,7 +152,6 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
 });
 </script>
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -168,78 +167,35 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const togglePassword = document.querySelector('#togglePassword');
-    const passwordField = document.querySelector('#yourPassword');
-    const loginForm = document.querySelector('form.needs-validation');
+    document.addEventListener('DOMContentLoaded', function() {
+      const togglePassword = document.querySelector('#togglePassword');
+      const passwordField = document.querySelector('#yourPassword');
 
-    togglePassword.addEventListener('click', function() {
+      togglePassword.addEventListener('click', function() {
         // Toggle the type attribute
         const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordField.setAttribute('type', type);
 
         // Toggle the eye icon
         this.querySelector('i').classList.toggle('fa-eye-slash');
+      });
     });
 
-    loginForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission
+    // Validation for the login form
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      const usernameInput = document.getElementById('yourUsername');
+      const usernameValue = usernameInput.value;
+      const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
 
-        const formData = new FormData(loginForm);
-
-        fetch('../staffaction/login.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Response:', data); // Log the response for debugging
-
-            if (data.success) {
-                Swal.fire({
-                    title: 'Login Successful',
-                    text: 'You are being redirected...',
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 1500 // Time in milliseconds (1.5 seconds)
-                }).then(() => {
-                    window.location.href = data.redirect; // Redirect based on the server response
-                });
-            } else {
-                Swal.fire({
-                    title: 'Login Failed',
-                    text: data.message || 'An error occurred during login.',
-                    icon: 'error',
-                    showConfirmButton: false,
-                    timer: 1000 // Time in milliseconds (3 seconds)
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Fetch error:', error); // Log fetch errors
-            Swal.fire({
-                title: 'Error',
-                text: 'An error occurred during login.',
-                icon: 'error',
-                showConfirmButton: false,
-                timer: 3000 // Time in milliseconds (3 seconds)
-            });
+      // Check if the username matches the @gmail.com pattern
+      if (!gmailPattern.test(usernameValue)) {
+        event.preventDefault(); // Prevent form submission
+        Swal.fire({
+          icon: 'error',
+          title: 'Validation Error',
+          text: 'Username must have an @gmail.com.'
         });
-    });
-});
-</script>
-<script>
-    // Toggle password visibility
-    document.getElementById('togglePassword').addEventListener('click', function () {
-      const passwordField = document.getElementById('yourPassword');
-      const type = passwordField.type === 'password' ? 'text' : 'password';
-      passwordField.type = type;
-      this.querySelector('i').classList.toggle('fa-eye-slash');
+      }
     });
   </script>
 
