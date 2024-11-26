@@ -213,7 +213,6 @@ $result = $stmt->get_result();
                         </div>
                     </div>
                     <div class="col-6">
-                        <label for="municipalityInput" class="form-label"></label>
                         <select id="municipalityInput" name="municipalityInput" class="form-select" required>
                             <option value="" disabled selected>Select Municipality</option>
                             <option value="Madridejos">Madridejos</option>
