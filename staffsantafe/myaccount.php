@@ -33,7 +33,7 @@
         <p id="infoText" class="text-gray-500 text-lg mt-8">For any issues or further assistance, please contact support.</p>
    
         <div class="text-gray-600 text-sm font-semibold mt-4">
-            <a href="../staffbantayan/bantayan.php" class="text-gray-600 hover:text-gray-800">Back</a>
+            <a href="../staffsantafe/santafe.php" class="text-gray-600 hover:text-gray-800">Back</a>
         </div>
 
     </div>
