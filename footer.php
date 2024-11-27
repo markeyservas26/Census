@@ -261,7 +261,7 @@ h1, h2, h3, h4, h5, h6 {
                 <!-- Footer Census About section with AOS effect -->
 <div class="col-lg-3 col-md-6">
     <div class="f_widget about-widget pl_70 wow fadeInLeft" data-aos="fade-left" data-aos-delay="100">
-        <h3 class="f-title f_600 t_color f_size_18">About the Census</h3>
+        <h3 class="f-title f_600 t_color f_size_18">Bantayan Island Census</h3>
         <p class="footer-description" style="color: gray; text-align: justify;" data-aos="fade-up">
             The Bantayan Island Census (BANISCEN) is a comprehensive demographic survey aimed at collecting detailed information on the population, housing, and living conditions within Bantayan Island. This data helps local authorities plan for better public services and sustainable development.
         </p>
@@ -273,12 +273,14 @@ h1, h2, h3, h4, h5, h6 {
                 <!-- Footer Help section with AOS effect -->
                 <div class="col-lg-3 col-md-6">
                     <div class="f_widget about-widget pl_70 wow fadeInLeft" data-aos="fade-left" data-aos-delay="200">
-                        <h3 class="f-title f_600 t_color f_size_18">Help</h3>
+                        <h3 class="f-title f_600 t_color f_size_18">Links</h3>
                         <ul class="list-unstyled f_list">
-                            <li><a href="#">FAQ</a></li>
-                            <li><a href="#">Term &amp; conditions</a></li>
-                            <li><a href="#">Support Policy</a></li>
-                            <li><a href="#">Privacy</a></li>
+                        <li><a href="#" id="homeLink">Home</a></li>
+                <li><a href="#" id="bantayanLink">Bantayan</a></li>
+                <li><a href="#" id="madridejosLink">Madridejos</a></li>
+                <li><a href="#" id="santafeLink">Santafe</a></li>
+                <li><a href="#" id="schedule">Schedule</a></li>
+                <li><a href="#" id="aboutLink">About</a></li>
                         </ul>
                     </div>
                 </div>
