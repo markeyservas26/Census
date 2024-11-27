@@ -1001,9 +1001,9 @@
         <div class="logos-marquee" data-aos="fade-left">
             <div class="logos-row text-center">
                 <img src="assets/img/censuslogo1.png" class="logo" alt="Logo 1">
-                <img src="assets/img/bantayan.jpg" class="logo" alt="Bantayan Seal">
-                <img src="assets/img/madridejos.jpg" class="logo" alt="Madridejos Seal">
-                <img src="assets/img/santafe.jpg" class="logo" alt="Santa Fe Seal">
+                <img src="assets/img/bantayanseal.png" class="logo" alt="Bantayan Seal">
+                <img src="assets/img/madridejosseal.png" class="logo" alt="Madridejos Seal">
+                <img src="assets/img/santafeseal.png" class="logo" alt="Santa Fe Seal">
                 <img src="assets/img/censuslogo2.png" class="logo" alt="Logo 2">
             </div>
         </div>
