@@ -124,6 +124,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/img/travelogo.png" rel="icon">
     <title>OTP Verification</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
     <body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen">
 
     <div class="bg-white rounded-lg p-8 shadow-md w-full max-w-md text-center">
