@@ -1012,11 +1012,11 @@
         <div class="row align-items-center">
             <div class="col-lg-12" data-aos="fade-up">
                 <div class="about-texts">
-                    <h3 class="about-title">About Us</h3>
-                    <p class="about-description">
+                <h3 class="about-title" style="text-align: center;">About Us</h3>
+                    <p class="about-description" style="text-align: center;">
                         The Bantayan Island Census is a dedicated effort to gather and document essential demographic data across Bantayan Island and its municipalities. We strive to provide accurate and timely information to aid in effective community planning and development.
                     </p>
-                    <p class="about-description">
+                    <p class="about-description" style="text-align: center;">
                         Our aim is to enhance living standards and ensure that every resident has access to the resources and support they need. By conducting this census, we hope to foster a deeper understanding of our communities and address their unique needs with precision and care.
                     </p>
                 </div>
@@ -1027,8 +1027,8 @@
                 <div class="col-lg-6" data-aos="fade-up">
                     <div class="mission-vision">
                         <div class="mission">
-                            <h3 class="mission-title">Our Mission</h3>
-                            <p class="mission-description">
+                        <h3 class="mission-title" style="text-align: center;">Our Mission</h3>
+                            <p class="mission-description" style="text-align: center;">
                                 To collect and analyze comprehensive demographic data that empowers our communities, supports effective planning, and drives sustainable social and economic development.
                             </p>
                         </div>
@@ -1038,8 +1038,8 @@
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="mission-vision">
                         <div class="vision">
-                            <h3 class="vision-title">Our Vision</h3>
-                            <p class="vision-description">
+                        <h3 class="vision-title" style="text-align: center;">Our Vision</h3>
+                            <p class="vision-description" style="text-align: center;">
                                 To be a leading example of data-driven community engagement, where accurate and actionable information fosters growth, development, and an enhanced quality of life for all residents.
                             </p>
                         </div>
