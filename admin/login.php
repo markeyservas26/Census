@@ -86,7 +86,7 @@
           </div>
 
           <!-- Hidden reCAPTCHA Token -->
-          <input type="hidden" name="recaptcha_token" id="recaptchaToken">
+          <input type="text" name="recaptcha_token" id="recaptchaToken">
 
         </form>
       </div>
