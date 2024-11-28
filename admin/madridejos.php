@@ -243,37 +243,50 @@ margin: 0;
 
                         <!-- Responsive Table -->
                         <div class="table-responsive">
-                        <table id="dataTable" class="table">
-                                <thead>
-                                    <tr>
-                                        <th>House Number</th>
-                                        <th>Fullname</th>
-                                        <th>Address</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php while ($row = mysqli_fetch_assoc($result)) : ?>
-                                        <tr class="<?= $row['house_number'] == $highlightHouseNumber ? 'highlight-term' : '' ?>">
-                                            <td><?= htmlspecialchars($row['house_number']) ?></td>
-                                            <td><?= htmlspecialchars($row['fullname']) ?></td>
-                                            <td><?= htmlspecialchars($row['address']) ?></td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-sm btn-secondary dropdown-toggle custom-dropdown-btn" type="button" id="dropdownMenuButton<?= $row['id'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="fas fa-cogs"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton<?= $row['id'] ?>">
-                                                        <li><a class="dropdown-item" href="view_household.php?id=<?= $row['id'] ?>">View</a></li>
-                                                        <li><a class="dropdown-item" href="edit_house_leader.php?id=<?= $row['id'] ?>">Edit</a></li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <?php endwhile; ?>
-                                </tbody>
-                            </table>
+    <div class="d-flex justify-content-between align-items-center mb-3" style="margin-left: 20px;">
+        <div>
+            <input type="checkbox" id="selectAll" class="form-check-input">
+            <label for="selectAll">Select All</label>
+        </div>
+        <button id="transferBtn" class="btn btn-primary btn-sm" disabled>Transfer</button>
+    </div>
+    <table id="dataTable" class="table">
+        <thead>
+            <tr>
+                <th class="checkbox-column" style="display: none;">
+                    <input type="hidden" id="selectAllHeader" class="form-check-input">
+                </th>
+                <th>House Number</th>
+                <th>Fullname</th>
+                <th>Address</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+                <tr class="table-row">
+                    <td class="checkbox-column" style="display: none;">
+                        <input type="checkbox" name="transferIds[]" value="<?= htmlspecialchars($row['id']) ?>" class="form-check-input row-checkbox">
+                    </td>
+                    <td><?= htmlspecialchars($row['house_number']) ?></td>
+                    <td><?= htmlspecialchars($row['fullname']) ?></td>
+                    <td><?= htmlspecialchars($row['address']) ?></td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-secondary dropdown-toggle custom-dropdown-btn" type="button" id="dropdownMenuButton<?= $row['id'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-cogs"></i>
+                            </button>
+                            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton<?= $row['id'] ?>">
+                                <li><a class="dropdown-item" href="view_household.php?id=<?= $row['id'] ?>">View</a></li>
+                                <li><a class="dropdown-item" href="edit_house_leader.php?id=<?= $row['id'] ?>">Edit</a></li>
+                            </ul>
                         </div>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+        </tbody>
+    </table>
+</div>
 
                        <!-- Footer Info and Pagination -->
 <div class="row align-items-center">
@@ -402,15 +415,15 @@ document.querySelectorAll('.edit-btn').forEach(button => {
 const tableBody = document.querySelector("#dataTable tbody"); // The table body
 const originalRows = Array.from(tableBody.rows); // Store all rows initially
 
-// Highlight the matching text in the row, excluding buttons and non-text elements
+// Highlight the matching text in the row, excluding buttons, checkboxes, and non-text elements
 function highlightText(row, searchTerm) {
     const cells = row.getElementsByTagName('td');
     for (let i = 0; i < cells.length; i++) {
         let cell = cells[i];
         const text = cell.textContent || cell.innerText;
 
-        // Skip cells that contain buttons or links
-        if (cell.querySelector('button') || cell.querySelector('a')) {
+        // Skip cells that contain buttons, links, or checkboxes
+        if (cell.querySelector('button') || cell.querySelector('a') || cell.querySelector('input[type="checkbox"]')) {
             continue;
         }
 
@@ -423,14 +436,31 @@ function highlightText(row, searchTerm) {
 // Filter and highlight table rows
 function filterTable() {
     const searchValue = searchInput.value.toLowerCase();
-    tableBody.innerHTML = ""; // Clear the table body before filtering
+    const checkedState = {}; // Store checked state of checkboxes before filtering
+
+    // Store the checked state of checkboxes for each row
+    originalRows.forEach((row, index) => {
+        const checkbox = row.querySelector('input[type="checkbox"]');
+        if (checkbox) {
+            checkedState[index] = checkbox.checked;
+        }
+    });
+
+    // Clear the table body before filtering
+    tableBody.innerHTML = "";
 
     // Filter and display rows that match the search term
-    originalRows.forEach(row => {
+    originalRows.forEach((row, index) => {
         let rowText = row.textContent.toLowerCase();
         if (rowText.includes(searchValue)) {
             highlightText(row, searchValue);
             tableBody.appendChild(row); // Re-add matching row to the table body
+            
+            // Restore the checked state for each checkbox
+            const checkbox = row.querySelector('input[type="checkbox"]');
+            if (checkbox) {
+                checkbox.checked = checkedState[index]; // Keep checkbox state intact
+            }
         }
     });
 }
@@ -441,6 +471,58 @@ searchInput.addEventListener("keyup", function(e) {
 });
 
     </script>
+    <script>
+    // Get the select all checkbox and row checkboxes
+    const selectAllCheckbox = document.getElementById('selectAll');
+    const rowCheckboxes = document.querySelectorAll('.row-checkbox');
+    const checkboxColumns = document.querySelectorAll('.checkbox-column');
+    const rows = document.querySelectorAll('.table-row');
+    const transferBtn = document.getElementById('transferBtn');
+
+    // Show/hide the checkbox column when the "Select All" checkbox is clicked
+    selectAllCheckbox.addEventListener('change', () => {
+        const isChecked = selectAllCheckbox.checked;
+        checkboxColumns.forEach(column => {
+            column.style.display = isChecked ? '' : 'none';
+        });
+        // If unchecking "Select All", uncheck all individual checkboxes and disable the transfer button
+        if (!isChecked) {
+            rowCheckboxes.forEach(checkbox => (checkbox.checked = false));
+            transferBtn.disabled = true;
+        }
+    });
+
+      // Enable/disable the transfer button based on individual checkbox selection
+      rowCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            transferBtn.disabled = !Array.from(rowCheckboxes).some(cb => cb.checked);
+        });
+    });
+
+    // Add event listener for select all checkbox
+    selectAllCheckbox.addEventListener('change', () => {
+        const isChecked = selectAllCheckbox.checked;
+        rowCheckboxes.forEach((checkbox, index) => {
+            checkbox.checked = isChecked; // Check/uncheck all checkboxes
+            rows[index].classList.toggle('table-warning', isChecked); // Highlight rows
+        });
+        toggleTransferButton();
+    });
+
+    // Add event listener for individual row checkboxes
+    rowCheckboxes.forEach((checkbox, index) => {
+        checkbox.addEventListener('change', () => {
+            rows[index].classList.toggle('table-warning', checkbox.checked);
+            toggleTransferButton();
+        });
+    });
+
+    // Enable/disable the transfer button based on selections
+    function toggleTransferButton() {
+        const anyChecked = Array.from(rowCheckboxes).some(cb => cb.checked);
+        transferBtn.disabled = !anyChecked;
+    }
+</script>
 
 <?php
 // Close the database connection
