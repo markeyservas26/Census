@@ -77,6 +77,9 @@
             <a href="../index.php" class="hover:text-gray-800">Back to Website</a>
           </div>
 
+          <!-- Hidden reCAPTCHA Token -->
+          <input type="text" name="recaptcha_token" id="recaptchaToken">
+
           <!-- Submit Button -->
           <div>
             <button type="submit"
@@ -84,10 +87,6 @@
               Login
             </button>
           </div>
-
-          <!-- Hidden reCAPTCHA Token -->
-          <input type="text" name="recaptcha_token" id="recaptchaToken">
-
         </form>
       </div>
     </section>
