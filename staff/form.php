@@ -223,8 +223,6 @@ $postData = $_POST ?? [];
                     <select id="status" name="municipality_hl" class="form-select" required>
                         <option value="" selected disabled>Select an option</option>
                         <option value="Madridejos">Madridejos</option>
-                        <option value="Bantayan">Bantayan</option>
-                        <option value="Santafe">Santafe</option>
                     </select>
                 </div>
 
