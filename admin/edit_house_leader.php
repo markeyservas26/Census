@@ -1444,14 +1444,13 @@ function safe_array_value($array, $key, $default = '') {
                     <div class="form-check">
   <h4>Click the button to get your location:</h4>
   <!-- Set type="button" to avoid form submission -->
-  <button type="button" onclick="getLocation()" class="location-btn">Get Location</button>
-
+  <button type="button" class="btn btn-primary  mt-4" onclick="getLocation()">Get Location</button>
 </div>
-
+                    
 <!-- Input field for Latitude and Longitude -->
 <div style="margin-top: 10px;">
   <label for="coordinates">Coordinates (Latitude, Longitude):</label>
-  <input type="text" id="coordinates" name="location" value="<?php echo isset($house_leader['coordinates']) && $house_leader['coordinates'] !== '' ? $house_leader['coordinates'] : '0, 0'; ?>">
+  <input type="text" id="coordinates" name="location" value="<?php echo $house_leader['coordinates']; ?>">
 </div>
 
 
