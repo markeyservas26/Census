@@ -43,13 +43,11 @@ if (isset($_SESSION['user_id'])) {
 
 <body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen p-0 m-0">
 
-  <main class="w-full max-w-md">
-    <section class="min-h-screen flex flex-col items-center justify-center py-4">
-      <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
-        <!-- Logo -->
-        <div class="flex justify-center py-4 mb-6">
-          <img src="../assets/img/trasparlogo.png" alt="Logo" class="h-32 w-auto">
-        </div>
+  <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md text-center">
+    <!-- Logo -->
+    <div class="d-flex justify-content-center py-4 mb-6">
+      <img src="../assets/img/trasparlogo.png" alt="" class="h-32 w-auto">
+    </div>
 
         <!-- Title -->
         <h5 class="text-center text-gray-800 text-2xl font-semibold mb-4">Staff | Login</h5>
