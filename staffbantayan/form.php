@@ -1601,21 +1601,44 @@ $postData = $_POST ?? [];
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     function getLocation() {
-        if (navigator.geolocation) {
-            // Get current position
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var lat = position.coords.latitude;   // Get latitude
-                var lng = position.coords.longitude;  // Get longitude
+        // Ensure that location services are ready in the app (Mobile App Only)
+        if (typeof median_geolocation_ready === 'function') {
+            median_geolocation_ready(function() {
+                if (navigator.geolocation) {
+                    // Get current position
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var lat = position.coords.latitude;   // Get latitude
+                        var lng = position.coords.longitude;  // Get longitude
 
-                // Update the input field with the user's current location
-                document.getElementById("coordinates").value = lat + ", " + lng;
-            }, function(error) {
-                // Handle errors if geolocation fails (denied or unavailable)
-                alert("Geolocation failed or was denied. Please enable location access.");
+                        // Update the input field with the user's current location
+                        document.getElementById("coordinates").value = lat + ", " + lng;
+                    }, function(error) {
+                        // Handle errors if geolocation fails (denied or unavailable)
+                        alert("Geolocation failed or was denied. Please enable location access.");
+                    });
+                } else {
+                    // Handle if geolocation is not supported by the browser
+                    alert("Geolocation is not supported by this browser.");
+                }
             });
         } else {
-            // Handle if geolocation is not supported by the browser
-            alert("Geolocation is not supported by this browser.");
+            // If median_geolocation_ready() is not available (for non-mobile environments)
+            if (navigator.geolocation) {
+                // Get current position
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var lat = position.coords.latitude;   // Get latitude
+                    var lng = position.coords.longitude;  // Get longitude
+
+                    // Update the input field with the user's current location
+                    document.getElementById("coordinates").value = lat + ", " + lng;
+                }, function(error) {
+                    // Handle errors if geolocation fails (denied or unavailable)
+                    alert("Geolocation failed or was denied. Please enable location access.");
+                });
+            } else {
+                // Handle if geolocation is not supported by the browser
+                alert("Geolocation is not supported by this browser.");
+            }
         }
     }
 </script>
