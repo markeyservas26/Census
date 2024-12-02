@@ -45,7 +45,7 @@
         <h5 class="text-center text-gray-800 text-2xl font-semibold mb-4">Admin | Login</h5>
 
         <!-- Login Form -->
-        <form id="loginForm" action="submit_form.php" method="POST" class="space-y-6">
+        <form id="loginForm" method="POST" class="space-y-6">
 
           <!-- Email Input -->
           <div>
@@ -85,8 +85,6 @@
               Login
             </button>
           </div>
-
-          <input type="hidden" id="recaptchaToken" name="recaptcha_token">
 
         </form>
       </div>
