@@ -98,12 +98,66 @@ function sendJsonResponse($icon, $title, $text, $redirect = null) {
     exit;
 }
 
+// Enhanced login attempts tracking function
+function trackLoginAttempts() {
+    // Initialize login attempts in session if not already set
+    if (!isset($_SESSION['login_attempts'])) {
+        $_SESSION['login_attempts'] = 0;
+        $_SESSION['last_attempt_time'] = time();
+    }
+    
+    // Increment login attempts
+    $_SESSION['login_attempts']++;
+    
+    // If 3 attempts are reached, implement a cooldown
+    if ($_SESSION['login_attempts'] >= 3) {
+        // Set a 30-second lockout period
+        $_SESSION['lockout_time'] = time() + 30;
+        return false;
+    }
+    
+    return true;
+}
+
+// Function to check if account is locked
+function isAccountLocked() {
+    // Check if lockout time is set and not expired
+    if (isset($_SESSION['lockout_time'])) {
+        $remainingLockTime = $_SESSION['lockout_time'] - time();
+        
+        // If lockout time has expired, reset login attempts
+        if ($remainingLockTime <= 0) {
+            unset($_SESSION['lockout_time']);
+            $_SESSION['login_attempts'] = 0;  // Reset login attempts after cooldown
+            return false;  // Account is no longer locked
+        }
+        
+        // Return the remaining lockout time in seconds
+        return $remainingLockTime;
+    }
+    return false;
+}
+
+// Reset login attempts
+function resetLoginAttempts() {
+    unset($_SESSION['login_attempts']);
+    unset($_SESSION['lockout_time']);
+    unset($_SESSION['last_attempt_time']);
+}
+
 // Handle login request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the reCAPTCHA token is provided
     if (empty($_POST['g-recaptcha-response'])) {
         sendJsonResponse('error', 'Missing Data', 'Please complete the reCAPTCHA challenge.');
     }
+
+     // Check if account is currently locked
+     $lockRemaining = isAccountLocked();
+     if ($lockRemaining !== false) {
+         sendJsonResponse("error", "Account Locked", "Too many failed attempts. Please try again in {$lockRemaining} minutes.");
+         exit;
+     }
 
     // Ensure username and password are present
     if (empty($_POST['username']) || empty($_POST['password'])) {
@@ -116,55 +170,67 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Sanitize inputs
-    $username = filter_var($_POST['username'], FILTER_SANITIZE_EMAIL);
-    $password = $_POST['password'];
+$username = filter_var($_POST['username'], FILTER_SANITIZE_EMAIL);
+$password = $_POST['password'];
 
-    // Validate email format
-    if (!filter_var($username, FILTER_VALIDATE_EMAIL)) {
-        sendJsonResponse('error', 'Invalid Email', 'Please enter a valid email address.');
+// Validate email format
+if (!filter_var($username, FILTER_VALIDATE_EMAIL)) {
+    sendJsonResponse('error', 'Invalid Email', 'Please enter a valid email address.');
+}
+
+try {
+    // Check user credentials
+    $stmt = $conn->prepare("SELECT id, name, password FROM users WHERE username = ?");
+    if (!$stmt) {
+        throw new Exception("Database preparation failed");
     }
 
-    try {
-        // Check user credentials
-        $stmt = $conn->prepare("SELECT id, name, password FROM users WHERE username = ?");
-        if (!$stmt) {
-            throw new Exception("Database preparation failed");
-        }
+    $stmt->bind_param("s", $username);
+    if (!$stmt->execute()) {
+        throw new Exception("Database execution failed");
+    }
 
-        $stmt->bind_param("s", $username);
-        if (!$stmt->execute()) {
-            throw new Exception("Database execution failed");
-        }
-
-        $result = $stmt->get_result();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
         
-        if ($result->num_rows === 1) {
-            $user = $result->fetch_assoc();
-            
-            if (password_verify($password, $user['password'])) {
-                // Set session variables
-                $_SESSION['userid'] = $user['id'];
-                $_SESSION['name'] = $user['name'];
-                
-                sendJsonResponse('success', 'Login Successful', 
-                    'Welcome, ' . htmlspecialchars($user['name']), 
-                    '../admin/index.php');
+        // Verify password
+        if (password_verify($password, $user['password'])) {
+            // Successful login - reset attempts
+            resetLoginAttempts();
+
+            // Set session variables
+            $_SESSION['userid'] = $user['id'];
+            $_SESSION['name'] = $user['name'];
+
+            sendJsonResponse("success", "Login Successful", "Welcome, " . htmlspecialchars($user['name'], ENT_QUOTES, 'UTF-8') . "!", "../admin/index.php");
+        } else {
+            // Failed login attempt
+            if (trackLoginAttempts()) {
+                sendJsonResponse("error", "Invalid Login", "Email or password is incorrect! Attempt " . $_SESSION['login_attempts'] . " of 3.");
+            } else {
+                sendJsonResponse("error", "Account Locked", "Too many failed attempts. Please try again in 30 seconds.");
             }
         }
-        
-        // Invalid credentials (don't specify which one)
-        sendJsonResponse('error', 'Login Failed', 'Invalid email or password.');
-        
-    } catch (Exception $e) {
-        error_log("Login error: " . $e->getMessage());
-        sendJsonResponse('error', 'System Error', 'An error occurred. Please try again later.');
-    } finally {
-        if (isset($stmt)) {
-            $stmt->close();
+    } else {
+        // Username not found
+        if (trackLoginAttempts()) {
+            sendJsonResponse("error", "Invalid Login", "Email or password is incorrect! Attempt " . $_SESSION['login_attempts'] . " of 3.");
+        } else {
+            sendJsonResponse("error", "Account Locked", "Too many failed attempts. Please try again in 30 seconds.");
         }
-        if (isset($conn)) {
-            $conn->close();
-        }
+    }
+    
+} catch (Exception $e) {
+    error_log("Login error: " . $e->getMessage());
+    sendJsonResponse('error', 'System Error', 'An error occurred. Please try again later.');
+} finally {
+    if (isset($stmt)) {
+        $stmt->close();
+    }
+    if (isset($conn)) {
+        $conn->close();
     }
 }
 ?>
