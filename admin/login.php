@@ -128,7 +128,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
                 countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
 
                 // Disable the email and password inputs
-                document.getElementById('email').disabled = true;
+                document.getElementById('username').disabled = true;
                 document.getElementById('password').disabled = true;
 
                 // Start the countdown
@@ -144,7 +144,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
                         countdownMessage.textContent = "You can now try logging in again.";
                         
                         // Re-enable the email and password inputs
-                        document.getElementById('email').disabled = false;
+                        document.getElementById('username').disabled = false;
                         document.getElementById('password').disabled = false;
 
                         // Clear the countdown from localStorage after it's finished
@@ -183,7 +183,7 @@ window.addEventListener('load', function() {
         countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
 
         // Disable the email and password inputs
-        document.getElementById('email').disabled = true;
+        document.getElementById('username').disabled = true;
         document.getElementById('password').disabled = true;
 
         // Start the countdown if there's a stored value
@@ -199,7 +199,7 @@ window.addEventListener('load', function() {
                 countdownMessage.textContent = "You can now try logging in again.";
                 
                 // Re-enable the email and password inputs
-                document.getElementById('email').disabled = false;
+                document.getElementById('username').disabled = false;
                 document.getElementById('password').disabled = false;
 
                 // Clear the countdown from localStorage after it's finished
