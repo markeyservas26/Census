@@ -77,7 +77,7 @@
             <a href="../index.php" class="hover:text-gray-800">Back to Website</a>
           </div>
 <!-- reCAPTCHA -->
-<div class="g-recaptcha" data-sitekey="6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8" name="recaptcha_token" id="recaptchaToken"></div>
+<div class="g-recaptcha" data-sitekey="6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8" name="recaptcha_token" id="recaptcha_token"></div>
 
           <!-- Submit Button -->
           <div>
@@ -112,7 +112,7 @@
     }
 
     // Set the token in the hidden input field
-    document.getElementById('recaptchaToken').value = token;
+    document.getElementById('recaptcha_token').value = token;
     
     // Create FormData
     const formData = new FormData(this);
