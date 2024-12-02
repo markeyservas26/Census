@@ -76,7 +76,7 @@
       </div>
 
       <!-- reCAPTCHA -->
-      <div class="g-recaptcha" data-sitekey="6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8" name="recaptcha_token" id="recaptcha_token"></div>
+      <input type="hidden" id="recaptcha_token" name="recaptcha_token" />
 
       <!-- Submit Button -->
       <div>
@@ -92,60 +92,37 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-  // Fixed reCAPTCHA and form submission handling
-  document.getElementById('loginForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    try {
-      // Get the reCAPTCHA token
-      const token = await grecaptcha.getResponse();
-      if (!token) {
-        // Show an error if the reCAPTCHA is not validated
-        await Swal.fire({
-          icon: 'error',
-          title: 'reCAPTCHA Verification',
-          text: 'Please complete the reCAPTCHA to proceed.'
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8', {action: 'login'}).then(function(token) {
+            document.getElementById('recaptcha_token').value = token;
         });
-        return; // Stop form submission if reCAPTCHA is not completed
-      }
+    });
 
-      // Set the token in the hidden input field
-      document.getElementById('recaptcha_token').value = token;
-      
-      // Create FormData
-      const formData = new FormData(this);
-      
-      // Send the request to the backend
-      const response = await fetch('../action/login.php', {
-        method: 'POST',
-        body: formData
-      });
-      
-      // Parse the response
-      const data = await response.json();
-      
-      // Show result using SweetAlert
-      await Swal.fire({
-        icon: data.icon,
-        title: data.title,
-        text: data.text,
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "OK"
-      });
-      
-      // Redirect if the response includes a redirect URL
-      if (data.redirect) {
-        window.location.href = data.redirect;
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      await Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'An error occurred during login. Please try again.'
-      });
-    }
-  });
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Assuming you have other form validation here
+        let formData = new FormData(this);
+
+        // Submit the form data with the reCAPTCHA token
+        fetch('action/login.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.icon === 'error') {
+                // Handle error (show SweetAlert)
+                Swal.fire(data.title, data.text, data.icon);
+            } else if (data.icon === 'success') {
+                // Redirect after success
+                window.location.href = data.redirect;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
 
   document.addEventListener('DOMContentLoaded', function() {
     const togglePassword = document.querySelector('#togglePassword');
