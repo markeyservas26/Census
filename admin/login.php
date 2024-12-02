@@ -138,7 +138,21 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
                     if (remainingTime <= 0) {
                         clearInterval(countdownInterval);
-                        countdownMessage.textContent = "The countdown has ended. Please refresh the page to try logging in again.";
+                        countdownMessage.textContent = "The countdown has ended. Please ";
+
+const refreshLink = document.createElement('a');
+refreshLink.href = '#';
+refreshLink.textContent = 'refresh the page';
+refreshLink.style.color = '#007bff'; // Optional: styling the link to look like a hyperlink
+
+// Add event listener to refresh the page when the link is clicked
+refreshLink.addEventListener('click', function() {
+    location.reload(); // Reload the page
+});
+
+// Append the link to the countdown message
+countdownMessage.appendChild(refreshLink);
+countdownMessage.textContent += ' to try logging in again.';
                         // Clear the countdown from localStorage after it's finished
                         localStorage.removeItem('countdownTime');
                     }
@@ -184,7 +198,21 @@ window.addEventListener('load', function() {
 
             if (remainingTime <= 0) {
                 clearInterval(countdownInterval);
-                countdownMessage.textContent = "The countdown has ended. Please refresh the page to try logging in again.";
+                countdownMessage.textContent = "The countdown has ended. Please ";
+
+const refreshLink = document.createElement('a');
+refreshLink.href = '#';
+refreshLink.textContent = 'refresh the page';
+refreshLink.style.color = '#007bff'; // Optional: styling the link to look like a hyperlink
+
+// Add event listener to refresh the page when the link is clicked
+refreshLink.addEventListener('click', function() {
+    location.reload(); // Reload the page
+});
+
+// Append the link to the countdown message
+countdownMessage.appendChild(refreshLink);
+countdownMessage.textContent += ' to try logging in again.';
                 // Clear the countdown from localStorage after it's finished
                 localStorage.removeItem('countdownTime');
             }
