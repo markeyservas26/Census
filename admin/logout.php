@@ -5,7 +5,7 @@ if (isset($_SESSION['userid'])) {
     // Log out the user
     session_unset();
     session_destroy();
-    header("Location: login.php");
+    header("Location: login");
     exit;
 }
 ?>
