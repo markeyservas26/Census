@@ -77,7 +77,8 @@
             <a href="../index.php" class="hover:text-gray-800">Back to Website</a>
           </div>
 <!-- reCAPTCHA -->
-<div class="g-recaptcha" data-sitekey="6LceYIkqAAAAACzv1ohIn9NLAfwCaaW3ZORfRU01"></div>
+<div class="g-recaptcha" data-sitekey="6LceYIkqAAAAACzv1ohIn9NLAfwCaaW3ZORfRU01" name="recaptcha_token"></div>
+
           <!-- Submit Button -->
           <div>
             <button type="submit"
