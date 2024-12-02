@@ -170,67 +170,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Sanitize inputs
-$username = filter_var($_POST['username'], FILTER_SANITIZE_EMAIL);
-$password = $_POST['password'];
+    $username = filter_var($_POST['username'], FILTER_SANITIZE_EMAIL);
+    $password = $_POST['password'];
 
-// Validate email format
-if (!filter_var($username, FILTER_VALIDATE_EMAIL)) {
-    sendJsonResponse('error', 'Invalid Email', 'Please enter a valid email address.');
-}
-
-try {
-    // Check user credentials
-    $stmt = $conn->prepare("SELECT id, name, password FROM users WHERE username = ?");
-    if (!$stmt) {
-        throw new Exception("Database preparation failed");
+    // Validate email format
+    if (!filter_var($username, FILTER_VALIDATE_EMAIL)) {
+        sendJsonResponse('error', 'Invalid Email', 'Please enter a valid email address.');
     }
 
-    $stmt->bind_param("s", $username);
-    if (!$stmt->execute()) {
-        throw new Exception("Database execution failed");
-    }
+    try {
+        // Check user credentials
+        $stmt = $conn->prepare("SELECT id, name, password FROM users WHERE username = ?");
+        if (!$stmt) {
+            throw new Exception("Database preparation failed");
+        }
 
-    $result = $stmt->get_result();
-    
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
+        $stmt->bind_param("s", $username);
+        if (!$stmt->execute()) {
+            throw new Exception("Database execution failed");
+        }
+
+        $result = $stmt->get_result();
         
-        // Verify password
-        if (password_verify($password, $user['password'])) {
-            // Successful login - reset attempts
-            resetLoginAttempts();
-
-            // Set session variables
-            $_SESSION['userid'] = $user['id'];
-            $_SESSION['name'] = $user['name'];
-
-            sendJsonResponse("success", "Login Successful", "Welcome, " . htmlspecialchars($user['name'], ENT_QUOTES, 'UTF-8') . "!", "../admin/index.php");
-        } else {
-            // Failed login attempt
-            if (trackLoginAttempts()) {
-                sendJsonResponse("error", "Invalid Login", "Email or password is incorrect! Attempt " . $_SESSION['login_attempts'] . " of 3.");
-            } else {
-                sendJsonResponse("error", "Account Locked", "Too many failed attempts. Please try again in 30 seconds.");
+        if ($result->num_rows === 1) {
+            $user = $result->fetch_assoc();
+            
+            if (password_verify($password, $user['password'])) {
+                // Set session variables
+                $_SESSION['userid'] = $user['id'];
+                $_SESSION['name'] = $user['name'];
+                
+                sendJsonResponse('success', 'Login Successful', 
+                    'Welcome, ' . htmlspecialchars($user['name']), 
+                    '../admin/index.php');
             }
         }
-    } else {
-        // Username not found
-        if (trackLoginAttempts()) {
-            sendJsonResponse("error", "Invalid Login", "Email or password is incorrect! Attempt " . $_SESSION['login_attempts'] . " of 3.");
-        } else {
-            sendJsonResponse("error", "Account Locked", "Too many failed attempts. Please try again in 30 seconds.");
+        
+        // Invalid credentials (don't specify which one)
+        sendJsonResponse('error', 'Login Failed', 'Invalid email or password.');
+        
+    } catch (Exception $e) {
+        error_log("Login error: " . $e->getMessage());
+        sendJsonResponse('error', 'System Error', 'An error occurred. Please try again later.');
+    } finally {
+        if (isset($stmt)) {
+            $stmt->close();
         }
-    }
-    
-} catch (Exception $e) {
-    error_log("Login error: " . $e->getMessage());
-    sendJsonResponse('error', 'System Error', 'An error occurred. Please try again later.');
-} finally {
-    if (isset($stmt)) {
-        $stmt->close();
-    }
-    if (isset($conn)) {
-        $conn->close();
+        if (isset($conn)) {
+            $conn->close();
+        }
     }
 }
 ?>
