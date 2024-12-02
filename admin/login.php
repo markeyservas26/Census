@@ -133,37 +133,36 @@
         });
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const togglePassword = document.querySelector('#togglePassword');
-        const passwordField = document.querySelector('#yourPassword');
+  document.addEventListener('DOMContentLoaded', function() {
+    const togglePassword = document.querySelector('#togglePassword');
+    const passwordField = document.querySelector('#yourPassword');
 
-        togglePassword.addEventListener('click', function() {
-            // Toggle the type attribute
-            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordField.setAttribute('type', type);
+    togglePassword.addEventListener('click', function() {
+      // Toggle the type attribute
+      const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordField.setAttribute('type', type);
 
-            // Toggle the eye icon
-            this.querySelector('i').classList.toggle('fa-eye-slash');
-        });
+      // Toggle the eye icon
+      this.querySelector('i').classList.toggle('fa-eye-slash');
     });
+  });
 
-    // Validation for the login form
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-        const usernameInput = document.getElementById('yourUsername');
-        const usernameValue = usernameInput.value;
-        const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+  // Validation for the login form
+  document.getElementById('loginForm').addEventListener('submit', function(event) {
+    const usernameInput = document.getElementById('yourUsername');
+    const usernameValue = usernameInput.value;
+    const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
 
-        // Check if the username matches the @gmail.com pattern
-        if (!gmailPattern.test(usernameValue)) {
-            event.preventDefault(); // Prevent form submission
-            Swal.fire({
-                icon: 'error',
-                title: 'Validation Error',
-                text: 'Username must have an @gmail.com.'
-            });
-        }
-    });
+    // Check if the username matches the @gmail.com pattern
+    if (!gmailPattern.test(usernameValue)) {
+      event.preventDefault(); // Prevent form submission
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Username must have an @gmail.com.'
+      });
+    }
+  });
 </script>
-
 
 </html>
