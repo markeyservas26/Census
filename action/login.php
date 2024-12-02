@@ -107,9 +107,14 @@ function sendJsonResponse($icon, $title, $text, $redirect = null) {
 
 // Handle login request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate required fields
-    if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['recaptcha_token'])) {
-        sendJsonResponse('error', 'Missing Data', 'Please provide all required information.');
+    // Check if the reCAPTCHA token is provided
+    if (empty($_POST['recaptcha_token'])) {
+        sendJsonResponse('error', 'Missing Data', 'Please provide the reCAPTCHA token.');
+    }
+
+    // Ensure username and password are present
+    if (empty($_POST['username']) || empty($_POST['password'])) {
+        sendJsonResponse('error', 'Missing Data', 'Please provide your username and password.');
     }
 
     // Verify reCAPTCHA
