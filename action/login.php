@@ -56,7 +56,7 @@ function checkXss($input) {
 // Verify reCAPTCHA token
 function verifyRecaptcha($token) {
     $secretKey = '6LceYIkqAAAAACzv1ohIn9NLAfwCaaW3ZORfRU01';
-    $url = 'https://www.google.com/recaptcha/api/siteverify';
+    $url = 'https://www.google.com/recaptcha/api.js';
     
     $data = [
         'secret' => $secretKey,
