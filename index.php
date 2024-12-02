@@ -681,7 +681,7 @@
                 Login
             </button>
             <ul class="dropdown-menu" aria-labelledby="loginDropdown">
-                <li><a class="dropdown-item" href="admin/verification-login">Admin</a></li>
+                <li><a class="dropdown-item" href="admin/login">Admin</a></li>
                 <hr>
                 <li><a class="dropdown-item" href="staff/login">Staff</a></li>
             </ul>
