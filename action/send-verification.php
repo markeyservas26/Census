@@ -6,12 +6,19 @@ use PHPMailer\PHPMailer\Exception;
 
 require '../vendor/autoload.php'; // Make sure PHPMailer is installed via Composer
 
+// Check if the form is submitted and the email is provided
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
-    $email = $_POST['email'];
+    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL); // Sanitize the email input
     
-    // Check if the email is a Gmail address
+    // Check if the email is a valid Gmail address
     if (strpos($email, '@gmail.com') === false) {
         echo "Please enter a valid Gmail address.";
+        exit;
+    }
+
+    // Check if email is already in the session to prevent multiple requests
+    if (isset($_SESSION['verification_requests'][$email])) {
+        echo "A verification email has already been sent to this address.";
         exit;
     }
 
@@ -28,13 +35,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'johnreyjubay315@gmail.com'; // Your Gmail email address
-        $mail->Password = 'tayv aptj ggcy fdol';  // Your Gmail App Password
+        $mail->Username = getenv('johnreyjubay315@gmail.com'); // Use environment variable for Gmail username
+        $mail->Password = getenv('tayv aptj ggcy fdol');  // Use environment variable for Gmail App Password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
         // Set sender and recipient
-        $mail->setFrom('johnreyjubay315@gmail.com', 'BIC');
+        $mail->setFrom(getenv('johnreyjubay315@gmail.com'), 'BIC');
         $mail->addAddress($email);
 
         // Content of the email
@@ -46,9 +53,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
                 There is someone who requested for verification. To verify and allow access to the login page, click the button below:<br><br>
                 <a href='{$verifyLink}' style='padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;'>Yes</a><br><br>
                 If this request is unauthorized, you can ignore this email.";
-        $mail->send();
 
-        echo 'Verification email sent! Please check your email.';
+        // Send the email
+        if ($mail->send()) {
+            echo 'Verification email sent! Please check your email.';
+        } else {
+            echo 'Error sending email. Please try again later.';
+        }
+
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
