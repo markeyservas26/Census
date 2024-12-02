@@ -107,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Verify reCAPTCHA
     if (!verifyRecaptcha($_POST['recaptcha_token'])) {
-        sendJsonResponse('error', 'reCAPTCHA Failed', 'Please try again.');
+        sendJsonResponse('error', 'reCAPTCHA Verification Failed', 'Please complete the reCAPTCHA challenge.');
     }
 
     // Sanitize inputs

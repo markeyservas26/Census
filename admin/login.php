@@ -27,7 +27,7 @@
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
-  <script src="https://www.google.com/recaptcha/api.js?render=6LcqT4kqAAAAAOkPnbZCeDx8KNaPHcNMscOiFChA"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
   <!-- Custom CSS for Logo Size -->
 
@@ -76,7 +76,8 @@
             <a href="chooseaway.php" class="hover:text-gray-800">Forgot password?</a>
             <a href="../index.php" class="hover:text-gray-800">Back to Website</a>
           </div>
-
+<!-- reCAPTCHA -->
+<div class="g-recaptcha" data-sitekey="6LceYIkqAAAAACzv1ohIn9NLAfwCaaW3ZORfRU01"></div>
           <!-- Submit Button -->
           <div>
             <button type="submit"
@@ -85,8 +86,7 @@
             </button>
           </div>
 
-          <!-- Hidden reCAPTCHA Token -->
-          <input type="hidden" name="recaptcha_token" id="recaptchaToken">
+          <input type="hidden" id="recaptchaToken" name="recaptcha_token">
 
         </form>
       </div>
@@ -97,48 +97,59 @@
   <script>
     // Fixed reCAPTCHA and form submission handling
     document.getElementById('loginForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
-      try {
-        // Get reCAPTCHA token
-        const token = await grecaptcha.execute('6LcqT4kqAAAAAOkPnbZCeDx8KNaPHcNMscOiFChA', { action: 'login' });
-        document.getElementById('recaptchaToken').value = token;
-        
-        // Create FormData
-        const formData = new FormData(this);
-        
-        // Send request
-        const response = await fetch('../action/login.php', {
-          method: 'POST',
-          body: formData
-        });
-        
-        // Parse response
-        const data = await response.text();
-        const result = JSON.parse(data);
-        
-        // Show result
-        await Swal.fire({
-          icon: result.icon,
-          title: result.title,
-          text: result.text,
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "OK"
-        });
-        
-        // Handle redirect if successful
-        if (result.redirect) {
-          window.location.href = result.redirect;
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        await Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'An error occurred during login. Please try again.'
-        });
-      }
+  e.preventDefault();
+  
+  try {
+    // Get the reCAPTCHA token
+    const token = await grecaptcha.getResponse();
+    if (!token) {
+      // Show an error if the reCAPTCHA is not validated
+      await Swal.fire({
+        icon: 'error',
+        title: 'reCAPTCHA Verification',
+        text: 'Please complete the reCAPTCHA to proceed.'
+      });
+      return; // Stop form submission if reCAPTCHA is not completed
+    }
+
+    // Set the token in the hidden input field
+    document.getElementById('recaptchaToken').value = token;
+    
+    // Create FormData
+    const formData = new FormData(this);
+    
+    // Send the request to the backend
+    const response = await fetch('../action/login.php', {
+      method: 'POST',
+      body: formData
     });
+    
+    // Parse the response
+    const data = await response.json();
+    
+    // Show result using SweetAlert
+    await Swal.fire({
+      icon: data.icon,
+      title: data.title,
+      text: data.text,
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "OK"
+    });
+    
+    // Redirect if the response includes a redirect URL
+    if (data.redirect) {
+      window.location.href = data.redirect;
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    await Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'An error occurred during login. Please try again.'
+    });
+  }
+});
+
   </script>
 
 
