@@ -31,11 +31,24 @@
 
   <!-- Custom CSS for Logo Size -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* Adjusting the height of the login form */
+    .login-form-container {
+      min-height: 500px; /* Set a minimum height for the container */
+      height: auto;
+      padding: 40px 20px; /* Add padding for better spacing */
+    }
+    .countdown-message {
+      font-size: 16px;
+      font-weight: 500;
+    }
+  </style>
 </head>
 
 <body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen p-0 m-0">
 
-  <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md text-center">
+  <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md text-center login-form-container">
     <!-- Logo -->
     <div class="d-flex justify-content-center py-4 mb-6">
       <img src="../assets/img/trasparlogo.png" alt="" class="h-32 w-auto">
@@ -45,7 +58,7 @@
 
     <!-- Login Form -->
     <form id="loginForm" method="POST" class="space-y-6">
-    <div id="countdownMessage" class="text-red-500 text-lg font-semibold hidden mb-4"></div>
+      <div id="countdownMessage" class="text-red-500 text-lg font-semibold hidden mb-4 countdown-message"></div>
 
       <!-- Email Input -->
       <div>
@@ -91,7 +104,7 @@
 
     </form>
   </div>
-</body>
+  </body>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
@@ -138,7 +151,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
                     if (remainingTime <= 0) {
                         clearInterval(countdownInterval);
-                        countdownMessage.textContent = "You can now try logging in again.";
+                        countdownMessage.textContent = "The countdown has ended. Please refresh the page to try logging in again.";
                         // Clear the countdown from localStorage after it's finished
                         localStorage.removeItem('countdownTime');
                     }
