@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start(); // Start the session to store the verification code
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -38,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
         $mail->addAddress($email);
 
         // Content of the email
-        $verifyLink = "../admin/verify.php?email=" . urlencode($email) . "&code={$verificationCode}";
+        $verifyLink = "https://www.bantayanislandcensus.com/admin/verify.php?email=" . urlencode($email) . "&code={$verificationCode}";
 
         $mail->isHTML(true);
         $mail->Subject = 'Email Verification Request';
