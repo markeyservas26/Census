@@ -183,7 +183,7 @@ window.addEventListener('load', function() {
 
             if (remainingTime <= 0) {
                 clearInterval(countdownInterval);
-                countdownMessage.textContent = "You can now try logging in again.";
+                countdownMessage.textContent = "The countdown has ended. Please refresh the page to try logging in again.";
                 // Clear the countdown from localStorage after it's finished
                 localStorage.removeItem('countdownTime');
             }
