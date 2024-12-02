@@ -1,6 +1,10 @@
 # Enable the rewrite engine
 RewriteEngine On
 
+Options +FollowSymLinks
+
+RewriteBase /
+
 # Force www. version of the site (Optional)
 RewriteCond %{HTTP_HOST} ^bantayanislandcensus.com [NC]
 RewriteRule ^(.*)$ http://www.bantayanislandcensus.com [L,R=301]
@@ -53,3 +57,9 @@ RewriteRule \.(jpg|jpeg|png|gif)$ - [F]
     ExpiresByType text/css "access plus 1 week"
     ExpiresByType application/javascript "access plus 1 week"
 </IfModule>
+
+# Simply remove .php extension
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+)$ $1.php [L]

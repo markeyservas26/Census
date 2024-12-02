@@ -17,7 +17,7 @@ if (intval($response_keys["success"]) !== 1) {
     echo 'Please complete the CAPTCHA correctly.';
 } else {
     // If reCAPTCHA passed, redirect to the main website page
-    header('Location: ../index.php'); // Replace with your actual website or page
+    header('Location: ../index'); // Replace with your actual website or page
     exit;
 }
 ?>
