@@ -82,7 +82,6 @@ function verifyRecaptcha($token) {
     return isset($result['success']) && $result['success'] === true;
 }
 
-
 // Send JSON response
 function sendJsonResponse($icon, $title, $text, $redirect = null) {
     $response = [
@@ -196,6 +195,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $user = $result->fetch_assoc();
             
             if (password_verify($password, $user['password'])) {
+                // Reset login attempts on successful login
+                resetLoginAttempts();
+
                 // Set session variables
                 $_SESSION['userid'] = $user['id'];
                 $_SESSION['name'] = $user['name'];
@@ -203,11 +205,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 sendJsonResponse('success', 'Login Successful', 
                     'Welcome, ' . htmlspecialchars($user['name']), 
                     '../admin/index.php');
+            } else {
+                // Failed login attempt
+                if (trackLoginAttempts()) {
+                    sendJsonResponse("error", "Invalid Login", "Email or password is incorrect! Attempt " . $_SESSION['login_attempts'] . " of 3.");
+                } else {
+                    sendJsonResponse("error", "Account Locked", "Too many failed attempts. Please try again in 30 seconds.");
+                }
+            }
+        } else {
+            // Username not found
+            if (trackLoginAttempts()) {
+                sendJsonResponse("error", "Invalid Login", "Email or password is incorrect! Attempt " . $_SESSION['login_attempts'] . " of 3.");
+            } else {
+                sendJsonResponse("error", "Account Locked", "Too many failed attempts. Please try again in 30 seconds.");
             }
         }
-        
-        // Invalid credentials (don't specify which one)
-        sendJsonResponse('error', 'Login Failed', 'Invalid email or password.');
         
     } catch (Exception $e) {
         error_log("Login error: " . $e->getMessage());
@@ -222,5 +235,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
