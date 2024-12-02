@@ -35,13 +35,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = getenv('johnreyjubay315@gmail.com'); // Use environment variable for Gmail username
+        $mail->Username = getenv('GMAIL_USERNAME'); // Use environment variable for Gmail username
         $mail->Password = getenv('tayv aptj ggcy fdol');  // Use environment variable for Gmail App Password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
         // Set sender and recipient
-        $mail->setFrom(getenv('johnreyjubay315@gmail.com'), 'BIC');
+        $mail->setFrom(getenv('GMAIL_USERNAME'), 'BIC');
         $mail->addAddress($email);
 
         // Content of the email
