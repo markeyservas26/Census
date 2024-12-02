@@ -70,18 +70,25 @@ function verifyRecaptcha($token) {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     
     $response = curl_exec($ch);
-    curl_close($ch);
-    
-    if ($response === false) {
-        error_log('reCAPTCHA verification failed: CURL error');
+    if (curl_errno($ch)) {
+        error_log('reCAPTCHA CURL error: ' . curl_error($ch));
+        curl_close($ch);
         return false;
     }
+    curl_close($ch);
     
     $result = json_decode($response, true);
+    
+    if (!$result['success']) {
+        error_log('reCAPTCHA verification failed: ' . json_encode($result));
+        return false;
+    }
+
     return isset($result['success']) && $result['success'] === true && 
            isset($result['score']) && $result['score'] >= 0.5 && 
            isset($result['action']) && $result['action'] === 'login';
 }
+
 
 // Send JSON response
 function sendJsonResponse($icon, $title, $text, $redirect = null) {
