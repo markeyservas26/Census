@@ -76,7 +76,7 @@
       </div>
 
       <!-- reCAPTCHA -->
-      <input type="hidden" id="recaptcha_token" name="recaptcha_token" />
+      <div class="g-recaptcha" data-sitekey="6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8"></div>
 
       <!-- Submit Button -->
       <div>

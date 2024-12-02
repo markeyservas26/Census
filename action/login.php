@@ -79,14 +79,7 @@ function verifyRecaptcha($token) {
     
     $result = json_decode($response, true);
     
-    if (!$result['success']) {
-        error_log('reCAPTCHA verification failed: ' . json_encode($result));
-        return false;
-    }
-
-    return isset($result['success']) && $result['success'] === true && 
-           isset($result['score']) && $result['score'] >= 0.5 && 
-           isset($result['action']) && $result['action'] === 'login';
+    return isset($result['success']) && $result['success'] === true;
 }
 
 
@@ -108,8 +101,8 @@ function sendJsonResponse($icon, $title, $text, $redirect = null) {
 // Handle login request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the reCAPTCHA token is provided
-    if (empty($_POST['recaptcha_token'])) {
-        sendJsonResponse('error', 'Missing Data', 'Please provide the reCAPTCHA token.');
+    if (empty($_POST['g-recaptcha-response'])) {
+        sendJsonResponse('error', 'Missing Data', 'Please complete the reCAPTCHA challenge.');
     }
 
     // Ensure username and password are present
@@ -118,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Verify reCAPTCHA
-    if (!verifyRecaptcha($_POST['recaptcha_token'])) {
+    if (!verifyRecaptcha($_POST['g-recaptcha-response'])) {
         sendJsonResponse('error', 'reCAPTCHA Verification Failed', 'Please complete the reCAPTCHA challenge.');
     }
 
