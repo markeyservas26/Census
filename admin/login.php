@@ -115,8 +115,17 @@
                 // Handle error (show SweetAlert)
                 Swal.fire(data.title, data.text, data.icon);
             } else if (data.icon === 'success') {
-                // Redirect after success
-                window.location.href = data.redirect;
+                // Show SweetAlert for successful login
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login Successful',
+                    text: 'You will be redirected shortly.',
+                    showConfirmButton: false,
+                    timer: 2000 // 2 seconds delay before redirect
+                }).then(() => {
+                    // Redirect after the SweetAlert closes
+                    window.location.href = data.redirect;
+                });
             }
         })
         .catch(error => {
@@ -124,36 +133,37 @@
         });
     });
 
-  document.addEventListener('DOMContentLoaded', function() {
-    const togglePassword = document.querySelector('#togglePassword');
-    const passwordField = document.querySelector('#yourPassword');
+    document.addEventListener('DOMContentLoaded', function() {
+        const togglePassword = document.querySelector('#togglePassword');
+        const passwordField = document.querySelector('#yourPassword');
 
-    togglePassword.addEventListener('click', function() {
-      // Toggle the type attribute
-      const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-      passwordField.setAttribute('type', type);
+        togglePassword.addEventListener('click', function() {
+            // Toggle the type attribute
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
 
-      // Toggle the eye icon
-      this.querySelector('i').classList.toggle('fa-eye-slash');
+            // Toggle the eye icon
+            this.querySelector('i').classList.toggle('fa-eye-slash');
+        });
     });
-  });
 
-  // Validation for the login form
-  document.getElementById('loginForm').addEventListener('submit', function(event) {
-    const usernameInput = document.getElementById('yourUsername');
-    const usernameValue = usernameInput.value;
-    const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    // Validation for the login form
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        const usernameInput = document.getElementById('yourUsername');
+        const usernameValue = usernameInput.value;
+        const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
 
-    // Check if the username matches the @gmail.com pattern
-    if (!gmailPattern.test(usernameValue)) {
-      event.preventDefault(); // Prevent form submission
-      Swal.fire({
-        icon: 'error',
-        title: 'Validation Error',
-        text: 'Username must have an @gmail.com.'
-      });
-    }
-  });
+        // Check if the username matches the @gmail.com pattern
+        if (!gmailPattern.test(usernameValue)) {
+            event.preventDefault(); // Prevent form submission
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: 'Username must have an @gmail.com.'
+            });
+        }
+    });
 </script>
+
 
 </html>
