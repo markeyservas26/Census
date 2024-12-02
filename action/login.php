@@ -204,7 +204,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
                 sendJsonResponse('success', 'Login Successful', 
                     'Welcome, ' . htmlspecialchars($user['name']), 
-                    '../admin/index.php');
+                    '../admin/index');
             } else {
                 // Failed login attempt
                 if (trackLoginAttempts()) {
