@@ -108,7 +108,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     let formData = new FormData(this);
 
     // Submit the form data with the reCAPTCHA token
-    fetch('../action/login.php', {
+    fetch('../action/login', {
         method: 'POST',
         body: formData
     })
