@@ -656,7 +656,7 @@
         </div>
 
         <!-- Desktop Navigation Menu -->
-<nav id="navmenu" class="navmenu d-none d-md-flex" style="position: fixed; top: 0; right: 170px; z-index: 1000;">
+<nav id="navmenu" class="navmenu d-none d-md-flex" style="position: fixed; top: 5; right: 170px; z-index: 1000;">
     <ul class="d-flex gap-1">
         <li><a href="#" id="homeLink">Home</a></li>
         <li><a href="#" id="bantayanLink">Bantayan</a></li>
