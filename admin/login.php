@@ -105,7 +105,7 @@
         let formData = new FormData(this);
 
         // Submit the form data with the reCAPTCHA token
-        fetch('action/login.php', {
+        fetch('../action/login.php', {
             method: 'POST',
             body: formData
         })
