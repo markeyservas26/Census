@@ -656,16 +656,17 @@
         </div>
 
         <!-- Desktop Navigation Menu -->
-        <nav id="navmenu" class="navmenu d-none d-md-flex" style="margin-left: 170px;">
-            <ul class="d-flex gap-1">
-                <li><a href="#" id="homeLink">Home</a></li>
-                <li><a href="#" id="bantayanLink">Bantayan</a></li>
-                <li><a href="#" id="madridejosLink">Madridejos</a></li>
-                <li><a href="#" id="santafeLink">Santafe</a></li>
-                <li><a href="#" id="schedule">Schedule</a></li>
-                <li><a href="#" id="aboutLink">About</a></li>
-            </ul>
-        </nav>
+<nav id="navmenu" class="navmenu d-none d-md-flex" style="position: fixed; top: 0; left: 170px; z-index: 1000;">
+    <ul class="d-flex gap-1">
+        <li><a href="#" id="homeLink">Home</a></li>
+        <li><a href="#" id="bantayanLink">Bantayan</a></li>
+        <li><a href="#" id="madridejosLink">Madridejos</a></li>
+        <li><a href="#" id="santafeLink">Santafe</a></li>
+        <li><a href="#" id="schedule">Schedule</a></li>
+        <li><a href="#" id="aboutLink">About</a></li>
+    </ul>
+</nav>
+
 
         <!-- Mobile Navigation Menu (Hamburger Icon) -->
         <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
