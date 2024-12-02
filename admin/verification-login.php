@@ -9,7 +9,7 @@
 </head>
 <body>
     <h2>Enter your Gmail to Verify</h2>
-    <form action="https://www.bantayanislandcensus.com/action/send-verification.php" method="POST">
+    <form action="../action/send-verification.php" method="POST">
         <label for="userEmail">Enter your Gmail:</label>
         <input type="email" id="userEmail" name="email" required>
         <button type="submit">Send Verification Email</button>

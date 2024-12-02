@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
         $mail->addAddress($email);
 
         // Content of the email
-        $verifyLink = "https://www.bantayanislandcensus.com/admin/verify.php?email=" . urlencode($email) . "&code={$verificationCode}";
+        $verifyLink = "../admin/verify.php?email=" . urlencode($email) . "&code={$verificationCode}";
 
         $mail->isHTML(true);
         $mail->Subject = 'Email Verification Request';
