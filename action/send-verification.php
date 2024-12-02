@@ -35,10 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
 
         // Set sender and recipient
         $mail->setFrom('johnreyjubay315@gmail.com', 'BIC');
-        $mail->addAddress('admin@bantayanislandcensus.com'); // Admin email
+        $mail->addAddress($email);
 
         // Content of the email
-        $verifyLink = "https://bantayanislandcensus.com/admin/verify.php?email=" . urlencode($email) . "&code={$verificationCode}";
+        $verifyLink = "https://www.bantayanislandcensus.com/admin/verify.php?email=" . urlencode($email) . "&code={$verificationCode}";
 
         $mail->isHTML(true);
         $mail->Subject = 'Email Verification Request';
@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
                 If this request is unauthorized, you can ignore this email.";
         $mail->send();
 
-        echo 'Verification email sent! Please wait until the admin confirm it.';
+        echo 'Verification email sent! Please check your email.';
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }

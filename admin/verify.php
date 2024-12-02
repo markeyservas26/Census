@@ -11,7 +11,7 @@ if (isset($_GET['email']) && isset($_GET['code'])) {
         unset($_SESSION['verification_requests'][$email]);
 
         // Redirect the user to the login page
-        header('Location: https://bantayanislandcensus.com/admin/login.php?status=verified');
+        header('Location: https://www.bantayanislandcensus.com/admin/login.php?status=verified');
         exit;
     } else {
         echo "Invalid or expired verification link.";
