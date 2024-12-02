@@ -127,10 +127,6 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
                 countdownMessage.classList.remove('hidden');
                 countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
 
-                // Disable the email and password inputs
-                document.getElementById('username').disabled = true;
-                document.getElementById('password').disabled = true;
-
                 // Start the countdown
                 let countdownInterval = setInterval(function() {
                     remainingTime--;
@@ -142,11 +138,6 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
                     if (remainingTime <= 0) {
                         clearInterval(countdownInterval);
                         countdownMessage.textContent = "You can now try logging in again.";
-                        
-                        // Re-enable the email and password inputs
-                        document.getElementById('username').disabled = false;
-                        document.getElementById('password').disabled = false;
-
                         // Clear the countdown from localStorage after it's finished
                         localStorage.removeItem('countdownTime');
                     }
@@ -182,10 +173,6 @@ window.addEventListener('load', function() {
         countdownMessage.classList.remove('hidden');
         countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
 
-        // Disable the email and password inputs
-        document.getElementById('username').disabled = true;
-        document.getElementById('password').disabled = true;
-
         // Start the countdown if there's a stored value
         let countdownInterval = setInterval(function() {
             remainingTime--;
@@ -197,18 +184,12 @@ window.addEventListener('load', function() {
             if (remainingTime <= 0) {
                 clearInterval(countdownInterval);
                 countdownMessage.textContent = "You can now try logging in again.";
-                
-                // Re-enable the email and password inputs
-                document.getElementById('username').disabled = false;
-                document.getElementById('password').disabled = false;
-
                 // Clear the countdown from localStorage after it's finished
                 localStorage.removeItem('countdownTime');
             }
         }, 1000);
     }
 });
-
 
 
 
