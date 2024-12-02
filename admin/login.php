@@ -45,6 +45,8 @@
 
     <!-- Login Form -->
     <form id="loginForm" method="POST" class="space-y-6">
+    <div id="countdownMessage" class="text-red-500 text-lg font-semibold hidden mb-4"></div>
+
       <!-- Email Input -->
       <div>
         <label for="yourUsername" class="block text-left text-gray-600 text-lg font-semibold mb-2">Email</label>
@@ -92,46 +94,66 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    grecaptcha.ready(function() {
-        grecaptcha.execute('6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8', {action: 'login'}).then(function(token) {
-            document.getElementById('recaptcha_token').value = token;
-        });
+   grecaptcha.ready(function() {
+    grecaptcha.execute('6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8', {action: 'login'}).then(function(token) {
+        document.getElementById('recaptcha_token').value = token;
     });
+});
 
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-        event.preventDefault();
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-        // Assuming you have other form validation here
-        let formData = new FormData(this);
+    // Assuming you have other form validation here
+    let formData = new FormData(this);
 
-        // Submit the form data with the reCAPTCHA token
-        fetch('../action/login.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.icon === 'error') {
-                // Handle error (show SweetAlert)
+    // Submit the form data with the reCAPTCHA token
+    fetch('../action/login.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.icon === 'error') {
+            if (data.title === "Account Locked") {
+                // Display countdown message if account is locked
+                let remainingTime = parseInt(data.text.match(/\d+/)[0]); // Extract the remaining time in seconds
+                let countdownMessage = document.getElementById('countdownMessage');
+                countdownMessage.classList.remove('hidden');
+                countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
+
+                // Start the countdown
+                let countdownInterval = setInterval(function() {
+                    remainingTime--;
+                    countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
+                    
+                    if (remainingTime <= 0) {
+                        clearInterval(countdownInterval);
+                        countdownMessage.textContent = "You can now try logging in again.";
+                    }
+                }, 1000);
+            } else {
+                // Show SweetAlert for other errors
                 Swal.fire(data.title, data.text, data.icon);
-            } else if (data.icon === 'success') {
-                // Show SweetAlert for successful login
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Login Successful',
-                    text: 'You will be redirected shortly.',
-                    showConfirmButton: false,
-                    timer: 2000 // 2 seconds delay before redirect
-                }).then(() => {
-                    // Redirect after the SweetAlert closes
-                    window.location.href = data.redirect;
-                });
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+        } else if (data.icon === 'success') {
+            // Show SweetAlert for successful login
+            Swal.fire({
+                icon: 'success',
+                title: 'Login Successful',
+                text: 'You will be redirected shortly.',
+                showConfirmButton: false,
+                timer: 2000 // 2 seconds delay before redirect
+            }).then(() => {
+                // Redirect after the SweetAlert closes
+                window.location.href = data.redirect;
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
     });
+});
+
 
   document.addEventListener('DOMContentLoaded', function() {
     const togglePassword = document.querySelector('#togglePassword');
