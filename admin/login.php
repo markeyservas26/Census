@@ -115,8 +115,14 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     .then(data => {
         if (data.icon === 'error') {
             if (data.title === "Account Locked") {
-                // Display countdown message if account is locked
-                let remainingTime = parseInt(data.text.match(/\d+/)[0]); // Extract the remaining time in seconds
+                // Extract remaining time from the response
+                let remainingTime = parseInt(data.text.match(/\d+/)[0]);
+                
+                // Check if there's a stored countdown in localStorage
+                if (localStorage.getItem('countdownTime')) {
+                    remainingTime = parseInt(localStorage.getItem('countdownTime'));
+                }
+
                 let countdownMessage = document.getElementById('countdownMessage');
                 countdownMessage.classList.remove('hidden');
                 countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
@@ -125,10 +131,15 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
                 let countdownInterval = setInterval(function() {
                     remainingTime--;
                     countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
-                    
+
+                    // Save the remaining time in localStorage
+                    localStorage.setItem('countdownTime', remainingTime);
+
                     if (remainingTime <= 0) {
                         clearInterval(countdownInterval);
                         countdownMessage.textContent = "You can now try logging in again.";
+                        // Clear the countdown from localStorage after it's finished
+                        localStorage.removeItem('countdownTime');
                     }
                 }, 1000);
             } else {
@@ -153,6 +164,33 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         console.error('Error:', error);
     });
 });
+
+// On page load, check if there's a stored countdown and display it
+window.addEventListener('load', function() {
+    let remainingTime = localStorage.getItem('countdownTime');
+    if (remainingTime && remainingTime > 0) {
+        let countdownMessage = document.getElementById('countdownMessage');
+        countdownMessage.classList.remove('hidden');
+        countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
+
+        // Start the countdown if there's a stored value
+        let countdownInterval = setInterval(function() {
+            remainingTime--;
+            countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
+
+            // Save the remaining time in localStorage
+            localStorage.setItem('countdownTime', remainingTime);
+
+            if (remainingTime <= 0) {
+                clearInterval(countdownInterval);
+                countdownMessage.textContent = "You can now try logging in again.";
+                // Clear the countdown from localStorage after it's finished
+                localStorage.removeItem('countdownTime');
+            }
+        }, 1000);
+    }
+});
+
 
 
   document.addEventListener('DOMContentLoaded', function() {
