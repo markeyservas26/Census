@@ -4,7 +4,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Include Composer's autoloader
-require '/home/u510162695/domains/bantayanislandcensus.com/census/vendor/autoload.php';
+require '/home/u510162695/domains/bantayanislandcensus.com/public_html/vendor/autoload.php'; // Adjust this as needed
+
 
 
 // Get form data
