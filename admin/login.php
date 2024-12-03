@@ -15,32 +15,36 @@ $user_ip = $_SERVER['REMOTE_ADDR'];
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
 $current_time = date('Y-m-d H:i:s');
 
-// Function to get location data based on IP address
+// Function to get location data based on IP address using ipstack API
 function getLocationByIP($ip) {
-    $access_key = 'ec7e48b369092b'; // You can get a free API key from ipinfo.io
-    $url = "http://ipinfo.io/{$ip}/json?token={$access_key}"; // URL to access location data
+    $access_key = '513a6267f354485cdeb02fab553ca940'; // Replace with your ipstack API key
+    $url = "http://api.ipstack.com/{$ip}?access_key={$access_key}&format=1"; // ipstack API URL
 
     // Fetch the response from the API
     $response = file_get_contents($url);
     $location_data = json_decode($response, true);
 
     // Check if location data is available
-    if (isset($location_data['loc'])) {
-        // Latitude and longitude from the location data
-        list($latitude, $longitude) = explode(",", $location_data['loc']);
-        return ['latitude' => $latitude, 'longitude' => $longitude];
+    if (isset($location_data['city']) && isset($location_data['region_name']) && isset($location_data['country_name'])) {
+        // Detailed location information (city, region, country)
+        return [
+            'city' => $location_data['city'],
+            'region' => $location_data['region_name'],
+            'country' => $location_data['country_name']
+        ];
     } else {
         return null;
     }
 }
 
-// Get the latitude and longitude of the user
+// Get the detailed location of the user (from IP)
 $location = getLocationByIP($user_ip);
-$latitude = $location ? $location['latitude'] : null;
-$longitude = $location ? $location['longitude'] : null;
+$city = $location ? $location['city'] : 'Unknown City';
+$region = $location ? $location['region'] : 'Unknown Region';
+$country = $location ? $location['country'] : 'Unknown Country';
 
 // Send email notification
-function sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longitude) {
+function sendLoginAlert($user_ip, $user_agent, $current_time, $city, $region, $country) {
     $mail = new PHPMailer(true); // Ensure PHPMailer is properly referenced
     try {
         // Server settings
@@ -59,9 +63,6 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longit
         $mail->setFrom('johnreyjubay315@gmail.com', 'Login Alert');
         $mail->addAddress('johnreyjubay315@gmail.com'); // Send to yourself
 
-        // Create a Google Maps link with the latitude and longitude
-        $map_link = "https://www.google.com/maps?q={$latitude},{$longitude}";
-
         // Email content
         $mail->isHTML(true);
         $mail->Subject = 'Login Attempt Notification';
@@ -70,7 +71,7 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longit
             <p><strong>IP Address:</strong> $user_ip</p>
             <p><strong>Device Details:</strong> $user_agent</p>
             <p><strong>Time:</strong> $current_time</p>
-            <p><strong>Location on Map:</strong> <a href=\"$map_link\" target=\"_blank\">View on Google Maps</a></p>
+            <p><strong>Location:</strong> $city, $region, $country</p>
         ";
 
         // Send the email
@@ -82,10 +83,9 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longit
 }
 
 // Call the function to send an alert
-sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longitude);
+sendLoginAlert($user_ip, $user_agent, $current_time, $city, $region, $country);
 
 ?>
-
 
 
 <!DOCTYPE html>
