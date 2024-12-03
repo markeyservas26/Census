@@ -20,7 +20,7 @@ $redirectUrl = '..admin/index.php'; // Redirect URL after login
 
 // Send email notification
 function sendLoginAlert($username, $user_ip, $user_agent) {
-    $mail = new PHPMailer(true);
+    $mail = new PHPMailer(true); // Ensure PHPMailer is properly referenced
     try {
         // Server settings
         $mail->isSMTP();
@@ -60,6 +60,7 @@ function sendLoginAlert($username, $user_ip, $user_agent) {
 sendLoginAlert($username, $user_ip, $user_agent);
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
