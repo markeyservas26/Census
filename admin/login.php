@@ -1,3 +1,61 @@
+<?php
+// Include PHPMailer classes
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../vendor/autoload.php'; // Adjust path if necessary
+
+// Get form data
+$username = $_POST['username'] ?? '';
+$password = $_POST['password'] ?? '';
+
+// Get user's IP address and device details
+$user_ip = $_SERVER['REMOTE_ADDR'];
+$user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+// Perform login logic (Replace this with your actual database check)
+$isLoginSuccessful = false; // Example: Replace with actual validation
+$redirectUrl = '..admin/index.php'; // Redirect URL after login
+
+// Send email notification
+function sendLoginAlert($username, $user_ip, $user_agent) {
+    $mail = new PHPMailer(true);
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com'; // Gmail SMTP server
+        $mail->SMTPAuth = true;
+        $mail->Username = 'johnreyjubay315@gmail.com'; // Your Gmail address
+        $mail->Password = 'tayv aptj ggcy fdol'; // Your Gmail app password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mail->Port = 465;
+
+        // Recipients
+        $mail->setFrom('johnreyjubay315@gmai.com', 'Login Alert');
+        $mail->addAddress('johnreyjubay315@gmail.com'); // Send to yourself
+
+        // Email content
+        $mail->isHTML(true);
+        $mail->Subject = 'Login Attempt Notification';
+        $mail->Body = "
+            <h3>Login Attempt Detected</h3>
+            <p><strong>Username:</strong> $username</p>
+            <p><strong>IP Address:</strong> $user_ip</p>
+            <p><strong>Device Details:</strong> $user_agent</p>
+            <p><strong>Time:</strong> " . date('Y-m-d H:i:s') . "</p>
+        ";
+        $mail->send();
+    } catch (Exception $e) {
+        // Handle email errors (optional logging)
+        error_log("Email not sent: {$mail->ErrorInfo}");
+    }
+}
+
+// Call the function to send an alert
+sendLoginAlert($username, $user_ip, $user_agent);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
