@@ -3,8 +3,13 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Include Composer's autoloader
-require '/home/u510162695/domains/bantayanislandcensus.com/public_html/vendor/autoload.php'; // Adjust this as needed
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+// require("../config.php");
+require '../vendor/PHPMailer/src/Exception.php';
+require '../vendor/PHPMailer/src/PHPMailer.php';
+require '../vendor/PHPMailer/src/SMTP.php';
 
 
 
