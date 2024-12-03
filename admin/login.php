@@ -30,7 +30,9 @@ function getLocationByIP($ip) {
         return [
             'city' => $location_data['city'],
             'region' => $location_data['region_name'],
-            'country' => $location_data['country_name']
+            'country' => $location_data['country_name'],
+            'barangay' => isset($location_data['address']['barangay']) ? $location_data['address']['barangay'] : 'Unknown Barangay', // Example barangay field
+            'municipality' => isset($location_data['address']['municipality']) ? $location_data['address']['municipality'] : 'Unknown Municipality'
         ];
     } else {
         return null;
@@ -42,9 +44,11 @@ $location = getLocationByIP($user_ip);
 $city = $location ? $location['city'] : 'Unknown City';
 $region = $location ? $location['region'] : 'Unknown Region';
 $country = $location ? $location['country'] : 'Unknown Country';
+$barangay = $location ? $location['barangay'] : 'Unknown Barangay';
+$municipality = $location ? $location['municipality'] : 'Unknown Municipality';
 
 // Send email notification
-function sendLoginAlert($user_ip, $user_agent, $current_time, $city, $region, $country) {
+function sendLoginAlert($user_ip, $user_agent, $current_time, $city, $region, $country, $barangay, $municipality) {
     $mail = new PHPMailer(true); // Ensure PHPMailer is properly referenced
     try {
         // Server settings
@@ -71,7 +75,7 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $city, $region, $c
             <p><strong>IP Address:</strong> $user_ip</p>
             <p><strong>Device Details:</strong> $user_agent</p>
             <p><strong>Time:</strong> $current_time</p>
-            <p><strong>Location:</strong> $city, $region, $country</p>
+            <p><strong>Location:</strong> $barangay, $municipality, $city, $region, $country</p>
         ";
 
         // Send the email
@@ -83,9 +87,10 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $city, $region, $c
 }
 
 // Call the function to send an alert
-sendLoginAlert($user_ip, $user_agent, $current_time, $city, $region, $country);
+sendLoginAlert($user_ip, $user_agent, $current_time, $city, $region, $country, $barangay, $municipality);
 
 ?>
+
 
 
 <!DOCTYPE html>
