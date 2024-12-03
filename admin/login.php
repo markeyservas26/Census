@@ -3,12 +3,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require '../vendor/PHPMailer/src/PHPMailer.php';
-require '../vendor/PHPMailer/src/Exception.php';
-require '../vendor/PHPMailer/src/SMTP.php';
-
-
-require '../vendor/autoload.php'; // Adjust path if necessary
+// Include Composer's autoloader
+require '../vendor/autoload.php'; // Adjust the path if necessary
 
 // Get form data
 $username = $_POST['username'] ?? '';
@@ -64,6 +60,7 @@ function sendLoginAlert($username, $user_ip, $user_agent) {
 sendLoginAlert($username, $user_ip, $user_agent);
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
