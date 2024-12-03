@@ -18,7 +18,7 @@ $current_time = date('Y-m-d H:i:s');
 // Function to get location data based on IP address
 function getLocationByIP($ip) {
     $access_key = 'ec7e48b369092b'; // You can get a free API key from ipinfo.io
-    $url = "http://ipinfo.io/{$ip}/json?token={$ec7e48b369092b}"; // URL to access location data
+    $url = "http://ipinfo.io/{$ip}/json?token={$access_key}"; // URL to access location data
 
     // Fetch the response from the API
     $response = file_get_contents($url);
@@ -85,6 +85,7 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longit
 sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longitude);
 
 ?>
+
 
 
 <!DOCTYPE html>
