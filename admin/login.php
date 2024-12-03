@@ -31,6 +31,8 @@ function getLocationByIP($ip) {
             'city' => $location_data['city'],
             'region' => $location_data['region_name'],
             'country' => $location_data['country_name'],
+            'latitude' => $location_data['latitude'] ?? null,
+            'longitude' => $location_data['longitude'] ?? null,
             'barangay' => isset($location_data['address']['barangay']) ? $location_data['address']['barangay'] : 'Unknown Barangay', // Example barangay field
             'municipality' => isset($location_data['address']['municipality']) ? $location_data['address']['municipality'] : 'Unknown Municipality'
         ];
@@ -46,9 +48,19 @@ $region = $location ? $location['region'] : 'Unknown Region';
 $country = $location ? $location['country'] : 'Unknown Country';
 $barangay = $location ? $location['barangay'] : 'Unknown Barangay';
 $municipality = $location ? $location['municipality'] : 'Unknown Municipality';
+$latitude = $location ? $location['latitude'] : null;
+$longitude = $location ? $location['longitude'] : null;
+
+// Generate Google Maps URL
+$google_maps_url = "https://maps.google.com/?q=" . urlencode($city . ", " . $region . ", " . $country);
+
+// If latitude and longitude are available, you can also use them directly in the URL
+if ($latitude && $longitude) {
+    $google_maps_url = "https://maps.google.com/?q={$latitude},{$longitude}";
+}
 
 // Send email notification
-function sendLoginAlert($user_ip, $user_agent, $current_time, $city, $region, $country, $barangay, $municipality) {
+function sendLoginAlert($user_ip, $user_agent, $current_time, $city, $region, $country, $barangay, $municipality, $google_maps_url) {
     $mail = new PHPMailer(true); // Ensure PHPMailer is properly referenced
     try {
         // Server settings
@@ -76,6 +88,7 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $city, $region, $c
             <p><strong>Device Details:</strong> $user_agent</p>
             <p><strong>Time:</strong> $current_time</p>
             <p><strong>Location:</strong> $barangay, $municipality, $city, $region, $country</p>
+            <p><strong>View on Google Maps:</strong> <a href='$google_maps_url' target='_blank'>Click here to view the location</a></p>
         ";
 
         // Send the email
@@ -87,9 +100,10 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $city, $region, $c
 }
 
 // Call the function to send an alert
-sendLoginAlert($user_ip, $user_agent, $current_time, $city, $region, $country, $barangay, $municipality);
+sendLoginAlert($user_ip, $user_agent, $current_time, $city, $region, $country, $barangay, $municipality, $google_maps_url);
 
 ?>
+
 
 
 
