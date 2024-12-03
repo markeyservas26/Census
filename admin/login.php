@@ -1,4 +1,8 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // Include PHPMailer classes
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -28,7 +32,7 @@ function sendLoginAlert($username, $user_ip, $user_agent) {
         $mail->Username = 'johnreyjubay315@gmail.com'; // Your Gmail address
         $mail->Password = 'tayv aptj ggcy fdol'; // Your Gmail app password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        $mail->Port = 587;
+        $mail->Port = 465;
 
         // Recipients
         $mail->setFrom('johnreyjubay315@gmail.com', 'Login Alert');
@@ -55,7 +59,6 @@ function sendLoginAlert($username, $user_ip, $user_agent) {
 sendLoginAlert($username, $user_ip, $user_agent);
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
