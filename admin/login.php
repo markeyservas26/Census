@@ -1,4 +1,8 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -24,9 +28,8 @@ function sendLoginAlert($user_ip, $user_agent, $current_time) {
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port = 465;
 
-        // Enable debugging (to get detailed error messages)
-        $mail->SMTPDebug = 2;
-        $mail->Debugoutput = 'html';
+        // Disable debugging output
+        $mail->SMTPDebug = 0;  // Set to 0 to disable debug output
 
         // Recipients
         $mail->setFrom('johnreyjubay315@gmail.com', 'Login Alert');
@@ -54,6 +57,7 @@ function sendLoginAlert($user_ip, $user_agent, $current_time) {
 sendLoginAlert($user_ip, $user_agent, $current_time);
 
 ?>
+
 
 
 
