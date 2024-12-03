@@ -36,7 +36,10 @@ function getLocationByIP($ip) {
 
     // Fetch the response from the API
     $response = file_get_contents($url);
-    $location_data = json_decode($response, true);
+    $location_data = json_decode($response, true);4
+
+     // Log the raw response to check the data
+     error_log("API Response: " . print_r($location_data, true)); // Log the response for debugging
 
     // Check if location data is available
     if (isset($location_data['loc'])) {
