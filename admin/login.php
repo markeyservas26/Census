@@ -15,8 +15,32 @@ $user_ip = $_SERVER['REMOTE_ADDR'];
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
 $current_time = date('Y-m-d H:i:s');
 
+// Function to get location data based on IP address
+function getLocationByIP($ip) {
+    $access_key = 'ec7e48b369092b'; // You can get a free API key from ipinfo.io
+    $url = "http://ipinfo.io/[IP address]?token=ec7e48b369092b"; // URL to access location data
+
+    // Fetch the response from the API
+    $response = file_get_contents($url);
+    $location_data = json_decode($response, true);
+
+    // Check if location data is available
+    if (isset($location_data['loc'])) {
+        // Latitude and longitude from the location data
+        list($latitude, $longitude) = explode(",", $location_data['loc']);
+        return ['latitude' => $latitude, 'longitude' => $longitude];
+    } else {
+        return null;
+    }
+}
+
+// Get the latitude and longitude of the user
+$location = getLocationByIP($user_ip);
+$latitude = $location ? $location['latitude'] : null;
+$longitude = $location ? $location['longitude'] : null;
+
 // Send email notification
-function sendLoginAlert($user_ip, $user_agent, $current_time) {
+function sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longitude) {
     $mail = new PHPMailer(true); // Ensure PHPMailer is properly referenced
     try {
         // Server settings
@@ -35,6 +59,9 @@ function sendLoginAlert($user_ip, $user_agent, $current_time) {
         $mail->setFrom('johnreyjubay315@gmail.com', 'Login Alert');
         $mail->addAddress('johnreyjubay315@gmail.com'); // Send to yourself
 
+        // Create a Google Maps link with the latitude and longitude
+        $map_link = "https://www.google.com/maps?q={$latitude},{$longitude}";
+
         // Email content
         $mail->isHTML(true);
         $mail->Subject = 'Login Attempt Notification';
@@ -43,6 +70,7 @@ function sendLoginAlert($user_ip, $user_agent, $current_time) {
             <p><strong>IP Address:</strong> $user_ip</p>
             <p><strong>Device Details:</strong> $user_agent</p>
             <p><strong>Time:</strong> $current_time</p>
+            <p><strong>Location on Map:</strong> <a href=\"$map_link\" target=\"_blank\">View on Google Maps</a></p>
         ";
 
         // Send the email
@@ -54,11 +82,9 @@ function sendLoginAlert($user_ip, $user_agent, $current_time) {
 }
 
 // Call the function to send an alert
-sendLoginAlert($user_ip, $user_agent, $current_time);
+sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longitude);
 
 ?>
-
-
 
 
 <!DOCTYPE html>
