@@ -3,9 +3,10 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Include PHPMailer classes
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/SMTP.php';
+
 
 require '../vendor/autoload.php'; // Adjust path if necessary
 
@@ -37,7 +38,7 @@ function sendLoginAlert($username, $user_ip, $user_agent) {
         // Enable debugging (to get detailed error messages)
         $mail->SMTPDebug = 2;
         $mail->Debugoutput = 'html';
-        
+
         // Recipients
         $mail->setFrom('johnreyjubay315@gmail.com', 'Login Alert');
         $mail->addAddress('johnreyjubay315@gmail.com'); // Send to yourself
