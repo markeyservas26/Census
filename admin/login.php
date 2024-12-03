@@ -4,7 +4,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Include Composer's autoloader
-require '../vendor/autoload.php'; // Adjust the path if necessary
+require '/home/u510162695/domains/bantayanislandcensus.com/census/vendor/autoload.php';
+
 
 // Get form data
 $username = $_POST['username'] ?? '';
