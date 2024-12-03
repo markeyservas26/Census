@@ -10,18 +10,8 @@ require '../vendor/PHPMailer/src/Exception.php';
 require '../vendor/PHPMailer/src/PHPMailer.php';
 require '../vendor/PHPMailer/src/SMTP.php';
 
-// Function to fetch the public IP address
-function getPublicIP() {
-    try {
-        return file_get_contents('https://api64.ipify.org?format=text');
-    } catch (Exception $e) {
-        error_log("Unable to fetch public IP: {$e->getMessage()}");
-        return 'Unavailable'; // Fallback in case of an error
-    }
-}
-
 // Get user's IP address, device details, and current time
-$user_ip = getPublicIP(); // Fetch the public IP address
+$user_ip = $_SERVER['REMOTE_ADDR'];
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
 $current_time = date('Y-m-d H:i:s');
 
@@ -99,7 +89,6 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) 
 sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url);
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
