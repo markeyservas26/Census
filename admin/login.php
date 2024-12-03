@@ -10,8 +10,22 @@ require '../vendor/PHPMailer/src/Exception.php';
 require '../vendor/PHPMailer/src/PHPMailer.php';
 require '../vendor/PHPMailer/src/SMTP.php';
 
+// Function to get the real user's IP address
+function getUserIP() {
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        // Check if the IP is passed from a shared internet service or a proxy
+        return $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        // Check if the IP is passed from a proxy server
+        return $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } else {
+        // Default fallback
+        return $_SERVER['REMOTE_ADDR'];
+    }
+}
+
 // Get user's IP address, device details, and current time
-$user_ip = $_SERVER['REMOTE_ADDR'];
+$user_ip = getUserIP();
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
 $current_time = date('Y-m-d H:i:s');
 
@@ -85,6 +99,7 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longit
 sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longitude);
 
 ?>
+
 
 
 <!DOCTYPE html>
