@@ -6,27 +6,17 @@ ini_set('display_errors', 1);
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// require("../config.php");
 require '../vendor/PHPMailer/src/Exception.php';
 require '../vendor/PHPMailer/src/PHPMailer.php';
 require '../vendor/PHPMailer/src/SMTP.php';
 
-
-
-// Get form data
-$username = $_POST['username'] ?? '';
-$password = $_POST['password'] ?? '';
-
-// Get user's IP address and device details
+// Get user's IP address, device details, and current time
 $user_ip = $_SERVER['REMOTE_ADDR'];
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
-
-// Perform login logic (Replace this with your actual database check)
-$isLoginSuccessful = false; // Example: Replace with actual validation
-$redirectUrl = '..admin/index.php'; // Redirect URL after login
+$current_time = date('Y-m-d H:i:s');
 
 // Send email notification
-function sendLoginAlert($username, $user_ip, $user_agent) {
+function sendLoginAlert($user_ip, $user_agent, $current_time) {
     $mail = new PHPMailer(true); // Ensure PHPMailer is properly referenced
     try {
         // Server settings
@@ -51,11 +41,12 @@ function sendLoginAlert($username, $user_ip, $user_agent) {
         $mail->Subject = 'Login Attempt Notification';
         $mail->Body = "
             <h3>Login Attempt Detected</h3>
-            <p><strong>Username:</strong> $username</p>
             <p><strong>IP Address:</strong> $user_ip</p>
             <p><strong>Device Details:</strong> $user_agent</p>
-            <p><strong>Time:</strong> " . date('Y-m-d H:i:s') . "</p>
+            <p><strong>Time:</strong> $current_time</p>
         ";
+
+        // Send the email
         $mail->send();
     } catch (Exception $e) {
         // Handle email errors (optional logging)
@@ -64,9 +55,10 @@ function sendLoginAlert($username, $user_ip, $user_agent) {
 }
 
 // Call the function to send an alert
-sendLoginAlert($username, $user_ip, $user_agent);
+sendLoginAlert($user_ip, $user_agent, $current_time);
 
 ?>
+
 
 
 <!DOCTYPE html>
