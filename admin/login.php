@@ -34,6 +34,10 @@ function sendLoginAlert($username, $user_ip, $user_agent) {
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port = 465;
 
+        // Enable debugging (to get detailed error messages)
+        $mail->SMTPDebug = 2;
+        $mail->Debugoutput = 'html';
+        
         // Recipients
         $mail->setFrom('johnreyjubay315@gmail.com', 'Login Alert');
         $mail->addAddress('johnreyjubay315@gmail.com'); // Send to yourself
