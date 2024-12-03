@@ -44,11 +44,6 @@ function sendLoginAlert($username, $user_ip, $user_agent) {
             <p><strong>Device Details:</strong> $user_agent</p>
             <p><strong>Time:</strong> " . date('Y-m-d H:i:s') . "</p>
         ";
-
-        // Enable SMTP debugging
-        $mail->SMTPDebug = 2;  // Uncomment for debugging
-
-        // Send the email
         $mail->send();
     } catch (Exception $e) {
         // Handle email errors (optional logging)
@@ -60,7 +55,6 @@ function sendLoginAlert($username, $user_ip, $user_agent) {
 sendLoginAlert($username, $user_ip, $user_agent);
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
