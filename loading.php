@@ -21,17 +21,23 @@
     </p>
 
     <!-- Google reCAPTCHA -->
-    <form action="submit_form.php" method="POST" class="w-full max-w-xs">
-        <div class="g-recaptcha" data-sitekey="6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8"></div>
-        <button type="submit" class="bg-blue-600 text-white rounded-md px-6 py-3 text-xl font-semibold mt-6 shadow-md hover:bg-blue-500 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-400 w-full">
-            Verify
-        </button>
+    <form action="submit_form.php" method="POST" id="verificationForm">
+        <div class="g-recaptcha" 
+             data-sitekey="6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8" 
+             data-callback="onCaptchaComplete"></div>
     </form>
 
     <!-- Info Text -->
     <p class="text-gray-500 text-sm mt-8">
         If verification fails, <a href="javascript:location.reload()" class="text-blue-500 hover:text-blue-700">refresh the page</a>.
     </p>
+
+    <script>
+        // This function is triggered when CAPTCHA is completed
+        function onCaptchaComplete() {
+            document.getElementById('verificationForm').submit();
+        }
+    </script>
 
 </body>
 </html>
