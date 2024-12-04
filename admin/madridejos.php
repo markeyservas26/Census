@@ -253,8 +253,8 @@ margin: 0;
     <table id="dataTable" class="table">
         <thead>
             <tr>
-                <th class="checkbox-column" style="display: none;">
-                    <input type="hidden" id="selectAllHeader" class="form-check-input">
+                <th class="checkbox-column">
+                    <input type="checkbox" id="selectAllHeader" class="form-check-input">
                 </th>
                 <th>House Number</th>
                 <th>Fullname</th>
@@ -265,7 +265,7 @@ margin: 0;
         <tbody>
             <?php while ($row = mysqli_fetch_assoc($result)) : ?>
                 <tr class="<?= $row['house_number'] == $highlightHouseNumber ? 'highlight-term' : '' ?>">
-                    <td class="checkbox-column" style="display: none;">
+                    <td class="checkbox-column">
                         <input type="checkbox" value="<?= htmlspecialchars($row['id']) ?>" class="form-check-input row-checkbox">
                     </td>
                     <td><?= htmlspecialchars($row['house_number']) ?></td>
