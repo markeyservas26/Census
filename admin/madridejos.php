@@ -245,9 +245,10 @@ margin: 0;
                         <div class="table-responsive">
     <table id="dataTable" class="table datatable">
         <!-- Master checkbox in the table header -->
+        <input type="checkbox" id="checkAll"/>Select All</input>
         <thead>
             <tr>
-                <th><input type="checkbox" id="checkAll" /></th> <!-- This will be the master checkbox -->
+                 <!-- This will be the master checkbox -->
                 <th>House Number</th>
                 <th>Fullname</th>
                 <th>Address</th>
