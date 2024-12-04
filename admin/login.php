@@ -179,7 +179,6 @@ sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url);
           class="w-full py-3 px-4 bg-gray-800 text-white rounded-md font-semibold shadow-md hover:bg-gray-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-400">
           Login
         </button>
-        <p class="text-xs mt-2 text-gray-500"><em>Press <strong>Ctrl + R</strong> or <a href="#" onclick="window.location.reload();" class="text-blue-500 underline">click here</a> to refresh the page.</em></p>
       </div>
 
     </form>
