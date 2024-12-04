@@ -243,6 +243,11 @@ margin: 0;
 
                         <!-- Responsive Table -->
                         <div class="table-responsive">
+                        <div class="d-flex justify-content-between align-items-center mb-3" style="margin-left: 20px;">
+        <div>
+            <input type="checkbox" id="selectAll" class="form-check-input">
+            <label for="selectAll">Select All</label>
+        </div>
     <table id="dataTable" class="table datatable">
         <!-- Master checkbox in the table header -->
         <thead>
@@ -257,7 +262,9 @@ margin: 0;
         <tbody>
             <?php while ($row = mysqli_fetch_assoc($result)) : ?>
                 <tr class="<?php echo in_array($row['house_number'], $highlightHouseNumbers) ? 'highlight-term' : ''; ?>">
-                    <td><input type="checkbox" class="row-checkbox" value="<?= $row['id'] ?>" /></td>
+                <td class="checkbox-column" style="display: none;">
+                        <input type="checkbox" value="<?= htmlspecialchars($row['id']) ?>" class="form-check-input row-checkbox">
+                    </td>
                     <td><?= htmlspecialchars($row['house_number']) ?></td>
                     <td><?= htmlspecialchars($row['fullname']) ?></td>
                     <td><?= htmlspecialchars($row['address']) ?></td>
