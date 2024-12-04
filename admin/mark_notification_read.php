@@ -1,31 +1,31 @@
 <?php
 include '../database/db_connect.php';
 
+// Get the input data from the request body
 $data = json_decode(file_get_contents('php://input'), true);
 
-if (isset($data['house_number'], $data['created_at'])) {
-    $houseNumber = $data['house_number'];
-    $createdAt = $data['created_at'];
+if (isset($data['staff_name']) && isset($data['created_at'])) {
+    $staff_name = mysqli_real_escape_string($conn, $data['staff_name']);
+    $created_at = mysqli_real_escape_string($conn, $data['created_at']);
 
-    $query = "
-        UPDATE house_leader
-        SET notification_read = 1
-        WHERE house_number = ? AND created_at = ?
-    ";
+    // Update all notifications for the staff member
+    $query = "UPDATE house_leader hl 
+              JOIN staff s ON hl.staff_id = s.id 
+              SET hl.notification_read = 1 
+              WHERE s.name = ? AND hl.created_at <= ?";
 
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param('ss', $houseNumber, $createdAt);
+    if ($stmt = mysqli_prepare($conn, $query)) {
+        mysqli_stmt_bind_param($stmt, "ss", $staff_name, $created_at);
 
-    if ($stmt->execute()) {
-        echo json_encode(['success' => true]);
+        if (mysqli_stmt_execute($stmt)) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to mark notifications as read']);
+        }
+        mysqli_stmt_close($stmt);
     } else {
-        echo json_encode(['success' => false, 'error' => $stmt->error]);
+        echo json_encode(['success' => false, 'message' => 'Failed to prepare query']);
     }
-
-    $stmt->close();
 } else {
-    echo json_encode(['success' => false, 'error' => 'Invalid input']);
+    echo json_encode(['success' => false, 'message' => 'Invalid data']);
 }
-
-$conn->close();
-?>

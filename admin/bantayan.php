@@ -2,7 +2,8 @@
 include 'header.php'; 
 include '../database/db_connect.php';
 
-$highlightHouseNumber = isset($_GET['highlight']) ? $_GET['highlight'] : null;
+// Get highlight values as array
+$highlightHouseNumbers = isset($_GET['highlight']) ? (is_array($_GET['highlight']) ? $_GET['highlight'] : [$_GET['highlight']]) : [];
 
 // Pagination parameters
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
@@ -254,8 +255,8 @@ margin: 0;
                                 </thead>
                                 <tbody>
                                     <?php while ($row = mysqli_fetch_assoc($result)) : ?>
-                                        <tr class="<?= $row['house_number'] == $highlightHouseNumber ? 'highlight-term' : '' ?>">
-                                            <td><?= htmlspecialchars($row['house_number']) ?></td>
+                                        <tr class="<?php echo in_array($row['house_number'], $highlightHouseNumbers) ? 'highlight-term' : ''; ?>">
+                                            <td><input type="checkbox" class="row-checkbox" value="<?= $row['id'] ?>" /></td>
                                             <td><?= htmlspecialchars($row['fullname']) ?></td>
                                             <td><?= htmlspecialchars($row['address']) ?></td>
                                             <td>

@@ -120,6 +120,7 @@ if (!isset($_SESSION['userid'])) {
       <li class="nav-item"><a class="nav-link collapsed" href="schedule.php"><i class="bi bi-calendar-check"></i><span>Schedule</span></a></li>
       <li class="nav-item"><a class="nav-link collapsed" href="manage-staff.php"><i class="bi bi-people"></i><span>Manage Staff</span></a></li>
       <li class="nav-item"><a class="nav-link collapsed" href="manage-admin.php"><i class="bi bi-people"></i><span>Administrator</span></a></li>
+      <li class="nav-item"><a class="nav-link collapsed" href="oldrecords.php"><i class="bi bi-people"></i><span>Old Records</span></a></li>
     </ul>
   </aside>
 
@@ -152,57 +153,70 @@ function loadNotifications() {
             const notificationList = document.getElementById('notification-list');
             const notificationCount = document.getElementById('notification-count');
             
-            // Update notification count
             notificationCount.textContent = data.length;
-            
-            // Generate notification items
-            notificationList.innerHTML = data.map(notification => `
-                <li class="notification-item" 
-                    onclick="handleNotificationClick('${notification.staff_municipality}', '${notification.house_number}', '${notification.created_at}')" 
-                    style="cursor: pointer;">
-                    <p class="mb-0"><strong>Staff:</strong> ${notification.staff_name}</p>
-                    <small class="text-muted">
-                        ${notification.staff_municipality} - House #${notification.house_number}
-                    </small>
-                </li>
-            `).join('');
+
+            const groupedNotifications = data.reduce((acc, notification) => {
+                if (!acc[notification.staff_name]) {
+                    acc[notification.staff_name] = {
+                        staff_name: notification.staff_name,
+                        staff_municipality: notification.staff_municipality,
+                        house_numbers: [],
+                        created_at: notification.created_at
+                    };
+                }
+                acc[notification.staff_name].house_numbers.push(notification.house_number);
+                return acc;
+            }, {});
+
+            notificationList.innerHTML = Object.values(groupedNotifications).map(notification => `
+    <li class="notification-item" 
+        onclick="handleNotificationClick('${notification.staff_municipality.replace(/'/g, "\\'")}', '${notification.house_numbers.join(', ').replace(/'/g, "\\'")}', '${notification.created_at}', '${notification.staff_name.replace(/'/g, "\\'")}')" 
+        style="cursor: pointer;">
+        <small class="mb-0"><strong>Staff:</strong> ${notification.staff_name} | </small>
+        <small class="text-muted">
+            ${notification.staff_municipality} - House # - ${notification.house_numbers.join(', ')}
+        </small>
+    </li>
+`).join('');
         })
         .catch(error => {
             console.error('Error loading notifications:', error);
         });
 }
 
-
-// Function to handle notification click and navigate to the correct municipality page
-function handleNotificationClick(municipality, houseNumber, createdAt) {
+function handleNotificationClick(municipality, houseNumbers, createdAt, staffName) {
     const validMunicipalities = ['bantayan', 'madridejos', 'santafe'];
-    
-    // Check if the municipality is valid
+
     if (validMunicipalities.includes(municipality.toLowerCase())) {
-        // Mark notification as read
+        // Convert house numbers string to array
+        const houseNumbersArray = houseNumbers.split(', ');
+        
         fetch('mark_notification_read.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                house_number: houseNumber,
-                created_at: createdAt
+                staff_name: staffName,
+                created_at: createdAt,
+                house_numbers: houseNumbersArray
             })
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // Redirect to the municipality page with highlight parameters
-                const url = `${municipality.toLowerCase()}.php?highlight=${houseNumber}`;
+                // Create URL with multiple highlight parameters
+                const url = `${municipality.toLowerCase()}.php?` + 
+                    houseNumbersArray.map(num => `highlight[]=${encodeURIComponent(num)}`).join('&');
                 window.location.href = url;
             }
         })
-        .catch(error => console.error('Error marking notification as read:', error));
+        .catch(error => console.error('Error marking notifications as read:', error));
     } else {
         alert('Invalid municipality');
     }
 }
+
 
 
 // Function to navigate to the specific municipality page
@@ -217,11 +231,11 @@ function navigateToMunicipality(municipality) {
     }
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
     loadNotifications();
     setInterval(loadNotifications, 30000);
 });
+
 
 </script>
 </body>
