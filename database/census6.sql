@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2024 at 09:27 PM
+-- Generation Time: Nov 21, 2024 at 11:29 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -36,15 +36,6 @@ CREATE TABLE `energy_souce_cooking` (
   `wood` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `energy_souce_cooking`
---
-
-INSERT INTO `energy_souce_cooking` (`house_leader_id`, `electricity`, `kerosene`, `liquefied_petroleum`, `charcoal`, `wood`) VALUES
-(276, '0', '0', '0', '0', '0'),
-(277, '0', '0', '0', '0', '0'),
-(278, '0', '0', '0', '0', '0');
-
 -- --------------------------------------------------------
 
 --
@@ -62,15 +53,6 @@ CREATE TABLE `energy_sources` (
   `candle` tinyint(1) DEFAULT NULL,
   `battery` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `energy_sources`
---
-
-INSERT INTO `energy_sources` (`id`, `house_leader_id`, `electricity`, `kerosene`, `liquefied_petroleum`, `oil`, `solar_panel_lamp`, `candle`, `battery`) VALUES
-(167, 276, 0, 0, 0, 0, 0, 0, 0),
-(168, 277, 0, 0, 0, 0, 0, 0, 0),
-(169, 278, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -93,15 +75,6 @@ CREATE TABLE `financial_accounts` (
   `other` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `financial_accounts`
---
-
-INSERT INTO `financial_accounts` (`id`, `house_leader_id`, `bank_account`, `digital_bank_account`, `emoney_account`, `nssla_account`, `cooperative_account`, `microfinance_ngo_account`, `remittance_center_account`, `prefer_not_answer`, `none`, `other`) VALUES
-(270, 276, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL),
-(271, 277, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL),
-(272, 278, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -115,15 +88,6 @@ CREATE TABLE `floor_bedroom` (
   `floor2` decimal(10,2) DEFAULT NULL,
   `bedrooms` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `floor_bedroom`
---
-
-INSERT INTO `floor_bedroom` (`id`, `house_leader_id`, `floor`, `floor2`, `bedrooms`) VALUES
-(75, 276, 0, 0.00, 0),
-(76, 277, 0, 0.00, 0),
-(77, 278, 0, 0.00, 0);
 
 -- --------------------------------------------------------
 
@@ -142,15 +106,6 @@ CREATE TABLE `garbage` (
   `Dumpinginpitwithcover` tinyint(1) DEFAULT NULL,
   `Throwinginunhabitedlocations` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `garbage`
---
-
-INSERT INTO `garbage` (`id`, `house_leader_id`, `SegregatingWaste`, `Lettinggarbagetruckcollectwaste`, `Recycling`, `Composting`, `Burning`, `Dumpinginpitwithcover`, `Throwinginunhabitedlocations`) VALUES
-(101, 276, 0, 0, 0, 0, 0, 0, 0),
-(102, 277, 0, 0, 0, 0, 0, 0, 0),
-(103, 278, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -174,15 +129,6 @@ CREATE TABLE `household_assets` (
   `tablet` tinyint(1) DEFAULT NULL,
   `personal_computer` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `household_assets`
---
-
-INSERT INTO `household_assets` (`id`, `house_leader_id`, `refrigerator`, `air_conditioner`, `washing_machine`, `stove_gas_range`, `radio_cassette`, `television`, `cd_vcd_dvd`, `landline_telephone`, `cellular_phone_basic`, `cellular_phone_smart`, `tablet`, `personal_computer`) VALUES
-(178, 276, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(179, 277, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(180, 278, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -212,18 +158,8 @@ CREATE TABLE `house_leader` (
   `coordinates` varchar(255) DEFAULT NULL,
   `staff_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `notification_read` tinyint(1) DEFAULT 0,
-  `transfer` tinyint(120) NOT NULL
+  `notification_read` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `house_leader`
---
-
-INSERT INTO `house_leader` (`id`, `house_number`, `lastname`, `firstname`, `middlename`, `exname`, `province`, `municipality`, `barangay`, `purok`, `dob`, `sex`, `age`, `occupation`, `lcro`, `marital_status`, `contact_number`, `religion`, `coordinates`, `staff_id`, `created_at`, `notification_read`, `transfer`) VALUES
-(276, '23232', 'Dela Cruz', 'John Anthon', 'Gidayawan', NULL, 'Cebu', 'Bantayan', 'Atop-Atop', 'Purok tulingan', '2003-01-25', 'Male', 21, '', NULL, 'married', '09692870485', NULL, '11.2612724, 123.7189293', 40, '2024-12-03 13:29:31', 1, 1),
-(277, '7453453', 'Batasin in', 'Mark John', 'Bausin', NULL, 'asdadsa', 'Bantayan', 'Atop-Atop', '', '2013-01-16', 'Male', 11, 'Software Developer', NULL, 'widowed', '09232312343', 'Evangelicals', '11.2612724, 123.7189293', 40, '2024-12-03 13:30:42', 1, 1),
-(278, '66345345', 'Bilbao', 'Queenie', 'Illustrisimo', NULL, 'Cebu', 'Madridejos', 'Mancilang', 'Purok tulingan', '2020-05-03', 'Male', 4, 'Software Developer', 'Yes', 'common_law', '09342342342', NULL, '11.2612724, 123.7189293', 899346, '2024-12-03 14:41:07', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -237,15 +173,6 @@ CREATE TABLE `housing` (
   `housing` date DEFAULT NULL,
   `electricity` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `housing`
---
-
-INSERT INTO `housing` (`id`, `house_leader_id`, `housing`, `electricity`) VALUES
-(98, 276, '0000-00-00', NULL),
-(99, 277, '0000-00-00', NULL),
-(100, 278, '0000-00-00', NULL);
 
 -- --------------------------------------------------------
 
@@ -286,15 +213,6 @@ CREATE TABLE `housing_characteristics` (
   `msim` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `housing_characteristics`
---
-
-INSERT INTO `housing_characteristics` (`id`, `house_leader_id`, `SINGLEHOUSE`, `DUPLEX`, `AAROW_HOUSE`, `Multi_urb`, `Cominag`, `Institution_living`, `none`, `Othertype`, `Temporaryevac`, `Metalroofing`, `concreteslateslate`, `HG_concrete`, `Woodbamboo`, `Sodthatch`, `Asbestos`, `Msi_materials`, `CMG`, `CBS`, `WBP`, `WTP`, `VCT`, `Linoleum`, `concrete`, `earthsandmud`, `wood`, `coconutlumber`, `bamboo`, `msim`) VALUES
-(75, 276, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(76, 277, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(77, 278, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -318,15 +236,6 @@ CREATE TABLE `improved_source` (
   `BottledWater` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `improved_source`
---
-
-INSERT INTO `improved_source` (`id`, `house_leader_id`, `dwelling2`, `yardorplot2`, `PipedtoNeighbor`, `PublicTap2`, `TubeWell2`, `ProtectedWell2`, `RainWater2`, `UnprotectedSpring2`, `TankerTruck`, `CartwithSmallTank`, `WaterRefillingStation`, `BottledWater`) VALUES
-(196, 276, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(197, 277, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(198, 278, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -341,15 +250,6 @@ CREATE TABLE `internet_access` (
   `satellite` tinyint(1) DEFAULT NULL,
   `mobile` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `internet_access`
---
-
-INSERT INTO `internet_access` (`id`, `house_leader_id`, `fixed_wired`, `fixed_wireless`, `satellite`, `mobile`) VALUES
-(270, 276, 0, 0, 0, 0),
-(271, 277, 0, 0, 0, 0),
-(272, 278, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -376,15 +276,6 @@ CREATE TABLE `main_water_source` (
   `UnprotectedSpring4` tinyint(1) DEFAULT 0,
   `SurfacedWater4` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `main_water_source`
---
-
-INSERT INTO `main_water_source` (`id`, `house_leader_id`, `PipedintoDwelling`, `Pipedintoyardorplot`, `PipedtoNeighbor`, `PublicTap3`, `TubeWell3`, `ProtectedWell3`, `RainWater3`, `ProtectedSpring3`, `TankerTruck3`, `CartwithSmallTank3`, `WaterRefillingStation3`, `BottledWater3`, `UnprotectedWell3`, `UnprotectedSpring4`, `SurfacedWater4`) VALUES
-(200, 276, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(201, 277, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(202, 278, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -414,15 +305,6 @@ CREATE TABLE `public_safety` (
   `safety_level` enum('Very safe','Safe','Unsafe','Very unsafe','I never go out at night/Does not apply','Don''t Know') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `public_safety`
---
-
-INSERT INTO `public_safety` (`id`, `house_leader_id`, `safety_level`) VALUES
-(262, 276, NULL),
-(263, 277, NULL),
-(264, 278, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -434,15 +316,6 @@ CREATE TABLE `public_transportation` (
   `house_leader_id` int(11) DEFAULT NULL,
   `transportation` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `public_transportation`
---
-
-INSERT INTO `public_transportation` (`id`, `house_leader_id`, `transportation`) VALUES
-(270, 276, NULL),
-(271, 277, NULL),
-(272, 278, NULL);
 
 -- --------------------------------------------------------
 
@@ -457,15 +330,6 @@ CREATE TABLE `sanitation` (
   `unimproved_sanitation` varchar(255) DEFAULT NULL,
   `open_defecation` varchar(60) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `sanitation`
---
-
-INSERT INTO `sanitation` (`id`, `house_leader_id`, `improved_sanitation`, `unimproved_sanitation`, `open_defecation`) VALUES
-(158, 276, NULL, NULL, NULL),
-(159, 277, NULL, NULL, NULL),
-(160, 278, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -505,15 +369,6 @@ CREATE TABLE `social_protection` (
   `dont_know2` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `social_protection`
---
-
-INSERT INTO `social_protection` (`id`, `house_leader_id`, `sss`, `gsis`, `philhealth`, `health_or_medical`, `dont_work`, `sss2`, `gsis2`, `philhealth2`, `health_or_medical2`, `dont_know2`) VALUES
-(259, 276, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(260, 277, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(261, 278, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -539,15 +394,6 @@ CREATE TABLE `spouse` (
   `spouse_sex` enum('Male','Female','Other') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `spouse`
---
-
-INSERT INTO `spouse` (`id`, `house_leader_id`, `spouse_lastname`, `spouse_firstname`, `spouse_middlename`, `extension`, `spouse_age`, `province_spouse`, `municipality_spouse`, `barangay_spouse`, `purok_spouse`, `spouse_occupation`, `spouse_dob`, `spouse_lcro`, `status`, `spouse_sex`) VALUES
-(278, 276, '', '', '', NULL, 0, 'asdasd', 'Madridejos', 'Poblacion', '', '', '0000-00-00', NULL, NULL, 'Male'),
-(279, 277, 'asdasd', 'John Anthon', 'dasdasd', 'ii', 17, 'asdasd', 'Madridejos', 'Poblacion', 'asdasd', 'asdasd', '2007-01-17', NULL, 'widowed', 'Male'),
-(280, 278, 'asd', 'asdasd', 'asdas', NULL, 9, 'asdasdas', 'Madridejos', 'Poblacion', '', 'asdasd', '2015-05-03', NULL, 'widowed', 'Male');
-
 -- --------------------------------------------------------
 
 --
@@ -558,7 +404,6 @@ CREATE TABLE `staff` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `phone` int(11) NOT NULL,
   `password` varchar(255) NOT NULL,
   `municipality` varchar(255) NOT NULL,
   `OTP` varchar(250) NOT NULL
@@ -568,8 +413,11 @@ CREATE TABLE `staff` (
 -- Dumping data for table `staff`
 --
 
-INSERT INTO `staff` (`id`, `name`, `email`, `phone`, `password`, `municipality`, `OTP`) VALUES
-(899346, 'Mark john', 'markjohnbatasinin08@gmail.com', 0, '$2y$10$izYeKQH2OQ9xTowYLyht8e2rz.27q7BPcqXSZr7S4xdTC2wNdMWYS', 'Madridejos', '');
+INSERT INTO `staff` (`id`, `name`, `email`, `password`, `municipality`, `OTP`) VALUES
+(34, 'John Rey', 'johnrey@gmail.com', '$2y$10$mGeFDDLYtGJ8fYryMDyl3OVR2gERqYpC8UcSkv6yBhBSVawMcgIse', 'Bantayan', ''),
+(35, 'John Anthon', 'johnanthon@gmail.com', '$2y$10$2Ta.4D29NGIt4J5PGnGpzOi4lv3LTmZBOqR4fbt18KXobwWUqDzq2', 'Santafe', ''),
+(37, 'Mark John', 'mark@gmail.com', '$2y$10$QwpBLhsqvSWy9uDIQ2p9GuaxnFjqDHB71nG3k7e820XGsj/sspjsm', 'Madridejos', ''),
+(39, 'John Rey', 'johnreyjubay315@gmail.com', '$2y$10$ye5GSSQpw8zTS63d3iqYsufl6uSiJjtCkSQwhgNLkZ9HyBkBxgE1q', 'Madridejos', '0');
 
 -- --------------------------------------------------------
 
@@ -582,15 +430,6 @@ CREATE TABLE `tenturestatus` (
   `house_leader_id` int(11) NOT NULL,
   `tentures_status` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tenturestatus`
---
-
-INSERT INTO `tenturestatus` (`id`, `house_leader_id`, `tentures_status`) VALUES
-(101, 276, NULL),
-(102, 277, NULL),
-(103, 278, NULL);
 
 -- --------------------------------------------------------
 
@@ -605,15 +444,6 @@ CREATE TABLE `toiletfacility` (
   `facility_with_others` varchar(255) DEFAULT NULL,
   `facility_with_members` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `toiletfacility`
---
-
-INSERT INTO `toiletfacility` (`id`, `house_leader_id`, `toilet_facility`, `facility_with_others`, `facility_with_members`) VALUES
-(153, 276, NULL, NULL, NULL),
-(154, 277, NULL, NULL, NULL),
-(155, 278, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -643,15 +473,6 @@ CREATE TABLE `unimproved_source` (
   `SurfacedWater3` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `unimproved_source`
---
-
-INSERT INTO `unimproved_source` (`id`, `house_leader_id`, `UnprotectedWell`, `UnprotectedSpring3`, `SurfacedWater3`) VALUES
-(166, 276, 0, 0, 0),
-(167, 277, 0, 0, 0),
-(168, 278, 0, 0, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -662,7 +483,6 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `phone` int(11) NOT NULL,
   `password` varchar(255) NOT NULL,
   `OTP` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -671,10 +491,12 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `username`, `phone`, `password`, `OTP`) VALUES
-(3, 'johnrey', 'johnrey@gmail.com', 0, '$2y$10$v2pdmI4IB4DDHpiKPIGIOe9lT8rqWBrUXkDr1/z6pbEob0EJKS4HK', '152783'),
-(397052, 'John Anthon Dela Cruz', 'delacruzjohnanthon@gmail.com', 0, '$2y$10$bdRMcWr1FxHFql0rGoubfeOyNMLCfDg.esA9sgVYpgRh9jitdi6TO', ''),
-(309644, 'John Rey Jubay', 'johnreyjubay315@gmail.com', 0, '$2y$10$M0NMa0sgvKTvvTYKrW1maeQav/FizXV3L4TOWYUSNcb0Pq3tlqNjq', '');
+INSERT INTO `users` (`id`, `name`, `username`, `password`, `OTP`) VALUES
+(1, 'Queenie', 'admin', '$2y$10$nNzwdh5nZZCnR5zQ6TJSC.sO4aXo2PVM8wYfWvW9A6cm9i4FRSmLK', ''),
+(2, 'Johnskie', 'john', '$2y$10$/nwBqOuhozfCjfD2SpCIHOsFfIMnMDwYPHnq1Ez9hl7zUjMkt13le', ''),
+(3, 'johnrey', 'johnrey@gmail.com', '$2y$10$v2pdmI4IB4DDHpiKPIGIOe9lT8rqWBrUXkDr1/z6pbEob0EJKS4HK', '152783'),
+(4, 'John Rey', 'johnreyjubay315@gmail.com', '$2y$10$W/4mydxwwV0X8IrqDRQmeOLE8z.JnR3AV3QleAjLJonwNCVrPD6gW', '0'),
+(8, 'Joshua', 'joshuapastorpide10@gmail.com', '$2y$10$qbSpSYWVSEVtLoBYPKF9O.iZTjApyEAfBvtcbZTvydtRAFEnVkpWK', '664573');
 
 -- --------------------------------------------------------
 
@@ -698,15 +520,6 @@ CREATE TABLE `vehicles` (
   `non_motorized_boat` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `vehicles`
---
-
-INSERT INTO `vehicles` (`id`, `house_leader_id`, `car`, `van`, `jeep`, `truck`, `motorcycle_scooter`, `e_bike`, `tricycle`, `bicycle`, `pedicab`, `motorized_boat`, `non_motorized_boat`) VALUES
-(121, 276, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(122, 277, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(123, 278, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -720,15 +533,6 @@ CREATE TABLE `water_sanitation_hygiene` (
   `point_source_water_supply` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `water_sanitation_hygiene`
---
-
-INSERT INTO `water_sanitation_hygiene` (`id`, `house_leader_id`, `community_water_supply`, `point_source_water_supply`) VALUES
-(196, 276, NULL, NULL),
-(197, 277, NULL, NULL),
-(198, 278, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -740,15 +544,6 @@ CREATE TABLE `water_source_location` (
   `house_leader_id` int(11) NOT NULL,
   `watersource_location` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `water_source_location`
---
-
-INSERT INTO `water_source_location` (`id`, `house_leader_id`, `watersource_location`) VALUES
-(160, 276, NULL),
-(161, 277, NULL),
-(162, 278, NULL);
 
 -- --------------------------------------------------------
 
@@ -934,6 +729,12 @@ ALTER TABLE `unimproved_source`
   ADD KEY `house_leader_id` (`house_leader_id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `vehicles`
 --
 ALTER TABLE `vehicles`
@@ -969,73 +770,73 @@ ALTER TABLE `younger_household_members`
 -- AUTO_INCREMENT for table `energy_souce_cooking`
 --
 ALTER TABLE `energy_souce_cooking`
-  MODIFY `house_leader_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=279;
+  MODIFY `house_leader_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=275;
 
 --
 -- AUTO_INCREMENT for table `energy_sources`
 --
 ALTER TABLE `energy_sources`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
 
 --
 -- AUTO_INCREMENT for table `financial_accounts`
 --
 ALTER TABLE `financial_accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=273;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=269;
 
 --
 -- AUTO_INCREMENT for table `floor_bedroom`
 --
 ALTER TABLE `floor_bedroom`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `garbage`
 --
 ALTER TABLE `garbage`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `household_assets`
 --
 ALTER TABLE `household_assets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
 
 --
 -- AUTO_INCREMENT for table `house_leader`
 --
 ALTER TABLE `house_leader`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=279;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=275;
 
 --
 -- AUTO_INCREMENT for table `housing`
 --
 ALTER TABLE `housing`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `housing_characteristics`
 --
 ALTER TABLE `housing_characteristics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `improved_source`
 --
 ALTER TABLE `improved_source`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=199;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=195;
 
 --
 -- AUTO_INCREMENT for table `internet_access`
 --
 ALTER TABLE `internet_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=273;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=269;
 
 --
 -- AUTO_INCREMENT for table `main_water_source`
 --
 ALTER TABLE `main_water_source`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=199;
 
 --
 -- AUTO_INCREMENT for table `older_household_members`
@@ -1047,19 +848,19 @@ ALTER TABLE `older_household_members`
 -- AUTO_INCREMENT for table `public_safety`
 --
 ALTER TABLE `public_safety`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=265;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=261;
 
 --
 -- AUTO_INCREMENT for table `public_transportation`
 --
 ALTER TABLE `public_transportation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=273;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=269;
 
 --
 -- AUTO_INCREMENT for table `sanitation`
 --
 ALTER TABLE `sanitation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
 
 --
 -- AUTO_INCREMENT for table `schedule`
@@ -1071,31 +872,31 @@ ALTER TABLE `schedule`
 -- AUTO_INCREMENT for table `social_protection`
 --
 ALTER TABLE `social_protection`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=262;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=258;
 
 --
 -- AUTO_INCREMENT for table `spouse`
 --
 ALTER TABLE `spouse`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=281;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=277;
 
 --
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=899347;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `tenturestatus`
 --
 ALTER TABLE `tenturestatus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `toiletfacility`
 --
 ALTER TABLE `toiletfacility`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
 
 --
 -- AUTO_INCREMENT for table `transfers`
@@ -1107,25 +908,31 @@ ALTER TABLE `transfers`
 -- AUTO_INCREMENT for table `unimproved_source`
 --
 ALTER TABLE `unimproved_source`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `vehicles`
 --
 ALTER TABLE `vehicles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 
 --
 -- AUTO_INCREMENT for table `water_sanitation_hygiene`
 --
 ALTER TABLE `water_sanitation_hygiene`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=199;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=195;
 
 --
 -- AUTO_INCREMENT for table `water_source_location`
 --
 ALTER TABLE `water_source_location`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 
 --
 -- AUTO_INCREMENT for table `younger_household_members`
