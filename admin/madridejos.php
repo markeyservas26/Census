@@ -240,14 +240,14 @@ margin: 0;
 </div>
 
 
-<input type="checkbox" id="checkAll">Select All</input>
+
                         <!-- Responsive Table -->
                         <div class="table-responsive">
     <table id="dataTable" class="table datatable">
         <!-- Master checkbox in the table header -->
         <thead>
             <tr>
-                 <!-- This will be the master checkbox -->
+                <th><input type="checkbox" id="checkAll" /></th> <!-- This will be the master checkbox -->
                 <th>House Number</th>
                 <th>Fullname</th>
                 <th>Address</th>
