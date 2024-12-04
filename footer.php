@@ -272,32 +272,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 </style>
 
-<style>
-    /* Ensures the powered by Google Translate text is at the bottom of the widget */
-    #google_translate_element .goog-logo-link {
-        display: none !important;
-    }
 
-    /* Custom styling for the 'Powered by Google Translate' text at the bottom */
-    #google_translate_element .goog-te-gadget {
-        position: relative;
-        display: none !important;
-    }
-
-    #google_translate_element .goog-te-gadget-simple {
-        display: block;
-    }
-
-    #google_translate_element .goog-te-gadget-simple:after {
-        content: 'Powered by Google Translate'; /* Custom message */
-        font-size: 12px;
-        color: #888;
-        position: absolute;
-        bottom: -20px; /* Adjust as needed */
-        left: 50%;
-        transform: translateX(-50%);
-    }
-</style>
 
 <footer class="new_footer_area bg_color">
     <div class="new_footer_top">
@@ -395,15 +370,12 @@ h1, h2, h3, h4, h5, h6 {
         });
     </script>
     <script type="text/javascript">
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement(
-            {
-                pageLanguage: 'en', // Sets the default language of the page
-                layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL // Displays dropdown
-            },
-            'google_translate_element'
-        );
-    }
-</script>
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&hl=en"></script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {pageLanguage: 'en'},
+                'google_translate_element'
+            );
+        } 
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
