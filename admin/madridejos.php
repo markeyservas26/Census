@@ -243,7 +243,7 @@ margin: 0;
 
                         <!-- Responsive Table -->
                         <div class="table-responsive">
-                            <table id="dataTable" class="table datatable">
+                            <table id="dataTable" class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" id="checkAll" /></th>
@@ -689,7 +689,7 @@ mysqli_close($conn);
   }
 </script>
 <script>
-    $(document).ready(function () {
+   $(document).ready(function () {
     const highlightHouseNumbers = <?php echo json_encode($highlightHouseNumbers); ?>;
 
     // Initialize DataTable
@@ -745,30 +745,6 @@ mysqli_close($conn);
 });
 });
 </script>
-<script>
-    // Select the master checkbox and all row checkboxes
-const selectAllCheckbox = document.getElementById('selectAll');
-const rowCheckboxes = document.querySelectorAll('.row-checkbox');
-
-// Add an event listener to the master checkbox to select/deselect all rows
-selectAllCheckbox.addEventListener('change', function() {
-    // Set all row checkboxes to the state of the master checkbox
-    rowCheckboxes.forEach(checkbox => {
-        checkbox.checked = selectAllCheckbox.checked;
-    });
-});
-
-// Optionally, handle individual row checkbox changes to update the master checkbox state
-rowCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-        // Check if all checkboxes are checked
-        const allChecked = [...rowCheckboxes].every(checkbox => checkbox.checked);
-        selectAllCheckbox.checked = allChecked;
-        selectAllCheckbox.indeterminate = !allChecked && [...rowCheckboxes].some(checkbox => checkbox.checked);
-    });
-});
-</script>
-
 </body>
 
 </html>
