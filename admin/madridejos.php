@@ -243,19 +243,11 @@ margin: 0;
 
                         <!-- Responsive Table -->
                         <div class="table-responsive">
-    <div class="d-flex justify-content-between align-items-center mb-3" style="margin-left: 20px;">
-        <div>
-            <input type="checkbox" id="selectAll" class="form-check-input">
-            <label for="selectAll">Select All</label>
-        </div>
-        <button id="transferButton" class="btn btn-primary btn-sm" disabled>Transfer</button>
-    </div>
-    <table id="dataTable" class="table">
+    <table id="dataTable" class="table datatable">
+        <!-- Master checkbox in the table header -->
         <thead>
             <tr>
-                <th class="checkbox-column">
-                    <input type="checkbox" id="selectAllHeader" class="form-check-input">
-                </th>
+                <th><input type="checkbox" id="checkAll" /></th> <!-- This will be the master checkbox -->
                 <th>House Number</th>
                 <th>Fullname</th>
                 <th>Address</th>
@@ -264,19 +256,17 @@ margin: 0;
         </thead>
         <tbody>
             <?php while ($row = mysqli_fetch_assoc($result)) : ?>
-                <tr class="<?= $row['house_number'] == $highlightHouseNumber ? 'highlight-term' : '' ?>">
-                    <td class="checkbox-column">
-                        <input type="checkbox" value="<?= htmlspecialchars($row['id']) ?>" class="form-check-input row-checkbox">
-                    </td>
+                <tr class="<?php echo in_array($row['house_number'], $highlightHouseNumbers) ? 'highlight-term' : ''; ?>">
+                    <td><input type="checkbox" class="row-checkbox" value="<?= $row['id'] ?>" /></td>
                     <td><?= htmlspecialchars($row['house_number']) ?></td>
                     <td><?= htmlspecialchars($row['fullname']) ?></td>
                     <td><?= htmlspecialchars($row['address']) ?></td>
                     <td>
                         <div class="dropdown">
-                            <button class="btn btn-sm btn-secondary dropdown-toggle custom-dropdown-btn" type="button" id="dropdownMenuButton<?= $row['id'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-sm btn-secondary dropdown-toggle custom-dropdown-btn" type="button" data-bs-toggle="dropdown">
                                 <i class="fas fa-cogs"></i>
                             </button>
-                            <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton<?= $row['id'] ?>">
+                            <ul class="dropdown-menu custom-dropdown-menu">
                                 <li><a class="dropdown-item" href="view_household.php?id=<?= $row['id'] ?>">View</a></li>
                                 <li><a class="dropdown-item" href="edit_house_leader.php?id=<?= $row['id'] ?>">Edit</a></li>
                             </ul>
@@ -287,6 +277,16 @@ margin: 0;
         </tbody>
     </table>
 </div>
+                        
+                        <div class="d-flex justify-content-between mt-3">
+                            <button type="button" class="btn btn-primary" onclick="printTable()">
+                                <i class="fas fa-print"></i> Reports
+                            </button>
+                            <button type="button" class="btn btn-success" id="transferButton">
+                                <i class="fas fa-arrow-right"></i> Transfer
+                            </button>
+                        </div>
+                    </div>
 
                        <!-- Footer Info and Pagination -->
 <div class="row align-items-center">
