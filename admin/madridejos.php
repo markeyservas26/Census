@@ -746,27 +746,18 @@ mysqli_close($conn);
 });
 </script>
 <script>
-    // Select the master checkbox and all row checkboxes
-const selectAllCheckbox = document.getElementById('selectAll');
+// Get the "select all" checkbox and all the row checkboxes
+const checkAll = document.getElementById('checkAll');
 const rowCheckboxes = document.querySelectorAll('.row-checkbox');
 
-// Add an event listener to the master checkbox to select/deselect all rows
-selectAllCheckbox.addEventListener('change', function() {
-    // Set all row checkboxes to the state of the master checkbox
+// When the "select all" checkbox is clicked
+checkAll.addEventListener('change', function() {
+    // Set all row checkboxes to match the state of the "select all" checkbox
     rowCheckboxes.forEach(checkbox => {
-        checkbox.checked = selectAllCheckbox.checked;
+        checkbox.checked = checkAll.checked;
     });
 });
 
-// Optionally, handle individual row checkbox changes to update the master checkbox state
-rowCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-        // Check if all checkboxes are checked
-        const allChecked = [...rowCheckboxes].every(checkbox => checkbox.checked);
-        selectAllCheckbox.checked = allChecked;
-        selectAllCheckbox.indeterminate = !allChecked && [...rowCheckboxes].some(checkbox => checkbox.checked);
-    });
-});
 </script>
 
 </body>
