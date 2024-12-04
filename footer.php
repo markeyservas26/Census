@@ -372,10 +372,7 @@ h1, h2, h3, h4, h5, h6 {
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement(
-                {pageLanguage: 'en',
-                    includedLanguages: 'en,fil',
-                },
-                
+                {pageLanguage: 'en'},
                 'google_translate_element'
             );
         } 
