@@ -244,7 +244,7 @@ margin: 0;
 
                         <!-- Responsive Table -->
                         <div class="table-responsive">
-                            <table id="dataTable" class="table datatable">
+                            <table id="dataTable" class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" id="checkAll" /></th>
