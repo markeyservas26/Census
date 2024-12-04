@@ -80,5 +80,17 @@
             });
         });
     </script>
+    <script>
+    function validatePhone(input) {
+        // Remove any non-digit characters from the input
+        input.value = input.value.replace(/[^0-9]/g, '');
+
+        // Ensure the input is 11 digits long
+        if (input.value.length > 11) {
+            input.value = input.value.slice(0, 11);  // Trim to 11 digits if the length exceeds
+        }
+    }
+</script>
+
 </body>
 </html>
