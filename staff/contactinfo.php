@@ -1,13 +1,3 @@
-<?php
-// Assuming you have a session started and the user is logged in
-session_start();
-
-// Fetch the current user's email and phone number from the session or database
-// For example, let's assume the session holds the user's information
-$currentUserEmail = $_SESSION['usernameInput'];  // Replace with actual session variable
-$currentUserPhone = $_SESSION['phone'];  // Replace with actual session variable
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,88 +5,80 @@ $currentUserPhone = $_SESSION['phone'];  // Replace with actual session variable
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/img/travelogo.png" rel="icon">
     <title>Change Email or Phone Number</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen p-0 m-0">
+<body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen">
 
     <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md text-center">
-        <!-- Heading -->
         <h1 class="text-gray-800 text-3xl font-bold mb-6">Change Email or Phone Number</h1>
 
-        <!-- Form to change email or phone number -->
-        <form id="changeEmailPhoneForm" method="POST" action="../action/change_email_phone.php" class="space-y-6">
-            <!-- Email -->
+        <form id="changeEmailPhoneForm" method="POST" action="../staffaction/change_email_phone.php" class="space-y-6">
             <div>
-                <label for="usernameInput" class="block text-left text-gray-600 text-sm mt-1">Email</label>
-                <input type="email" class="w-full px-4 py-3 border rounded-md text-lg text-gray-700" id="usernameInput" name="usernameInput" value="<?php echo $currentUserEmail; ?>" placeholder="New Email">
+                <label for="email" class="block text-left text-gray-600 text-sm mt-1">Email</label>
+                <input type="email" class="w-full px-4 py-3 border rounded-md text-lg text-gray-700" id="email" name="email" placeholder="New Email" required>
             </div>
-
-            <!-- Phone Number -->
             <div>
-                <label for="phone" class="block text-left text-gray-600 text-sm mt-1">Phone Number</label>
-                <input type="text" class="w-full px-4 py-3 border rounded-md text-lg text-gray-700" id="phone" name="phone" value="<?php echo $currentUserPhone; ?>" placeholder="New Phone Number">
-            </div>
+    <label for="phone" class="block text-left text-gray-600 text-sm mt-1">Phone Number</label>
+    <input type="text" class="w-full px-4 py-3 border rounded-md text-lg text-gray-700" id="phone" name="phone" placeholder="New Phone Number"  required pattern="^[0-9]{11}$" title="Phone number must be 11 digits." maxlength="11" oninput="validatePhone(this)">
+</div>
 
-            <!-- Submit Button -->
-            <button type="submit" class="w-full bg-gray-800 text-white rounded-md px-6 py-3 text-xl font-semibold shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400">
+            <button type="submit" class="w-full bg-gray-800 text-white rounded-md px-6 py-3 text-xl font-semibold shadow-md hover:bg-gray-700">
                 Change Email & Phone Number
             </button>
         </form>
 
-        <!-- Info Text -->
-        <p id="infoText" class="text-gray-500 text-lg mt-8">If you have any issues or need further assistance, please contact support.</p>
-
+        <p class="text-gray-500 text-lg mt-8">If you have any issues, please contact support.</p>
         <div class="text-gray-600 text-sm font-semibold mt-4">
-            <a href="../staffbantayan/myaccount.php" class="text-gray-600 hover:text-gray-800">Back to My Account</a>
+            <a href="../staff/myaccount.php" class="text-gray-600 hover:text-gray-800">Back to My Account</a>
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Handle form submission with AJAX -->
     <script>
         $(document).ready(function () {
-            // Handle form submission
+            // Fetch current email and phone number
+            $.ajax({
+                url: '../staffaction/fetch_email_phone.php',
+                type: 'GET',
+                success: function (response) {
+                    const res = JSON.parse(response);
+                    if (res.success) {
+                        $('#email').val(res.email);
+                        $('#phone').val(res.phone);
+                    } else {
+                        Swal.fire('Error!', 'Failed to fetch current details.', 'error');
+                    }
+                },
+                error: function () {
+                    Swal.fire('Error!', 'An unexpected error occurred while fetching details.', 'error');
+                }
+            });
+
+            // Update email and phone number
             $('#changeEmailPhoneForm').on('submit', function (e) {
-                e.preventDefault(); // Prevent default form submission
+                e.preventDefault();
 
                 $.ajax({
                     type: 'POST',
                     url: $(this).attr('action'),
                     data: $(this).serialize(),
                     success: function (response) {
-                        if (response.success) {
-                            Swal.fire({
-                                title: 'Success!',
-                                text: 'Your email and phone number have been updated successfully.',
-                                icon: 'success',
-                                confirmButtonText: 'OK'
-                            }).then(() => {
-                                window.location.href = 'index.php'; // Redirect to home page or any other page
-                            });
+                        const res = JSON.parse(response);
+                        if (res.success) {
+                            Swal.fire('Success!', 'Your details have been updated.', 'success')
+                                .then(() => window.location.href = '../staff/myaccount.php');
                         } else {
-                            Swal.fire({
-                                title: 'Error!',
-                                text: response.message,
-                                icon: 'error',
-                                confirmButtonText: 'OK'
-                            });
+                            Swal.fire('Error!', res.message, 'error');
                         }
                     },
-                    error: function (xhr, status, error) {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: 'An error occurred: ' + error,
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        });
+                    error: function () {
+                        Swal.fire('Error!', 'An unexpected error occurred.', 'error');
                     }
                 });
             });
         });
     </script>
-
 </body>
 </html>

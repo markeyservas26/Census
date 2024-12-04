@@ -80,7 +80,7 @@
                         confirmButtonText: 'OK'
                     }).then(() => {
                         // Redirect to index.php after alert is closed
-                        window.location.href = 'index.php';
+                        window.location.href = '../staff/myaccount.php';
                     });
                 } else {
                     // Display error message
