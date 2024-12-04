@@ -369,18 +369,16 @@ h1, h2, h3, h4, h5, h6 {
             });
         });
     </script>
-   <script type="text/javascript">
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement(
-            {
-                pageLanguage: 'en', // Set your website's default language
-                includedLanguages: 'en,fil', // Optional: Specify the languages to include
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            },
-            'google_translate_element'
-        );
-    }
-</script>
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&hl=en"></script>
-
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {pageLanguage: 'en',
+                    includedLanguages: 'en,fil',
+                },
+                
+                'google_translate_element'
+            );
+        } 
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
