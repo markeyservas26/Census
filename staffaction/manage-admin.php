@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Prepare the statement to insert
-    $stmt = $conn->prepare("INSERT INTO users (id, name, username, password) VALUES (?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO users (id, name, phone, username, password) VALUES (?, ?, ?, ?, ?)");
     if ($stmt === false) {
         echo json_encode(['success' => false, 'message' => 'Error preparing statement: ' . $conn->error]);
         exit;
