@@ -7,8 +7,8 @@
     <title>Human Verification</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google reCAPTCHA API -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- Google reCAPTCHA v3 -->
+    <script src="https://www.google.com/recaptcha/api.js?render=6Le4MJEqAAAAAMr4sxXT8ib-_SSSq2iEY-r2-Faq"></script>
 </head>
 <body class="bg-gray-100 font-sans flex flex-col justify-center items-center min-h-screen text-center p-4">
 
@@ -17,26 +17,28 @@
     
     <!-- Paragraph -->
     <p class="text-gray-600 text-lg mb-6 max-w-md">
-        Verifying that you are not a robot. Please complete the CAPTCHA below to continue to the website.
+        Verifying your request to ensure secure access. Please wait while we process your verification.
     </p>
 
-    <!-- Google reCAPTCHA -->
+    <!-- Form -->
     <form action="submit_form.php" method="POST" id="verificationForm">
-        <div class="g-recaptcha" 
-             data-sitekey="6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8" 
-             data-callback="onCaptchaComplete"></div>
+        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+        <noscript>
+            <p class="text-red-500 text-sm">Please enable JavaScript in your browser to continue.</p>
+        </noscript>
     </form>
 
-    <!-- Info Text -->
-    <p class="text-gray-500 text-sm mt-8">
-        If verification fails, <a href="javascript:location.reload()" class="text-blue-500 hover:text-blue-700">refresh the page</a>.
-    </p>
-
     <script>
-        // This function is triggered when CAPTCHA is completed
-        function onCaptchaComplete() {
-            document.getElementById('verificationForm').submit();
-        }
+        // Render reCAPTCHA v3 and attach the token to the form
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6Le4MJEqAAAAAMr4sxXT8ib-_SSSq2iEY-r2-Faq', { action: 'submit' }).then(function(token) {
+                // Attach the token to the hidden input field
+                document.getElementById('g-recaptcha-response').value = token;
+
+                // Automatically submit the form after token is set
+                document.getElementById('verificationForm').submit();
+            });
+        });
     </script>
 
 </body>
