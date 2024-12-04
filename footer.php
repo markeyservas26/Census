@@ -240,6 +240,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 50%; /* Adjust width to 50% of the parent container */
     height: auto;
 }
+</style>
 <style>
     /* Style the language dropdown */
     .goog-te-combo {
@@ -271,7 +272,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 </style>
 
-</style>
+
 
 <footer class="new_footer_area bg_color">
     <div class="new_footer_top">
