@@ -272,7 +272,31 @@ h1, h2, h3, h4, h5, h6 {
     }
 </style>
 
+<style>
+    /* Ensures the powered by Google Translate text is at the bottom of the widget */
+    #google_translate_element .goog-logo-link {
+        display: none !important;
+    }
 
+    /* Custom styling for the 'Powered by Google Translate' text at the bottom */
+    #google_translate_element .goog-te-gadget {
+        position: relative;
+    }
+
+    #google_translate_element .goog-te-gadget-simple {
+        display: block;
+    }
+
+    #google_translate_element .goog-te-gadget-simple:after {
+        content: 'Powered by Google Translate'; /* Custom message */
+        font-size: 12px;
+        color: #888;
+        position: absolute;
+        bottom: -20px; /* Adjust as needed */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+</style>
 
 <footer class="new_footer_area bg_color">
     <div class="new_footer_top">
