@@ -10,36 +10,28 @@
     <!-- Google reCAPTCHA API -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
-<body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen p-0 m-0">
+<body class="bg-gray-100 font-sans flex flex-col justify-center items-center min-h-screen text-center p-4">
 
-    <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-lg text-center">
-        <!-- Heading -->
-        <h2 class="text-gray-800 text-3xl font-bold mb-4">Human Verification</h2>
-        
-        <!-- Paragraph -->
-        <p class="text-gray-600 text-lg mb-6">
-            Please verify that you are a human by completing the CAPTCHA below. This helps us prevent automated spam and ensures a secure experience for everyone.
-        </p>
+    <!-- Heading -->
+    <h2 class="text-gray-800 text-4xl font-bold mb-4">Just a Moment...</h2>
+    
+    <!-- Paragraph -->
+    <p class="text-gray-600 text-lg mb-6 max-w-md">
+        Verifying that you are not a robot. Please complete the CAPTCHA below to continue to the website.
+    </p>
 
-        <!-- Google reCAPTCHA -->
-        <form action="submit_form.php" method="POST">
-  <div class="captcha-container flex justify-center items-center my-6 p-4 rounded-lg bg-transparent">
-    <div class="g-recaptcha" data-sitekey="6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8"></div>
-  </div>
+    <!-- Google reCAPTCHA -->
+    <form action="submit_form.php" method="POST" class="w-full max-w-xs">
+        <div class="g-recaptcha" data-sitekey="6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8"></div>
+        <button type="submit" class="bg-blue-600 text-white rounded-md px-6 py-3 text-xl font-semibold mt-6 shadow-md hover:bg-blue-500 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-400 w-full">
+            Verify
+        </button>
+    </form>
 
-            <!-- Submit Button -->
-            <button type="submit" class="bg-green-500 text-white rounded-md px-6 py-3 text-xl font-semibold shadow-md hover:bg-green-400 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-green-400 w-full">
-                Verify
-            </button>
-        </form>
-
-        <!-- Info Text -->
-        <p id="infoText" class="text-gray-500 text-lg mt-8">
-            Please complete the CAPTCHA to verify that you are not a robot. If you experience any issues, 
-            <a href="javascript:location.reload()" class="text-blue-500 hover:text-blue-700">refresh the page</a> or contact support for assistance.
-        </p>
-
-    </div>
+    <!-- Info Text -->
+    <p class="text-gray-500 text-sm mt-8">
+        If verification fails, <a href="javascript:location.reload()" class="text-blue-500 hover:text-blue-700">refresh the page</a>.
+    </p>
 
 </body>
 </html>
