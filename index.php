@@ -650,6 +650,9 @@
         <div class="d-flex align-items-center" style="margin-left: -50px;">
             <img src="assets/img/trasparlogo.png" alt="" class="logo d-none d-md-block">
             <h1 class="header-title ms-3">
+            <div id="date-time" class="d-flex align-items-center d-none d-md-block" style="font-size: 10px; color: grey; text-align: center; width: 100%;">
+                    <span id="currentDateTime"></span>
+                </div>
                 <span class="d-none d-md-inline">BANTAYAN ISLAND CENSUS</span>
                 <span class="d-inline d-md-none" style="margin-left: 20px;">BIC</span>
             </h1>
@@ -1218,7 +1221,46 @@ scrollToTopBtn.addEventListener('click', () => {
   document.documentElement.scrollTop = 0;
 });
 </script>
+<script>
+    // Function to update the date and time in Philippine Standard Time (PST)
+    function updateDateTime() {
+        // Get the current date and time for Manila time zone (Asia/Manila)
+        const options = { 
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Manila'
+        };
+        
+        // Get the current date in the Manila timezone
+        const date = new Date().toLocaleDateString('en-US', options); // Adjust format to 'weekday, month day year'
 
+        // Get the current day of the month and ensure it's a double digit (e.g., '04' instead of '4')
+        let day = new Date().getDate();
+        day = day < 10 ? '0' + day : day; // Add leading zero if day is single digit
+
+        // Get the current time in 12-hour format with AM/PM
+        let hours = new Date().getHours();
+        let minutes = new Date().getMinutes();
+        let seconds = new Date().getSeconds();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        
+        // Convert to 12-hour format
+        hours = hours % 12;
+        hours = hours ? hours : 12; // if hours is 0, change it to 12
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        
+        // Construct time string
+        const time = `${hours}:${minutes}:${seconds} ${ampm}`;
+
+        // Combine the formatted date and time with double digit day
+        const formattedDateTime = `Philippine Standard Time: ${new Date().toLocaleString('en-US', { weekday: 'long' })}, ${new Date().toLocaleString('en-US', { month: 'long' })} ${day} ${new Date().getFullYear()}, ${time}`;
+
+        // Display the formatted date and time in the HTML element
+        document.getElementById('currentDateTime').textContent = formattedDateTime;
+    }
+
+    // Update the date and time every second
+    setInterval(updateDateTime, 1000);
+</script>
 <?php 
 include 'footer.php';
 ?>

@@ -240,7 +240,36 @@ h1, h2, h3, h4, h5, h6 {
     width: 50%; /* Adjust width to 50% of the parent container */
     height: auto;
 }
+<style>
+    /* Style the language dropdown */
+    .goog-te-combo {
+        appearance: none; /* Remove the default dropdown arrow for customization */
+        border: 2px solid grey; /* Blue border */
+        border-radius: 5px; /* Rounded corners */
+        padding: 8px 12px; /* Padding inside the dropdown */
+        font-size: 14px; /* Font size for text */
+        font-family: 'Arial', sans-serif; /* Clean font */
+        color: #333; /* Text color */
+        background: #f9f9f9 url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%230066cc" d="M2 0L0 2h4z"/></svg>') no-repeat right 10px center; /* Custom dropdown arrow */
+        background-size: 12px; /* Size of the arrow */
+        cursor: pointer; /* Pointer cursor on hover */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for a 3D effect */
+        transition: all 0.3s ease; /* Smooth hover and focus effect */
+    }
 
+    /* Hover effect for the dropdown */
+    .goog-te-combo:hover {
+        border-color: #004b99; /* Darker blue border on hover */
+        background-color: #e6f2ff; /* Light blue background on hover */
+    }
+
+    /* Focus effect for the dropdown */
+    .goog-te-combo:focus {
+        outline: none; /* Remove default outline */
+        border-color: #004b99; /* Highlight border */
+        box-shadow: 0 0 5px rgba(0, 102, 204, 0.8); /* Glow effect */
+    }
+</style>
 
 </style>
 
@@ -306,6 +335,8 @@ h1, h2, h3, h4, h5, h6 {
             <a href="#" class="fab fa-github" data-aos="zoom-in" data-aos-delay="500"></a>
         </div>
     </div>
+    <br>
+    <div id="google_translate_element" data-aos="fade-up" data-aos-delay="400"></div>
 </div>
 
 
@@ -337,4 +368,13 @@ h1, h2, h3, h4, h5, h6 {
             });
         });
     </script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {pageLanguage: 'en'},
+                'google_translate_element'
+            );
+        } 
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
