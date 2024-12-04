@@ -373,9 +373,8 @@ h1, h2, h3, h4, h5, h6 {
     function googleTranslateElementInit() {
         new google.translate.TranslateElement(
             {
-                pageLanguage: 'en',
-                includedLanguages: 'en', // Ensures only English is displayed
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                pageLanguage: 'en', // Sets the default language of the page
+                layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL // Displays dropdown
             },
             'google_translate_element'
         );
