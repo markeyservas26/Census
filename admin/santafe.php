@@ -684,6 +684,63 @@ mysqli_close($conn);
     }
   }
 </script>
+<script>
+    $(document).ready(function () {
+    const highlightHouseNumbers = <?php echo json_encode($highlightHouseNumbers); ?>;
+
+    // Initialize DataTable
+    const table = $('#dataTable').DataTable({
+        pageLength: 10,
+        lengthMenu: [5, 10, 25, 50, 100],
+        order: [[1, 'asc']], // Sort by House Number
+        responsive: true,
+        drawCallback: function () {
+            // Highlight rows after the table is drawn
+            $('#dataTable tbody tr').each(function () {
+                const houseNumberCell = $(this).find('td').eq(1); // House number is in the second column
+                if (highlightHouseNumbers.includes(houseNumberCell.text())) {
+                    $(this).addClass('highlight-term');
+                }
+            });
+        },
+    });
+
+    // Check all checkboxes
+    $('#checkAll').on('change', function () {
+        $('.row-checkbox').prop('checked', this.checked);
+    });
+
+    $('#transferButton').on('click', function () {
+    const selectedIds = $('.row-checkbox:checked').map(function () {
+        return this.value;
+    }).get();
+    
+    if (selectedIds.length > 0) {
+        if (confirm('Are you sure you want to transfer these records?')) {
+            $.ajax({
+                url: '../action/transfer.php',
+                type: 'POST',
+                data: { ids: selectedIds },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status === 'success') {
+                        alert(response.message);
+                        location.reload();
+                    } else {
+                        alert('Error: ' + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert('An error occurred while transferring the records: ' + error);
+                }
+            });
+        }
+    } else {
+        alert('No rows selected!');
+    }
+});
+});
+</script>
 
 </body>
 
