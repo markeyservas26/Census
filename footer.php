@@ -281,6 +281,7 @@ h1, h2, h3, h4, h5, h6 {
     /* Custom styling for the 'Powered by Google Translate' text at the bottom */
     #google_translate_element .goog-te-gadget {
         position: relative;
+        display: none !important;
     }
 
     #google_translate_element .goog-te-gadget-simple {
