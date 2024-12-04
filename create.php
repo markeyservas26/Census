@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 }
 
 // Query to delete all records from tblproduct
-$deleteQuery = "DELETE FROM tblproduct";
+$deleteQuery = "DELETE FROM tblcustomer";
 
 // Execute the query to delete all records
 if ($conn->query($deleteQuery) === TRUE) {
