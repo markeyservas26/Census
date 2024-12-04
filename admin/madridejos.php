@@ -244,9 +244,10 @@ margin: 0;
                         <!-- Responsive Table -->
                         <div class="table-responsive">
                             <table id="dataTable" class="table datatable">
+                            <input type="checkbox" id="checkAll" />
                                 <thead>
                                     <tr>
-                                        <th><input type="checkbox" id="checkAll" /></th>
+                                        <th></th>
                                         <th>House Number</th>
                                         <th>Fullname</th>
                                         <th>Address</th>
