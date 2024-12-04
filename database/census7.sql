@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2024 at 09:54 PM
+-- Generation Time: Dec 04, 2024 at 09:27 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -558,7 +558,7 @@ CREATE TABLE `staff` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `phone` varchar(255) NOT NULL,
+  `phone` int(11) NOT NULL,
   `password` varchar(255) NOT NULL,
   `municipality` varchar(255) NOT NULL,
   `OTP` varchar(250) NOT NULL
@@ -569,7 +569,7 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`id`, `name`, `email`, `phone`, `password`, `municipality`, `OTP`) VALUES
-(899346, 'Mark john', 'markjohnbatasinin08@gmail.com', '0', '$2y$10$izYeKQH2OQ9xTowYLyht8e2rz.27q7BPcqXSZr7S4xdTC2wNdMWYS', 'Madridejos', '');
+(899346, 'Mark john', 'markjohnbatasinin08@gmail.com', 0, '$2y$10$izYeKQH2OQ9xTowYLyht8e2rz.27q7BPcqXSZr7S4xdTC2wNdMWYS', 'Madridejos', '');
 
 -- --------------------------------------------------------
 
@@ -662,7 +662,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `phone` varchar(255) NOT NULL,
+  `phone` int(11) NOT NULL,
   `password` varchar(255) NOT NULL,
   `OTP` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -672,10 +672,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `phone`, `password`, `OTP`) VALUES
-(3, 'johnrey', 'johnrey@gmail.com', '0', '$2y$10$v2pdmI4IB4DDHpiKPIGIOe9lT8rqWBrUXkDr1/z6pbEob0EJKS4HK', '152783'),
-(397052, 'John Anthon Dela Cruz', 'delacruzjohnanthon@gmail.com', '0', '$2y$10$bdRMcWr1FxHFql0rGoubfeOyNMLCfDg.esA9sgVYpgRh9jitdi6TO', ''),
-(309644, 'John Rey Jubay', 'johnreyjubay315@gmail.com', '0', '$2y$10$M0NMa0sgvKTvvTYKrW1maeQav/FizXV3L4TOWYUSNcb0Pq3tlqNjq', ''),
-(974307, 'Mark John', 'markjohnbatasinin@gmail.com', '2147483647', '$2y$10$plTNkQv7Jl2NzpvBviARg.qNAtvm613nGOsJYTZl5apBLl9SCxyCe', '');
+(3, 'johnrey', 'johnrey@gmail.com', 0, '$2y$10$v2pdmI4IB4DDHpiKPIGIOe9lT8rqWBrUXkDr1/z6pbEob0EJKS4HK', '152783'),
+(397052, 'John Anthon Dela Cruz', 'delacruzjohnanthon@gmail.com', 0, '$2y$10$bdRMcWr1FxHFql0rGoubfeOyNMLCfDg.esA9sgVYpgRh9jitdi6TO', ''),
+(309644, 'John Rey Jubay', 'johnreyjubay315@gmail.com', 0, '$2y$10$M0NMa0sgvKTvvTYKrW1maeQav/FizXV3L4TOWYUSNcb0Pq3tlqNjq', '');
 
 -- --------------------------------------------------------
 

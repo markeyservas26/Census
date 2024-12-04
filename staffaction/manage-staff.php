@@ -4,6 +4,7 @@ include '../database/db_connect.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['nameInput'];
     $email = $_POST['emailInput'];
+    $phone = $_POST['phone'];
     $password = $_POST['passwordInput'];
     $municipality = $_POST['municipalityInput'];
 
@@ -20,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    $stmt->bind_param("issss", $random_id, $name, $email, $hashed_password, $municipality);
+    $stmt->bind_param("isssss", $random_id, $name, $email, $phone, $hashed_password, $municipality);
 
     if ($stmt->execute()) {
         echo json_encode(['success' => true, 'id' => $random_id]);

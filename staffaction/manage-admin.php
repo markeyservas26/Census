@@ -4,6 +4,7 @@ include '../database/db_connect.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['nameInput'];
     $username = $_POST['usernameInput'];
+    $phone = $_POST['phone'];
     $password = $_POST['passwordInput'];
 
     // Generate a 6-digit random ID
@@ -19,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    $stmt->bind_param("isss", $random_id, $name, $username, $hashed_password);
+    $stmt->bind_param("issss", $random_id, $name, $phone, $username, $hashed_password);
 
     if ($stmt->execute()) {
         echo json_encode(['success' => true, 'id' => $random_id]);
