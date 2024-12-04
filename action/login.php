@@ -55,7 +55,7 @@ function checkXss($input) {
 }
 // Verify reCAPTCHA token
 function verifyRecaptcha($token) {
-    $secretKey = '6LceYIkqAAAAACzv1ohIn9NLAfwCaaW3ZORfRU01';
+    $secretKey = '6Le4MJEqAAAAAOC7zz5GE-9l3se0icE4d7jXaCHC'; // Your reCAPTCHA v3 secret key
     $url = 'https://www.google.com/recaptcha/api/siteverify';
     
     $data = [
@@ -79,7 +79,8 @@ function verifyRecaptcha($token) {
     
     $result = json_decode($response, true);
     
-    return isset($result['success']) && $result['success'] === true;
+    // reCAPTCHA v3 returns a 'score' field; check if the score is above a threshold
+    return isset($result['success']) && $result['success'] === true && $result['score'] >= 0.5; // Adjust score threshold as needed
 }
 
 // Send JSON response

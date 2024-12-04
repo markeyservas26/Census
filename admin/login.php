@@ -122,7 +122,7 @@ sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url);
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="https://www.google.com/recaptcha/api.js?render=6Le4MJEqAAAAAMr4sxXT8ib-_SSSq2iEY-r2-Faq"></script>
 
   <!-- Custom CSS for Logo Size -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -172,11 +172,9 @@ sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url);
         <a href="../index.php" class="hover:text-gray-800">Back to Website</a>
       </div>
 
-      <!-- reCAPTCHA -->
-      <div class="g-recaptcha" data-sitekey="6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8"></div>
-
       <!-- Submit Button -->
       <div>
+       <input type="hidden" id="recaptcha_token" name="recaptcha_token">
         <button type="submit"
           class="w-full py-3 px-4 bg-gray-800 text-white rounded-md font-semibold shadow-md hover:bg-gray-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-400">
           Login
@@ -191,10 +189,16 @@ sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url);
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
    grecaptcha.ready(function() {
-    grecaptcha.execute('6LceYIkqAAAAABQK7C1RrAe_STU3BDwgIHhcZHO8', {action: 'login'}).then(function(token) {
-        document.getElementById('recaptcha_token').value = token;
+    // Execute reCAPTCHA and get the token
+    grecaptcha.execute('6Le4MJEqAAAAAMr4sxXT8ib-_SSSq2iEY-r2-Faq', { action: 'login' }).then(function(token) {
+      // Add the token to the form before submission
+      const recaptchaInput = document.createElement('input');
+      recaptchaInput.type = 'hidden';
+      recaptchaInput.name = 'g-recaptcha-response';
+      recaptchaInput.value = token;
+      document.getElementById('loginForm').appendChild(recaptchaInput);
     });
-});
+  });
 
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
