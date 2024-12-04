@@ -243,48 +243,39 @@ margin: 0;
 
                         <!-- Responsive Table -->
                         <div class="table-responsive">
-                        <div class="d-flex justify-content-between align-items-center mb-3" style="margin-left: 20px;">
-        <div>
-            <input type="checkbox" id="selectAll" class="form-check-input">
-            <label for="selectAll">Select All</label>
-        </div>
-</div>
-    <table id="dataTable" class="table datatable">
-        <!-- Master checkbox in the table header -->
-        <thead>
-            <tr>
-                <th><input type="checkbox" id="checkAll" /></th> <!-- This will be the master checkbox -->
-                <th>House Number</th>
-                <th>Fullname</th>
-                <th>Address</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php while ($row = mysqli_fetch_assoc($result)) : ?>
-                <tr class="<?php echo in_array($row['house_number'], $highlightHouseNumbers) ? 'highlight-term' : ''; ?>">
-                <td class="checkbox-column" style="display: none;">
-                        <input type="checkbox" value="<?= htmlspecialchars($row['id']) ?>" class="form-check-input row-checkbox">
-                    </td>
-                    <td><?= htmlspecialchars($row['house_number']) ?></td>
-                    <td><?= htmlspecialchars($row['fullname']) ?></td>
-                    <td><?= htmlspecialchars($row['address']) ?></td>
-                    <td>
-                        <div class="dropdown">
-                            <button class="btn btn-sm btn-secondary dropdown-toggle custom-dropdown-btn" type="button" data-bs-toggle="dropdown">
-                                <i class="fas fa-cogs"></i>
-                            </button>
-                            <ul class="dropdown-menu custom-dropdown-menu">
-                                <li><a class="dropdown-item" href="view_household.php?id=<?= $row['id'] ?>">View</a></li>
-                                <li><a class="dropdown-item" href="edit_house_leader.php?id=<?= $row['id'] ?>">Edit</a></li>
-                            </ul>
+                            <table id="dataTable" class="table datatable">
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox" id="checkAll" /></th>
+                                        <th>House Number</th>
+                                        <th>Fullname</th>
+                                        <th>Address</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+    <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+        <tr class="<?php echo in_array($row['house_number'], $highlightHouseNumbers) ? 'highlight-term' : ''; ?>">
+            <td><input type="checkbox" class="row-checkbox" value="<?= $row['id'] ?>" /></td>
+            <td><?= htmlspecialchars($row['house_number']) ?></td>
+            <td><?= htmlspecialchars($row['fullname']) ?></td>
+            <td><?= htmlspecialchars($row['address']) ?></td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-secondary dropdown-toggle custom-dropdown-btn" type="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-cogs"></i>
+                    </button>
+                    <ul class="dropdown-menu custom-dropdown-menu">
+                        <li><a class="dropdown-item" href="view_household.php?id=<?= $row['id'] ?>">View</a></li>
+                        <li><a class="dropdown-item" href="edit_house_leader.php?id=<?= $row['id'] ?>">Edit</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    <?php endwhile; ?>
+                                </tbody>
+                            </table>
                         </div>
-                    </td>
-                </tr>
-            <?php endwhile; ?>
-        </tbody>
-    </table>
-</div>
                         
                         <div class="d-flex justify-content-between mt-3">
                             <button type="button" class="btn btn-primary" onclick="printTable()">
@@ -755,27 +746,27 @@ mysqli_close($conn);
 });
 </script>
 <script>
-    // Get the "select all" checkbox and the row checkboxes
-    const checkAll = document.getElementById('checkAll');
-    const rowCheckboxes = document.querySelectorAll('.row-checkbox');
+    // Select the master checkbox and all row checkboxes
+const selectAllCheckbox = document.getElementById('selectAll');
+const rowCheckboxes = document.querySelectorAll('.row-checkbox');
 
-    // Add an event listener to the "select all" checkbox
-    checkAll.addEventListener('change', function() {
-        // Set all row checkboxes to match the state of the "select all" checkbox
-        rowCheckboxes.forEach(checkbox => {
-            checkbox.checked = checkAll.checked;
-        });
-    });
-
-    // Optional: Handle the scenario where individual row checkboxes are selected or deselected
+// Add an event listener to the master checkbox to select/deselect all rows
+selectAllCheckbox.addEventListener('change', function() {
+    // Set all row checkboxes to the state of the master checkbox
     rowCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            // Check if all checkboxes are checked
-            const allChecked = [...rowCheckboxes].every(checkbox => checkbox.checked);
-            checkAll.checked = allChecked;
-            checkAll.indeterminate = !allChecked && [...rowCheckboxes].some(checkbox => checkbox.checked);
-        });
+        checkbox.checked = selectAllCheckbox.checked;
     });
+});
+
+// Optionally, handle individual row checkbox changes to update the master checkbox state
+rowCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        // Check if all checkboxes are checked
+        const allChecked = [...rowCheckboxes].every(checkbox => checkbox.checked);
+        selectAllCheckbox.checked = allChecked;
+        selectAllCheckbox.indeterminate = !allChecked && [...rowCheckboxes].some(checkbox => checkbox.checked);
+    });
+});
 </script>
 
 </body>
