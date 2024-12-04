@@ -248,6 +248,7 @@ margin: 0;
             <input type="checkbox" id="selectAll" class="form-check-input">
             <label for="selectAll">Select All</label>
         </div>
+</div>
     <table id="dataTable" class="table datatable">
         <!-- Master checkbox in the table header -->
         <thead>
