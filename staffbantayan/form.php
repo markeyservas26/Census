@@ -1667,7 +1667,7 @@ $(document).ready(function() {
                         confirmButtonText: 'OK'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.href = 'form.php';
+                            window.location.href = 'form';
                         }
                     });
                 } else {

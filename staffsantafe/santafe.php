@@ -259,8 +259,8 @@ margin: 0;
                                                         <i class="fas fa-cogs"></i>
                                                     </button>
                                                     <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton<?= $row['id'] ?>">
-                                                        <li><a class="dropdown-item" href="view_household.php?id=<?= $row['id'] ?>">View</a></li>
-                                                        <li><a class="dropdown-item" href="edit_house_leader.php?id=<?= $row['id'] ?>">Edit</a></li>
+                                                        <li><a class="dropdown-item" href="view_household?id=<?= $row['id'] ?>">View</a></li>
+                                                        <li><a class="dropdown-item" href="edit_house_leader?id=<?= $row['id'] ?>">Edit</a></li>
                                                     </ul>
                                                 </div>
                                             </td>

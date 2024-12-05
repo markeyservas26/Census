@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $clear_stmt->close();
         
         $_SESSION['verification_success'] = "OTP Verified Successfully! You can now change your password.";
-        header("Location: newpassword.php");
+        header("Location: newpassword");
         exit();
     } else {
         $error = "Invalid OTP or OTP has expired.";
@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <!-- Back to Login Link -->
         <div class="text-gray-600 text-sm font-semibold mt-4">
-            <a href="../admin/login.php" class="text-gray-600 hover:text-gray-800">Back to Login</a>
+            <a href="../admin/login" class="text-gray-600 hover:text-gray-800">Back to Login</a>
         </div>
     </div>
 

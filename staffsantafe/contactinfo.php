@@ -29,7 +29,7 @@
 
         <p class="text-gray-500 text-lg mt-8">If you have any issues, please contact support.</p>
         <div class="text-gray-600 text-sm font-semibold mt-4">
-            <a href="../staffsantafe/myaccount.php" class="text-gray-600 hover:text-gray-800">Back to My Account</a>
+            <a href="../staffsantafe/myaccount" class="text-gray-600 hover:text-gray-800">Back to My Account</a>
         </div>
     </div>
 
@@ -68,7 +68,7 @@
                         const res = JSON.parse(response);
                         if (res.success) {
                             Swal.fire('Success!', 'Your details have been updated.', 'success')
-                                .then(() => window.location.href = '../staffsantafe/myaccount.php');
+                                .then(() => window.location.href = '../staffsantafe/myaccount');
                         } else {
                             Swal.fire('Error!', res.message, 'error');
                         }

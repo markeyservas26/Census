@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             // If we got here, everything worked
             $_SESSION['success_message'] = "OTP sent successfully! Please check your phone.";
-            header("Location: verify-otp.php");
+            header("Location: verify-otp");
             exit();
             
         } else {
@@ -155,7 +155,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         <!-- Login Link -->
         <div class="text-gray-600 text-sm font-semibold mt-4">
-            <a href="../admin/login.php" class="text-gray-600 hover:text-gray-800">Back to Login</a>
+            <a href="../admin/login" class="text-gray-600 hover:text-gray-800">Back to Login</a>
         </div>
     </div>
 

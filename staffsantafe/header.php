@@ -87,8 +87,8 @@ session_start();
             <span>Staff</span>
           </li>
           <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item d-flex align-items-center" href="myaccount.php"><i class="fas fa-user-cog"></i><span>My Account</span></a></li>
-          <li><a class="dropdown-item d-flex align-items-center" href="logout.php"><i class="fas fa-sign-out-alt"></i><span>Sign Out</span></a></li>
+          <li><a class="dropdown-item d-flex align-items-center" href="myaccount"><i class="fas fa-user-cog"></i><span>My Account</span></a></li>
+          <li><a class="dropdown-item d-flex align-items-center" href="logout"><i class="fas fa-sign-out-alt"></i><span>Sign Out</span></a></li>
         </ul><!-- End Profile Dropdown Items -->
       </li><!-- End Profile Nav -->
     </ul>
@@ -108,7 +108,7 @@ session_start();
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="santafe.php">
+            <a href="santafe">
               <i class="bi bi-circle"></i><span>Santafe</span>
             </a>
           </li>
@@ -116,12 +116,12 @@ session_start();
         </ul>
       </li><!-- End Forms Nav -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="form.php">
+        <a class="nav-link collapsed" href="form">
           <i class="bi bi-file-text"></i><span>Form</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="map.php">
+        <a class="nav-link collapsed" href="map">
           <i class="bi bi-map"></i><span>Map</span>
         </a>
       </li>
@@ -134,7 +134,7 @@ session_start();
   <script>
   document.addEventListener('DOMContentLoaded', (event) => {
     // Add click event listener to logout link
-    document.querySelector('a[href="logout.php"]').addEventListener('click', function (e) {
+    document.querySelector('a[href="logout"]').addEventListener('click', function (e) {
       e.preventDefault(); // Prevent the default action
 
       Swal.fire({
@@ -148,7 +148,7 @@ session_start();
       }).then((result) => {
         if (result.isConfirmed) {
           // Redirect to logout.php if confirmed
-          window.location.href = 'logout.php';
+          window.location.href = 'logout';
         }
       });
     });

@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION['user_id'])) {
-    header("Location:index.php"); // Redirect to login page if not logged in
+    header("Location:index"); // Redirect to login page if not logged in
     exit();
 }
 ?>
@@ -88,7 +88,7 @@ if (isset($_SESSION['user_id'])) {
       <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
       <label class="form-check-label" for="rememberMe">Remember me</label>
     </div>
-    <a href="../index.php" class="back-to-website d-none d-md-block" style="margin-left: 90px; color:black;">Back to Website</a>
+    <a href="../index" class="back-to-website d-none d-md-block" style="margin-left: 90px; color:black;">Back to Website</a>
   </div>
 
   <div class="col-12">

@@ -17,15 +17,15 @@
         <p class="text-gray-600 text-lg mb-8">Manage your account settings here. You can update your personal information, change your password, and more.</p>
 
         <!-- Button Links -->
-        <a href="name.php" 
+        <a href="name" 
             class="block bg-gray-800 text-white rounded-md px-6 py-3 mb-6 text-xl font-semibold shadow-md hover:bg-gray-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-400">
             Name
         </a>
-        <a href="contactinfo.php" 
+        <a href="contactinfo" 
             class="block bg-gray-800 text-white rounded-md px-6 py-3 mb-6 text-xl font-semibold shadow-md hover:bg-gray-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-400">
             Contact Info
         </a>
-        <a href="changepassword.php" 
+        <a href="changepassword" 
             class="block bg-gray-800 text-white rounded-md px-6 py-3 mb-6 text-xl font-semibold shadow-md hover:bg-gray-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-400">
             Change Password
         </a>
@@ -33,7 +33,7 @@
         <p id="infoText" class="text-gray-500 text-lg mt-8">For any issues or further assistance, please contact support.</p>
    
         <div class="text-gray-600 text-sm font-semibold mt-4">
-            <a href="../staffsantafe/santafe.php" class="text-gray-600 hover:text-gray-800">Back</a>
+            <a href="../staffsantafe/santafe" class="text-gray-600 hover:text-gray-800">Back</a>
         </div>
 
     </div>

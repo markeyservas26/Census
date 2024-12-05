@@ -4,7 +4,7 @@ session_start();
 
 // Ensure user has verified OTP before they can reset the password
 if (!isset($_SESSION['otp_verified']) || $_SESSION['otp_verified'] !== true) {
-    header("Location: verify_otp.php");
+    header("Location: verify_otp");
     exit();
 }
 
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['success_message'] = "Your password has been updated successfully!";
     
             // Redirect to login page
-            header("Location: ../admin/login.php");
+            header("Location: ../admin/login");
             exit();
         } else {
             // Error occurred during the password update
@@ -123,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
 
         <div class="text-gray-600 text-sm font-semibold mt-4">
-            <a href="../admin/login.php" class="text-gray-600 hover:text-gray-800">Back to Login</a>
+            <a href="../admin/login" class="text-gray-600 hover:text-gray-800">Back to Login</a>
         </div>
     </div>
 

@@ -54,7 +54,7 @@
         <p id="infoText" class="text-gray-500 text-lg mt-8">If you have any issues or need further assistance, please contact support.</p>
 
         <div class="text-gray-600 text-sm font-semibold mt-4">
-            <a href="../staffbantayan/myaccount.php" class="text-gray-600 hover:text-gray-800">Back to My Account</a>
+            <a href="../staffbantayan/myaccount" class="text-gray-600 hover:text-gray-800">Back to My Account</a>
         </div>
     </div>
 
@@ -80,7 +80,7 @@
                         confirmButtonText: 'OK'
                     }).then(() => {
                         // Redirect to index.php after alert is closed
-                        window.location.href = '../staffbantayan/myaccount.php';
+                        window.location.href = '../staffbantayan/myaccount';
                     });
                 } else {
                     // Display error message

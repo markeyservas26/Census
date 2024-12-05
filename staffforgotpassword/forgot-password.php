@@ -94,7 +94,7 @@
                     <input type="email" name="email" class="form-control" value="<?php echo htmlspecialchars($email); ?>" placeholder="Enter your email" required>
                 </div>
                 <button type="submit" name="check-email" value="Continue" class="btn btn-danger w-100 mb-3">Send Reset Link</button>
-                <p class="mb-0">Remember your password? <a href="../staff/login.php">Sign In</a></p>
+                <p class="mb-0">Remember your password? <a href="../staff/login">Sign In</a></p>
             </form>
         </div>
     </div>
