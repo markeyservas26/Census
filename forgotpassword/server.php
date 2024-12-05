@@ -117,7 +117,7 @@ $con = mysqli_connect('127.0.0.1', 'u510162695_bantayanisland', '1Bantayan', 'u5
             $_SESSION['username'] = $email;
             $info = "Please create a new password.";
             $_SESSION['info'] = $info;
-            header('location: createnewpassword.php');
+            header('location: createnewpassword');
             exit();
         }else{
             $errors['otp-error'] = "You've entered an incorrect code!";
@@ -140,7 +140,7 @@ $con = mysqli_connect('127.0.0.1', 'u510162695_bantayanisland', '1Bantayan', 'u5
             if($run_query){
                 $info = "Your password has been reset. You can now login with your new password.";
                 $_SESSION['info'] = $info;
-                header('Location: backtologin.php');
+                header('Location: backtologin');
             }else{
                 $errors['db-error'] = "Failed to change your password!";
             }

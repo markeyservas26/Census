@@ -1,7 +1,7 @@
 <?php require_once "server.php"; ?>
 <?php
 if($_SESSION['info'] == false){
-    header('Location: ../admin/login.php');  
+    header('Location: ../admin/login');  
 }
 ?>
 <!DOCTYPE html>
@@ -76,7 +76,7 @@ if($_SESSION['info'] == false){
                 <?php
             }
         ?>
-        <a href="../admin/login.php" class="btn btn-danger w-100">Login Now</a>
+        <a href="../admin/login" class="btn btn-danger w-100">Login Now</a>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
