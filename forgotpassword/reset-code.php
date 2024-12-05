@@ -99,7 +99,7 @@ if($email == false){
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
-            <form action="reset-code.php" method="POST" autocomplete="off">
+            <form action="reset-code" method="POST" autocomplete="off">
                 <div class="mb-3">
                     <input type="text" name="otp" class="form-control" placeholder="Enter OTP code" required>
                 </div>
