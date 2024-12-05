@@ -93,8 +93,8 @@ if (!isset($_SESSION['userid'])) {
               <span>Admin</span>
             </li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item d-flex align-items-center" href="myaccount.php"><i class="fas fa-user-cog"></i><span>My Account</span></a></li>
-            <li><a class="dropdown-item d-flex align-items-center" href="logout.php"><i class="fas fa-sign-out-alt"></i><span>Sign Out</span></a></li>
+            <li><a class="dropdown-item d-flex align-items-center" href="myaccount"><i class="fas fa-user-cog"></i><span>My Account</span></a></li>
+            <li><a class="dropdown-item d-flex align-items-center" href="logout"><i class="fas fa-sign-out-alt"></i><span>Sign Out</span></a></li>
           </ul>
         </li>
       </ul>
@@ -104,30 +104,30 @@ if (!isset($_SESSION['userid'])) {
   <!-- Sidebar -->
   <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
-      <li class="nav-item"><a class="nav-link collapsed" href="index.php"><i class="bi bi-grid"></i><span>Dashboard</span></a></li>
+      <li class="nav-item"><a class="nav-link collapsed" href="index"><i class="bi bi-grid"></i><span>Dashboard</span></a></li>
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="fas fa-building"></i><span>Municipality</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="forms-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-          <li><a href="bantayan.php"><i class="bi bi-circle"></i><span>Bantayan</span></a></li>
-          <li><a href="madridejos.php"><i class="bi bi-circle"></i><span>Madridejos</span></a></li>
-          <li><a href="santafe.php"><i class="bi bi-circle"></i><span>Santafe</span></a></li>
+          <li><a href="bantayan"><i class="bi bi-circle"></i><span>Bantayan</span></a></li>
+          <li><a href="madridejos"><i class="bi bi-circle"></i><span>Madridejos</span></a></li>
+          <li><a href="santafe"><i class="bi bi-circle"></i><span>Santafe</span></a></li>
         </ul>
       </li>
-      <li class="nav-item"><a class="nav-link collapsed" href="form.php"><i class="bi bi-file-text"></i><span>Form</span></a></li>
-      <li class="nav-item"><a class="nav-link collapsed" href="map.php"><i class="bi bi-map"></i><span>Map</span></a></li>
-      <li class="nav-item"><a class="nav-link collapsed" href="schedule.php"><i class="bi bi-calendar-check"></i><span>Schedule</span></a></li>
-      <li class="nav-item"><a class="nav-link collapsed" href="manage-staff.php"><i class="bi bi-people"></i><span>Manage Staff</span></a></li>
-      <li class="nav-item"><a class="nav-link collapsed" href="manage-admin.php"><i class="bi bi-people"></i><span>Administrator</span></a></li>
-      <li class="nav-item"><a class="nav-link collapsed" href="oldrecords.php"><i class="bi bi-people"></i><span>Old Records</span></a></li>
+      <li class="nav-item"><a class="nav-link collapsed" href="form"><i class="bi bi-file-text"></i><span>Form</span></a></li>
+      <li class="nav-item"><a class="nav-link collapsed" href="map"><i class="bi bi-map"></i><span>Map</span></a></li>
+      <li class="nav-item"><a class="nav-link collapsed" href="schedule"><i class="bi bi-calendar-check"></i><span>Schedule</span></a></li>
+      <li class="nav-item"><a class="nav-link collapsed" href="manage-staff"><i class="bi bi-people"></i><span>Manage Staff</span></a></li>
+      <li class="nav-item"><a class="nav-link collapsed" href="manage-admin"><i class="bi bi-people"></i><span>Administrator</span></a></li>
+      <li class="nav-item"><a class="nav-link collapsed" href="oldrecords"><i class="bi bi-people"></i><span>Old Records</span></a></li>
     </ul>
   </aside>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.8/dist/sweetalert2.all.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', (event) => {
-      document.querySelector('a[href="logout.php"]').addEventListener('click', function (e) {
+      document.querySelector('a[href="logout"]').addEventListener('click', function (e) {
         e.preventDefault();
         Swal.fire({
           title: 'Are you sure?',
@@ -139,7 +139,7 @@ if (!isset($_SESSION['userid'])) {
           confirmButtonText: 'Yes, log out!'
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.href = 'logout.php';
+            window.location.href = 'logout';
           }
         });
       });
