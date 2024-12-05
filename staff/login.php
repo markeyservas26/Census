@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION['user_id'])) {
-    header("Location:index.php"); // Redirect to login page if not logged in
+    header("Location:index"); // Redirect to login page if not logged in
     exit();
 }
 ?>
@@ -81,8 +81,8 @@ if (isset($_SESSION['user_id'])) {
 
           <!-- Forgot Password & Back to Website Links -->
           <div class="flex justify-between text-gray-600 text-sm">
-            <a href="../chooseforgot.php" class="hover:text-gray-800">Forgot password?</a>
-            <a href="../index.php" class="hover:text-gray-800">Back to Website</a>
+            <a href="../chooseforgot" class="hover:text-gray-800">Forgot password?</a>
+            <a href="../index" class="hover:text-gray-800">Back to Website</a>
           </div>
 
           <!-- Submit Button -->
