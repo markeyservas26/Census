@@ -89,7 +89,7 @@
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
-            <form action="forgot-password" method="POST" autocomplete="off">
+            <form action="forgot-password.php" method="POST" autocomplete="off">
                 <div class="mb-3">
                     <input type="email" name="email" class="form-control" value="<?php echo htmlspecialchars($email); ?>" placeholder="Enter your email" required>
                 </div>
