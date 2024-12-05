@@ -15,11 +15,11 @@
         <p class="text-gray-600 text-lg mb-8">Please select one of the following methods to proceed:</p>
 
         <!-- Button Links -->
-        <a href="../forgotpassword/forgot-password.php" 
+        <a href="../forgotpassword/forgot-password" 
             class="block bg-gray-800 text-white rounded-md px-6 py-3 mb-6 text-xl font-semibold shadow-md hover:bg-gray-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-400">
             Send Via Gmail OTP
         </a>
-        <a href="../sms/send-otp.php" 
+        <a href="../sms/send-otp" 
             class="block bg-gray-800 text-white rounded-md px-6 py-3 text-xl font-semibold shadow-md hover:bg-gray-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-400">
             Send SMS
         </a>
@@ -28,7 +28,7 @@
         <p id="infoText" class="text-gray-500 text-lg mt-8">For account recovery, choose one of the available methods.</p>
     
         <div class="text-gray-600 text-sm font-semibold mt-4">
-            <a href="../admin/login.php" class="text-gray-600 hover:text-gray-800">Back to Log in</a>
+            <a href="../admin/login" class="text-gray-600 hover:text-gray-800">Back to Log in</a>
         </div>
     
     </div>

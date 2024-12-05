@@ -168,8 +168,8 @@ sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url);
 
       <!-- Forgot Password & Back to Website Links -->
       <div class="flex justify-between text-gray-600 text-sm">
-        <a href="chooseaway.php" class="hover:text-gray-800">Forgot password?</a>
-        <a href="../index.php" class="hover:text-gray-800">Back to Website</a>
+        <a href="chooseaway" class="hover:text-gray-800">Forgot password?</a>
+        <a href="../index" class="hover:text-gray-800">Back to Website</a>
       </div>
 
       <!-- Submit Button -->
