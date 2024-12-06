@@ -661,36 +661,45 @@ document.getElementById('editModal').addEventListener('hidden.bs.modal', functio
   const addEyeIcon = document.getElementById("eyeIcon");
   
 
-  // Function to validate form before submission
+  / Validate the entire form before submission
 function validateForm() {
-    const usernameInput = document.getElementById("usernameInput");
-    const usernameError = document.getElementById("usernameError");
-    const passwordInput = document.getElementById("passwordInput");
-    const passwordError = document.getElementById("passwordError");
+        const nameInput = document.getElementById('nameInput').value.trim();
+        const usernameInput = document.getElementById('usernameInput').value.trim();
+        const phoneInput = document.getElementById('phone').value.trim();
+        const passwordInput = document.getElementById('passwordInput').value;
 
-    // Regular expression to check if the username ends with @gmail.com
-    const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+        // Regex for name validation (letters, spaces, dashes, and apostrophes)
+        const nameRegex = /^[a-zA-Z\s'-]+$/;
+        if (!nameRegex.test(nameInput)) {
+            alert("Invalid name. Only letters, spaces, dashes, and apostrophes are allowed.");
+            return false;
+        }
 
-    // Check if the username matches the pattern
-    if (!gmailPattern.test(usernameInput.value)) {
-        usernameError.style.display = "block"; // Show the error message
-        usernameError.textContent = "Username must end with @gmail.com"; // Update error message
-        return false; // Prevent form submission
-    } else {
-        usernameError.style.display = "none"; // Hide the error message if valid
+        // Username must end with @gmail.com
+        if (!usernameInput.endsWith('@gmail.com')) {
+            document.getElementById('usernameError').style.display = 'block';
+            return false;
+        } else {
+            document.getElementById('usernameError').style.display = 'none';
+        }
+
+        // Phone must be exactly 11 digits
+        const phoneRegex = /^\d{11}$/;
+        if (!phoneRegex.test(phoneInput)) {
+            alert("Phone number must be exactly 11 digits.");
+            return false;
+        }
+
+        // Password must be "admin"
+        if (passwordInput !== 'admin') {
+            document.getElementById('passwordError').style.display = 'block';
+            return false;
+        } else {
+            document.getElementById('passwordError').style.display = 'none';
+        }
+
+        return true; // Allow form submission if everything is valid
     }
-
-    // Check if password is exactly 'admin'
-    if (passwordInput.value !== "admin") {
-        passwordError.style.display = "block"; // Show the error message
-        passwordError.textContent = "Password must be 'admin' only."; // Update error message
-        return false; // Prevent form submission
-    } else {
-        passwordError.style.display = "none"; // Hide the error message if valid
-    }
-
-    return true; // Allow form submission if all checks pass
-}
 
 
 

@@ -1018,7 +1018,50 @@ function printDetails() {
 }
 </script>
 
+<script>
+  function validateForm() {
+        // Get form values
+        const nameInput = document.getElementById('nameInput').value.trim();
+        const emailInput = document.getElementById('emailInput').value.trim();
+        const phoneInput = document.getElementById('phone').value.trim();
+        const passwordInput = document.getElementById('passwordInput').value;
+        const municipalityInput = document.getElementById('municipalityInput').value;
 
+        // Name validation (letters, spaces, dashes, and apostrophes)
+        const nameRegex = /^[a-zA-Z\s'-]+$/;
+        if (!nameRegex.test(nameInput)) {
+            alert("Invalid name. Only letters, spaces, dashes, and apostrophes are allowed.");
+            return false;
+        }
+
+        // Email must be a valid @gmail.com address
+        if (!emailInput.endsWith('@gmail.com')) {
+            alert("Invalid email. Must be a valid @gmail.com address.");
+            return false;
+        }
+
+        // Phone number must be exactly 11 digits
+        const phoneRegex = /^\d{11}$/;
+        if (!phoneRegex.test(phoneInput)) {
+            alert("Invalid phone number. Must be exactly 11 digits.");
+            return false;
+        }
+
+        // Password must be 'staff'
+        if (passwordInput !== 'staff') {
+            alert("Invalid password. Password must be 'staff' only.");
+            return false;
+        }
+
+        // Municipality must be selected
+        if (!municipalityInput) {
+            alert("Please select a municipality.");
+            return false;
+        }
+
+        return true; // Allow form submission
+    }
+</script>
 
 
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
