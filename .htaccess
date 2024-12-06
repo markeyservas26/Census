@@ -63,3 +63,23 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^(.+)$ $1.php [L]
+
+<VirtualHost *443:>
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" 
+</VirtualHost>
+
+<VirtualHost *:443>
+Header always set X-Frame-Options "SAMEORIGIN"
+</VirtualHost>
+
+<VirtualHost *:443>
+Header always set X-Content-Type-Options "nosniff"
+</VirtualHost>
+
+<IfModule mod_headers.c>
+Header set Referrer-Policy "no-referrer-when-downgrade"
+</IfModule>
+
+<IfModule mod.headers.c>
+Header set Permissions-Policy "geolocation=(self), camera=(), microphone=()"
+</IfModule>
