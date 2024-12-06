@@ -661,7 +661,7 @@ document.getElementById('editModal').addEventListener('hidden.bs.modal', functio
   const addEyeIcon = document.getElementById("eyeIcon");
   
 
-  / Validate the entire form before submission
+// Validate the entire form before submission
 function validateForm() {
         const nameInput = document.getElementById('nameInput').value.trim();
         const usernameInput = document.getElementById('usernameInput').value.trim();
