@@ -1,6 +1,69 @@
 <?php 
-include 'config.php';
+
+// Function to get the user's IP address
+function getUserIP() {
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        return $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        return $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } else {
+        return $_SERVER['REMOTE_ADDR'];
+    }
+}
+
+// Function to get device information
+function getDevice() {
+    if (strpos($_SERVER['HTTP_USER_AGENT'], 'Mobile') !== false) {
+        return 'Mobile Device';
+    } elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Tablet') !== false) {
+        return 'Tablet';
+    } else {
+        return 'Desktop';
+    }
+}
+
+// Get the user's IP address
+$user_ip = getUserIP();
+
+// Use an external service to get the user's location based on the IP address (Example: ipinfo.io)
+$location_data = json_decode(file_get_contents("http://ipinfo.io/{$user_ip}/json"));
+$location = $location_data->loc; // Latitude, Longitude
+$city = $location_data->city;
+$region = $location_data->region;
+$country = $location_data->country;
+
+// Map URL for user's location (Google Maps URL format)
+$map_url = "https://www.google.com/maps?q={$location}";
+
+// Get the device type (Mobile, Desktop, or Tablet)
+$device = getDevice();
+
+// Prepare the email content
+$subject = "Login Alert: New Login Attempt";
+$message = "
+    <p>A user has logged in with the following details:</p>
+    <ul>
+        <li><strong>Email:</strong> {$_POST['username']}</li>
+        <li><strong>IP Address:</strong> {$user_ip}</li>
+        <li><strong>Location:</strong> {$city}, {$region}, {$country}</li>
+        <li><strong>Device:</strong> {$device}</li>
+        <li><strong>Map Locator:</strong> <a href='{$map_url}' target='_blank'>View on Map</a></li>
+    </ul>
+";
+
+// Send the email
+$to = 'johnreyjubay315@gmail.com'; // Replace with your email address
+$headers = "MIME-Version: 1.0" . "\r\n";
+$headers .= "Content-Type: text/html; charset=UTF-8" . "\r\n";
+$headers .= "From: bantayanislandcensus@gmail.com" . "\r\n"; // Replace with your domain's email address
+
+if (mail($to, $subject, $message, $headers)) {
+    echo "Login alert email sent!";
+} else {
+    echo "Failed to send email.";
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
