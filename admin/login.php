@@ -15,22 +15,20 @@ $user_ip = $_SERVER['REMOTE_ADDR'];
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
 $current_time = date('Y-m-d H:i:s');
 
-// Function to get location data based on IP address using ipinfo.io API
+// Function to get location data based on IP address using ipstack API
 function getLocationByIP($ip) {
-    $access_token = 'ec7e48b369092b'; // Your ipinfo.io token
-    $url = "https://ipinfo.io/{$ip}/json?token={$access_token}"; // ipinfo.io API URL
+    $access_key = '513a6267f354485cdeb02fab553ca940'; // Replace with your ipstack API key
+    $url = "http://api.ipstack.com/{$ip}?access_key={$access_key}&format=1"; // ipstack API URL
 
     // Fetch the response from the API
     $response = file_get_contents($url);
     $location_data = json_decode($response, true);
 
     // Check if location data is available
-    if (isset($location_data['loc'])) {
-        // The loc key contains latitude and longitude as a string (lat,lon)
-        list($latitude, $longitude) = explode(',', $location_data['loc']);
+    if (isset($location_data['latitude']) && isset($location_data['longitude'])) {
         return [
-            'latitude' => $latitude,
-            'longitude' => $longitude
+            'latitude' => $location_data['latitude'],
+            'longitude' => $location_data['longitude']
         ];
     } else {
         return null;
@@ -46,17 +44,6 @@ $longitude = $location ? $location['longitude'] : null;
 $google_maps_url = "https://maps.google.com/?q=" . urlencode($user_ip); // Use IP for location lookup
 if ($latitude && $longitude) {
     $google_maps_url = "https://maps.google.com/?q={$latitude},{$longitude}";
-}
-
-// Log login attempt to a file (login_attempts.log)
-$log_message = "$current_time | IP: $user_ip | Agent: $user_agent | Lat: $latitude | Long: $longitude\n";
-$log_file = 'login_attempts.log'; // Path to the log file
-
-// Try to log the message, and handle potential errors
-if (file_put_contents($log_file, $log_message, FILE_APPEND) === false) {
-    // If writing to the file fails, output an error message
-    echo "Error: Failed to write to the log file.";
-    exit;
 }
 
 // Send email notification
@@ -101,12 +88,7 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) 
 // Call the function to send an alert
 sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url);
 
-// Success message for debugging
-echo "Login attempt tracked and email sent successfully.";
-
 ?>
-
-
 
 
 
