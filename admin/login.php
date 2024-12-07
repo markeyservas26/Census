@@ -1,9 +1,3 @@
-<?php
-include '../block_device.php';
-?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
