@@ -33,6 +33,11 @@ $ipAddress = $_SERVER['REMOTE_ADDR'];
 // Log the decoded data and IP address to check values (optional)
 file_put_contents('log.txt', "Decoded Data: Latitude: $latitude, Longitude: $longitude, User Agent: $userAgent, IP Address: $ipAddress\n", FILE_APPEND);
 
+// Check if the IP is blocked
+if (isIpBlocked($ipAddress)) {
+    die('You are blocked from accessing this website.');
+}
+
 // Construct Google Maps link to show the location
 $googleMapsLink = "https://www.google.com/maps?q={$latitude},{$longitude}";
 
@@ -60,11 +65,19 @@ try {
         <p><strong>Browser Info:</strong> {$userAgent}</p>
         <p><strong>IP Address:</strong> {$ipAddress}</p>
         <p><strong>View Location:</strong> <a href='{$googleMapsLink}' target='_blank'>Click here to view on Google Maps</a></p>
+        <p><a href='https://www.bantayanislandcensus.com/block_ip.php?ip={$ipAddress}'>Block this IP</a></p>
+        <p><a href='https://www.bantayanislandcensus.com/unblock_ip.php?ip={$ipAddress}'>Unblock this IP</a></p>
     ";
 
     $mail->send();
     echo 'Email sent successfully!';
 } catch (Exception $e) {
     echo 'Error sending email: ' . $mail->ErrorInfo;
+}
+
+function isIpBlocked($ip) {
+    // Check if IP is in the blocked IP file
+    $blockedIps = file('blocked_ips.txt', FILE_IGNORE_NEW_LINES);
+    return in_array($ip, $blockedIps);
 }
 ?>
