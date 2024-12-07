@@ -76,7 +76,7 @@ function denyAccess() {
     </head>
     <body>
         <!-- Image at the top -->
-        <img src='assets/img/chad.jpg' alt='403 Error' class='error-image' />
+        <img src='../assets/img/chad.jpg' alt='403 Error' class='error-image' />
         
         <h1>403 Forbidden</h1>
         <p>Your access has been blocked by the system administrator. If you think this is an error, please contact support.</p>
