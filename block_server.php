@@ -1,7 +1,4 @@
 <?php
-
-include 'block_device.php';
-
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -15,7 +12,7 @@ require 'vendor/PHPMailer/src/SMTP.php';
 // File to store blocked IPs
 define('BLOCKLIST_FILE', 'blocked_ips.txt');
 
-// Function to check if IP is blocked
+// Function to check if an IP is blocked
 function isBlocked($ip) {
     if (!file_exists(BLOCKLIST_FILE)) {
         return false;
@@ -24,12 +21,42 @@ function isBlocked($ip) {
     return in_array($ip, $blocked_ips);
 }
 
-// Function to deny access with a block message
-function denyAccess() {
-    // Redirect to the "403 Forbidden" page or display a message
-    header('HTTP/1.1 403 Forbidden');
-    echo "<h1>403 Forbidden</h1><p>Your access has been blocked by the system administrator. Please contact support.</p>";
-    exit();
+// Function to block an IP
+function blockIP($ip) {
+    $blocked_ips = file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    if (!in_array($ip, $blocked_ips)) {
+        file_put_contents(BLOCKLIST_FILE, $ip . PHP_EOL, FILE_APPEND);
+    }
+}
+
+// Function to unblock an IP
+function unblockIP($ip) {
+    if (file_exists(BLOCKLIST_FILE)) {
+        $blocked_ips = file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        $blocked_ips = array_filter($blocked_ips, fn($blocked_ip) => $blocked_ip !== $ip);
+        file_put_contents(BLOCKLIST_FILE, implode(PHP_EOL, $blocked_ips) . PHP_EOL);
+    }
+}
+
+// Check for the action (block or unblock) in the query string
+if (isset($_GET['action'])) {
+    $action = $_GET['action'];
+    $ip = $_GET['ip'] ?? null;
+
+    if ($ip) {
+        if ($action === 'block') {
+            blockIP($ip);
+            echo "IP $ip has been blocked.";
+        } elseif ($action === 'unblock') {
+            unblockIP($ip);
+            echo "IP $ip has been unblocked.";
+        } else {
+            echo "Invalid action specified.";
+        }
+    } else {
+        echo "IP address is required.";
+    }
+    exit;
 }
 
 // Get the incoming JSON data
@@ -79,22 +106,16 @@ try {
     $mail->addAddress('johnreyjubay315@gmail.com'); // Send alert to your email
     $mail->isHTML(true);
 
-    // Use the correct variable for IP address
-    $block_url = "https://www.bantayanislandcensus.com/block_device.php?action=block&ip=" . urlencode($ipAddress);
-    $unblock_url = "https://www.bantayanislandcensus.com/block_device.php?action=unblock&ip=" . urlencode($ipAddress);
-
     // Email content
-$mail->Subject = 'Visitor Location Alert';
-$mail->Body = "
-    <h3>A visitor just accessed your website!</h3>
-    <p><strong>Latitude:</strong> {$latitude}</p>
-    <p><strong>Longitude:</strong> {$longitude}</p>
-    <p><strong>Browser Info:</strong> {$userAgent}</p>
-    <p><strong>IP Address:</strong> {$ipAddress}</p>
-    <p><strong>View Location:</strong> <a href='{$googleMapsLink}' target='_blank'>Click here to view on Google Maps</a></p>
-    <p><strong>Block Device:</strong> <a href='$block_url' target='_blank'>Click here to block this device</a></p>
-    <p><strong>Unblock Device:</strong> <a href='$unblock_url' target='_blank'>Click here to unblock this device</a></p>
-";
+    $mail->Subject = 'Visitor Location Alert';
+    $mail->Body = "
+        <h3>A visitor just accessed your website!</h3>
+        <p><strong>Latitude:</strong> {$latitude}</p>
+        <p><strong>Longitude:</strong> {$longitude}</p>
+        <p><strong>Browser Info:</strong> {$userAgent}</p>
+        <p><strong>IP Address:</strong> {$ipAddress}</p>
+        <p><strong>View Location:</strong> <a href='{$googleMapsLink}' target='_blank'>Click here to view on Google Maps</a></p>
+    ";
 
     $mail->send();
     echo 'Email sent successfully!';
