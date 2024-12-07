@@ -51,6 +51,7 @@ if (isBlocked($_SERVER['REMOTE_ADDR'])) {
     denyAccess(); // If the user's IP is blocked, deny access
 }
 
+// If the action is to block/unblock an IP, perform the respective action
 if ($action && $ip) {
     // Perform the requested action
     if ($action === 'block') {
@@ -65,7 +66,7 @@ if ($action && $ip) {
             echo "IP $ip is not in the blocklist.";
         } else {
             unblockIP($ip);
-            echo "IP $ip has been unblocked.";
+            echo "IP $ip has been unblocked and can now access the system.";
         }
     } else {
         echo "Invalid action. Use 'block' or 'unblock'.";
