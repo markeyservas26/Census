@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 1');
 
 // File to store blocked IPs
 define('BLOCKLIST_FILE', 'blocked_ips.txt');
@@ -17,10 +17,7 @@ function isBlocked($ip) {
 // Get user's IP address
 $user_ip = $_SERVER['REMOTE_ADDR'];
 
-// Check if IP is blocked
-if (isBlocked($user_ip)) {
-    // Redirect to the "403 Forbidden" page
-    header('Location: 403.php');
-    exit();  // Ensure no further script execution
-}
-?>
+// Return JSON response
+$response = ['blocked' => isBlocked($user_ip)];
+header('Content-Type: application/json');
+echo json_encode($response);
