@@ -34,6 +34,14 @@ function unblockIP($ip) {
     }
 }
 
+// Function to deny access
+function denyAccess() {
+    // Redirect to the "403 Forbidden" page or display a message
+    header('HTTP/1.1 403 Forbidden');
+    echo "<h1>403 Forbidden</h1><p>Your access has been blocked by the system administrator. Please contact support.</p>";
+    exit();
+}
+
 // Sanitize user input (action and IP)
 $action = isset($_GET['action']) ? htmlspecialchars($_GET['action']) : '';
 $ip = isset($_GET['ip']) ? filter_var($_GET['ip'], FILTER_VALIDATE_IP) : '';
