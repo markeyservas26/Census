@@ -10,15 +10,15 @@ require 'vendor/autoload.php'; // Use Composer's autoloader
 // Get the incoming JSON data
 $data = file_get_contents("php://input");
 
-// Log the raw data received
-file_put_contents('log.txt', $data, FILE_APPEND);
+// Log the raw data to debug
+file_put_contents('log.txt', "Received Data: $data\n", FILE_APPEND);
 
-$visitorInfo = json_decode($data, true);
-
-// Check for JSON errors
-if (json_last_error() !== JSON_ERROR_NONE) {
+// Check if data is valid JSON
+if ($data === false || json_last_error() !== JSON_ERROR_NONE) {
     die('Invalid JSON data: ' . json_last_error_msg()); // Provide more details on the error
 }
+
+$visitorInfo = json_decode($data, true);
 
 // Extract details
 $latitude = $visitorInfo['latitude'] ?? 'Unknown';
