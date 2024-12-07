@@ -1,6 +1,5 @@
 <?php
 include '../block_device.php';
-include '../block_ip_ajax.php';
 ?>
 
 
