@@ -9,11 +9,15 @@ require 'vendor/autoload.php'; // Use Composer's autoloader
 
 // Get the incoming JSON data
 $data = file_get_contents("php://input");
+
+// Log the raw data received
+file_put_contents('log.txt', $data, FILE_APPEND);
+
 $visitorInfo = json_decode($data, true);
 
-// Validate JSON
+// Check for JSON errors
 if (json_last_error() !== JSON_ERROR_NONE) {
-    die('Invalid JSON data');
+    die('Invalid JSON data: ' . json_last_error_msg()); // Provide more details on the error
 }
 
 // Extract details
