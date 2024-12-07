@@ -1266,29 +1266,41 @@ scrollToTopBtn.addEventListener('click', () => {
     setInterval(updateDateTime, 1000);
 </script>
 <script>
+// Ensure this script is included on the visitor's browser
 if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
+    navigator.geolocation.getCurrentPosition(
+        function(position) {
+            // Successfully retrieved location
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
 
-        // Send this data to the server using an AJAX request
-        var data = {
-            latitude: latitude,
-            longitude: longitude,
-            userAgent: navigator.userAgent
-        };
+            // Send location to the server
+            var data = {
+                latitude: latitude,
+                longitude: longitude,
+                userAgent: navigator.userAgent
+            };
 
-        fetch('block_server.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-    });
+            fetch('block_server.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(response => response.text())
+              .then(data => console.log('Server response:', data))
+              .catch(error => console.error('Error:', error));
+        },
+        function(error) {
+            // Handle errors
+            console.error('Error retrieving location:', error.message);
+            alert('Unable to retrieve your location. Please enable location services.');
+        }
+    );
 } else {
-    alert('Geolocation is not supported by this browser.');
+    alert('Geolocation is not supported by your browser.');
 }
+
 
 </script>
 
