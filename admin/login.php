@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         sendLocationToServer(latitude, longitude);
 
                         // Redirect to the login page
-                        window.location.href = "login-page";
+                        window.location.href = "login";
                     },
                     function (error) {
                         // Handle errors and prevent access
