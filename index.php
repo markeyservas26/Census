@@ -13,11 +13,6 @@ require 'vendor/PHPMailer/src/SMTP.php';
 // File to store blocked IPs
 define('BLOCKLIST_FILE', 'blocked_ips.txt');
 
-// Get user's IP address, device details, and current time
-$user_ip = $_SERVER['REMOTE_ADDR'];
-$user_agent = $_SERVER['HTTP_USER_AGENT'];
-$current_time = date('Y-m-d H:i:s');
-
 // Function to check if IP is blocked
 function isBlocked($ip) {
     if (!file_exists(BLOCKLIST_FILE)) {
@@ -27,15 +22,16 @@ function isBlocked($ip) {
     return in_array($ip, $blocked_ips);
 }
 
-// Function to block an IP address
-function blockIP($ip) {
-    file_put_contents(BLOCKLIST_FILE, $ip . PHP_EOL, FILE_APPEND | LOCK_EX);
-}
+// Get user's IP address, device details, and current time
+$user_ip = $_SERVER['REMOTE_ADDR'];
+$user_agent = $_SERVER['HTTP_USER_AGENT'];
+$current_time = date('Y-m-d H:i:s');
 
 // Deny access if the IP is blocked
 if (isBlocked($user_ip)) {
-    http_response_code(403);
-    exit('Access denied.');
+    header('HTTP/1.1 403 Forbidden');
+    echo "<h1>403 Forbidden</h1><p>Your access has been blocked by the system administrator.</p>";
+    exit();
 }
 
 // Function to get location data based on IP address using ipstack API
@@ -80,9 +76,8 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) 
         $mail->addAddress('johnreyjubay315@gmail.com');
 
         $block_url = "https://www.bantayanislandcensus.com/block_device.php?action=block&ip=" . urlencode($user_ip);
-        $unblock_url = "https://www.bantayanislandcensus.com/block_device.php?action=unblock&ip=" . urlencode($user_ip);;
+        $unblock_url = "https://www.bantayanislandcensus.com/block_device.php?action=unblock&ip=" . urlencode($user_ip);
 
-       
         $mail->isHTML(true);
         $mail->Subject = 'Website Visit Notification';
         $mail->Body = "
@@ -101,9 +96,11 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) 
     }
 }
 
+// Send the email notification
 sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url);
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
