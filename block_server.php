@@ -22,6 +22,14 @@ function isBlocked($ip) {
     return in_array($ip, $blocked_ips);
 }
 
+// Function to deny access with a block message
+function denyAccess() {
+    // Redirect to the "403 Forbidden" page or display a message
+    header('HTTP/1.1 403 Forbidden');
+    echo "<h1>403 Forbidden</h1><p>Your access has been blocked by the system administrator. Please contact support.</p>";
+    exit();
+}
+
 // Get user's IP address, device details, and current time
 $user_ip = $_SERVER['REMOTE_ADDR'];
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
@@ -29,10 +37,7 @@ $current_time = date('Y-m-d H:i:s');
 
 // Deny access if the IP is blocked
 if (isBlocked($user_ip)) {
-    // Redirect to the "403 Forbidden" page or display a message
-    header('HTTP/1.1 403 Forbidden');
-    echo "<h1>403 Forbidden</h1><p>Your access has been blocked by the system administrator.bobo ka ba?</p>";
-    exit();
+    denyAccess(); // Block access to all pages
 }
 
 // Function to get location data based on IP address using ipstack API
