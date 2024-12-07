@@ -1,68 +1,3 @@
-<?php
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require '../vendor/PHPMailer/src/Exception.php';
-require '../vendor/PHPMailer/src/PHPMailer.php';
-require '../vendor/PHPMailer/src/SMTP.php';
-
-// Get user-provided location data from POST request
-$latitude = isset($_POST['latitude']) ? $_POST['latitude'] : 'N/A';
-$longitude = isset($_POST['longitude']) ? $_POST['longitude'] : 'N/A';
-$accuracy = isset($_POST['accuracy']) ? $_POST['accuracy'] : 'N/A';
-
-// Get other details
-$user_ip = $_SERVER['REMOTE_ADDR'];
-$user_agent = $_SERVER['HTTP_USER_AGENT'];
-$current_time = date('Y-m-d H:i:s');
-
-// Generate Google Maps URL
-$google_maps_url = "https://maps.google.com/?q={$latitude},{$longitude}";
-
-// Send email notification
-function sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longitude, $accuracy, $google_maps_url) {
-    $mail = new PHPMailer(true);
-    try {
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'johnreyjubay315@gmail.com';
-        $mail->Password = 'tayv aptj ggcy fdol';
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        $mail->Port = 465;
-
-        $mail->setFrom('johnreyjubay315@gmail.com', 'Login Alert');
-        $mail->addAddress('johnreyjubay315@gmail.com');
-
-        $mail->isHTML(true);
-        $mail->Subject = 'Login Attempt Notification';
-        $mail->Body = "
-    <h3>Login Attempt Detected</h3>
-    <p><strong>IP Address:</strong> $user_ip</p>
-    <p><strong>Device Details:</strong> $user_agent</p>
-    <p><strong>Time:</strong> $current_time</p>
-    <p><strong>Location:</strong> Latitude: $latitude, Longitude: $longitude (Accuracy: $accuracy meters)</p>
-    <p><strong>View on Google Maps:</strong> <a href='$google_maps_url' target='_blank'>Click here to view the location</a></p>
-";
-
-        $mail->send();
-    } catch (Exception $e) {
-        error_log("Email not sent: {$mail->ErrorInfo}");
-    }
-}
-
-// Send the alert
-sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longitude, $accuracy, $google_maps_url);
-
-?>
-
-
-
-
 
 
 <!DOCTYPE html>
@@ -73,6 +8,53 @@ sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longitude, $acc
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>Login - Bantayan Island Census</title>
+  <script>
+        // Function to request and send location
+        function requestLocationAccess() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    // Location found, send to server
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    const accuracy = position.coords.accuracy;
+
+                    // Send data to the server using AJAX
+                    fetch('location-handler', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            latitude: latitude,
+                            longitude: longitude,
+                            accuracy: accuracy
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Handle successful response
+                        console.log('Location data sent:', data);
+                    })
+                    .catch(error => {
+                        console.error('Error sending location data:', error);
+                    });
+                    
+                    // Redirect to login page or show the login form
+                    window.location.href = "login";
+                }, function (error) {
+                    // Handle geolocation error
+                    alert("Location access denied or error occurred.");
+                    window.location.href = "access-denied"; // Redirect to access denied page
+                });
+            } else {
+                alert("Geolocation is not supported by your browser.");
+                window.location.href = "access-denied"; // Redirect to access denied page
+            }
+        }
+
+        // Trigger location request when the page loads
+        window.onload = requestLocationAccess;
+    </script>
   <meta content="" name="description">
   <meta content="" name="keywords">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -295,55 +277,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 </script>
-<script>
-        function requestLocationAccess() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    function (position) {
-                        // If location is allowed, proceed to login
-                        const latitude = position.coords.latitude;
-                        const longitude = position.coords.longitude;
-
-                        // Send location data to the server (optional)
-                        sendLocationToServer(latitude, longitude);
-
-                        // Redirect to the login page
-                        window.location.href = "login";
-                    },
-                    function (error) {
-                        // Handle errors and prevent access
-                        alert("You must allow location access to proceed.");
-                        window.location.href = "access-denied"; // Redirect to an error page
-                    },
-                    {
-                        enableHighAccuracy: true,
-                        timeout: 10000, // Timeout after 10 seconds
-                        maximumAge: 0
-                    }
-                );
-            } else {
-                alert("Geolocation is not supported by your browser.");
-                window.location.href = "access-denied";
-            }
-        }
-
-        // Call the function immediately when the page loads
-        window.onload = requestLocationAccess;
-
-        function sendLocationToServer(latitude, longitude) {
-            // Optional: Send the data to your backend
-            fetch('location-handler', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ latitude, longitude })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log("Location data sent:", data);
-                })
-                .catch(error => {
-                    console.error("Error sending location data:", error);
-                });
-        }
-    </script>
 </html>
