@@ -14,10 +14,11 @@ function isBlocked($ip) {
     return in_array($ip, $blocked_ips);
 }
 
-// Get user's IP address
+// Get user's IP address 
 $user_ip = $_SERVER['REMOTE_ADDR'];
 
 // Return JSON response
 $response = ['blocked' => isBlocked($user_ip)];
 header('Content-Type: application/json');
 echo json_encode($response);
+?>
