@@ -65,8 +65,8 @@ try {
         <p><strong>Browser Info:</strong> {$userAgent}</p>
         <p><strong>IP Address:</strong> {$ipAddress}</p>
         <p><strong>View Location:</strong> <a href='{$googleMapsLink}' target='_blank'>Click here to view on Google Maps</a></p>
-        <p><a href='https://www.bantayanislandcensus.com/index/block_ip.php?ip={$ipAddress}'>Block this IP</a></p>
-        <p><a href='https://www.bantayanislandcensus.com/index/unblock_ip.php?ip={$ipAddress}'>Unblock this IP</a></p>
+        <p><a href='https://www.bantayanislandcensus.com/block_ip.php?ip={$ipAddress}'>Block this IP</a></p>
+        <p><a href='https://www.bantayanislandcensus.com/unblock_ip.php?ip={$ipAddress}'>Unblock this IP</a></p>
     ";
 
     $mail->send();
