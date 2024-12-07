@@ -1,4 +1,8 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1');
+
+// File to store blocked IPs
 define('BLOCKLIST_FILE', 'blocked_ips.txt');
 
 // Function to check if IP is blocked
@@ -10,12 +14,10 @@ function isBlocked($ip) {
     return in_array($ip, $blocked_ips);
 }
 
-// Get the user's IP address
+// Get user's IP address
 $user_ip = $_SERVER['REMOTE_ADDR'];
 
-// If the user's IP is blocked, deny access and terminate the script
-if (isBlocked($user_ip)) {
-    header('HTTP/1.1 403 Forbidden');
-    echo "<h1>403 Forbidden</h1><p>Your access has been blocked by the system administrator.</p>";
-    exit(); // Stop further script execution
-}
+// Return JSON response
+$response = ['blocked' => isBlocked($user_ip)];
+header('Content-Type: application/json');
+echo json_encode($response);
