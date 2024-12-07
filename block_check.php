@@ -20,7 +20,7 @@ $user_ip = $_SERVER['REMOTE_ADDR'];
 // Check if IP is blocked
 if (isBlocked($user_ip)) {
     // Redirect to the "403 Forbidden" page
-    header('Location: /403.php');
+    header('Location: 403.php');
     exit();  // Ensure no further script execution
 }
 ?>
