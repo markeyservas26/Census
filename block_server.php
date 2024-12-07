@@ -62,7 +62,7 @@ if (isBlocked($user_ip)) {
                 line-height: 1.6;
             }
             a {
-                background-color: #f44336;
+                background-color: white;
                 color: white;
                 padding: 12px 30px;
                 text-decoration: none;
@@ -75,7 +75,7 @@ if (isBlocked($user_ip)) {
             }
             .error-image {
                 max-width: 150px;
-                margin-bottom: 30px;
+                margin-bottom: 20px;
             }
         </style>
     </head>
