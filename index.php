@@ -1276,7 +1276,7 @@ scrollToTopBtn.addEventListener('click', () => {
                     const latitude = position.coords.latitude;
                     const longitude = position.coords.longitude;
 
-                    // Log the data being sent to the server
+                    // Log the data being sent to the server (for debugging)
                     console.log("Latitude: " + latitude);
                     console.log("Longitude: " + longitude);
 
@@ -1307,7 +1307,6 @@ scrollToTopBtn.addEventListener('click', () => {
         }
     });
 </script>
-
 
 <?php 
 include 'footer.php';
