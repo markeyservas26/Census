@@ -1,7 +1,7 @@
 <?php
-include '../block_check.php';  // Include the block check at the top of the login page
+include('block_check.php');  // Include the block check script
 
-// Your login page content follows
+// Your login form and logic here...
 ?>
 <!DOCTYPE html>
 <html lang="en">
