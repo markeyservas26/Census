@@ -46,50 +46,44 @@ if (isBlocked($user_ip)) {
                 background-color: #f8d7da;
                 color: #721c24;
                 text-align: center;
-                padding: 50px;
-            }
-            .container {
-                background-color: #ffffff;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-                max-width: 500px;
-                margin: 0 auto;
+                padding: 100px 20px;
+                margin: 0;
             }
             h1 {
-                font-size: 50px;
+                font-size: 70px;
                 margin-bottom: 20px;
                 color: #721c24;
+                font-weight: bold;
             }
             p {
-                font-size: 18px;
+                font-size: 20px;
                 margin-bottom: 20px;
+                line-height: 1.6;
             }
-            .btn {
+            a {
                 background-color: #f44336;
                 color: white;
-                padding: 10px 20px;
+                padding: 12px 30px;
                 text-decoration: none;
                 border-radius: 5px;
-                font-size: 16px;
-                cursor: pointer;
+                font-size: 18px;
+                font-weight: bold;
             }
-            .btn:hover {
+            a:hover {
                 background-color: #e53935;
             }
         </style>
     </head>
     <body>
-        <div class='container'>
-            <h1>403 Forbidden</h1>
-            <p>Your access has been blocked by the system administrator. Please contact support if you think this is an error.</p>
-            <a href='/' class='btn'>Go to Homepage</a>
-        </div>
+        <h1>403 Forbidden</h1>
+        <p>Your access has been blocked by the system administrator. If you think this is an error, please contact support.</p>
+        <a href='/'>Go to Homepage</a>
     </body>
     </html>
     ";
     exit();
 }
+
 
 // Function to get location data based on IP address using ipstack API
 function getLocationByIP($ip) {
