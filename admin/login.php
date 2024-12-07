@@ -15,10 +15,10 @@ $user_ip = $_SERVER['REMOTE_ADDR'];
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
 $current_time = date('Y-m-d H:i:s');
 
-// Function to get location data based on IP address using ipstack API
-function getLocationByIP($ip) {
-    $access_key = '513a6267f354485cdeb02fab553ca940'; // Replace with your ipstack API key
-    $url = "http://api.ipstack.com/{$ip}?access_key={$access_key}&format=1"; // ipstack API URL
+// Function to get location data using an API (e.g., ipgeolocation.io)
+function trackIPAddress($ip) {
+    $api_key = 'a9c7df9068cf491dbf4a3450d88e2338'; // Replace with your API key
+    $url = "https://api.ipgeolocation.io/ipgeo?apiKey={$api_key}&ip={$ip}";
 
     // Fetch the response from the API
     $response = file_get_contents($url);
@@ -28,31 +28,37 @@ function getLocationByIP($ip) {
     if (isset($location_data['latitude']) && isset($location_data['longitude'])) {
         return [
             'latitude' => $location_data['latitude'],
-            'longitude' => $location_data['longitude']
+            'longitude' => $location_data['longitude'],
+            'city' => $location_data['city'] ?? 'Unknown City',
+            'region' => $location_data['state_prov'] ?? 'Unknown Region',
+            'country' => $location_data['country_name'] ?? 'Unknown Country'
         ];
     } else {
         return null;
     }
 }
 
-// Get the user's geolocation based on IP
-$location = getLocationByIP($user_ip);
-$latitude = $location ? $location['latitude'] : null;
-$longitude = $location ? $location['longitude'] : null;
+// Get the user's geolocation based on the IP
+$location = trackIPAddress($user_ip);
+$latitude = $location['latitude'] ?? 'N/A';
+$longitude = $location['longitude'] ?? 'N/A';
+$city = $location['city'] ?? 'N/A';
+$region = $location['region'] ?? 'N/A';
+$country = $location['country'] ?? 'N/A';
 
 // Generate Google Maps URL
-$google_maps_url = "https://maps.google.com/?q=" . urlencode($user_ip); // Use IP for location lookup
-if ($latitude && $longitude) {
+$google_maps_url = "https://maps.google.com/?q=" . urlencode($user_ip);
+if ($latitude !== 'N/A' && $longitude !== 'N/A') {
     $google_maps_url = "https://maps.google.com/?q={$latitude},{$longitude}";
 }
 
 // Send email notification
-function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) {
-    $mail = new PHPMailer(true); // Ensure PHPMailer is properly referenced
+function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url, $city, $region, $country) {
+    $mail = new PHPMailer(true);
     try {
         // Server settings
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com'; // Gmail SMTP server
+        $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'johnreyjubay315@gmail.com'; // Your Gmail address
         $mail->Password = 'tayv aptj ggcy fdol'; // Your Gmail app password
@@ -60,11 +66,11 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) 
         $mail->Port = 465;
 
         // Disable debugging output
-        $mail->SMTPDebug = 0;  // Set to 0 to disable debug output
+        $mail->SMTPDebug = 0;
 
         // Recipients
         $mail->setFrom('johnreyjubay315@gmail.com', 'Login Alert');
-        $mail->addAddress('johnreyjubay315@gmail.com'); // Send to yourself
+        $mail->addAddress('johnreyjubay315@gmail.com');
 
         // Email content
         $mail->isHTML(true);
@@ -74,21 +80,22 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) 
             <p><strong>IP Address:</strong> $user_ip</p>
             <p><strong>Device Details:</strong> $user_agent</p>
             <p><strong>Time:</strong> $current_time</p>
+            <p><strong>Location:</strong> $city, $region, $country</p>
             <p><strong>View on Google Maps:</strong> <a href='$google_maps_url' target='_blank'>Click here to view the location</a></p>
         ";
 
         // Send the email
         $mail->send();
     } catch (Exception $e) {
-        // Handle email errors (optional logging)
         error_log("Email not sent: {$mail->ErrorInfo}");
     }
 }
 
 // Call the function to send an alert
-sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url);
+sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url, $city, $region, $country);
 
 ?>
+
 
 
 
