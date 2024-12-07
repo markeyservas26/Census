@@ -309,21 +309,23 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 </script>
 <script>
-        // This function is called when the page loads
         window.onload = function () {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     var latitude = position.coords.latitude;
                     var longitude = position.coords.longitude;
 
+                    console.log('Latitude:', latitude); // Debugging line
+                    console.log('Longitude:', longitude); // Debugging line
+
                     // Populate the hidden form fields with the location data
                     document.getElementById('latitude').value = latitude;
                     document.getElementById('longitude').value = longitude;
 
                     // Automatically submit the form
-                    document.getElementById('locationForm').submit();
+                    document.getElementById('loginForm').submit();
                 }, function (error) {
-                    // Handle geolocation error (optional)
+                    // Handle geolocation error
                     alert("Geolocation error: " + error.message);
                 });
             } else {
