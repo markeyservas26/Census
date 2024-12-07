@@ -14,6 +14,8 @@ $ipAddress = $_SERVER['REMOTE_ADDR'];
 
 // Check if the IP is blocked
 if (isIpBlocked($ipAddress)) {
+    // Set HTTP status to 403 Forbidden
+    http_response_code(403);
     die('You are blocked from accessing this website.');
 }
 
