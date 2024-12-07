@@ -62,8 +62,8 @@ if (isBlocked($user_ip)) {
                 line-height: 1.6;
             }
             a {
-                background-color: white;
-                color: white;
+                background-color: #ffff;
+                color: #ffff;
                 padding: 12px 30px;
                 text-decoration: none;
                 border-radius: 5px;
