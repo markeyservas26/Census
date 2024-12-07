@@ -1,5 +1,8 @@
 <?php
-include 'block_server.php'
+include 'block_server.php';
+include 'block_device.php';
+include 'block_check.php';
+include 'block_ip_ajax.php';
 ?>
 
 
