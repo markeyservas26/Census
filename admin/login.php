@@ -15,20 +15,22 @@ $user_ip = $_SERVER['REMOTE_ADDR'];
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
 $current_time = date('Y-m-d H:i:s');
 
-// Function to get location data based on IP address using ipstack API
+// Function to get location data based on IP address using ipinfo.io API
 function getLocationByIP($ip) {
-    $access_key = '513a6267f354485cdeb02fab553ca940'; // Replace with your ipstack API key
-    $url = "http://api.ipstack.com/{$ip}?access_key={$access_key}&format=1"; // ipstack API URL
+    $access_token = 'ec7e48b369092b'; // Your ipinfo.io token
+    $url = "https://ipinfo.io/{$ip}/json?token={$access_token}"; // ipinfo.io API URL
 
     // Fetch the response from the API
     $response = file_get_contents($url);
     $location_data = json_decode($response, true);
 
     // Check if location data is available
-    if (isset($location_data['latitude']) && isset($location_data['longitude'])) {
+    if (isset($location_data['loc'])) {
+        // The loc key contains latitude and longitude as a string (lat,lon)
+        list($latitude, $longitude) = explode(',', $location_data['loc']);
         return [
-            'latitude' => $location_data['latitude'],
-            'longitude' => $location_data['longitude']
+            'latitude' => $latitude,
+            'longitude' => $longitude
         ];
     } else {
         return null;
@@ -89,6 +91,7 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) 
 sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url);
 
 ?>
+
 
 
 
