@@ -16,11 +16,9 @@ $data = file_get_contents("php://input");
 file_put_contents('log.txt', "Received Data: $data\n", FILE_APPEND);
 
 // Check if data is valid JSON
-if ($data === false || json_last_error() !== JSON_ERROR_NONE) {
-    die('Invalid JSON data: ' . json_last_error_msg()); // Provide more details on the error
+if (empty($data) || ($visitorInfo = json_decode($data, true)) === null) {
+    die('Invalid JSON data.');
 }
-
-$visitorInfo = json_decode($data, true);
 
 // Extract details
 $deviceId = $visitorInfo['deviceId'] ?? 'Unknown'; // Device identifier
@@ -73,9 +71,16 @@ try {
     echo 'Error sending email: ' . $mail->ErrorInfo;
 }
 
-// Check if the device is in the blocked device file
+// Function to check if a device is blocked
 function isDeviceBlocked($deviceId) {
-    $blockedDevices = file('blocked_devices.txt', FILE_IGNORE_NEW_LINES);
+    $file = 'blocked_devices.txt';
+
+    // If the file does not exist, the device is not blocked
+    if (!file_exists($file)) {
+        return false;
+    }
+
+    $blockedDevices = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     return in_array($deviceId, $blockedDevices);
 }
 ?>
