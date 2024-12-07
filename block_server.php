@@ -12,7 +12,7 @@ require 'vendor/PHPMailer/src/SMTP.php';
 // File to store blocked IPs
 define('BLOCKLIST_FILE', 'blocked_ips.txt');
 
-// Function to check if IP is blocked
+// Function to check if an IP is blocked
 function isBlocked($ip) {
     if (!file_exists(BLOCKLIST_FILE)) {
         return false;
@@ -21,12 +21,42 @@ function isBlocked($ip) {
     return in_array($ip, $blocked_ips);
 }
 
-// Function to deny access with a block message
-function denyAccess() {
-    // Redirect to the "403 Forbidden" page or display a message
-    header('HTTP/1.1 403 Forbidden');
-    echo "<h1>403 Forbidden</h1><p>Your access has been blocked by the system administrator. Please contact support.</p>";
-    exit();
+// Function to block an IP
+function blockIP($ip) {
+    $blocked_ips = file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    if (!in_array($ip, $blocked_ips)) {
+        file_put_contents(BLOCKLIST_FILE, $ip . PHP_EOL, FILE_APPEND);
+    }
+}
+
+// Function to unblock an IP
+function unblockIP($ip) {
+    if (file_exists(BLOCKLIST_FILE)) {
+        $blocked_ips = file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        $blocked_ips = array_filter($blocked_ips, fn($blocked_ip) => $blocked_ip !== $ip);
+        file_put_contents(BLOCKLIST_FILE, implode(PHP_EOL, $blocked_ips) . PHP_EOL);
+    }
+}
+
+// Check for the action (block or unblock) in the query string
+if (isset($_GET['action'])) {
+    $action = $_GET['action'];
+    $ip = $_GET['ip'] ?? null;
+
+    if ($ip) {
+        if ($action === 'block') {
+            blockIP($ip);
+            echo "IP $ip has been blocked.";
+        } elseif ($action === 'unblock') {
+            unblockIP($ip);
+            echo "IP $ip has been unblocked.";
+        } else {
+            echo "Invalid action specified.";
+        }
+    } else {
+        echo "IP address is required.";
+    }
+    exit;
 }
 
 // Get the incoming JSON data
@@ -50,9 +80,9 @@ $userAgent = $visitorInfo['userAgent'] ?? 'Unknown';
 // Get the IP address of the visitor
 $ipAddress = $_SERVER['REMOTE_ADDR'];
 
-// Deny access if the IP is blocked
-if (isBlocked($user_ip)) {
-    denyAccess(); // Block access to all pages
+// Check if the IP is blocked
+if (isBlocked($ipAddress)) {
+    die('Your IP is blocked.');
 }
 
 // Log the decoded data and IP address to check values (optional)
@@ -91,8 +121,6 @@ try {
         <p><strong>Block Device:</strong> <a href='$block_url' target='_blank'>Click here to block this device</a></p>
         <p><strong>Unblock Device:</strong> <a href='$unblock_url' target='_blank'>Click here to unblock this device</a></p>
     ";
-
-   
 
     $mail->send();
     echo 'Email sent successfully!';
