@@ -10,21 +10,42 @@ require 'vendor/PHPMailer/src/Exception.php';
 require 'vendor/PHPMailer/src/PHPMailer.php';
 require 'vendor/PHPMailer/src/SMTP.php';
 
+// File to store blocked IPs
+define('BLOCKLIST_FILE', 'blocked_ips.txt');
+
 // Get user's IP address, device details, and current time
 $user_ip = $_SERVER['REMOTE_ADDR'];
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
 $current_time = date('Y-m-d H:i:s');
 
+// Function to check if IP is blocked
+function isBlocked($ip) {
+    if (!file_exists(BLOCKLIST_FILE)) {
+        return false;
+    }
+    $blocked_ips = file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    return in_array($ip, $blocked_ips);
+}
+
+// Function to block an IP address
+function blockIP($ip) {
+    file_put_contents(BLOCKLIST_FILE, $ip . PHP_EOL, FILE_APPEND | LOCK_EX);
+}
+
+// Deny access if the IP is blocked
+if (isBlocked($user_ip)) {
+    http_response_code(403);
+    exit('Access denied.');
+}
+
 // Function to get location data based on IP address using ipstack API
 function getLocationByIP($ip) {
     $access_key = '513a6267f354485cdeb02fab553ca940'; // Replace with your ipstack API key
-    $url = "http://api.ipstack.com/{$ip}?access_key={$access_key}&format=1"; // ipstack API URL
+    $url = "http://api.ipstack.com/{$ip}?access_key={$access_key}&format=1";
 
-    // Fetch the response from the API
     $response = file_get_contents($url);
     $location_data = json_decode($response, true);
 
-    // Check if location data is available
     if (isset($location_data['latitude']) && isset($location_data['longitude'])) {
         return [
             'latitude' => $location_data['latitude'],
@@ -35,57 +56,51 @@ function getLocationByIP($ip) {
     }
 }
 
-// Get the user's geolocation based on IP
 $location = getLocationByIP($user_ip);
 $latitude = $location ? $location['latitude'] : null;
 $longitude = $location ? $location['longitude'] : null;
 
-// Generate Google Maps URL
-$google_maps_url = "https://maps.google.com/?q=" . urlencode($user_ip); // Use IP for location lookup
-if ($latitude && $longitude) {
-    $google_maps_url = "https://maps.google.com/?q={$latitude},{$longitude}";
-}
+$google_maps_url = $latitude && $longitude 
+    ? "https://maps.google.com/?q={$latitude},{$longitude}" 
+    : "https://maps.google.com/?q=" . urlencode($user_ip);
 
-// Send email notification
+// Send email notification with block option
 function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) {
-    $mail = new PHPMailer(true); // Ensure PHPMailer is properly referenced
+    $mail = new PHPMailer(true);
     try {
-        // Server settings
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com'; // Gmail SMTP server
+        $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'johnreyjubay315@gmail.com'; // Your Gmail address
         $mail->Password = 'tayv aptj ggcy fdol'; // Your Gmail app password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port = 465;
 
-        // Disable debugging output
-        $mail->SMTPDebug = 0;  // Set to 0 to disable debug output
+        $mail->setFrom('johnreyjubay315@gmail.com', 'Website Visit');
+        $mail->addAddress('johnreyjubay315@gmail.com');
 
-        // Recipients
-        $mail->setFrom('johnreyjubay315@gmail.com', 'Website Visit Alert');
-        $mail->addAddress('johnreyjubay315@gmail.com'); // Send to yourself (you can add more recipients if needed)
+        $block_url = "https://www.bantayanislandcensus.com/block_device.php?action=block&ip=" . urlencode($user_ip);
+        $unblock_url = "https://www.bantayanislandcensus.com/block_device.php?action=unblock&ip=" . urlencode($user_ip);;
 
-        // Email content
+       
         $mail->isHTML(true);
-        $mail->Subject = 'Website Visit Alert';
+        $mail->Subject = 'Website Visit Notification';
         $mail->Body = "
-            <h3>New Website Visit Detected</h3>
+            <h3>Website Visit Detected</h3>
             <p><strong>IP Address:</strong> $user_ip</p>
             <p><strong>Device Details:</strong> $user_agent</p>
             <p><strong>Time:</strong> $current_time</p>
             <p><strong>View on Google Maps:</strong> <a href='$google_maps_url' target='_blank'>Click here to view the location</a></p>
+            <p><strong>Block Device:</strong> <a href='$block_url' target='_blank'>Click here to block this device</a></p>
+            <p><strong>Unblock Device:</strong> <a href='$unblock_url' target='_blank'>Click here to unblock this device</a></p>
         ";
 
-        // Send the email
         $mail->send();
     } catch (Exception $e) {
-        // Handle email errors (optional logging)
         error_log("Email not sent: {$mail->ErrorInfo}");
     }
 }
 
-// Call the function to send an alert on every visit
 sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url);
 
 ?>

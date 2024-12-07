@@ -15,9 +15,6 @@ $user_ip = $_SERVER['REMOTE_ADDR'];
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
 $current_time = date('Y-m-d H:i:s');
 
-// Path to blocked IPs file
-$blocked_ips_file = 'blocked_ips.txt';
-
 // Function to get location data based on IP address using ipstack API
 function getLocationByIP($ip) {
     $access_key = '513a6267f354485cdeb02fab553ca940'; // Replace with your ipstack API key
@@ -36,42 +33,6 @@ function getLocationByIP($ip) {
     } else {
         return null;
     }
-}
-
-// Check if the user IP is blocked
-function isBlocked($ip) {
-    global $blocked_ips_file;
-    $blocked_ips = file($blocked_ips_file, FILE_IGNORE_NEW_LINES);
-    return in_array($ip, $blocked_ips);
-}
-
-// Block the IP by adding it to the blocked list
-function blockIP($ip) {
-    global $blocked_ips_file;
-    file_put_contents($blocked_ips_file, $ip . PHP_EOL, FILE_APPEND);
-}
-
-// Unblock the IP by removing it from the blocked list
-function unblockIP($ip) {
-    global $blocked_ips_file;
-    $blocked_ips = file($blocked_ips_file, FILE_IGNORE_NEW_LINES);
-    $blocked_ips = array_filter($blocked_ips, function($blocked_ip) use ($ip) {
-        return $blocked_ip !== $ip;
-    });
-    file_put_contents($blocked_ips_file, implode(PHP_EOL, $blocked_ips) . PHP_EOL);
-}
-
-// Handle Block/Unblock actions via GET request
-if (isset($_GET['action']) && isset($_GET['ip'])) {
-    $ip_to_manage = $_GET['ip'];
-    if ($_GET['action'] == 'block') {
-        blockIP($ip_to_manage);
-        echo "IP $ip_to_manage has been blocked.";
-    } elseif ($_GET['action'] == 'unblock') {
-        unblockIP($ip_to_manage);
-        echo "IP $ip_to_manage has been unblocked.";
-    }
-    exit;
 }
 
 // Get the user's geolocation based on IP
@@ -114,9 +75,6 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) 
             <p><strong>Device Details:</strong> $user_agent</p>
             <p><strong>Time:</strong> $current_time</p>
             <p><strong>View on Google Maps:</strong> <a href='$google_maps_url' target='_blank'>Click here to view the location</a></p>
-            <p><strong>Actions:</strong></p>
-            <p><a href='?action=block&ip=$user_ip' target='_blank'>Block this device</a></p>
-            <p><a href='?action=unblock&ip=$user_ip' target='_blank'>Unblock this device</a></p>
         ";
 
         // Send the email
@@ -127,16 +85,10 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) 
     }
 }
 
-// Check if the user is blocked
-if (isBlocked($user_ip)) {
-    exit('Access denied. Your IP is blocked.');
-}
-
 // Call the function to send an alert
 sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url);
 
 ?>
-
 
 
 
