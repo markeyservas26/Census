@@ -296,26 +296,78 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 </script>
 <script>
-        // Request user's location
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                function (position) {
-                    // Populate hidden form fields with location data
-                    document.getElementById('latitude').value = position.coords.latitude;
-                    document.getElementById('longitude').value = position.coords.longitude;
-                    document.getElementById('accuracy').value = position.coords.accuracy;
-                },
-                function (error) {
-                    console.error("Geolocation error:", error);
-                },
-                {
-                    enableHighAccuracy: true, // Use GPS for accurate location
-                    timeout: 5000 // Timeout after 5 seconds
-                }
-            );
-        } else {
-            console.error("Geolocation is not supported by this browser.");
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                // Populate hidden fields with latitude, longitude, and accuracy
+                document.getElementById('latitude').value = position.coords.latitude;
+                document.getElementById('longitude').value = position.coords.longitude;
+                document.getElementById('accuracy').value = position.coords.accuracy;
+            },
+            function (error) {
+                console.error("Geolocation error:", error);
+                alert("Unable to fetch location. Please check browser settings.");
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10000, // Timeout after 10 seconds
+                maximumAge: 0 // Prevent caching of old location
+            }
+        );
+    } else {
+        alert("Geolocation is not supported by this browser.");
+        console.error("Geolocation is not supported by this browser.");
+    }
+</script>
+<script>
+        function requestLocationAccess() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        // If location is allowed, send the data to the server
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+                        sendLocationToServer(latitude, longitude);
+                    },
+                    function (error) {
+                        // If denied or error occurs
+                        alert("You must allow location access to proceed.");
+                        window.location.href = "access-denied"; // Redirect to an error page or show a message
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000, // Timeout in 10 seconds
+                        maximumAge: 0
+                    }
+                );
+            } else {
+                alert("Geolocation is not supported by your browser.");
+                window.location.href = "access-denied";
+            }
         }
-    </script>
 
+        function sendLocationToServer(latitude, longitude) {
+            // Example of sending the data to your server via POST
+            fetch('location-handler', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ latitude, longitude })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = "login"; // Redirect to login page
+                    } else {
+                        alert("Failed to process location. Please try again.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("An error occurred. Please try again.");
+                });
+        }
+
+        // Automatically request location access when the page loads
+        window.onload = requestLocationAccess;
+    </script>
 </html>
