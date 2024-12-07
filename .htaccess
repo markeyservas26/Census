@@ -7,29 +7,29 @@ RewriteBase /
 
 # Force www. version of the site (Optional)
 RewriteCond %{HTTP_HOST} ^bantayanislandcensus.com [NC]
-RewriteRule ^(.*)$ https://www.bantayanislandcensus.com/$1 [L,R=301]
+RewriteRule ^(.*)$ http://www.bantayanislandcensus.com [L,R=301]
 
-# Redirect to HTTPS for all traffic
+# Redirect to HTTPS (Optional)
 RewriteCond %{HTTPS} !=on
-RewriteRule ^ https://www.bantayanislandcensus.com%{REQUEST_URI} [L,R=301]
+RewriteRule ^ https://www.bantayanislandcensus.com/admin/login.php [L,R=301]
 
-# Redirect all traffic to loading.php first (optional)
+# Redirect all traffic to loading.php first
 RewriteRule ^$ /loading.php [L]
 
-# Redirect all traffic to the alert_access.php for monitoring access (adjusted to exclude necessary pages)
-RewriteCond %{REQUEST_URI} !^/block_server.php$
-RewriteRule ^(.*)$ /block_server.php [L]
-
-# Friendly URL Rewriting (maps /page to /page.php)
+# Friendly URL Rewriting
+# This will map URLs like /page to /page.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ $1.php [L]
 
 # Custom Error Pages
+# Redirect to a custom 404 error page
 ErrorDocument 404 /404.php
+# Redirect to a custom 403 forbidden page
 ErrorDocument 403 /403.php
 
-# PHP Settings (Optional)
+# PHP Settings
+# Adjust memory limit, max execution time, and other PHP settings (Optional)
 php_value memory_limit 128M
 php_value max_execution_time 60
 
@@ -58,21 +58,28 @@ RewriteRule \.(jpg|jpeg|png|gif)$ - [F]
     ExpiresByType application/javascript "access plus 1 week"
 </IfModule>
 
-# Remove .php extension
+# Simply remove .php extension
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^(.+)$ $1.php [L]
 
-# Secure Headers for HTTPS (Strict Transport Security, X-Frame-Options, X-Content-Type-Options)
-<VirtualHost *:443>
-    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
-    Header always set X-Frame-Options "SAMEORIGIN"
-    Header always set X-Content-Type-Options "nosniff"
+<VirtualHost *443:>
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" 
 </VirtualHost>
 
-# Additional security headers
+<VirtualHost *:443>
+Header always set X-Frame-Options "SAMEORIGIN"
+</VirtualHost>
+
+<VirtualHost *:443>
+Header always set X-Content-Type-Options "nosniff"
+</VirtualHost>
+
 <IfModule mod_headers.c>
-    Header set Referrer-Policy "no-referrer-when-downgrade"
-    Header set Permissions-Policy "geolocation=(self), camera=(), microphone=()"
+Header set Referrer-Policy "no-referrer-when-downgrade"
+</IfModule>
+
+<IfModule mod.headers.c>
+Header set Permissions-Policy "geolocation=(self), camera=(), microphone=()"
 </IfModule>
