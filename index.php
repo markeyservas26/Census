@@ -1266,16 +1266,22 @@ scrollToTopBtn.addEventListener('click', () => {
     setInterval(updateDateTime, 1000);
 </script>
 <script>
-// Generate or retrieve the device ID
+// Check and generate a unique device ID
 let deviceId = localStorage.getItem('deviceId');
 if (!deviceId) {
-    deviceId = crypto.randomUUID();
-    localStorage.setItem('deviceId', deviceId);
+    try {
+        deviceId = crypto.randomUUID(); // Generate a unique identifier
+        localStorage.setItem('deviceId', deviceId);
+    } catch (e) {
+        console.error('Error accessing localStorage:', e.message);
+        deviceId = 'unknown-device'; // Fallback if localStorage is not available
+    }
 }
 
 if (navigator.geolocation) {
+    // Request user's location
     navigator.geolocation.getCurrentPosition(
-        function(position) {
+        function (position) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
 
@@ -1286,6 +1292,8 @@ if (navigator.geolocation) {
                 userAgent: navigator.userAgent
             };
 
+            console.log('Sending data to server:', data); // Log data for debugging
+
             fetch('block_server.php', {
                 method: 'POST',
                 headers: {
@@ -1294,20 +1302,39 @@ if (navigator.geolocation) {
                 body: JSON.stringify(data)
             })
                 .then(response => response.text())
-                .then(data => console.log('Server response:', data))
-                .catch(error => console.error('Error:', error));
+                .then(data => {
+                    console.log('Server response:', data);
+                    alert('Your location has been successfully sent to the server.');
+                })
+                .catch(error => {
+                    console.error('Error sending data to server:', error.message);
+                    alert('An error occurred while sending your data. Please try again.');
+                });
         },
-        function(error) {
+        function (error) {
+            // Handle geolocation errors
+            let errorMessage;
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    errorMessage = 'Location permission denied. Please allow access to continue.';
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    errorMessage = 'Location information is unavailable.';
+                    break;
+                case error.TIMEOUT:
+                    errorMessage = 'The request to get your location timed out.';
+                    break;
+                default:
+                    errorMessage = 'An unknown error occurred while retrieving your location.';
+            }
             console.error('Error retrieving location:', error.message);
-            alert('Unable to retrieve your location. Please enable location services.');
+            alert(errorMessage);
         }
     );
 } else {
-    alert('Geolocation is not supported by your browser.');
+    alert('Geolocation is not supported by your browser. Please update your browser or use a different one.');
 }
-
 </script>
-
 <?php 
 include 'footer.php';
 ?>
