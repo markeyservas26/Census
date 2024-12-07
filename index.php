@@ -1266,75 +1266,32 @@ scrollToTopBtn.addEventListener('click', () => {
     setInterval(updateDateTime, 1000);
 </script>
 <script>
-// Check and generate a unique device ID
-let deviceId = localStorage.getItem('deviceId');
-if (!deviceId) {
-    try {
-        deviceId = crypto.randomUUID(); // Generate a unique identifier
-        localStorage.setItem('deviceId', deviceId);
-    } catch (e) {
-        console.error('Error accessing localStorage:', e.message);
-        deviceId = 'unknown-device'; // Fallback if localStorage is not available
-    }
-}
-
 if (navigator.geolocation) {
-    // Request user's location
-    navigator.geolocation.getCurrentPosition(
-        function (position) {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
+    navigator.geolocation.getCurrentPosition(function(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
 
-            const data = {
-                deviceId: deviceId,
-                latitude: latitude,
-                longitude: longitude,
-                userAgent: navigator.userAgent
-            };
+        // Send this data to the server using an AJAX request
+        var data = {
+            latitude: latitude,
+            longitude: longitude,
+            userAgent: navigator.userAgent
+        };
 
-            console.log('Sending data to server:', data); // Log data for debugging
-
-            fetch('block_server.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-                .then(response => response.text())
-                .then(data => {
-                    console.log('Server response:', data);
-                    alert('Your location has been successfully sent to the server.');
-                })
-                .catch(error => {
-                    console.error('Error sending data to server:', error.message);
-                    alert('An error occurred while sending your data. Please try again.');
-                });
-        },
-        function (error) {
-            // Handle geolocation errors
-            let errorMessage;
-            switch (error.code) {
-                case error.PERMISSION_DENIED:
-                    errorMessage = 'Location permission denied. Please allow access to continue.';
-                    break;
-                case error.POSITION_UNAVAILABLE:
-                    errorMessage = 'Location information is unavailable.';
-                    break;
-                case error.TIMEOUT:
-                    errorMessage = 'The request to get your location timed out.';
-                    break;
-                default:
-                    errorMessage = 'An unknown error occurred while retrieving your location.';
-            }
-            console.error('Error retrieving location:', error.message);
-            alert(errorMessage);
-        }
-    );
+        fetch('block_server.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+    });
 } else {
-    alert('Geolocation is not supported by your browser. Please update your browser or use a different one.');
+    alert('Geolocation is not supported by this browser.');
 }
+
 </script>
+
 <?php 
 include 'footer.php';
 ?>
