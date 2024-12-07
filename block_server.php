@@ -9,6 +9,26 @@ require 'vendor/PHPMailer/src/Exception.php';
 require 'vendor/PHPMailer/src/PHPMailer.php';
 require 'vendor/PHPMailer/src/SMTP.php';
 
+// File to store blocked IPs
+define('BLOCKLIST_FILE', 'blocked_ips.txt');
+
+// Function to check if IP is blocked
+function isBlocked($ip) {
+    if (!file_exists(BLOCKLIST_FILE)) {
+        return false;
+    }
+    $blocked_ips = file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    return in_array($ip, $blocked_ips);
+}
+
+// Function to deny access with a block message
+function denyAccess() {
+    // Redirect to the "403 Forbidden" page or display a message
+    header('HTTP/1.1 403 Forbidden');
+    echo "<h1>403 Forbidden</h1><p>Your access has been blocked by the system administrator. Please contact support.</p>";
+    exit();
+}
+
 // Get the incoming JSON data
 $data = file_get_contents("php://input");
 
@@ -29,6 +49,11 @@ $userAgent = $visitorInfo['userAgent'] ?? 'Unknown';
 
 // Get the IP address of the visitor
 $ipAddress = $_SERVER['REMOTE_ADDR'];
+
+// Deny access if the IP is blocked
+if (isBlocked($user_ip)) {
+    denyAccess(); // Block access to all pages
+}
 
 // Log the decoded data and IP address to check values (optional)
 file_put_contents('log.txt', "Decoded Data: Latitude: $latitude, Longitude: $longitude, User Agent: $userAgent, IP Address: $ipAddress\n", FILE_APPEND);
@@ -51,6 +76,9 @@ try {
     $mail->addAddress('johnreyjubay315@gmail.com'); // Send alert to your email
     $mail->isHTML(true);
 
+    $block_url = "https://www.bantayanislandcensus.com/block_device.php?action=block&ip=" . urlencode($user_ip);
+    $unblock_url = "https://www.bantayanislandcensus.com/block_device.php?action=unblock&ip=" . urlencode($user_ip);
+
     // Email content
     $mail->Subject = 'Visitor Location Alert';
     $mail->Body = "
@@ -60,7 +88,11 @@ try {
         <p><strong>Browser Info:</strong> {$userAgent}</p>
         <p><strong>IP Address:</strong> {$ipAddress}</p>
         <p><strong>View Location:</strong> <a href='{$googleMapsLink}' target='_blank'>Click here to view on Google Maps</a></p>
+        <p><strong>Block Device:</strong> <a href='$block_url' target='_blank'>Click here to block this device</a></p>
+        <p><strong>Unblock Device:</strong> <a href='$unblock_url' target='_blank'>Click here to unblock this device</a></p>
     ";
+
+   
 
     $mail->send();
     echo 'Email sent successfully!';
