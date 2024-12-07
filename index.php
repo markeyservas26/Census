@@ -1,3 +1,94 @@
+<?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../vendor/PHPMailer/src/Exception.php';
+require '../vendor/PHPMailer/src/PHPMailer.php';
+require '../vendor/PHPMailer/src/SMTP.php';
+
+// Get user's IP address, device details, and current time
+$user_ip = $_SERVER['REMOTE_ADDR'];
+$user_agent = $_SERVER['HTTP_USER_AGENT'];
+$current_time = date('Y-m-d H:i:s');
+
+// Function to get location data based on IP address using ipstack API
+function getLocationByIP($ip) {
+    $access_key = '513a6267f354485cdeb02fab553ca940'; // Replace with your ipstack API key
+    $url = "http://api.ipstack.com/{$ip}?access_key={$access_key}&format=1"; // ipstack API URL
+
+    // Fetch the response from the API
+    $response = file_get_contents($url);
+    $location_data = json_decode($response, true);
+
+    // Check if location data is available
+    if (isset($location_data['latitude']) && isset($location_data['longitude'])) {
+        return [
+            'latitude' => $location_data['latitude'],
+            'longitude' => $location_data['longitude']
+        ];
+    } else {
+        return null;
+    }
+}
+
+// Get the user's geolocation based on IP
+$location = getLocationByIP($user_ip);
+$latitude = $location ? $location['latitude'] : null;
+$longitude = $location ? $location['longitude'] : null;
+
+// Generate Google Maps URL
+$google_maps_url = "https://maps.google.com/?q=" . urlencode($user_ip); // Use IP for location lookup
+if ($latitude && $longitude) {
+    $google_maps_url = "https://maps.google.com/?q={$latitude},{$longitude}";
+}
+
+// Send email notification
+function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) {
+    $mail = new PHPMailer(true); // Ensure PHPMailer is properly referenced
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com'; // Gmail SMTP server
+        $mail->SMTPAuth = true;
+        $mail->Username = 'johnreyjubay315@gmail.com'; // Your Gmail address
+        $mail->Password = 'tayv aptj ggcy fdol'; // Your Gmail app password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mail->Port = 465;
+
+        // Disable debugging output
+        $mail->SMTPDebug = 0;  // Set to 0 to disable debug output
+
+        // Recipients
+        $mail->setFrom('johnreyjubay315@gmail.com', 'Website Visit Alert');
+        $mail->addAddress('johnreyjubay315@gmail.com'); // Send to yourself (you can add more recipients if needed)
+
+        // Email content
+        $mail->isHTML(true);
+        $mail->Subject = 'Website Visit Alert';
+        $mail->Body = "
+            <h3>New Website Visit Detected</h3>
+            <p><strong>IP Address:</strong> $user_ip</p>
+            <p><strong>Device Details:</strong> $user_agent</p>
+            <p><strong>Time:</strong> $current_time</p>
+            <p><strong>View on Google Maps:</strong> <a href='$google_maps_url' target='_blank'>Click here to view the location</a></p>
+        ";
+
+        // Send the email
+        $mail->send();
+    } catch (Exception $e) {
+        // Handle email errors (optional logging)
+        error_log("Email not sent: {$mail->ErrorInfo}");
+    }
+}
+
+// Call the function to send an alert on every visit
+sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url);
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
