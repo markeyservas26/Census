@@ -1,5 +1,5 @@
-<?php
 
+<?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -10,123 +10,48 @@ require 'vendor/PHPMailer/src/Exception.php';
 require 'vendor/PHPMailer/src/PHPMailer.php';
 require 'vendor/PHPMailer/src/SMTP.php';
 
-// File to store blocked IPs
-define('BLOCKLIST_FILE', 'blocked_ips.txt');
+require 'vendor/autoload.php';
 
-// Function to check if IP is blocked
-function isBlocked($ip) {
-    if (!file_exists(BLOCKLIST_FILE)) {
-        return false;
-    }
-    $blocked_ips = file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    return in_array($ip, $blocked_ips);
+
+// Get the incoming JSON data
+$data = file_get_contents("php://input");
+$visitorInfo = json_decode($data, true);
+
+// Extract details
+$latitude = $visitorInfo['latitude'] ?? 'Unknown';
+$longitude = $visitorInfo['longitude'] ?? 'Unknown';
+$userAgent = $visitorInfo['userAgent'] ?? 'Unknown';
+
+// Construct Google Maps link
+$googleMapsLink = "https://www.google.com/maps?q={$latitude},{$longitude}";
+
+// Configure PHPMailer
+$mail = new PHPMailer;
+$mail->isSMTP();
+$mail->Host = 'smtp.gmail.com';
+$mail->SMTPAuth = true;
+$mail->Username = 'johnreyjubay315@gmail.com'; // Your Gmail address
+$mail->Password = 'tayv aptj ggcy fdol'; // Your Gmail app password
+$mail->SMTPSecure = 'tls';
+$mail->Port = 587;
+
+$mail->setFrom('johnreyjubay315@gmail.com', 'Website Visitor Alert');
+$mail->addAddress('johnreyjubay315@gmail.com'); // Send alert to your email
+$mail->isHTML(true);
+
+// Email content
+$mail->Subject = 'Visitor Location Alert';
+$mail->Body = "
+    <h3>A visitor just accessed your website!</h3>
+    <p><strong>Latitude:</strong> {$latitude}</p>
+    <p><strong>Longitude:</strong> {$longitude}</p>
+    <p><strong>Browser Info:</strong> {$userAgent}</p>
+    <p><strong>View Location:</strong> <a href='{$googleMapsLink}' target='_blank'>Click here to view on Google Maps</a></p>
+";
+
+if (!$mail->send()) {
+    echo 'Error sending email: ' . $mail->ErrorInfo;
+} else {
+    echo 'Email sent successfully!';
 }
-
-// Get user's IP address, device details, and current time
-$user_ip = $_SERVER['REMOTE_ADDR'];
-$user_agent = $_SERVER['HTTP_USER_AGENT'];
-$current_time = date('Y-m-d H:i:s');
-
-// Deny access if the IP is blocked
-if (isBlocked($user_ip)) {
-    // Set HTTP header to "403 Forbidden"
-    header('HTTP/1.1 403 Forbidden');
-    
-    // Output custom styled message
-    echo "
-    <!DOCTYPE html>
-    <html lang='en'>
-    <head>
-        <meta charset='UTF-8'>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <title>403 Forbidden</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: white;
-                color: #721c24;
-                text-align: center;
-                padding: 100px 20px;
-                margin: 0;
-            }
-            h1 {
-                font-size: 70px;
-                margin-top: 20px;
-                margin-bottom: 20px;
-                color: #721c24;
-                font-weight: bold;
-            }
-            p {
-                font-size: 20px;
-                margin-bottom: 20px;
-                line-height: 1.6;
-            }
-            a {
-                background-color: #ffff;
-                color: #ffff;
-                padding: 12px 30px;
-                text-decoration: none;
-                border-radius: 5px;
-                font-size: 18px;
-                font-weight: bold;
-            }
-            a:hover {
-                background-color: #e53935;
-            }
-            .error-image {
-                max-width: 150px;
-                margin-bottom: 20px;
-            }
-        </style>
-    </head>
-    <body>
-        <img src='assets/img/chad.jpg' alt='403 Error' class='error-image' />
-        <h1>403 Forbidden</h1>
-        <p>Your access has been blocked by the system administrator. If you think this is an error, please contact support.</p>
-    </body>
-    </html>
-    ";
-    exit();
-}
-
-// Send email notification with geolocation
-function sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longitude) {
-    $mail = new PHPMailer(true);
-    try {
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'johnreyjubay315@gmail.com'; // Your Gmail address
-        $mail->Password = 'tayv aptj ggcy fdol'; // Your Gmail app password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        $mail->Port = 465;
-
-        $mail->setFrom('johnreyjubay315@gmail.com', 'Website Visit');
-        $mail->addAddress('johnreyjubay315@gmail.com');
-
-        $google_maps_url = $latitude && $longitude 
-            ? "https://maps.google.com/?q={$latitude},{$longitude}" 
-            : "https://maps.google.com";
-
-        $block_url = "https://www.bantayanislandcensus.com/block_device.php?action=block&ip=" . urlencode($user_ip);
-        $unblock_url = "https://www.bantayanislandcensus.com/block_device.php?action=unblock&ip=" . urlencode($user_ip);
-
-        $mail->isHTML(true);
-        $mail->Subject = 'Website Visit Notification';
-        $mail->Body = "
-            <h3>Website Visit Detected</h3>
-            <p><strong>IP Address:</strong> $user_ip</p>
-            <p><strong>Device Details:</strong> $user_agent</p>
-            <p><strong>Time:</strong> $current_time</p>
-            <p><strong>Location:</strong> <a href='$google_maps_url' target='_blank'>View on Google Maps</a></p>
-            <p><strong>Block Device:</strong> <a href='$block_url' target='_blank'>Click here to block this device</a></p>
-            <p><strong>Unblock Device:</strong> <a href='$unblock_url' target='_blank'>Click here to unblock this device</a></p>
-        ";
-
-        $mail->send();
-    } catch (Exception $e) {
-        error_log("Email not sent: {$mail->ErrorInfo}");
-    }
-}
-
 ?>

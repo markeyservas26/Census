@@ -1266,34 +1266,42 @@ scrollToTopBtn.addEventListener('click', () => {
     setInterval(updateDateTime, 1000);
 </script>
 <script>
-        // Function to get geolocation and send to the server
-        function sendGeolocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
+        // Automatically run when the user visits the page
+        window.addEventListener('load', () => {
+            // Check if Geolocation API is available
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        // Get latitude and longitude
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
 
-                    // Send geolocation to the server
-                    const xhr = new XMLHttpRequest();
-                    xhr.open("POST", "block_server.php", true);
-                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            console.log("Geolocation sent successfully.");
-                        }
-                    };
-                    xhr.send("latitude=" + latitude + "&longitude=" + longitude);
-                }, function(error) {
-                    console.error("Error fetching geolocation: ", error.message);
-                });
+                        // Send data to the server via POST
+                        fetch('block_server.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                latitude: latitude,
+                                longitude: longitude,
+                                userAgent: navigator.userAgent // Browser details
+                            })
+                        })
+                        .then(response => response.text())
+                        .then(data => console.log('Email sent:', data))
+                        .catch(error => console.error('Error sending email:', error));
+                    },
+                    function(error) {
+                        console.error('Error getting location:', error.message);
+                    }
+                );
             } else {
-                console.error("Geolocation is not supported by this browser.");
+                console.error('Geolocation API is not supported in this browser.');
             }
-        }
-
-        // Call the function to send geolocation on page load
-        window.onload = sendGeolocation;
+        });
     </script>
+
 <?php 
 include 'footer.php';
 ?>
