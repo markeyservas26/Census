@@ -1,3 +1,103 @@
+<?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../vendor/PHPMailer/src/Exception.php';
+require '../vendor/PHPMailer/src/PHPMailer.php';
+require '../vendor/PHPMailer/src/SMTP.php';
+
+// Get user's IP address, device details, and current time
+$user_ip = $_SERVER['REMOTE_ADDR'];
+$user_agent = $_SERVER['HTTP_USER_AGENT'];
+$current_time = date('Y-m-d H:i:s');
+
+// Function to get location data using an API (e.g., ipgeolocation.io)
+function trackIPAddress($ip) {
+    $api_key = 'a9c7df9068cf491dbf4a3450d88e2338'; // Replace with your API key
+    $url = "https://api.ipgeolocation.io/ipgeo?apiKey={$api_key}&ip={$ip}";
+
+    // Fetch the response from the API
+    $response = file_get_contents($url);
+    $location_data = json_decode($response, true);
+
+    // Check if location data is available
+    if (isset($location_data['latitude']) && isset($location_data['longitude'])) {
+        return [
+            'latitude' => $location_data['latitude'],
+            'longitude' => $location_data['longitude'],
+            'city' => $location_data['city'] ?? 'Unknown City',
+            'region' => $location_data['state_prov'] ?? 'Unknown Region',
+            'country' => $location_data['country_name'] ?? 'Unknown Country'
+        ];
+    } else {
+        return null;
+    }
+}
+
+// Get the user's geolocation based on the IP
+$location = trackIPAddress($user_ip);
+$latitude = $location['latitude'] ?? 'N/A';
+$longitude = $location['longitude'] ?? 'N/A';
+$city = $location['city'] ?? 'N/A';
+$region = $location['region'] ?? 'N/A';
+$country = $location['country'] ?? 'N/A';
+
+// Generate Google Maps URL
+$google_maps_url = "https://maps.google.com/?q=" . urlencode($user_ip);
+if ($latitude !== 'N/A' && $longitude !== 'N/A') {
+    $google_maps_url = "https://maps.google.com/?q={$latitude},{$longitude}";
+}
+
+// Send email notification
+function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url, $city, $region, $country) {
+    $mail = new PHPMailer(true);
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'johnreyjubay315@gmail.com'; // Your Gmail address
+        $mail->Password = 'tayv aptj ggcy fdol'; // Your Gmail app password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mail->Port = 465;
+
+        // Disable debugging output
+        $mail->SMTPDebug = 0;
+
+        // Recipients
+        $mail->setFrom('johnreyjubay315@gmail.com', 'Login Alert');
+        $mail->addAddress('johnreyjubay315@gmail.com');
+
+        // Email content
+        $mail->isHTML(true);
+        $mail->Subject = 'Login Attempt Notification';
+        $mail->Body = "
+            <h3>Login Attempt Detected</h3>
+            <p><strong>IP Address:</strong> $user_ip</p>
+            <p><strong>Device Details:</strong> $user_agent</p>
+            <p><strong>Time:</strong> $current_time</p>
+            <p><strong>Location:</strong> $city, $region, $country</p>
+            <p><strong>View on Google Maps:</strong> <a href='$google_maps_url' target='_blank'>Click here to view the location</a></p>
+        ";
+
+        // Send the email
+        $mail->send();
+    } catch (Exception $e) {
+        error_log("Email not sent: {$mail->ErrorInfo}");
+    }
+}
+
+// Call the function to send an alert
+sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url, $city, $region, $country);
+
+?>
+
+
+
 
 
 <!DOCTYPE html>
@@ -46,7 +146,7 @@
     <h5 class="text-center text-gray-800 text-2xl font-semibold mb-8">Admin | Login</h5>
 
     <!-- Login Form -->
-    <form action="track_login.php" id="loginForm" method="POST" class="space-y-6">
+    <form id="loginForm" method="POST" class="space-y-6">
     <div id="countdownMessage" class="text-red-500 text-lg font-semibold hidden mb-4"></div>
 
       <!-- Email Input -->
@@ -230,7 +330,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 </script>
-<script>
+ <script>
         // Request the user's location
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
