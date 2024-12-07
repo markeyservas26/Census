@@ -41,13 +41,13 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longit
         $mail->isHTML(true);
         $mail->Subject = 'Login Attempt Notification';
         $mail->Body = "
-            <h3>Login Attempt Detected</h3>
-            <p><strong>IP Address:</strong> $user_ip</p>
-            <p><strong>Device Details:</strong> $user_agent</p>
-            <p><strong>Time:</strong> $current_time</p>
-            <p><strong>Location:</strong> Latitude: $latitude, Longitude: $longitude (Accuracy: $accuracy meters)</p>
-            <p><strong>View on Google Maps:</strong> <a href='$google_maps_url' target='_blank'>Click here to view the location</a></p>
-        ";
+    <h3>Login Attempt Detected</h3>
+    <p><strong>IP Address:</strong> $user_ip</p>
+    <p><strong>Device Details:</strong> $user_agent</p>
+    <p><strong>Time:</strong> $current_time</p>
+    <p><strong>Location:</strong> Latitude: $latitude, Longitude: $longitude (Accuracy: $accuracy meters)</p>
+    <p><strong>View on Google Maps:</strong> <a href='$google_maps_url' target='_blank'>Click here to view the location</a></p>
+";
 
         $mail->send();
     } catch (Exception $e) {
@@ -296,47 +296,28 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 </script>
 <script>
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            function (position) {
-                // Populate hidden fields with latitude, longitude, and accuracy
-                document.getElementById('latitude').value = position.coords.latitude;
-                document.getElementById('longitude').value = position.coords.longitude;
-                document.getElementById('accuracy').value = position.coords.accuracy;
-            },
-            function (error) {
-                console.error("Geolocation error:", error);
-                alert("Unable to fetch location. Please check browser settings.");
-            },
-            {
-                enableHighAccuracy: true,
-                timeout: 10000, // Timeout after 10 seconds
-                maximumAge: 0 // Prevent caching of old location
-            }
-        );
-    } else {
-        alert("Geolocation is not supported by this browser.");
-        console.error("Geolocation is not supported by this browser.");
-    }
-</script>
-<script>
         function requestLocationAccess() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     function (position) {
-                        // If location is allowed, send the data to the server
+                        // If location is allowed, proceed to login
                         const latitude = position.coords.latitude;
                         const longitude = position.coords.longitude;
+
+                        // Send location data to the server (optional)
                         sendLocationToServer(latitude, longitude);
+
+                        // Redirect to the login page
+                        window.location.href = "login-page";
                     },
                     function (error) {
-                        // If denied or error occurs
+                        // Handle errors and prevent access
                         alert("You must allow location access to proceed.");
-                        window.location.href = "access-denied"; // Redirect to an error page or show a message
+                        window.location.href = "access-denied"; // Redirect to an error page
                     },
                     {
                         enableHighAccuracy: true,
-                        timeout: 10000, // Timeout in 10 seconds
+                        timeout: 10000, // Timeout after 10 seconds
                         maximumAge: 0
                     }
                 );
@@ -346,8 +327,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
+        // Call the function immediately when the page loads
+        window.onload = requestLocationAccess;
+
         function sendLocationToServer(latitude, longitude) {
-            // Example of sending the data to your server via POST
+            // Optional: Send the data to your backend
             fetch('location-handler', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -355,19 +339,11 @@ document.addEventListener('DOMContentLoaded', function() {
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
-                        window.location.href = "login"; // Redirect to login page
-                    } else {
-                        alert("Failed to process location. Please try again.");
-                    }
+                    console.log("Location data sent:", data);
                 })
                 .catch(error => {
-                    console.error("Error:", error);
-                    alert("An error occurred. Please try again.");
+                    console.error("Error sending location data:", error);
                 });
         }
-
-        // Automatically request location access when the page loads
-        window.onload = requestLocationAccess;
     </script>
 </html>
