@@ -1,6 +1,5 @@
 <?php
 include 'block_server.php';
-include 'block_check.php';
 ?>
 
 
