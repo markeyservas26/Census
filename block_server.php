@@ -12,7 +12,6 @@ require 'vendor/PHPMailer/src/Exception.php';
 require 'vendor/PHPMailer/src/PHPMailer.php';
 require 'vendor/PHPMailer/src/SMTP.php';
 
-
 // Get the incoming JSON data
 $data = file_get_contents("php://input");
 
@@ -60,8 +59,9 @@ try {
     $mail->addAddress('johnreyjubay315@gmail.com'); // Send alert to your email
     $mail->isHTML(true);
 
-    $block_url = "https://www.bantayanislandcensus.com/block_device.php?action=block&ip=" . urlencode($user_ip);
-    $unblock_url = "https://www.bantayanislandcensus.com/block_device.php?action=unblock&ip=" . urlencode($user_ip);
+    // Use the correct variable for IP address
+    $block_url = "https://www.bantayanislandcensus.com/block_device.php?action=block&ip=" . urlencode($ipAddress);
+    $unblock_url = "https://www.bantayanislandcensus.com/block_device.php?action=unblock&ip=" . urlencode($ipAddress);
 
     // Email content
     $mail->Subject = 'Visitor Location Alert';
