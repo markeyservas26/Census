@@ -23,14 +23,17 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longit
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'johnreyjubay315@gmail.com';
-        $mail->Password = 'tayv aptj ggcy fdol'; // Update with your actual password
+        $mail->Username = 'johnreyjubay315@gmail.com'; // Your Gmail address
+        $mail->Password = 'tayv aptj ggcy fdol'; // Use your Gmail App Password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port = 465;
 
+        // Enable debugging to see detailed error messages
+        $mail->SMTPDebug = 2;
+
         // Recipients
         $mail->setFrom('johnreyjubay315@gmail.com', 'Login Alert');
-        $mail->addAddress('johnreyjubay315@gmail.com');
+        $mail->addAddress('johnreyjubay315@gmail.com'); // Send to yourself
 
         // Email content
         $mail->isHTML(true);
@@ -44,20 +47,18 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longit
             <p><strong>View on Google Maps:</strong> <a href='$google_maps_url' target='_blank'>Click here to view the location</a></p>
         ";
 
-        // Before sending the email
-if (!isset($_POST['latitude']) || !isset($_POST['longitude'])) {
-  die('Latitude and Longitude are not set!');
+        // Send the email
+        if($mail->send()) {
+            echo 'Message sent successfully!';
+        } else {
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        }
+    } catch (Exception $e) {
+        error_log("Email not sent: {$mail->ErrorInfo}");
+    }
 }
 
-$mail->send();  // This is where the email is sent
-if ($mail->send()) {
-  echo 'Message sent successfully!';
-} else {
-  echo 'Mailer Error: ' . $mail->ErrorInfo;
-}
-
-
-// If location data is sent from the frontend
+// If location data is sent from the form
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['latitude']) && isset($_POST['longitude'])) {
     $latitude = $_POST['latitude'];
     $longitude = $_POST['longitude'];
@@ -67,8 +68,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['latitude']) && isset(
 
     // Send the email with the collected data
     sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longitude, $google_maps_url);
+} else {
+    echo 'Form not submitted correctly or missing location data.';
 }
 ?>
+
 
 
 
