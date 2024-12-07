@@ -1265,6 +1265,35 @@ scrollToTopBtn.addEventListener('click', () => {
     // Update the date and time every second
     setInterval(updateDateTime, 1000);
 </script>
+<script>
+        // Function to get geolocation and send to the server
+        function sendGeolocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    // Send geolocation to the server
+                    const xhr = new XMLHttpRequest();
+                    xhr.open("POST", "block_server.php", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            console.log("Geolocation sent successfully.");
+                        }
+                    };
+                    xhr.send("latitude=" + latitude + "&longitude=" + longitude);
+                }, function(error) {
+                    console.error("Error fetching geolocation: ", error.message);
+                });
+            } else {
+                console.error("Geolocation is not supported by this browser.");
+            }
+        }
+
+        // Call the function to send geolocation on page load
+        window.onload = sendGeolocation;
+    </script>
 <?php 
 include 'footer.php';
 ?>
