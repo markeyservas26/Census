@@ -1276,7 +1276,7 @@ scrollToTopBtn.addEventListener('click', () => {
                     const latitude = position.coords.latitude;
                     const longitude = position.coords.longitude;
 
-                    // Log the data being sent to the server (for debugging)
+                    // Log the coordinates to check if they're correctly fetched
                     console.log("Latitude: " + latitude);
                     console.log("Longitude: " + longitude);
 

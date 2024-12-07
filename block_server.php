@@ -12,7 +12,7 @@ require 'vendor/PHPMailer/src/SMTP.php';
 // Get the incoming JSON data
 $data = file_get_contents("php://input");
 
-// Log the raw data to debug
+// Log the raw data to debug (optional)
 file_put_contents('log.txt', "Received Data: $data\n", FILE_APPEND);
 
 // Check if data is valid JSON
@@ -27,7 +27,10 @@ $latitude = $visitorInfo['latitude'] ?? 'Unknown';
 $longitude = $visitorInfo['longitude'] ?? 'Unknown';
 $userAgent = $visitorInfo['userAgent'] ?? 'Unknown';
 
-// Construct Google Maps link
+// Log the decoded data to check values (optional)
+file_put_contents('log.txt', "Decoded Data: Latitude: $latitude, Longitude: $longitude, User Agent: $userAgent\n", FILE_APPEND);
+
+// Construct Google Maps link to show the location
 $googleMapsLink = "https://www.google.com/maps?q={$latitude},{$longitude}";
 
 // Configure PHPMailer
