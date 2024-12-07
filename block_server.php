@@ -29,9 +29,65 @@ $current_time = date('Y-m-d H:i:s');
 
 // Deny access if the IP is blocked
 if (isBlocked($user_ip)) {
-    // Redirect to the "403 Forbidden" page or display a message
+    // Set HTTP header to "403 Forbidden"
     header('HTTP/1.1 403 Forbidden');
-    echo "<h1>403 Forbidden</h1><p>Your access has been blocked by the system administrator.bobo ka ba?</p>";
+    
+    // Output custom styled message
+    echo "
+    <!DOCTYPE html>
+    <html lang='en'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>403 Forbidden</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f8d7da;
+                color: #721c24;
+                text-align: center;
+                padding: 50px;
+            }
+            .container {
+                background-color: #ffffff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            h1 {
+                font-size: 50px;
+                margin-bottom: 20px;
+                color: #721c24;
+            }
+            p {
+                font-size: 18px;
+                margin-bottom: 20px;
+            }
+            .btn {
+                background-color: #f44336;
+                color: white;
+                padding: 10px 20px;
+                text-decoration: none;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+            .btn:hover {
+                background-color: #e53935;
+            }
+        </style>
+    </head>
+    <body>
+        <div class='container'>
+            <h1>403 Forbidden</h1>
+            <p>Your access has been blocked by the system administrator. Please contact support if you think this is an error.</p>
+            <a href='/' class='btn'>Go to Homepage</a>
+        </div>
+    </body>
+    </html>
+    ";
     exit();
 }
 
