@@ -16,7 +16,7 @@ $ipAddress = $_SERVER['REMOTE_ADDR'];
 if (isIpBlocked($ipAddress)) {
     // Set HTTP status to 403 Forbidden
     http_response_code(403);
-    die('You are blocked from accessing this website.');
+    die('<h1>403 Forbidden</h1><p>Your access has been blocked by the system administrator. Please contact support.');
 }
 
 // Get the incoming JSON data
