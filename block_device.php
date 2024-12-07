@@ -3,15 +3,24 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// File to store blocked IPs
 define('BLOCKLIST_FILE', 'blocked_ips.txt');
 
-// Function to check if an IP is blocked
+// Function to check if IP is blocked
 function isBlocked($ip) {
     if (!file_exists(BLOCKLIST_FILE)) {
         return false;
     }
     $blocked_ips = file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     return in_array($ip, $blocked_ips);
+}
+
+// Function to deny access with a block message
+function denyAccess() {
+    // Redirect to the "403 Forbidden" page or display a message
+    header('HTTP/1.1 403 Forbidden');
+    echo "<h1>403 Forbidden</h1><p>Your access has been blocked by the system administrator. Please contact support.</p>";
+    exit();
 }
 
 // Function to block an IP address
@@ -36,6 +45,11 @@ function unblockIP($ip) {
 // Sanitize user input (action and IP)
 $action = isset($_GET['action']) ? htmlspecialchars($_GET['action']) : '';
 $ip = isset($_GET['ip']) ? filter_var($_GET['ip'], FILTER_VALIDATE_IP) : '';
+
+// Check if the IP is blocked before processing any request
+if (isBlocked($_SERVER['REMOTE_ADDR'])) {
+    denyAccess(); // If the user's IP is blocked, deny access
+}
 
 if ($action && $ip) {
     // Perform the requested action
