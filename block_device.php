@@ -17,7 +17,6 @@ function isBlocked($ip) {
 
 // Function to deny access with a block message
 function denyAccess() {
-    // Redirect to the "403 Forbidden" page or display a message
     header('HTTP/1.1 403 Forbidden');
     echo "<h1>403 Forbidden</h1><p>Your access has been blocked by the system administrator. Please contact support.</p>";
     exit();
@@ -25,7 +24,6 @@ function denyAccess() {
 
 // Function to block an IP address
 function blockIP($ip) {
-    // Prevent duplicate IPs
     if (!isBlocked($ip)) {
         file_put_contents(BLOCKLIST_FILE, $ip . PHP_EOL, FILE_APPEND | LOCK_EX);
     }
@@ -52,30 +50,20 @@ if (isBlocked($_SERVER['REMOTE_ADDR'])) {
 }
 
 if ($action && $ip) {
-    // Perform the requested action
-    if ($action === 'block') {
-        if (isBlocked($ip)) {
-            echo "IP $ip is already blocked.";
-        } else {
-            blockIP($ip);
-            echo "IP $ip has been blocked.";
-        }
-    } elseif ($action === 'unblock') {
+    if ($action === 'unblock') {
         if (!isBlocked($ip)) {
             echo "IP $ip is not in the blocklist.";
         } else {
             unblockIP($ip);
             // Provide immediate feedback that the IP is unblocked
             echo "IP $ip has been unblocked and can now access the system.";
-            // Optionally redirect or provide a button for the user to return to a different page
-            echo '<br><a href="index.php">Click here to go back to the homepage</a>';
-            exit();
+            exit();  // Stop further script execution
         }
     } else {
-        echo "Invalid action. Use 'block' or 'unblock'.";
+        echo "Invalid action. Use 'unblock'.";
     }
 } else {
-    echo "Invalid request. Provide both 'action' (block/unblock) and a valid 'ip'.";
+    echo "Invalid request. Provide both 'action' (unblock) and a valid 'ip'.";
 }
 
 ?>

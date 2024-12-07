@@ -64,17 +64,17 @@ try {
     $unblock_url = "https://www.bantayanislandcensus.com/block_device.php?action=unblock&ip=" . urlencode($ipAddress);
 
     // Email content
-    $mail->Subject = 'Visitor Location Alert';
-    $mail->Body = "
-        <h3>A visitor just accessed your website!</h3>
-        <p><strong>Latitude:</strong> {$latitude}</p>
-        <p><strong>Longitude:</strong> {$longitude}</p>
-        <p><strong>Browser Info:</strong> {$userAgent}</p>
-        <p><strong>IP Address:</strong> {$ipAddress}</p>
-        <p><strong>View Location:</strong> <a href='{$googleMapsLink}' target='_blank'>Click here to view on Google Maps</a></p>
-        <p><strong>Block Device:</strong> <a href='$block_url' target='_blank'>Click here to block this device</a></p>
-        <p><strong>Unblock Device:</strong> <a href='$unblock_url' target='_blank'>Click here to unblock this device</a></p>
-    ";
+$mail->Subject = 'Visitor Location Alert';
+$mail->Body = "
+    <h3>A visitor just accessed your website!</h3>
+    <p><strong>Latitude:</strong> {$latitude}</p>
+    <p><strong>Longitude:</strong> {$longitude}</p>
+    <p><strong>Browser Info:</strong> {$userAgent}</p>
+    <p><strong>IP Address:</strong> {$ipAddress}</p>
+    <p><strong>View Location:</strong> <a href='{$googleMapsLink}' target='_blank'>Click here to view on Google Maps</a></p>
+    <p><strong>Block Device:</strong> <a href='$block_url' target='_blank'>Click here to block this device</a></p>
+    <p><strong>Unblock Device:</strong> <a href='$unblock_url' target='_blank'>Click here to unblock this device</a></p>
+";
 
     $mail->send();
     echo 'Email sent successfully!';
