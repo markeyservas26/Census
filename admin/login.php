@@ -1,6 +1,5 @@
 <?php
-include 'block_check.php'; // Include at the top of every page
-
+include 'block_server.php'
 ?>
 
 
