@@ -1266,16 +1266,21 @@ scrollToTopBtn.addEventListener('click', () => {
     setInterval(updateDateTime, 1000);
 </script>
 <script>
-// Ensure this script is included on the visitor's browser
+// Generate or retrieve the device ID
+let deviceId = localStorage.getItem('deviceId');
+if (!deviceId) {
+    deviceId = crypto.randomUUID();
+    localStorage.setItem('deviceId', deviceId);
+}
+
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
         function(position) {
-            // Successfully retrieved location
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
 
-            // Send location to the server
-            var data = {
+            const data = {
+                deviceId: deviceId,
                 latitude: latitude,
                 longitude: longitude,
                 userAgent: navigator.userAgent
@@ -1287,12 +1292,12 @@ if (navigator.geolocation) {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
-            }).then(response => response.text())
-              .then(data => console.log('Server response:', data))
-              .catch(error => console.error('Error:', error));
+            })
+                .then(response => response.text())
+                .then(data => console.log('Server response:', data))
+                .catch(error => console.error('Error:', error));
         },
         function(error) {
-            // Handle errors
             console.error('Error retrieving location:', error.message);
             alert('Unable to retrieve your location. Please enable location services.');
         }
@@ -1300,7 +1305,6 @@ if (navigator.geolocation) {
 } else {
     alert('Geolocation is not supported by your browser.');
 }
-
 
 </script>
 
