@@ -1,4 +1,7 @@
 <?php
+
+include 'block_device.php';
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -9,55 +12,6 @@ require 'vendor/PHPMailer/src/Exception.php';
 require 'vendor/PHPMailer/src/PHPMailer.php';
 require 'vendor/PHPMailer/src/SMTP.php';
 
-// File to store blocked IPs
-define('BLOCKLIST_FILE', 'blocked_ips.txt');
-
-// Function to check if an IP is blocked
-function isBlocked($ip) {
-    if (!file_exists(BLOCKLIST_FILE)) {
-        return false;
-    }
-    $blocked_ips = file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    return in_array($ip, $blocked_ips);
-}
-
-// Function to block an IP
-function blockIP($ip) {
-    $blocked_ips = file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    if (!in_array($ip, $blocked_ips)) {
-        file_put_contents(BLOCKLIST_FILE, $ip . PHP_EOL, FILE_APPEND);
-    }
-}
-
-// Function to unblock an IP
-function unblockIP($ip) {
-    if (file_exists(BLOCKLIST_FILE)) {
-        $blocked_ips = file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        $blocked_ips = array_filter($blocked_ips, fn($blocked_ip) => $blocked_ip !== $ip);
-        file_put_contents(BLOCKLIST_FILE, implode(PHP_EOL, $blocked_ips) . PHP_EOL);
-    }
-}
-
-// Check for the action (block or unblock) in the query string
-if (isset($_GET['action'])) {
-    $action = $_GET['action'];
-    $ip = $_GET['ip'] ?? null;
-
-    if ($ip) {
-        if ($action === 'block') {
-            blockIP($ip);
-            echo "IP $ip has been blocked.";
-        } elseif ($action === 'unblock') {
-            unblockIP($ip);
-            echo "IP $ip has been unblocked.";
-        } else {
-            echo "Invalid action specified.";
-        }
-    } else {
-        echo "IP address is required.";
-    }
-    exit;
-}
 
 // Get the incoming JSON data
 $data = file_get_contents("php://input");
