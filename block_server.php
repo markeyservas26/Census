@@ -51,6 +51,7 @@ if (isBlocked($user_ip)) {
             }
             h1 {
                 font-size: 70px;
+                margin-top: 20px;
                 margin-bottom: 20px;
                 color: #721c24;
                 font-weight: bold;
@@ -72,9 +73,16 @@ if (isBlocked($user_ip)) {
             a:hover {
                 background-color: #e53935;
             }
+            .error-image {
+                max-width: 150px;
+                margin-bottom: 30px;
+            }
         </style>
     </head>
     <body>
+        <!-- Image at the top -->
+        <img src='https://via.placeholder.com/150' alt='403 Error' class='error-image' />
+        
         <h1>403 Forbidden</h1>
         <p>Your access has been blocked by the system administrator. If you think this is an error, please contact support.</p>
         <a href='/'>Go to Homepage</a>
@@ -83,6 +91,7 @@ if (isBlocked($user_ip)) {
     ";
     exit();
 }
+
 
 
 // Function to get location data based on IP address using ipstack API
