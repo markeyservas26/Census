@@ -26,7 +26,63 @@ function isBlocked($ip) {
 function denyAccess() {
     // Redirect to the "403 Forbidden" page or display a message
     header('HTTP/1.1 403 Forbidden');
-    echo "<h1>403 Forbidden</h1><p>Your access has been blocked by the system administrator. Please contact support.</p>";
+    
+    // Output custom styled message
+    echo "
+    <!DOCTYPE html>
+    <html lang='en'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>403 Forbidden</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: white;
+                color: #721c24;
+                text-align: center;
+                padding: 100px 20px;
+                margin: 0;
+            }
+            h1 {
+                font-size: 70px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                color: #721c24;
+                font-weight: bold;
+            }
+            p {
+                font-size: 20px;
+                margin-bottom: 20px;
+                line-height: 1.6;
+            }
+            a {
+                background-color: #ffff;
+                color: #ffff;
+                padding: 12px 30px;
+                text-decoration: none;
+                border-radius: 5px;
+                font-size: 18px;
+                font-weight: bold;
+            }
+            a:hover {
+                background-color: #e53935;
+            }
+            .error-image {
+                max-width: 150px;
+                margin-bottom: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Image at the top -->
+        <img src='assets/img/chad.jpg' alt='403 Error' class='error-image' />
+        
+        <h1>403 Forbidden</h1>
+        <p>Your access has been blocked by the system administrator. If you think this is an error, please contact support.</p>
+    </body>
+    </html>
+    ";
     exit();
 }
 
