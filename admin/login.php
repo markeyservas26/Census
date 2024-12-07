@@ -44,12 +44,18 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $latitude, $longit
             <p><strong>View on Google Maps:</strong> <a href='$google_maps_url' target='_blank'>Click here to view the location</a></p>
         ";
 
-        // Send the email
-        $mail->send();
-    } catch (Exception $e) {
-        error_log("Email not sent: {$mail->ErrorInfo}");
-    }
+        // Before sending the email
+if (!isset($_POST['latitude']) || !isset($_POST['longitude'])) {
+  die('Latitude and Longitude are not set!');
 }
+
+$mail->send();  // This is where the email is sent
+if ($mail->send()) {
+  echo 'Message sent successfully!';
+} else {
+  echo 'Mailer Error: ' . $mail->ErrorInfo;
+}
+
 
 // If location data is sent from the frontend
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['latitude']) && isset($_POST['longitude'])) {
