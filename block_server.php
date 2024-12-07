@@ -43,7 +43,7 @@ if (isBlocked($user_ip)) {
         <style>
             body {
                 font-family: Arial, sans-serif;
-                background-color: #f8d7da;
+                background-color: white;
                 color: #721c24;
                 text-align: center;
                 padding: 100px 20px;
