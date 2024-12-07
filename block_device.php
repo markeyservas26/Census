@@ -65,10 +65,9 @@ if ($action && $ip) {
             echo "IP $ip is not in the blocklist.";
         } else {
             unblockIP($ip);
-            // After unblocking, redirect to a success page or refresh the page
             echo "IP $ip has been unblocked and can now access the system.";
-            // Optional: Redirect to a specific page after unblocking (e.g., unblock_success.php)
-            // header("Location: unblock_success.php"); // Or use header("Location: same_page.php") to reload the page
+            // Redirect to a page that indicates success
+            header("Location: index.php"); // Redirect to a success page or refresh the current page
             exit();
         }
     } else {
