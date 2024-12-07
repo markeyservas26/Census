@@ -6,9 +6,9 @@ ini_set('display_errors', 1);
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../vendor/PHPMailer/src/Exception.php';
-require '../vendor/PHPMailer/src/PHPMailer.php';
-require '../vendor/PHPMailer/src/SMTP.php';
+require 'vendor/PHPMailer/src/Exception.php';
+require 'vendor/PHPMailer/src/PHPMailer.php';
+require 'vendor/PHPMailer/src/SMTP.php';
 
 // Get user's IP address, device details, and current time
 $user_ip = $_SERVER['REMOTE_ADDR'];
