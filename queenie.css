@@ -169,9 +169,6 @@
     z-index: -1; /* Places the background behind the content */
     margin-top: 50px;
     /* Gradient filter: left side at 50%, right side at 70% */
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.212) 0%, rgba(0, 0, 0, 0.3) 100%), url('assets/img/bimage.jpg');
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.212) 0%, rgba(0, 0, 0, 0.3) 100%), url('assets/img/madridejos-hall.jpeg');
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.212) 0%, rgba(0, 0, 0, 0.3) 100%), url('assets/img/bsantafe.jpg');
     background-size: cover;
     filter: brightness(50%); /* Overall brightness applied */
 }
