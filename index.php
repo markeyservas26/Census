@@ -809,6 +809,14 @@
                         <p class="text-justify" id="census-paragraph" style="margin-top: 30px;">Help us shape the future of our community by participating in the census. Your input is crucial for better planning and services. Thank you for being involved!</p>
                     </div>
                 </div>
+                <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
+                        <div class="hero-image text-center">
+                            <!-- Use a container to maintain the size -->
+                            <div id="logoContainer">
+                                <img id="logoImage" src="" alt="Logo" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
                 <!-- Remove the Right Column with Image -->
                 <script src="//code.tidio.co/7tcqgrqj3h69fqy1zscszlhqdl1xvc9i.js" async></script>
 
