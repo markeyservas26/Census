@@ -776,7 +776,7 @@
 
 <main class="main">
     <!-- Hero Section -->
-    <section class="hero section" >
+    <section class="hero section" style="margin-top: -20px;" >
         <div class="container">
             <!-- Search Bar Section Inside Hero -->
             <div class="row justify-content-center mt-4">
