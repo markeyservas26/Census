@@ -765,7 +765,7 @@
             <!-- Bantayan Dropdown -->
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Bantayan <i class="bi bi-chevron-down"></i>
+                    Bantayan    
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="about_municipality1.php">About Bantayan Municipality</a></li>
@@ -779,7 +779,7 @@
             <!-- Madridejos Dropdown -->
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Madridejos <i class="bi bi-chevron-down"></i>
+                    Madridejos 
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="about_municipality.php">About Madridejos Municipality</a></li>
@@ -793,7 +793,7 @@
             <!-- Santa Fe Dropdown -->
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Santa Fe <i class="bi bi-chevron-down"></i>
+                    Santa Fe 
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="about_municipality2.php">About Santa Fe Municipality</a></li>
