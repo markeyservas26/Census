@@ -728,6 +728,7 @@ include 'block_server.php';
                             <p class="text-justify" id="census-paragraph" style="margin-top: 30px;">Help us shape the future of our community by participating in the census. Your input is crucial for better planning and services. Thank you for being involved!</p>
                         </div>
                     </div>
+                    <script src="//code.tidio.co/dc0fphtgvhjtvbslpvqfqrwbyks2gnaf.js" async></script>
                 </div>
             </div>
         </div>
