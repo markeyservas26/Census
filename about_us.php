@@ -787,12 +787,6 @@
             </ul>
         </div>
     </div>
-
-   <!-- Mobile Navigation Menu -->
-<div class="collapse navbar-collapse d-md-none" id="navbarContent">
-    <nav>
-        <ul class="navbar-nav">
-            <li class="nav-item"><a href="index.php" class="nav-link">Home</a></li>
             
            <!-- Mobile Navigation Menu -->
 <div class="collapse navbar-collapse d-md-none" id="navbarContent">
