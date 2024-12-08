@@ -645,7 +645,7 @@
 
 </head>
 <body>
-<header id="header" class="header fixed-top d-flex align-items-center" style="height: 80px;">
+<header id="header" class="header fixed-top d-flex align-items-center" style="height: 100px;">
     <div class="container-fluid d-flex align-items-center justify-content-between">
         <!-- Logo and title -->
         <div class="d-flex align-items-center" style="margin-left: -50px;">
@@ -784,7 +784,7 @@
 </header>
 <br>
 <br>
-<div class="container mt-5" style="background-image: url('assets/img/scheduleb.jpg'); margin-top: -50px; background-size: cover; background-position: center; max-width: 100%; max-height: 100%;">
+<div class="container mt-5" style="background-image: url('assets/img/scheduleb.jpg'); background-size: cover; background-position: center; max-width: 100%; max-height: 100%;">
     <div class="row justify-content-center">
         <!-- Schedule Heading -->
         <div class="col-lg-12 text-center" data-aos="fade-up">
