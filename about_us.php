@@ -791,11 +791,11 @@
 <div class="collapse navbar-collapse d-md-none" id="navbarContent">
     <nav>
         <ul class="navbar-nav">
-            <li class="nav-item"><a href="index.php" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="#" id="homeLink" class="nav-link">Home</a></li>
             
             <!-- Bantayan Dropdown -->
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="bantayanLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Bantayan
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="bantayanLink">
@@ -809,7 +809,7 @@
 
             <!-- Madridejos Dropdown -->
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="madridejosLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Madridejos
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="madridejosLink">
@@ -823,7 +823,7 @@
 
             <!-- Santa Fe Dropdown -->
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="santafeLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Santa Fe
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="santafeLink">
@@ -840,7 +840,6 @@
         </ul>
     </nav>
 </div>
-
 
 </header>
 <br>
