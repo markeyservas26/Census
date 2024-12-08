@@ -28,8 +28,8 @@
   justify-content: space-between;
   align-items: center;
   background-color: #004080;
-  height: 83px; /* Adjust the height as needed */
-    padding: 0 20px; /* Optional: Add padding if needed */
+  height: 50px; /* Adjust the height as needed */
+    padding: 0 10px; /* Optional: Add padding if needed */
     box-sizing: border-box; /* Ensure padding is included in the height */
   border-bottom: 2px solid #003060;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -148,6 +148,13 @@
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); /* Adjusted opacity for a more subtle shadow */
 }
 
+.hero {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 150%; /* Full viewport height */
+}
+
 .hero::before {
     content: "";
     position: absolute;
@@ -155,13 +162,35 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('assets/img/back.jpg'); /* Path to your background image */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    filter: blur(5px); /* Adjust the blur intensity as needed */
-    z-index: -1; /* Positions the blurred background behind the text */
-    /* Ensure the pseudo-element spans the full height and width of the hero section */
+    animation: slideCarousel 12s infinite; /* 12s total duration */
+    z-index: -1; /* Places the background behind the content */
+    margin-top: 50px;
+    /* Gradient filter: left side at 50%, right side at 70% */
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.212) 0%, rgba(0, 0, 0, 0.3) 100%), url('assets/img/bimage.jpg');
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.212) 0%, rgba(0, 0, 0, 0.3) 100%), url('assets/img/madridejos-hall.jpeg');
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.212) 0%, rgba(0, 0, 0, 0.3) 100%), url('assets/img/bsantafe.jpg');
+    background-size: cover;
+    filter: brightness(50%); /* Overall brightness applied */
+}
+
+/* Keyframes for one-by-one sliding */
+@keyframes slideCarousel {
+    0%, 33% {
+        background-image: url('assets/img/bimage.jpg');
+        background-size: cover;
+    }
+    34%, 66% {
+        background-image: url('assets/img/madridejos-hall.jpeg');
+        background-size: cover;
+    }
+    67%, 100% {
+        background-image: url('assets/img/bsantafe.jpg');
+        background-size: 100% 90%; /* Adjust width to 90% of container, height adjusts automatically */
+        background-position: center; /* Centers the image horizontally and vertically */
+    }
 }
 
 .hero-content {
@@ -181,16 +210,17 @@
 }
 
 .hero-content h3 {
-    font-size: 1.9rem; /* Adjust font size */
+    font-size: 2.0rem; /* Adjust font size */
     margin-bottom: 20px; /* Add spacing below heading */
     color: rgba(255, 255, 255, 0.9);
 }
 
 .hero-content p {
-    font-size: 1.2rem; /* Adjust font size */
+    font-size: 1.0rem; /* Adjust font size */
     line-height: 1.6; /* Adjust line height */
     color: rgba(255, 255, 255, 0.85);
 }
+
 
 .hero-image {
     text-align: center; /* Center align the logo */
@@ -219,15 +249,14 @@
 }
  
 #logoContainer {
-    max-width: 100%; /* Adjust as needed */
-    max-height: 100%; /* Adjust as needed */
+    max-width: 600%; /* Adjust as needed */
+    max-height: 600%; /* Adjust as needed */
     overflow: hidden; /* Ensure logos don't overflow the container */
 }
 #logoImage {
-    width: 80%; /* Set the desired width */
-    height: 50%; /* Set the desired height */
+    width: 100%; /* Set the desired width */
+    height: 100%; /* Set the desired height */
     border-radius: 30px;
-    max-width: 100%; /* Ensure it doesn't exceed its container */
     height: auto; /* Maintain aspect ratio */
     
 }
@@ -336,16 +365,16 @@
 .image-container {
     position: relative;
     overflow: hidden;
-    border-radius: 10px;
+    width: 500%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     margin-top: 0px;
+    height: auto;
 }
 
 .image-container img {
-    width: 100%;
+    width: 500%;
     height: auto;
     display: block;
-    border-radius: 10px;
     animation: fadeIn 1.5s ease-out;
 }
 @keyframes fadeIn {
@@ -524,3 +553,23 @@
 .schedule-table tbody tr:first-child td {
     border-top: none;
 }
+
+    /* Style for enhanced dropdown items */
+.enhanced-dropdown-item {
+    color: #333;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 5px; /* Rounded corners for a modern touch */
+    background-color: rgba(255, 255, 255, 0.8);
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.enhanced-dropdown-item:hover {
+    background-color: rgba(13, 110, 253, 0.8); /* Light gray hover background */
+    color: #fff; /* Bootstrap primary color for hover text */
+    text-decoration: none; /* Removes underline */
+    transform: scale(1.05); /* Slight zoom-in effect on hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for hover */
+}
+

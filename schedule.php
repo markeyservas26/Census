@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,6 +26,9 @@
   <!-- AOS CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+
 
 
   <!-- Main CSS File -->
@@ -34,12 +36,6 @@
   <link href="assets/css/main.css" rel="stylesheet">
   <link href="queenie.css" rel="stylesheet">
 <style>
-    .highlight {
-    background-color: yellow;
-    font-weight: bold;
-}
-
-
  /* About Section Styles */
 .about-content {
     padding: 80px 0;
@@ -559,28 +555,6 @@
     }
 }
 
-/* Background image with blur effect */
-#scheduleSection {
-    background-image: url('assets/img/scheduleb.jpg');
-    background-size: cover;
-    background-position: center;
-    padding: 50px 0;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Adding a blur effect to the background */
-#scheduleSection::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: inherit;
-    filter: blur(8px); /* Apply blur effect */
-    z-index: 0;
-}
 
 /* Content inside the section */
 #scheduleSection .container {
@@ -644,6 +618,7 @@
     }
 }
 
+
 </style>
 <style>
     /* Normal header (when at the top) */
@@ -669,10 +644,7 @@
 </style>
 
 </head>
-
 <body>
-  
-
 <header id="header" class="header fixed-top d-flex align-items-center" style="height: 100px;">
     <div class="container-fluid d-flex align-items-center justify-content-between">
         <!-- Logo and title -->
@@ -692,8 +664,8 @@
     <ul class="d-flex gap-1">
         <li><a href="index.php">Home</a></li>
         
-        <!-- Bantayan Dropdown -->
-        <li class="dropdown">
+         <!-- Bantayan Dropdown -->
+         <li class="dropdown">
             <a href="#"  class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Bantayan</a>
             <ul class="dropdown-menu">
             <li><a class="dropdown-item enhanced-dropdown-item" href="about_municipality1.php">About Bantayan Municipality</a></li>
@@ -717,8 +689,8 @@
 </li>
 
         
-       <!-- Santafe Dropdown -->
-       <li class="dropdown">
+        <!-- Santafe Dropdown -->
+        <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Santa Fe</a>
     <ul class="dropdown-menu">
         <li><a class="dropdown-item enhanced-dropdown-item" href="about_municipality2.php">About Santa Fe Municipality</a></li>
@@ -770,200 +742,128 @@
         </nav>
     </div>
 </header>
+<br>
+<br>
+<div class="container mt-5" style="background-image: url('assets/img/scheduleb.jpg'); background-size: cover; background-position: center; max-width: 100%; max-height: 100%;">
+    <div class="row justify-content-center">
+        <!-- Schedule Heading -->
+        <div class="col-lg-12 text-center" data-aos="fade-up">
+            <br> <br>
+            <h2 class="section-title" style="color: white; font-family: 'Merriweather', serif;">Upcoming Schedule</h2>
+<p class="section-description" style="color: white; font-family: 'Merriweather', serif;">Check out the upcoming schedules for each municipality!</p>
 
+        </div>
+    </div>
 
+    <!-- Horizontal Alignment for Schedule Cards -->
+    <div class="row justify-content-center">
+        <!-- Schedule for Bantayan -->
+        <div class="col-lg-4 col-md-6" data-aos="fade-right" data-aos-delay="100">
+            <div class="card modern-card">
+                <div class="card-header gradient-header">
+                    <h5 class="text-white" style="color: white; font-family: 'Merriweather', serif;">Bantayan Schedule</h5>
+                </div>
+                <div class="card-body">
+                    <?php
+                    include 'database/db_connect.php';
+                    $sql_bantayan = "SELECT start_census, end_census, start_time, end_time FROM schedule WHERE municipality = 'Bantayan' ORDER BY start_census ASC";
+                    $result_bantayan = $conn->query($sql_bantayan);
 
+                    if ($result_bantayan->num_rows > 0) {
+                        while ($row = $result_bantayan->fetch_assoc()) {
+                            echo "<div class='schedule-box'>";
+                            echo "<div class='schedule-item'>";
+                            echo "<p><strong>Census Date:</strong> " . htmlspecialchars($row["start_census"]) . " to " . htmlspecialchars($row["end_census"]) . "</p>";
+                            echo "<p><strong>Census Time:</strong> " . htmlspecialchars($row["start_time"]) . " to " . htmlspecialchars($row["end_time"]) . "</p>";
+                            echo "</div>";
+                            echo "</div>";
+                        }
+                    } else {
+                        echo "<p>No schedules found for Bantayan</p>";
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
 
-<main class="main">
-    <!-- Hero Section -->
-    <section class="hero section" >
-        <div class="container">
-            <!-- Search Bar Section Inside Hero -->
-            <div class="row justify-content-center mt-4">
-    <div class="col-lg-8" data-aos="fade-down" data-aos-duration="1000">
-        <!-- Add Small Text Above the Search Input, aligned to the left -->
-        <p class="text-start" style="font-size: 14px; color: #666; margin-bottom: 5px;">Search Site Map</p>
-        
-        <form id="searchForm" class="d-flex align-items-center" style="margin-top: 8px;"> 
-            <input type="text" id="searchInput" class="form-control form-control-lg" 
-                   placeholder="" 
-                   style="border-radius: 20px; padding: 5px; background-color: rgba(255, 255, 255, 0.7); border: 2px solid white;" 
-                   list="searchSuggestions">
-            <datalist id="searchSuggestions"></datalist>
-            <!-- Search Button with Icon -->
-            <button type="button" id="searchButton" class="btn btn-lg ms-2" 
-                    style="border-radius: 20px; padding: 10px 15px; background-color: #007bff; border: none;">
-                <i class="fas fa-search" style="color: white;"></i>
-            </button>
-        </form>
+        <!-- Schedule for Madridejos -->
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="card modern-card">
+                <div class="card-header gradient-header">
+                    <h5 class="text-white" style="color: white; font-family: 'Merriweather', serif;">Madridejos Schedule</h5>
+                </div>
+                <div class="card-body">
+                    <?php
+                    $sql_madridejos = "SELECT start_census, end_census, start_time, end_time FROM schedule WHERE municipality = 'Madridejos' ORDER BY start_census ASC";
+                    $result_madridejos = $conn->query($sql_madridejos);
+
+                    if ($result_madridejos->num_rows > 0) {
+                        while ($row = $result_madridejos->fetch_assoc()) {
+                            echo "<div class='schedule-box'>";
+                            echo "<div class='schedule-item'>";
+                            echo "<p><strong>Census Date:</strong> " . htmlspecialchars($row["start_census"]) . " to " . htmlspecialchars($row["end_census"]) . "</p>";
+                            echo "<p><strong>Census Time:</strong> " . htmlspecialchars($row["start_time"]) . " to " . htmlspecialchars($row["end_time"]) . "</p>";
+                            echo "</div>";
+                            echo "</div>";
+                        }
+                    } else {
+                        echo "<p>No schedules found for Madridejos</p>";
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+
+        <!-- Schedule for Santa Fe -->
+        <div class="col-lg-4 col-md-6" data-aos="fade-left" data-aos-delay="300">
+            <div class="card modern-card">
+                <div class="card-header gradient-header">
+                    <h5 class="text-white" style="color: white; font-family: 'Merriweather', serif;">Santa Fe Schedule</h5>
+                </div>
+                <div class="card-body">
+                    <?php
+                    $sql_santa_fe = "SELECT start_census, end_census, start_time, end_time FROM schedule WHERE municipality = 'Santafe' ORDER BY start_census ASC";
+                    $result_santa_fe = $conn->query($sql_santa_fe);
+
+                    if ($result_santa_fe->num_rows > 0) {
+                        while ($row = $result_santa_fe->fetch_assoc()) {
+                            echo "<div class='schedule-box'>";
+                            echo "<div class='schedule-item'>";
+                            echo "<p><strong>Census Date:</strong> " . htmlspecialchars($row["start_census"]) . " to " . htmlspecialchars($row["end_census"]) . "</p>";
+                            echo "<p><strong>Census Time:</strong> " . htmlspecialchars($row["start_time"]) . " to " . htmlspecialchars($row["end_time"]) . "</p>";
+                            echo "</div>";
+                            echo "</div>";
+                        }
+                    } else {
+                        echo "<p>No schedules found for Santa Fe</p>";
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stay Tuned Section -->
+        <div class="row justify-content-center mt-5 stay-tuned-section" data-aos="fade-up">
+            <div class="col-lg-8 text-center">
+                <div class="stay-tuned-card">
+                    <h3 class="stay-tuned-title" style="color: white; font-family: 'Merriweather', serif;">Stay Tuned for More Updates!</h3>
+                    <p class="stay-tuned-description" style="color: white; font-family: 'Merriweather', serif;">We are continuously updating the schedule. Check back soon for more information.</p>
+                </div>
+            </div>
+        </div> 
     </div>
 </div>
 
 
-            <div class="row align-items-center">
-                <!-- Left Column: Welcome Text and Paragraph -->
-                <div class="col-lg-6" data-aos="fade-up" data-aos-duration="1000">
-                    <div class="hero-content" style="margin-top: 50px;">
-                        <h3>Welcome to the Bantayan Island Census!</h3>
-                        <br>
-                        <p class="text-justify" id="census-paragraph" style="margin-top: 30px;">Help us shape the future of our community by participating in the census. Your input is crucial for better planning and services. Thank you for being involved!</p>
-                    </div>
-                </div>
-                <!-- Remove the Right Column with Image -->
-                <script src="//code.tidio.co/xjhnpy1s8nfzl3muds8u7acrmf1p3jkc.js" async></script>
 
-                </div>
-            </div>
-        </div>
-    </section>
-    
-</main>
-
-
-
-
-
-
-
-<!-- FAQ and Map Section -->
-<section id="faq-map" class="section" style="background: url('assets/img/faqback.jpg') no-repeat center center; background-size: cover; position: relative; color: #f8f9fa; ">
-    <!-- Overlay to darken the background image and make text readable -->
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); filter: blur(10px); "></div>
-    
-    <div class="container" style="position: relative; z-index: 1;">
-        <div class="row">
-            <!-- Map Column -->
-            <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
-                <div class="map-container" style="position: relative; overflow: hidden; height: 548px; border: 1px solid #ccc; border-radius: 8px;">
-                    <iframe 
-                        style="height: 100%; width: 100%; border: 0;" 
-                        frameborder="0" 
-                        src="https://www.google.com/maps/embed/v1/place?q=Bantayan+Island,+Cebu,+Philippines&zoom=12&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8">
-                    </iframe>
-                </div>
-            </div>
-            <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
-                <div class="card shadow-sm p-4 border rounded bg-light">
-                    <h4 class="font-weight-bold mb-3 text-primary" style="font-family: 'Merriweather', serif;">Frequently Asked Questions</h4>
-                    <p style="font-family: 'Merriweather', serif;">Here are some common questions about the Bantayan Island Census project:</p>
-                    <div class="accordion" id="faqAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="faqHeadingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="true" aria-controls="faqCollapseOne">
-                                    What is the purpose of the Bantayan Island Census?
-                                </button>
-                            </h2>
-                            <div id="faqCollapseOne" class="accordion-collapse collapse show" aria-labelledby="faqHeadingOne">
-                                <div class="accordion-body">
-                                    The census aims to collect accurate data about residents to improve public services, allocate resources effectively, and plan for the community's development.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="faqHeadingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo" aria-expanded="false" aria-controls="faqCollapseTwo">
-                                    Who can participate in the census?
-                                </button>
-                            </h2>
-                            <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo">
-                                <div class="accordion-body">
-                                    All residents of Bantayan Island are encouraged to participate in the census, regardless of age, gender, or citizenship status.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="faqHeadingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree" aria-expanded="false" aria-controls="faqCollapseThree">
-                                    How is the data collected?
-                                </button>
-                            </h2>
-                            <div id="faqCollapseThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree">
-                                <div class="accordion-body">
-                                    Data is collected through door-to-door surveys by authorized census staff, and community centers.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="faqHeadingFour">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFour" aria-expanded="false" aria-controls="faqCollapseFour">
-                                    Is my information confidential?
-                                </button>
-                            </h2>
-                            <div id="faqCollapseFour" class="accordion-collapse collapse" aria-labelledby="faqHeadingFour">
-                                <div class="accordion-body">
-                                    Yes, all collected data is kept strictly confidential and is used only for research and planning purposes in accordance with privacy laws.
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- New FAQ Added (Initially hidden) -->
-                        <div class="accordion-item" id="faqMoreItems" style="display: none;">
-                            <h2 class="accordion-header" id="faqHeadingFive">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFive" aria-expanded="false" aria-controls="faqCollapseFive">
-                                    How can I update my information after participating in the census?
-                                </button>
-                            </h2>
-                            <div id="faqCollapseFive" class="accordion-collapse collapse" aria-labelledby="faqHeadingFive">
-                                <div class="accordion-body">
-                                    If your information changes after the census has been completed, you can contact the census office to modify your details.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item" id="faqMoreItems" style="display: none;">
-                            <h2 class="accordion-header" id="faqHeadingSix">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseSix" aria-expanded="false" aria-controls="faqCollapseSix">
-                                    Will I be compensated for participating in the census?
-                                </button>
-                            </h2>
-                            <div id="faqCollapseSix" class="accordion-collapse collapse" aria-labelledby="faqHeadingSix">
-                                <div class="accordion-body">
-                                    Participation in the census is voluntary and free of charge. There is no financial compensation, but your participation will contribute to improving public services for the community.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item" id="faqMoreItems" style="display: none;">
-                            <h2 class="accordion-header" id="faqHeadingSeven">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseSeven" aria-expanded="false" aria-controls="faqCollapseSeven">
-                                    Can I participate if I am living outside Bantayan Island?
-                                </button>
-                            </h2>
-                            <div id="faqCollapseSeven" class="accordion-collapse collapse" aria-labelledby="faqHeadingSeven">
-                                <div class="accordion-body">
-                                    Only residents currently living on Bantayan Island are eligible to participate in the census. If you are temporarily away from the island, you may still be able to participate through remote surveys conducted by census staff.
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- Show More / Show Less Text -->
-                    <div class="text-center mt-4">
-                        <a href="#" id="showMoreText" style="color: #007bff; text-decoration: none;">Show More</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-</main>
-
-
-
-
-
-   
-
-
-
-
-
-
-
-
-
-
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            AOS.init({
+                duration: 1000,
+                offset: 100,
+            });
+        });
+    </script>
 
 
 
@@ -976,15 +876,6 @@
 <a href="#" class="scroll-to-top">
   <i class="fas fa-chevron-up"></i>
 </a>
-
-<script>
-        document.addEventListener("DOMContentLoaded", function() {
-            AOS.init({
-                duration: 1000,
-                offset: 100,
-            });
-        });
-    </script>
 
 <!-- AOS JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
@@ -1040,78 +931,6 @@
         setInterval(changeLogo, 2000); // Change logo every 3 seconds
     });
 
-    document.addEventListener("DOMContentLoaded", function() {
-    // Target all the links
-    var homeLink = document.querySelectorAll('[id="homeLink"]');
-    var bantayanLink = document.querySelectorAll('[id="bantayanLink"]');
-    var madridejosLink = document.querySelectorAll('[id="madridejosLink"]');
-    var santafeLink = document.querySelectorAll('[id="santafeLink"]');
-    var scheduleLink = document.querySelectorAll('[id="schedule"]');
-    var aboutLink = document.querySelectorAll('[id="aboutLink"]');
-    var getStartedBtn = document.getElementById('getStartedBtn');
-
-    // Target all the sections
-    var heroSection = document.getElementById('hero');
-    var bantayanSection = document.getElementById('bantayan');
-    var madridejosSection = document.getElementById('madridejos');
-    var santafeSection = document.getElementById('santafe');
-    var scheduleSection = document.getElementById('scheduleSection');
-    var aboutSection = document.getElementById('about');
-
-    // Get the mobile menu collapse element
-    var navbarCollapse = document.getElementById('navbarContent');
-    var bsCollapse = new bootstrap.Collapse(navbarCollapse, {
-        toggle: false
-    });
-
-    // Function to add click event listener to all instances of a link
-    function addClickListener(links, section) {
-        links.forEach(function(link) {
-            link.addEventListener('click', function(event) {
-                event.preventDefault();
-                showSection(section);
-                
-                // Close mobile menu if it's open and we're in mobile view
-                if (window.innerWidth < 768) {  // 768px is the md breakpoint
-                    bsCollapse.hide();
-                }
-            });
-        });
-    }
-
-    // Add click event listeners for all links
-    addClickListener(homeLink, heroSection);
-    addClickListener(bantayanLink, bantayanSection);
-    addClickListener(madridejosLink, madridejosSection);
-    addClickListener(santafeLink, santafeSection);
-    addClickListener(scheduleLink, scheduleSection);
-    addClickListener(aboutLink, aboutSection);
-
-    // Add click event listener for Get Started button
-    if (getStartedBtn) {
-        getStartedBtn.addEventListener('click', function(event) {
-            event.preventDefault();
-            showSection(bantayanSection);
-        });
-    }
-
-    // Function to hide all sections except the one passed as an argument
-    function showSection(section) {
-        // Hide all sections
-        heroSection.style.display = 'none';
-        bantayanSection.style.display = 'none';
-        madridejosSection.style.display = 'none';
-        santafeSection.style.display = 'none';
-        scheduleSection.style.display = 'none';
-        aboutSection.style.display = 'none';
-
-        // Show the requested section
-        section.style.display = 'block';
-    }
-});
-
-
-</script>
 <script>
 // Get the scroll-to-top button
 const scrollToTopBtn = document.querySelector('.scroll-to-top');
@@ -1171,259 +990,6 @@ scrollToTopBtn.addEventListener('click', () => {
     // Update the date and time every second
     setInterval(updateDateTime, 1000);
 </script>
-<script>
-    const sitemap = {
-        "About Bantayan Municipality": "about_municipality1.php",
-        "About Madridejos Municipality": "about_municipality.php",
-        "About Santa Fe Municipality": "about_municipality2.php",
-        "Bantayan Municipality Mayor": "municipality_mayor1.php",
-        "Madridejos Municipality Mayor": "municipality_mayor.php",
-        "Santa Fe Municipality Mayor": "municipality_mayor2.php",
-        "Bantayan Barangay Officials": "barangay_officials1.php",
-        "Madridejos Barangay Officials": "barangay_officials.php",
-        "Santa Fe Barangay Officials": "barangay_officials2.php",
-        "Bantayan Municipality Profile": "municipality_profile1.php",
-        "Madridejos Municipality Profile": "municipality_profile.php",
-        "Santa Fe Municipality Profile": "municipality_profile2.php",
-        "Bantayan History": "history_bantayan.php",
-        "Madridejos History": "history_madridejos.php",
-        "Santa Fe History": "history_santafe.php",
-        "Schedule": "schedule.php",
-        "About Us": "about_us.php"
-    };
-
-    let typingAnimationActive = true;
-
-    function updateSuggestions(query) {
-        const suggestions = document.getElementById('searchSuggestions');
-        suggestions.innerHTML = '';  // Clear previous suggestions
-        const filteredResults = [];
-
-        for (const [key, value] of Object.entries(sitemap)) {
-            if (key.toLowerCase().includes(query.toLowerCase())) {
-                filteredResults.push(key);
-            }
-        }
-
-        filteredResults.forEach(result => {
-            const option = document.createElement('option');
-            option.innerHTML = highlightText(result, query);
-            suggestions.appendChild(option);
-        });
-    }
-
-    function highlightText(text, query) {
-        const regex = new RegExp(`(${query})`, 'gi');
-        return text.replace(regex, '<span class="highlight">$1</span>');
-    }
-
-    document.getElementById('searchInput').addEventListener('input', function () {
-        const query = this.value.trim();
-        updateSuggestions(query);
-
-        // Pause typing animation when the user types
-        typingAnimationActive = false;
-    });
-
-    document.getElementById('searchButton').addEventListener('click', function () {
-        const query = document.getElementById('searchInput').value.toLowerCase().trim();
-        const results = [];
-
-        for (const [key, value] of Object.entries(sitemap)) {
-            if (key.toLowerCase().includes(query)) {
-                results.push({ key, value });
-            }
-        }
-
-        if (results.length > 0) {
-            window.location.href = results[0].value;
-        } else {
-            alert("No matching page found. Please try a different search.");
-        }
-    });
-
-    document.getElementById('searchInput').addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            const query = this.value.toLowerCase().trim();
-            const results = [];
-
-            for (const [key, value] of Object.entries(sitemap)) {
-                if (key.toLowerCase().includes(query)) {
-                    results.push({ key, value });
-                }
-            }
-
-            if (results.length > 0) {
-                window.location.href = results[0].value;
-            } else {
-                alert("No matching page found. Please try a different search.");
-            }
-        }
-    });
-
-    const sitemapArray = [
-        "About Bantayan Municipality",
-        "About Madridejos Municipality",
-        "About Santa Fe Municipality",
-        "Bantayan Municipality Mayor",
-        "Madridejos Municipality Mayor",
-        "Santa Fe Municipality Mayor",
-        "Bantayan Barangay Officials",
-        "Madridejos Barangay Officials",
-        "Santa Fe Barangay Officials",
-        "Bantayan Municipality Profile",
-        "Madridejos Municipality Profile",
-        "Santa Fe Municipality Profile",
-        "Bantayan History",
-        "Madridejos History",
-        "Santa Fe History",
-        "Schedule",
-        "About"
-    ];
-
-    function typePlaceholder() {
-        if (!typingAnimationActive) return;
-
-        let currentIndex = 0;
-        let currentCharIndex = 0;
-        const searchInput = document.getElementById("searchInput");
-
-        function typeNextCharacter() {
-            const currentText = sitemapArray[currentIndex];
-            if (currentCharIndex < currentText.length) {
-                searchInput.placeholder += currentText.charAt(currentCharIndex);
-                currentCharIndex++;
-                setTimeout(typeNextCharacter, 100);
-            } else {
-                setTimeout(() => {
-                    currentIndex = (currentIndex + 1) % sitemapArray.length;
-                    currentCharIndex = 0;
-                    searchInput.placeholder = '';
-                    typeNextCharacter();
-                }, 1500);
-            }
-        }
-
-        typeNextCharacter();
-    }
-
-    window.addEventListener('load', typePlaceholder);
-</script>
-<script>
-    // Toggle chatbot message visibility
-    document.getElementById('chatbotButton').addEventListener('click', function() {
-        var chatbotMessage = document.getElementById('chatbotMessage');
-        chatbotMessage.style.display = chatbotMessage.style.display === 'block' ? 'none' : 'block';
-    });
-
-    // Function to send user input to AI and display the response
-    async function sendMessage() {
-        const userInput = document.querySelector('#chatbotMessage textarea').value;
-        if (userInput.trim() === '') return;
-
-        // Add user's message to the chat display (you can expand this)
-        document.querySelector('#chatbotMessage').innerHTML += `<p><b>You:</b> ${userInput}</p>`;
-
-        // Call AI API
-        try {
-            const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer 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` // Replace with your OpenAI API Key
-                },
-                body: JSON.stringify({
-                    model: "gpt-4",
-                    messages: [{ role: "user", content: userInput }]
-                })
-            });
-            const data = await response.json();
-            const aiResponse = data.choices[0].message.content;
-
-            // Display AI's response
-            document.querySelector('#chatbotMessage').innerHTML += `<p><b>AI:</b> ${aiResponse}</p>`;
-        } catch (error) {
-            console.error('Error:', error);
-            document.querySelector('#chatbotMessage').innerHTML += `<p><b>AI:</b> Sorry, something went wrong!</p>`;
-        }
-
-        // Clear the input box
-        document.querySelector('#chatbotMessage textarea').value = '';
-    }
-
-    // Attach event listener to Send button
-    document.querySelector('#chatbotMessage button').addEventListener('click', sendMessage);
-</script>
-<script>
-    // Elements
-    const chatBody = document.getElementById('chatBody');
-    const chatInput = document.getElementById('chatInput');
-    const sendArrow = document.getElementById('sendArrow');
-    const closeButton = document.getElementById('closeButton');
-
-    // Function to add a new message to the chat
-    function addMessage(content, isBot = false) {
-        const messageItem = document.createElement('div');
-        messageItem.classList.add('chatbot-message-item');
-        messageItem.style.alignSelf = isBot ? 'flex-start' : 'flex-end';
-        messageItem.style.backgroundColor = isBot ? '#e9ecef' : '#007bff';
-        messageItem.style.color = isBot ? '#333' : 'white';
-        messageItem.style.padding = '10px 15px';
-        messageItem.style.borderRadius = '15px';
-        messageItem.style.borderBottomLeftRadius = isBot ? '0' : '15px';
-        messageItem.style.borderBottomRightRadius = isBot ? '15px' : '0';
-        messageItem.style.maxWidth = '70%';
-        messageItem.style.fontSize = '14px';
-        messageItem.textContent = content;
-
-        chatBody.appendChild(messageItem);
-        chatBody.scrollTop = chatBody.scrollHeight; // Scroll to bottom
-    }
-
-    // Event listener for sending a message
-    sendArrow.addEventListener('click', async () => {
-    const userMessage = chatInput.value.trim();
-    if (userMessage) {
-        addMessage(userMessage); // Add user's message
-        chatInput.value = ''; // Clear input
-
-        // Send the message to the server to get the bot's response
-        try {
-            const response = await fetch('api/chatbot.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ message: userMessage }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-
-            if (data.message) {
-                const botResponse = data.message;
-                addMessage(botResponse, true); // Add bot's message
-            } else {
-                addMessage('Sorry, no response from the server.', true);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            addMessage('Sorry, there was an error with the chatbot.', true);
-        }
-    }
-});
-
-
-    // Close button functionality
-    closeButton.addEventListener('click', () => {
-        document.getElementById('chatbotMessage').style.display = 'none';
-    });
-</script>
-
 <?php 
 include 'footer.php';
 ?>
