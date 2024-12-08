@@ -698,7 +698,7 @@
 </head>
 <body>
 
-<header id="header" class="header fixed-top d-flex align-items-center" style="height: 100px;">
+<header id="header" class="header fixed-top d-flex align-items-center" style="height: 80px;">
     <div class="container-fluid d-flex align-items-center justify-content-between">
         <!-- Logo and title -->
         <div class="d-flex align-items-center" style="margin-left: -50px;">
