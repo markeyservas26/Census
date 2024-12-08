@@ -807,11 +807,6 @@
             <li class="nav-item"><a href="schedule.php" class="nav-link">Schedule</a></li>
             <li class="nav-item"><a href="about_us.php" class="nav-link">About</a></li>
         </ul>
-
-
-            <li class="nav-item"><a href="schedule.php" class="nav-link">Schedule</a></li>
-            <li class="nav-item"><a href="about_us.php" class="nav-link">About</a></li>
-        </ul>
     </nav>
 </div>
 </header>
