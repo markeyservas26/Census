@@ -249,8 +249,8 @@
 }
  
 #logoContainer {
-    max-width: 600%; /* Adjust as needed */
-    max-height: 600%; /* Adjust as needed */
+    max-width: 400%; /* Adjust as needed */
+    max-height: 400%; /* Adjust as needed */
     overflow: hidden; /* Ensure logos don't overflow the container */
 }
 #logoImage {
