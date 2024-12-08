@@ -784,7 +784,7 @@
 </header>
 <br>
 <br>
-<div class="container mt-5" style="background-image: url('assets/img/scheduleb.jpg'); background-size: cover; background-position: center; max-width: 100%; max-height: 100%;">
+<div class="container mt-5" style="background-image: url('assets/img/scheduleb.jpg'); margin-top: -20px; background-size: cover; background-position: center; max-width: 100%; max-height: 100%;">
     <div class="row justify-content-center">
         <!-- Schedule Heading -->
         <div class="col-lg-12 text-center" data-aos="fade-up">
