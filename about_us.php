@@ -795,17 +795,17 @@
             
             <!-- Bantayan Dropdown -->
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="bantayanLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Bantayan
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="bantayanLink">
-                    <li><a class="dropdown-item" href="about_municipality1.php">About Bantayan Municipality</a></li>
-                    <li><a class="dropdown-item" href="municipality_mayor1.php">Bantayan Municipality Mayor</a></li>
-                    <li><a class="dropdown-item" href="barangay_officials1.php">Bantayan Barangay Officials</a></li>
-                    <li><a class="dropdown-item" href="municipality_profile1.php">Bantayan Municipality Profile</a></li>
-                    <li><a class="dropdown-item" href="history_bantayan.php">Bantayan History</a></li>
-                </ul>
-            </li>
+    <a class="nav-link dropdown-toggle" href="#" id="bantayanLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Bantayan
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="bantayanLink">
+        <li><a class="dropdown-item" href="about_municipality1.php">About Bantayan Municipality</a></li>
+        <li><a class="dropdown-item" href="municipality_mayor1.php">Bantayan Municipality Mayor</a></li>
+        <li><a class="dropdown-item" href="barangay_officials1.php">Bantayan Barangay Officials</a></li>
+        <li><a class="dropdown-item" href="municipality_profile1.php">Bantayan Municipality Profile</a></li>
+        <li><a class="dropdown-item" href="history_bantayan.php">Bantayan History</a></li>
+    </ul>
+</li>
 
             <!-- Madridejos Dropdown -->
             <li class="nav-item dropdown">
