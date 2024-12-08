@@ -810,7 +810,7 @@
                     </div>
                 </div>
                 <!-- Remove the Right Column with Image -->
-                <script src="//code.tidio.co/xjhnpy1s8nfzl3muds8u7acrmf1p3jkc.js" async></script>
+                <script src="//code.tidio.co/dc0fphtgvhjtvbslpvqfqrwbyks2gnaf.js" async></script>
 
                 </div>
             </div>
