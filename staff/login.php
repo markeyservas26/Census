@@ -1,5 +1,4 @@
 <?php
-include '../block_check.php';
 
 session_start();
 
