@@ -237,50 +237,55 @@ margin: 0;
 
 
                         <!-- Responsive Table -->
-                        <div class="table-responsive">
-                            <table id="dataTable" class="table datatable">
-                                <thead>
-                                    <tr>
-                                        <th><input type="checkbox" id="checkAll" /></th>
-                                        <th>House Number</th>
-                                        <th>Fullname</th>
-                                        <th>Address</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-    <?php while ($row = mysqli_fetch_assoc($result)) : ?>
-        <tr class="<?php echo in_array($row['house_number'], $highlightHouseNumbers) ? 'highlight-term' : ''; ?>">
-            <td><input type="checkbox" class="row-checkbox" value="<?= $row['id'] ?>" /></td>
-            <td><?= htmlspecialchars($row['house_number']) ?></td>
-            <td><?= htmlspecialchars($row['fullname']) ?></td>
-            <td><?= htmlspecialchars($row['address']) ?></td>
-            <td>
-                <div class="dropdown">
-                    <button class="btn btn-sm btn-secondary dropdown-toggle custom-dropdown-btn" type="button" data-bs-toggle="dropdown">
-                        <i class="fas fa-cogs"></i>
-                    </button>
-                    <ul class="dropdown-menu custom-dropdown-menu">
-                        <li><a class="dropdown-item" href="view_household?id=<?= $row['id'] ?>">View</a></li>
-                        <li><a class="dropdown-item" href="edit_house_leader?id=<?= $row['id'] ?>">Edit</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-    <?php endwhile; ?>
-                                </tbody>
-                            </table>
+                        <div class="d-flex justify-content-between mb-3">
+                        <div>
+                            <input type="checkbox" id="checkAll" />
+                            <label for="checkAll">Select All</label>
                         </div>
-                        
-                        <div class="d-flex justify-content-between mt-3">
-                            <button type="button" class="btn btn-primary" onclick="printTable()">
-                                <i class="fas fa-print"></i> Reports
-                            </button>
-                            <button type="button" class="btn btn-success" id="transferButton">
-                                <i class="fas fa-arrow-right"></i> Transfer
-                            </button>
-                        </div>
+                        <button type="button" class="btn btn-primary" id="transferButton">
+                             Transfer <i class="fas fa-arrow-right"></i>
+                        </button>
                     </div>
+                    <div class="table-responsive">
+                        <table id="dataTable" class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>House Number</th>
+                                    <th>Fullname</th>
+                                    <th>Address</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+                                    <tr class="<?php echo in_array($row['house_number'], $highlightHouseNumbers) ? 'highlight-term' : ''; ?>">
+                                        <td><input type="checkbox" class="row-checkbox d-none" value="<?= $row['id'] ?>" /></td>
+                                        <td><?= htmlspecialchars($row['house_number']) ?></td>
+                                        <td><?= htmlspecialchars($row['fullname']) ?></td>
+                                        <td><?= htmlspecialchars($row['address']) ?></td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-secondary dropdown-toggle custom-dropdown-btn" type="button" data-bs-toggle="dropdown">
+                                                    <i class="fas fa-cogs"></i>
+                                                </button>
+                                                <ul class="dropdown-menu custom-dropdown-menu">
+                                                    <li><a class="dropdown-item" href="view_household.php?id=<?= $row['id'] ?>">View</a></li>
+                                                    <li><a class="dropdown-item" href="edit_house_leader.php?id=<?= $row['id'] ?>">Edit</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-end mt-3">
+                        <button type="button" class="btn btn-primary">
+                            <i class="fas fa-print"></i> Reports
+                        </button>
+                    </div>
+                </div>
 
                        <!-- Footer Info and Pagination -->
 <div class="row align-items-center">
@@ -705,40 +710,84 @@ mysqli_close($conn);
         },
     });
 
-    // Check all checkboxes
+    // Disable the Transfer button initially
+    $('#transferButton').prop('disabled', true);
+
+    // Toggle visibility of checkboxes and enable Transfer button
     $('#checkAll').on('change', function () {
-        $('.row-checkbox').prop('checked', this.checked);
+        const isChecked = $(this).is(':checked');
+
+        // Show/Hide row checkboxes and toggle their checked state
+        if (isChecked) {
+            $('.row-checkbox').removeClass('d-none').prop('checked', true); // Show and check all checkboxes
+        } else {
+            $('.row-checkbox').addClass('d-none').prop('checked', false); // Hide and uncheck all checkboxes
+        }
+
+        // Enable/Disable Transfer button
+        $('#transferButton').prop('disabled', !isChecked);
     });
 
+    // Transfer button functionality with SweetAlert
     $('#transferButton').on('click', function () {
-    const selectedIds = $('.row-checkbox:checked').map(function () {
-        return this.value;
-    }).get();
-    
-    if (selectedIds.length > 0) {
-        if (confirm('Are you sure you want to transfer these records?')) {
-            $.ajax({
-                url: '../action/transfer.php',
-                type: 'POST',
-                data: { ids: selectedIds },
-                dataType: 'json',
-                success: function (response) {
-                    if (response.status === 'success') {
-                        alert(response.message);
-                        location.reload();
-                    } else {
-                        alert('Error: ' + response.message);
-                    }
-                },
-                error: function (xhr, status, error) {
-                    alert('An error occurred while transferring the records: ' + error);
+        const selectedIds = $('.row-checkbox:checked').map(function () {
+            return this.value;
+        }).get();
+
+        if (selectedIds.length > 0) {
+            // Use SweetAlert for confirmation
+            Swal.fire({
+                title: 'Confirm Transfer',
+                text: 'Are you sure you want to transfer these records?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, transfer it!',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Perform the transfer via AJAX
+                    $.ajax({
+                        url: '../action/transfer.php',
+                        type: 'POST',
+                        data: { ids: selectedIds },
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response.status === 'success') {
+                                Swal.fire({
+                                    title: 'Transferred!',
+                                    text: response.message,
+                                    icon: 'success',
+                                    timer: 3000,
+                                    showConfirmButton: false,
+                                });
+                                location.reload();
+                            } else {
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'Error: ' + response.message,
+                                    icon: 'error',
+                                });
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'An error occurred while transferring the records: ' + error,
+                                icon: 'error',
+                            });
+                        },
+                    });
                 }
             });
+        } else {
+            Swal.fire({
+                title: 'No Rows Selected',
+                text: 'Please select rows to transfer.',
+                icon: 'warning',
+            });
         }
-    } else {
-        alert('No rows selected!');
-    }
-});
+    });
 });
 </script>
 

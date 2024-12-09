@@ -710,40 +710,84 @@ mysqli_close($conn);
         },
     });
 
-    // Check all checkboxes
+    // Disable the Transfer button initially
+    $('#transferButton').prop('disabled', true);
+
+    // Toggle visibility of checkboxes and enable Transfer button
     $('#checkAll').on('change', function () {
-        $('.row-checkbox').prop('checked', this.checked);
+        const isChecked = $(this).is(':checked');
+
+        // Show/Hide row checkboxes and toggle their checked state
+        if (isChecked) {
+            $('.row-checkbox').removeClass('d-none').prop('checked', true); // Show and check all checkboxes
+        } else {
+            $('.row-checkbox').addClass('d-none').prop('checked', false); // Hide and uncheck all checkboxes
+        }
+
+        // Enable/Disable Transfer button
+        $('#transferButton').prop('disabled', !isChecked);
     });
 
+    // Transfer button functionality with SweetAlert
     $('#transferButton').on('click', function () {
-    const selectedIds = $('.row-checkbox:checked').map(function () {
-        return this.value;
-    }).get();
-    
-    if (selectedIds.length > 0) {
-        if (confirm('Are you sure you want to transfer these records?')) {
-            $.ajax({
-                url: '../action/transfer.php',
-                type: 'POST',
-                data: { ids: selectedIds },
-                dataType: 'json',
-                success: function (response) {
-                    if (response.status === 'success') {
-                        alert(response.message);
-                        location.reload();
-                    } else {
-                        alert('Error: ' + response.message);
-                    }
-                },
-                error: function (xhr, status, error) {
-                    alert('An error occurred while transferring the records: ' + error);
+        const selectedIds = $('.row-checkbox:checked').map(function () {
+            return this.value;
+        }).get();
+
+        if (selectedIds.length > 0) {
+            // Use SweetAlert for confirmation
+            Swal.fire({
+                title: 'Confirm Transfer',
+                text: 'Are you sure you want to transfer these records?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, transfer it!',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Perform the transfer via AJAX
+                    $.ajax({
+                        url: '../action/transfer.php',
+                        type: 'POST',
+                        data: { ids: selectedIds },
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response.status === 'success') {
+                                Swal.fire({
+                                    title: 'Transferred!',
+                                    text: response.message,
+                                    icon: 'success',
+                                    timer: 3000,
+                                    showConfirmButton: false,
+                                });
+                                location.reload();
+                            } else {
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'Error: ' + response.message,
+                                    icon: 'error',
+                                });
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'An error occurred while transferring the records: ' + error,
+                                icon: 'error',
+                            });
+                        },
+                    });
                 }
             });
+        } else {
+            Swal.fire({
+                title: 'No Rows Selected',
+                text: 'Please select rows to transfer.',
+                icon: 'warning',
+            });
         }
-    } else {
-        alert('No rows selected!');
-    }
-});
+    });
 });
 </script>
 
