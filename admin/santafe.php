@@ -219,7 +219,7 @@ $(document).ready(function () {
 
 
 
-  function printTable() {
+function printTable() {
     var table = document.getElementById('dataTable'); // Get the table to print
     var width = 800;
     var height = 600;
@@ -307,6 +307,11 @@ $(document).ready(function () {
           th {
             background-color: #f2f2f2;
           }
+
+          /* Hide checkboxes during printing */
+          .row-checkbox {
+            display: none;
+          }
         }
       `);
 
@@ -369,5 +374,6 @@ $(document).ready(function () {
     } else {
       console.error('Failed to open print window.');
     }
-  }
+}
+
 </script>
