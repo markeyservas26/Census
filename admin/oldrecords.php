@@ -44,7 +44,7 @@ $result = mysqli_query($conn, $query);
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Bantayan List</h1>
+        <h1>Old Records List</h1>
     </div>
 
     <section class="sections">
@@ -53,7 +53,7 @@ $result = mysqli_query($conn, $query);
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="dataTable" class="table table-striped">
+                            <table id="dataTable" class="table datatable">
                                 <thead>
                                     <tr>
                                         <th>House Number</th>
