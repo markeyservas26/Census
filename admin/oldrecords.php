@@ -89,7 +89,7 @@ $result = mysqli_query($conn, $query);
             </div>
         </div>
     </section>
-    <<div class="center-button" style="text-align: right;">
+    <div class="center-button" style="text-align: right;">
   <button type="button" class="btn btn-primary text-white" style="background-color: #3388FF; margin-right: 20px;" onclick="printTable()">
     <i class="fas fa-print"></i> Reports
   </button>
