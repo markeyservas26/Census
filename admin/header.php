@@ -120,7 +120,7 @@ if (!isset($_SESSION['userid'])) {
       <li class="nav-item"><a class="nav-link collapsed" href="schedule"><i class="bi bi-calendar-check"></i><span>Schedule</span></a></li>
       <li class="nav-item"><a class="nav-link collapsed" href="manage-staff"><i class="bi bi-people"></i><span>Manage Staff</span></a></li>
       <li class="nav-item"><a class="nav-link collapsed" href="manage-admin"><i class="bi bi-people"></i><span>Administrator</span></a></li>
-      <li class="nav-item"><a class="nav-link collapsed" href="oldrecords"><i class="bi bi-people"></i><span>Old Records</span></a></li>
+      <li class="nav-item"><a class="nav-link collapsed" href="oldrecords"><i class="bi-person-lines-fill"></i><span>Old Records</span></a></li>
     </ul>
   </aside>
 
