@@ -242,50 +242,50 @@ margin: 0;
 
 
                         <!-- Responsive Table -->
-                        <div class="table-responsive">
-                            <table id="dataTable" class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th><input type="checkbox" id="checkAll" /></th>
-                                        <th>House Number</th>
-                                        <th>Fullname</th>
-                                        <th>Address</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-    <?php while ($row = mysqli_fetch_assoc($result)) : ?>
-        <tr class="<?php echo in_array($row['house_number'], $highlightHouseNumbers) ? 'highlight-term' : ''; ?>">
-            <td><input type="checkbox" class="row-checkbox" value="<?= $row['id'] ?>" /></td>
-            <td><?= htmlspecialchars($row['house_number']) ?></td>
-            <td><?= htmlspecialchars($row['fullname']) ?></td>
-            <td><?= htmlspecialchars($row['address']) ?></td>
-            <td>
-                <div class="dropdown">
-                    <button class="btn btn-sm btn-secondary dropdown-toggle custom-dropdown-btn" type="button" data-bs-toggle="dropdown">
-                        <i class="fas fa-cogs"></i>
-                    </button>
-                    <ul class="dropdown-menu custom-dropdown-menu">
-                        <li><a class="dropdown-item" href="view_household?id=<?= $row['id'] ?>">View</a></li>
-                        <li><a class="dropdown-item" href="edit_house_leader?id=<?= $row['id'] ?>">Edit</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-    <?php endwhile; ?>
-                                </tbody>
-                            </table>
+                        <div class="d-flex justify-content-between mb-3">
+                        <div>
+                            <input type="checkbox" id="checkAll" />
+                            <label for="checkAll">Select All</label>
                         </div>
-                        
-                        <div class="d-flex justify-content-between mt-3">
-                            <button type="button" class="btn btn-primary" onclick="printTable()">
-                                <i class="fas fa-print"></i> Reports
-                            </button>
-                            <button type="button" class="btn btn-success" id="transferButton">
-                                <i class="fas fa-arrow-right"></i> Transfer
-                            </button>
-                        </div>
+                        <button type="button" class="btn btn-primary" id="transferButton">
+                             Transfer <i class="fas fa-arrow-right"></i>
+                        </button>
                     </div>
+                    <div class="table-responsive">
+                        <table id="dataTable" class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>House Number</th>
+                                    <th>Fullname</th>
+                                    <th>Address</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+                                    <tr class="<?php echo in_array($row['house_number'], $highlightHouseNumbers) ? 'highlight-term' : ''; ?>">
+                                        <td><input type="checkbox" class="row-checkbox d-none" value="<?= $row['id'] ?>" /></td>
+                                        <td><?= htmlspecialchars($row['house_number']) ?></td>
+                                        <td><?= htmlspecialchars($row['fullname']) ?></td>
+                                        <td><?= htmlspecialchars($row['address']) ?></td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-secondary dropdown-toggle custom-dropdown-btn" type="button" data-bs-toggle="dropdown">
+                                                    <i class="fas fa-cogs"></i>
+                                                </button>
+                                                <ul class="dropdown-menu custom-dropdown-menu">
+                                                    <li><a class="dropdown-item" href="view_household.php?id=<?= $row['id'] ?>">View</a></li>
+                                                    <li><a class="dropdown-item" href="edit_house_leader.php?id=<?= $row['id'] ?>">Edit</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
                        <!-- Footer Info and Pagination -->
 <div class="row align-items-center">
