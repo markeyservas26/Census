@@ -699,6 +699,19 @@ mysqli_close($conn);
         lengthMenu: [5, 10, 25, 50, 100],
         order: [[1, 'asc']], // Sort by House Number
         responsive: true,
+        columnDefs: [
+            {
+                targets: 0,
+                orderable: false, // Disable sorting for checkbox column
+                className: 'select-checkbox',
+                checkboxes: {
+                    selectRow: true,
+                },
+            },
+        ],
+        select: {
+            style: 'multi', // Allow multiple row selection
+        },
         drawCallback: function () {
             // Highlight rows after the table is drawn
             $('#dataTable tbody tr').each(function () {
@@ -713,28 +726,28 @@ mysqli_close($conn);
     // Disable the Transfer button initially
     $('#transferButton').prop('disabled', true);
 
-    // Toggle visibility of checkboxes and enable Transfer button
-    $('#checkAll').on('change', function () {
-        const isChecked = $(this).is(':checked');
+    // Handle row selection/deselection
+    table.on('select', function () {
+        const selectedRows = table.rows({ selected: true }).count();
+        $('#transferButton').prop('disabled', selectedRows === 0); // Enable/Disable Transfer button
+    });
 
-        // Show/Hide row checkboxes and toggle their checked state
-        if (isChecked) {
-            $('.row-checkbox').removeClass('d-none').prop('checked', true); // Show and check all checkboxes
-        } else {
-            $('.row-checkbox').addClass('d-none').prop('checked', false); // Hide and uncheck all checkboxes
-        }
-
-        // Enable/Disable Transfer button
-        $('#transferButton').prop('disabled', !isChecked);
+    table.on('deselect', function () {
+        const selectedRows = table.rows({ selected: true }).count();
+        $('#transferButton').prop('disabled', selectedRows === 0); // Enable/Disable Transfer button
     });
 
     // Transfer button functionality with SweetAlert
     $('#transferButton').on('click', function () {
-        const selectedIds = $('.row-checkbox:checked').map(function () {
-            return this.value;
-        }).get();
+        const selectedRows = table.rows({ selected: true }).data(); // Get data of selected rows
 
-        if (selectedIds.length > 0) {
+        if (selectedRows.length > 0) {
+            // Get the IDs of selected rows
+            const selectedIds = [];
+            selectedRows.each(function (rowData) {
+                selectedIds.push(rowData[0]); // Assuming the first column is the ID
+            });
+
             // Use SweetAlert for confirmation
             Swal.fire({
                 title: 'Confirm Transfer',
@@ -761,7 +774,7 @@ mysqli_close($conn);
                                     timer: 3000,
                                     showConfirmButton: false,
                                 });
-                                location.reload();
+                                table.ajax.reload(); // Reload the DataTable after successful transfer
                             } else {
                                 Swal.fire({
                                     title: 'Error!',
@@ -789,6 +802,7 @@ mysqli_close($conn);
         }
     });
 });
+
 </script>
 
 </body>
