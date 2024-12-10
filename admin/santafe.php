@@ -280,11 +280,6 @@ margin: 0;
                             </tbody>
                         </table>
                     </div>
-                    <div class="d-flex justify-content-end mt-3">
-                        <button type="button" class="btn btn-primary">
-                            <i class="fas fa-print"></i> Reports
-                        </button>
-                    </div>
                 </div>
 
                        <!-- Footer Info and Pagination -->
