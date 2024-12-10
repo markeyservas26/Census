@@ -89,11 +89,11 @@ $result = mysqli_query($conn, $query);
             </div>
         </div>
     </section>
-    <div class="d-flex justify-content-between mt-3">
-                            <button type="button" class="btn btn-primary" onclick="printTable()">
-                                <i class="fas fa-print"></i> Reports
-                            </button>
-                        </div>
+    <<div class="center-button" style="text-align: right;">
+  <button type="button" class="btn btn-primary text-white" style="background-color: #3388FF; margin-right: 20px;" onclick="printTable()">
+    <i class="fas fa-print"></i> Reports
+  </button>
+</div>
 </main>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
