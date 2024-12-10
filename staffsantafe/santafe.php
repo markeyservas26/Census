@@ -23,7 +23,7 @@ $query = "SELECT id, house_number,
           CONCAT(lastname, ', ', firstname, ' ', COALESCE(middlename, '')) AS fullname, 
           CONCAT(purok, ', ', barangay, ', ', municipality, ', ', province) AS address 
           FROM house_leader
-          WHERE municipality = 'Santafe'";
+          WHERE municipality = 'Santafe' AND transfer = 0";
 
 // Apply the LIMIT
 $query .= " LIMIT $start, $limit";

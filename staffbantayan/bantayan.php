@@ -18,12 +18,11 @@ $total_rows = $total_row['total'];
 // Calculate total pages
 $total_pages = ceil($total_rows / $limit);
 
-// Fetch data
 $query = "SELECT id, house_number, 
           CONCAT(lastname, ', ', firstname, ' ', COALESCE(middlename, '')) AS fullname, 
           CONCAT(purok, ', ', barangay, ', ', municipality, ', ', province) AS address 
           FROM house_leader
-          WHERE municipality = 'Bantayan'";
+          WHERE municipality = 'Bantayan' AND transfer = 0";
 
 // Apply the LIMIT
 $query .= " LIMIT $start, $limit";
