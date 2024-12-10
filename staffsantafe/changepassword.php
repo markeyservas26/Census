@@ -12,7 +12,7 @@
 </head>
 <body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen p-0 m-0">
 
-    <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md text-center">
+    <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-lg text-center">
         <!-- Heading -->
         <h1 class="text-gray-800 text-3xl font-bold mb-6">Change Your Password</h1>
 
@@ -27,13 +27,26 @@
             </div>
 
             <!-- New Password -->
-            <div class="relative">
-                <label for="newPassword" class="block text-left text-gray-600 text-sm mt-1">New Password</label>
-                <input type="password" class="w-full px-4 py-3 border rounded-md text-lg text-gray-700" id="newPassword" name="newPassword" required placeholder="New Password">
-                <button type="button" id="toggleNewPassword" class="absolute inset-y-9 right-4 transform -translate-y-1/2">
-                    <i class="fas fa-eye text-gray-600"></i> <!-- Eye icon -->
-                </button>
-            </div>
+<div class="relative">
+    <label for="newPassword" class="block text-left text-gray-600 text-sm mt-1">New Password</label>
+    <input type="password" class="w-full px-4 py-3 border rounded-md text-lg text-gray-700" id="newPassword" name="newPassword" required placeholder="New Password" onkeyup="checkPassword()">
+    <button type="button" id="toggleNewPassword" class="absolute inset-y-9 right-4 transform -translate-y-1/2" onclick="togglePasswordVisibility()">
+        <i class="fas fa-eye text-gray-600"></i> <!-- Eye icon -->
+    </button>
+</div>
+
+<!-- Password Requirements -->
+<ul id="passwordRequirements" class="flex space-x-2 mt-2 text-sm text-gray-600">
+    <li id="charLength" class="flex items-center">
+        <span class="text-red-500">✘</span> At least 8 characters
+    </li>
+    <li id="uppercase" class="flex items-center">
+        <span class="text-red-500">✘</span> An uppercase letter
+    </li>
+    <li id="number" class="flex items-center">
+        <span class="text-red-500">✘</span> At least one number
+    </li>
+</ul>
 
             <!-- Confirm New Password -->
             <div class="relative">
@@ -106,16 +119,6 @@
                 icon.toggleClass('fa-eye fa-eye-slash');
             });
 
-            $('#toggleNewPassword').click(function () {
-                let input = $('#newPassword');
-                let icon = $(this).find('i');
-                let type = input.attr('type') === 'password' ? 'text' : 'password';
-                input.attr('type', type);
-
-                // Change the icon based on visibility
-                icon.toggleClass('fa-eye fa-eye-slash');
-            });
-
             $('#toggleConfirmPassword').click(function () {
                 let input = $('#confirmPassword');
                 let icon = $(this).find('i');
@@ -126,6 +129,60 @@
                 icon.toggleClass('fa-eye fa-eye-slash');
             });
         });
+</script>
+<script>
+    // Toggle password visibility
+    function togglePasswordVisibility() {
+        const passwordField = document.getElementById('newPassword');
+        const icon = document.getElementById('toggleNewPassword').querySelector('i');
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            passwordField.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+
+    // Check password requirements
+    function checkPassword() {
+        const password = document.getElementById('newPassword').value;
+
+        // Check length (at least 8 characters)
+        const charLength = document.getElementById('charLength');
+        const charSpan = charLength.querySelector('span');
+        if (password.length >= 8) {
+            charSpan.classList.replace('text-red-500', 'text-green-500');
+            charSpan.textContent = '✔'; // Change to check mark
+        } else {
+            charSpan.classList.replace('text-green-500', 'text-red-500');
+            charSpan.textContent = '✘'; // Change to cross
+        }
+
+        // Check for uppercase letter
+        const uppercase = document.getElementById('uppercase');
+        const upperSpan = uppercase.querySelector('span');
+        if (/[A-Z]/.test(password)) {
+            upperSpan.classList.replace('text-red-500', 'text-green-500');
+            upperSpan.textContent = '✔'; // Change to check mark
+        } else {
+            upperSpan.classList.replace('text-green-500', 'text-red-500');
+            upperSpan.textContent = '✘'; // Change to cross
+        }
+
+        // Check for a number
+        const number = document.getElementById('number');
+        const numSpan = number.querySelector('span');
+        if (/\d/.test(password)) {
+            numSpan.classList.replace('text-red-500', 'text-green-500');
+            numSpan.textContent = '✔'; // Change to check mark
+        } else {
+            numSpan.classList.replace('text-green-500', 'text-red-500');
+            numSpan.textContent = '✘'; // Change to cross
+        }
+    }
 </script>
 
 
