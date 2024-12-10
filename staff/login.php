@@ -79,6 +79,12 @@ if (isset($_SESSION['user_id'])) {
             <div class="text-sm text-red-500 mt-1" id="passwordError"></div>
           </div>
 
+          <!-- Terms & Conditions Checkbox -->
+      <div class="flex items-center">
+        <input type="checkbox" id="termsCheckbox" name="terms" required class="mr-2">
+        <label for="termsCheckbox" class="text-sm text-gray-600">Yes, I agree to the <a href="termsandconditions" class="text-blue-600 hover:underline">Terms & Conditions</a></label>
+      </div>
+
           <!-- Forgot Password & Back to Website Links -->
           <div class="flex justify-between text-gray-600 text-sm">
             <a href="../chooseforgot" class="hover:text-gray-800">Forgot password?</a>
