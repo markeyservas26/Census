@@ -75,7 +75,7 @@
       <!-- Terms & Conditions Checkbox -->
       <div class="flex items-center">
         <input type="checkbox" id="termsCheckbox" name="terms" required class="mr-2">
-        <label for="termsCheckbox" class="text-sm text-gray-600">Yes, I agree to the <a href="termsandconditions.php" class="text-blue-600 hover:underline">Terms & Conditions</a></label>
+        <label for="termsCheckbox" class="text-sm text-gray-600">Yes, I agree to the <a href="admin/termsandconditions.php" class="text-blue-600 hover:underline">Terms & Conditions</a></label>
       </div>
 
       <!-- Forgot Password & Back to Website Links -->
