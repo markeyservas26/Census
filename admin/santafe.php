@@ -345,58 +345,6 @@ document.getElementById('searchInput').addEventListener('keyup', function(e) {
 });
 
 
-document.querySelectorAll('.transfer-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        document.getElementById('houseNumber').value = this.dataset.house;
-        document.getElementById('fullName').value = this.dataset.fullname;
-        document.getElementById('address').value = this.dataset.address;
-        document.getElementById('leaderId').value = this.dataset.id;
-        document.getElementById('municipality').value = this.dataset.municipality;
-    });
-});
-
-document.getElementById('saveTransfer').addEventListener('click', function() {
-    var leaderId = document.getElementById('leaderId').value;
-    var newMunicipality = document.getElementById('municipality').value;
-    
-    var transferData = {
-        leader_id: leaderId,
-        new_municipality: newMunicipality
-    };
-    
-    // Send AJAX request to save the transfer
-    fetch('save_transfer.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(transferData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Use SweetAlert2 to display the success message
-            Swal.fire({
-                icon: 'success',
-                title: 'Transfer Scheduled!',
-                text: 'Transfer scheduled after 6 months.',
-                confirmButtonText: 'OK'
-            });
-            $('#transferModal').modal('hide');
-                    // Optionally, you can refresh the page or update the table here
-                    location.reload(); // Uncomment this to reload the page
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Transfer Failed',
-                text: 'Failed to schedule transfer.',
-                confirmButtonText: 'Try Again'
-            });
-        }
-    });
-});
-
-
 document.querySelectorAll('.edit-btn').forEach(button => {
     button.addEventListener('click', function() {
         var leaderId = this.dataset.id;
