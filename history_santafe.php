@@ -701,17 +701,17 @@
         <!-- Desktop Navigation Menu -->
         <nav id="navmenu" class="navmenu d-none d-md-flex" style="position: fixed; top: 5; right: 150px; z-index: 1000;">
     <ul class="d-flex gap-1">
-        <li><a href="index.php">Home</a></li>
+        <li><a href="index">Home</a></li>
         
-         <!-- Bantayan Dropdown -->
-         <li class="dropdown">
+        <!-- Bantayan Dropdown -->
+        <li class="dropdown">
             <a href="#"  class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Bantayan</a>
             <ul class="dropdown-menu">
-            <li><a class="dropdown-item enhanced-dropdown-item" href="about_municipality1.php">About Bantayan Municipality</a></li>
-<li><a class="dropdown-item enhanced-dropdown-item" href="municipality_mayor1.php">Bantayan Municipality Mayor</a></li>
-<li><a class="dropdown-item enhanced-dropdown-item" href="barangay_officials1.php">Bantayan Barangay Officials</a></li>
-<li><a class="dropdown-item enhanced-dropdown-item" href="municipality_profile1.php">Bantayan Municipality Profile</a></li>
-<li><a class="dropdown-item enhanced-dropdown-item" href="history_bantayan.php">Bantayan History</a></li>
+            <li><a class="dropdown-item enhanced-dropdown-item" href="about_municipality1">About Bantayan Municipality</a></li>
+<li><a class="dropdown-item enhanced-dropdown-item" href="municipality_mayor1">Bantayan Municipality Mayor</a></li>
+<li><a class="dropdown-item enhanced-dropdown-item" href="barangay_officials1">Bantayan Barangay Officials</a></li>
+<li><a class="dropdown-item enhanced-dropdown-item" href="municipality_profile1">Bantayan Municipality Profile</a></li>
+<li><a class="dropdown-item enhanced-dropdown-item" href="history_bantayan">Bantayan History</a></li>
             </ul>
         </li>
         
@@ -719,29 +719,29 @@
         <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Madridejos</a>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item enhanced-dropdown-item" href="about_municipality.php">About Madridejos Municipality</a></li>
-        <li><a class="dropdown-item enhanced-dropdown-item" href="municipality_mayor.php">Madridejos Municipality Mayor</a></li>
-        <li><a class="dropdown-item enhanced-dropdown-item" href="barangay_officials.php">Mandridejos Barangay Officials</a></li>
-        <li><a class="dropdown-item enhanced-dropdown-item" href="municipality_profile.php">Madridejos Municipality Profile</a></li>
-        <li><a class="dropdown-item enhanced-dropdown-item" href="history_madridejos.php">Madridejos History</a></li>
+        <li><a class="dropdown-item enhanced-dropdown-item" href="about_municipality">About Madridejos Municipality</a></li>
+        <li><a class="dropdown-item enhanced-dropdown-item" href="municipality_mayor">Madridejos Municipality Mayor</a></li>
+        <li><a class="dropdown-item enhanced-dropdown-item" href="barangay_officials">Mandridejos Barangay Officials</a></li>
+        <li><a class="dropdown-item enhanced-dropdown-item" href="municipality_profile">Madridejos Municipality Profile</a></li>
+        <li><a class="dropdown-item enhanced-dropdown-item" href="history_madridejos">Madridejos History</a></li>
     </ul>
 </li>
 
         
-           <!-- Santafe Dropdown -->
+       <!-- Santafe Dropdown -->
        <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Santa Fe</a>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item enhanced-dropdown-item" href="about_municipality2.php">About Santa Fe Municipality</a></li>
-        <li><a class="dropdown-item enhanced-dropdown-item" href="municipality_mayor2.php">Santa Fe Municipality Mayor</a></li>
-        <li><a class="dropdown-item enhanced-dropdown-item" href="barangay_officials2.php">Santa Fe Barangay Officials</a></li>
-        <li><a class="dropdown-item enhanced-dropdown-item" href="municipality_profile2.php">Santa Fe Municipality Profile</a></li>
-        <li><a class="dropdown-item enhanced-dropdown-item" href="history_santafe.php">Santa Fe History</a></li>
+        <li><a class="dropdown-item enhanced-dropdown-item" href="about_municipality2">About Santa Fe Municipality</a></li>
+        <li><a class="dropdown-item enhanced-dropdown-item" href="municipality_mayor2">Santa Fe Municipality Mayor</a></li>
+        <li><a class="dropdown-item enhanced-dropdown-item" href="barangay_officials2">Santa Fe Barangay Officials</a></li>
+        <li><a class="dropdown-item enhanced-dropdown-item" href="municipality_profile2">Santa Fe Municipality Profile</a></li>
+        <li><a class="dropdown-item enhanced-dropdown-item" href="history_santafe">Santa Fe History</a></li>
     </ul>
 </li>
 
-        <li><a href="schedule.php">Schedule</a></li>
-        <li><a href="about_us.php">About Us</a></li>
+        <li><a href="schedule">Schedule</a></li>
+        <li><a href="about_us">About Us</a></li>
     </ul>
 </nav>
 
@@ -767,11 +767,11 @@
         </div>
     </div>
 
-     <!-- Mobile Navigation Menu -->
+    <!-- Mobile Navigation Menu -->
 <div class="collapse navbar-collapse d-md-none" id="navbarContent">
     <nav>
         <ul class="navbar-nav">
-            <li class="nav-item"><a href="index.php" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="index" class="nav-link">Home</a></li>
             
             <!-- Bantayan Dropdown -->
             <li class="nav-item dropdown">
@@ -779,11 +779,11 @@
                     Bantayan    
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="about_municipality1.php">About Bantayan Municipality</a></li>
-                    <li><a class="dropdown-item" href="municipality_mayor1.php">Bantayan Municipality Mayor</a></li>
-                    <li><a class="dropdown-item" href="barangay_officials1.php">Bantayan Barangay Officials</a></li>
-                    <li><a class="dropdown-item" href="municipality_profile1.php">Bantayan Municipality Profile</a></li>
-                    <li><a class="dropdown-item" href="history_bantayan.php">Bantayan History</a></li>
+                    <li><a class="dropdown-item" href="about_municipality1">About Bantayan Municipality</a></li>
+                    <li><a class="dropdown-item" href="municipality_mayor1">Bantayan Municipality Mayor</a></li>
+                    <li><a class="dropdown-item" href="barangay_officials1">Bantayan Barangay Officials</a></li>
+                    <li><a class="dropdown-item" href="municipality_profile1">Bantayan Municipality Profile</a></li>
+                    <li><a class="dropdown-item" href="history_bantayan">Bantayan History</a></li>
                 </ul>
             </li>
 
@@ -793,11 +793,11 @@
                     Madridejos 
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="about_municipality.php">About Madridejos Municipality</a></li>
-                    <li><a class="dropdown-item" href="municipality_mayor.php">Madridejos Municipality Mayor</a></li>
-                    <li><a class="dropdown-item" href="barangay_officials.php">Madridejos Barangay Officials</a></li>
-                    <li><a class="dropdown-item" href="municipality_profile.php">Madridejos Municipality Profile</a></li>
-                    <li><a class="dropdown-item" href="history_madridejos.php">Madridejos History</a></li>
+                    <li><a class="dropdown-item" href="about_municipality">About Madridejos Municipality</a></li>
+                    <li><a class="dropdown-item" href="municipality_mayor">Madridejos Municipality Mayor</a></li>
+                    <li><a class="dropdown-item" href="barangay_officials">Madridejos Barangay Officials</a></li>
+                    <li><a class="dropdown-item" href="municipality_profile">Madridejos Municipality Profile</a></li>
+                    <li><a class="dropdown-item" href="history_madridejos">Madridejos History</a></li>
                 </ul>
             </li>
 
@@ -807,16 +807,16 @@
                     Santa Fe 
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="about_municipality2.php">About Santa Fe Municipality</a></li>
-                    <li><a class="dropdown-item" href="municipality_mayor2.php">Santa Fe Municipality Mayor</a></li>
-                    <li><a class="dropdown-item" href="barangay_officials2.php">Santa Fe Barangay Officials</a></li>
-                    <li><a class="dropdown-item" href="municipality_profile2.php">Santa Fe Municipality Profile</a></li>
-                    <li><a class="dropdown-item" href="history_santafe.php">Santa Fe History</a></li>
+                    <li><a class="dropdown-item" href="about_municipality2">About Santa Fe Municipality</a></li>
+                    <li><a class="dropdown-item" href="municipality_mayor2">Santa Fe Municipality Mayor</a></li>
+                    <li><a class="dropdown-item" href="barangay_officials2">Santa Fe Barangay Officials</a></li>
+                    <li><a class="dropdown-item" href="municipality_profile2">Santa Fe Municipality Profile</a></li>
+                    <li><a class="dropdown-item" href="history_santafe">Santa Fe History</a></li>
                 </ul>
             </li>
 
-            <li class="nav-item"><a href="schedule.php" class="nav-link">Schedule</a></li>
-            <li class="nav-item"><a href="about_us.php" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="schedule" class="nav-link">Schedule</a></li>
+            <li class="nav-item"><a href="about_us" class="nav-link">About</a></li>
         </ul>
     </nav>
 </div>
