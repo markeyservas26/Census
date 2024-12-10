@@ -466,58 +466,6 @@ searchInput.addEventListener("keyup", function(e) {
 });
 
     </script>
-<script>
-    // Get the select all checkbox and row checkboxes
-    const selectAllCheckbox = document.getElementById('selectAll');
-    const rowCheckboxes = document.querySelectorAll('.row-checkbox');
-    const checkboxColumns = document.querySelectorAll('.checkbox-column');
-    const rows = document.querySelectorAll('.table-row');
-    const transferBtn = document.getElementById('transferBtn');
-
-    // Show/hide the checkbox column when the "Select All" checkbox is clicked
-    selectAllCheckbox.addEventListener('change', () => {
-        const isChecked = selectAllCheckbox.checked;
-        checkboxColumns.forEach(column => {
-            column.style.display = isChecked ? '' : 'none';
-        });
-        // If unchecking "Select All", uncheck all individual checkboxes and disable the transfer button
-        if (!isChecked) {
-            rowCheckboxes.forEach(checkbox => (checkbox.checked = false));
-            transferBtn.disabled = true;
-        }
-    });
-
-      // Enable/disable the transfer button based on individual checkbox selection
-      rowCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', () => {
-            transferBtn.disabled = !Array.from(rowCheckboxes).some(cb => cb.checked);
-        });
-    });
-
-    // Add event listener for select all checkbox
-    selectAllCheckbox.addEventListener('change', () => {
-        const isChecked = selectAllCheckbox.checked;
-        rowCheckboxes.forEach((checkbox, index) => {
-            checkbox.checked = isChecked; // Check/uncheck all checkboxes
-            rows[index].classList.toggle('table-warning', isChecked); // Highlight rows
-        });
-        toggleTransferButton();
-    });
-
-    // Add event listener for individual row checkboxes
-    rowCheckboxes.forEach((checkbox, index) => {
-        checkbox.addEventListener('change', () => {
-            rows[index].classList.toggle('table-warning', checkbox.checked);
-            toggleTransferButton();
-        });
-    });
-
-    // Enable/disable the transfer button based on selections
-    function toggleTransferButton() {
-        const anyChecked = Array.from(rowCheckboxes).some(cb => cb.checked);
-        transferBtn.disabled = !anyChecked;
-    }
-</script>
 
 <?php
 // Close the database connection
