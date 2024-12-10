@@ -3,7 +3,7 @@
 session_start();
 
 // Set the session timeout to 5 hours (in seconds)
-define('SESSION_TIMEOUT', 3);
+define('SESSION_TIMEOUT', 5 * 60 * 60);
 
 // Check if the session timeout needs to be set or verified
 if (isset($_SESSION['start_time'])) {
