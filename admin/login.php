@@ -38,7 +38,7 @@
 
   <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md text-center">
     <!-- Logo -->
-    <div class="d-flex justify-content-center py-4 mb-6">
+    <div class="d-flex justify-content-center py-2 mb-3">
       <img src="../assets/img/trasparlogo.png" alt="" class="h-32 w-auto">
     </div>
     <!-- Title -->
