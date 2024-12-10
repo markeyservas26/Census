@@ -7,7 +7,7 @@
     <title>Terms and Conditions</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-br from-blue-200 via-cyan-100 to-teal-200 font-sans text-gray-700">
+<body class="bg-gradient-to-br from-white-200 via-cyan-100 to-teal-200 font-sans text-gray-700">
 
     <div class="max-w-3xl mx-auto px-6 py-12 bg-white rounded-lg shadow-lg mt-16">
         <h1 class="text-3xl font-semibold text-teal-600 text-center mb-4">Terms and Conditions</h1>
