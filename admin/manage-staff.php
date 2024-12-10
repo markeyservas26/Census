@@ -1001,8 +1001,9 @@ function printDetails() {
                 <div class="steps">
                     <div class="step">1. Open your account.</div>
                     <div class="step">2. Click the profile.</div>
-                    <div class="step">3. Click on 'Change Password.'</div>
-                    <div class="step">4. Follow the instructions to set a new password.</div>
+                    <div class="step">3. Click on 'My Account.'</div>
+                    <div class="step">4. Click on 'Change Password.'</div>
+                    <div class="step">5. Follow the instructions to set a new password.</div>
                 </div>
                 <hr>
                 <strong>Important:</strong> Ensure you choose a strong password that you can remember.
