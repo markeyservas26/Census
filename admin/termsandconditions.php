@@ -9,7 +9,7 @@
 </head>
 <body class="bg-gradient-to-br from-white-200 via-cyan-100 to-teal-200 font-sans text-gray-700">
 
-    <div class="max-w-3xl mx-auto px-6 py-12 bg-white rounded-lg shadow-lg mt-16">
+    <div class="max-w-4xl mx-auto px-6 py-12 bg-white rounded-lg shadow-lg mt-16">
         <h1 class="text-3xl font-semibold text-teal-600 text-center mb-4">Terms and Conditions</h1>
         <p class="text-sm text-center text-gray-500">Last updated: December 07, 2024</p>
         <p class="my-4">Please read these terms and conditions carefully before using Our Service.</p>
