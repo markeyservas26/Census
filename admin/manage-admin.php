@@ -806,7 +806,7 @@ function printDetails() {
                     margin: 0; /* Remove default margin */
                 }
                 body {
-                    background: url('assets/img/censusformlogo.png') no-repeat center center fixed;
+                    background: url('../assets/img/censusformlogo.png') no-repeat center center fixed;
                     background-size: cover;
                     height: 70vh; /* Adjust as needed for your design */
                     margin: 0;
