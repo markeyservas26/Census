@@ -84,17 +84,16 @@ $result = mysqli_query($conn, $query);
                                 </tbody>
                             </table>
                         </div>
-                        
-                        <div class="d-flex justify-content-between mt-3">
-                            <button type="button" class="btn btn-primary" onclick="printTable()">
-                                <i class="fas fa-print"></i> Reports
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <div class="d-flex justify-content-between mt-3">
+                            <button type="button" class="btn btn-primary" onclick="printTable()">
+                                <i class="fas fa-print"></i> Reports
+                            </button>
+                        </div>
 </main>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
