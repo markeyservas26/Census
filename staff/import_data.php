@@ -59,7 +59,15 @@ function importSQLFile($conn, $sqlFile) {
 
 // Handle file upload
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["sqlFile"])) {
-    $fileType = strtolower(pathinfo($_FILES["sqlFile"]["name"], PATHINFO_EXTENSION));
+    $target_dir = "uploads/";
+
+    // Create uploads directory if it doesn't exist
+    if (!file_exists($target_dir)) {
+        mkdir($target_dir, 0777, true);
+    }
+
+    $target_file = $target_dir . basename($_FILES["sqlFile"]["name"]);
+    $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
     // Validate file type
     if ($fileType != "sql") {
@@ -70,14 +78,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["sqlFile"])) {
         exit;
     }
 
-    // Import the SQL file directly from temporary location
-    $sqlFile = $_FILES["sqlFile"]["tmp_name"];
-    $importResult = importSQLFile($conn, $sqlFile);
+    // Move uploaded file to uploads directory
+    if (move_uploaded_file($_FILES["sqlFile"]["tmp_name"], $target_file)) {
+        // Import the SQL file
+        $importResult = importSQLFile($conn, $target_file);
 
-    // Send JSON response
-    header('Content-Type: application/json');
-    echo json_encode($importResult);
-    exit;
+        // Remove the uploaded file after import
+        unlink($target_file);
+
+        // Send JSON response
+        header('Content-Type: application/json');
+        echo json_encode($importResult);
+        exit;
+    } else {
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'Sorry, there was an error uploading your file.'
+        ]);
+        exit;
+    }
 } else {
     echo json_encode([
         'status' => 'error',
