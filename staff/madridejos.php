@@ -468,6 +468,83 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    // Import button functionality with SweetAlert
+    $('#importForm').on('submit', function (e) {
+        e.preventDefault();
+        
+        // Check if a file is selected
+        const fileInput = $('#sqlFile');
+        if (fileInput[0].files.length === 0) {
+            Swal.fire({
+                title: 'No File Selected',
+                text: 'Please choose an SQL file to import.',
+                icon: 'warning',
+            });
+            return;
+        }
+
+        // Create FormData object
+        const formData = new FormData(this);
+
+        // Show loading alert
+        Swal.fire({
+            title: 'Importing...',
+            text: 'Please wait while your SQL file is being imported.',
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        // AJAX request to import SQL file
+        $.ajax({
+            url: 'import_data.php',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: function (response) {
+                if (response.status === 'success') {
+                    Swal.fire({
+                        title: 'Import Successful',
+                        html: `
+                            <p>Total successful queries: ${response.success_count}</p>
+                            ${response.failed_queries && response.failed_queries.length > 0 ? 
+                                `<p>Failed Queries: ${response.failed_queries.length}</p>
+                                <div style="max-height: 200px; overflow-y: auto;">
+                                    <small>${response.failed_queries.map(fail => 
+                                        `Query: ${fail.query}<br>Error: ${fail.error}`
+                                    ).join('<hr>')}</small>
+                                </div>` 
+                                : ''}
+                        `,
+                        icon: 'success',
+                    });
+
+                    // Optionally reload the page or update the table
+                    setTimeout(() => {
+                        location.reload();
+                    }, 2000);
+                } else {
+                    Swal.fire({
+                        title: 'Import Error',
+                        text: response.message,
+                        icon: 'error',
+                    });
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'An error occurred while importing the SQL file.',
+                    icon: 'error',
+                });
+            }
+        });
+    });
+});
+
     </script>
 
 <?php
