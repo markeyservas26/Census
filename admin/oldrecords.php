@@ -44,7 +44,7 @@ $result = mysqli_query($conn, $query);
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Old Records List</h1>
+        <h1>All Municipalities Old Records List</h1>
     </div>
 
     <section class="sections">
