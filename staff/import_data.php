@@ -1,14 +1,9 @@
 <?php
-// Enable detailed error reporting
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 // Database connection details
 $servername = "127.0.0.1";
-$username = "u510162695_bantayanisland"; // Change to your MySQL username
-$password = "1Bantayan"; // Change to your MySQL password
-$dbname = "u510162695_bantayanisland"; // Database name
+$username = "u510162695_bantayanisland";
+$password = "1Bantayan";
+$dbname = "u510162695_bantayanisland";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -17,7 +12,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die(json_encode([
         'status' => 'error',
-        'message' => "Database connection failed: " . $conn->connect_error
+        'message' => 'Database connection failed: ' . $conn->connect_error
     ]));
 }
 
@@ -26,45 +21,37 @@ function importSQLFile($conn, $sqlFile) {
     // Read the SQL file
     $sqlContent = file_get_contents($sqlFile);
 
-    if (!$sqlContent) {
+    if ($sqlContent === false) {
         return [
-            'success_count' => 0,
-            'failed_queries' => [
-                [
-                    'query' => 'File read error',
-                    'error' => 'Unable to read the SQL file.'
-                ]
-            ]
+            'status' => 'error',
+            'message' => 'Unable to read the SQL file.'
         ];
     }
 
-    // Remove comments and split queries using multi_query
+    // Remove comments and split into individual queries
+    $sqlContent = preg_replace('/^--.*$/m', '', $sqlContent);
+    $queries = preg_split('/;\s*$/m', $sqlContent);
+
+    // Track successful and failed queries
     $successCount = 0;
     $failedQueries = [];
 
-    if ($conn->multi_query($sqlContent)) {
-        do {
-            if ($result = $conn->store_result()) {
-                $result->free();
-            }
-        } while ($conn->next_result());
+    foreach ($queries as $query) {
+        $query = trim($query);
+        if (empty($query)) continue;
 
-        if ($conn->errno) {
+        if ($conn->query($query) === TRUE) {
+            $successCount++;
+        } else {
             $failedQueries[] = [
-                'query' => 'Batch execution',
+                'query' => $query,
                 'error' => $conn->error
             ];
-        } else {
-            $successCount++;
         }
-    } else {
-        $failedQueries[] = [
-            'query' => 'Initial execution',
-            'error' => $conn->error
-        ];
     }
 
     return [
+        'status' => 'success',
         'success_count' => $successCount,
         'failed_queries' => $failedQueries
     ];
@@ -72,15 +59,7 @@ function importSQLFile($conn, $sqlFile) {
 
 // Handle file upload
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["sqlFile"])) {
-    $target_dir = "uploads/";
-
-    // Create uploads directory if it doesn't exist
-    if (!file_exists($target_dir)) {
-        mkdir($target_dir, 0777, true);
-    }
-
-    $target_file = $target_dir . basename($_FILES["sqlFile"]["name"]);
-    $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    $fileType = strtolower(pathinfo($_FILES["sqlFile"]["name"], PATHINFO_EXTENSION));
 
     // Validate file type
     if ($fileType != "sql") {
@@ -91,35 +70,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["sqlFile"])) {
         exit;
     }
 
-    // Move uploaded file
-    if (move_uploaded_file($_FILES["sqlFile"]["tmp_name"], $target_file)) {
-        // Import the SQL file
-        $importResult = importSQLFile($conn, $target_file);
+    // Import the SQL file directly from temporary location
+    $sqlFile = $_FILES["sqlFile"]["tmp_name"];
+    $importResult = importSQLFile($conn, $sqlFile);
 
-        // Prepare response
-        $response = [
-            'status' => 'success',
-            'message' => "File imported successfully.",
-            'success_count' => $importResult['success_count'],
-            'failed_queries' => $importResult['failed_queries']
-        ];
-
-        // Remove the uploaded file
-        unlink($target_file);
-
-        // Send JSON response
-        header('Content-Type: application/json');
-        echo json_encode($response);
-    } else {
-        echo json_encode([
-            'status' => 'error',
-            'message' => 'Sorry, there was an error uploading your file.'
-        ]);
-    }
+    // Send JSON response
+    header('Content-Type: application/json');
+    echo json_encode($importResult);
+    exit;
 } else {
     echo json_encode([
         'status' => 'error',
-        'message' => 'No file uploaded.'
+        'message' => 'No file uploaded or invalid request method.'
     ]);
 }
 
