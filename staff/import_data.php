@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         text: 'Data imported successfully!',
                         icon: 'success'
                     }).then(() => {
-                        window.location.href = 'madridejos.php';
+                        window.location.href = 'madridejos';
                     });
                 </script>";
             } else {
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         text: 'Import failed with errors. Check console for details.',
                         icon: 'error'
                     }).then(() => {
-                        window.location.href = 'madridejos.php';
+                        window.location.href = 'madridejos';
                     });
                     console.log(" . json_encode($errors) . ");
                 </script>";
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     text: 'The file is empty or invalid!',
                     icon: 'warning'
                 }).then(() => {
-                    window.location.href = 'madridejos.php';
+                    window.location.href = 'madridejos';
                 });
             </script>";
         }
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 text: 'File upload failed!',
                 icon: 'error'
             }).then(() => {
-                window.location.href = 'madridejos.php';
+                window.location.href = 'madridejos';
             });
         </script>";
     }
