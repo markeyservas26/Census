@@ -10,28 +10,35 @@
     <!-- Google reCAPTCHA v3 -->
     <script src="https://www.google.com/recaptcha/api.js?render=6Le4MJEqAAAAAMr4sxXT8ib-_SSSq2iEY-r2-Faq"></script>
 </head>
-<body class="bg-gray-100 font-sans flex flex-col justify-center items-center min-h-screen text-center p-4">
+<body class="bg-gray-50 font-sans flex flex-col justify-center items-center min-h-screen text-center p-6">
 
     <!-- Heading -->
-    <h2 class="text-gray-800 text-4xl font-bold mb-4">Just a Moment...</h2>
-    
+    <h2 class="text-gray-900 text-3xl md:text-4xl font-semibold mb-4 tracking-tight">
+        Just a moment...
+    </h2>
+
     <!-- Paragraph -->
-    <p class="text-gray-600 text-lg mb-6 max-w-md">
-        Verifying your request to ensure secure access. Please wait while we process your verification.
+    <p class="text-gray-600 text-lg md:text-xl max-w-xl mb-6">
+        We’re checking your browser to ensure secure access. This process is automatic. Your browser will redirect to your requested content shortly.
     </p>
 
+    <!-- Subtext -->
+    <p class="text-gray-500 text-sm md:text-base max-w-lg">
+        Please allow up to 5 seconds. If you are not redirected, <a href="index.php" class="text-blue-500 hover:underline">click here</a>.
+    </p>
+
+    <!-- Spinner -->
+    <div class="w-16 h-16 border-4 border-blue-500 border-dashed rounded-full animate-spin mt-6"></div>
+
     <!-- Form -->
-    <form action="submit_form.php" method="POST" id="verificationForm">
+    <form action="verify_recaptcha.php" method="POST" id="verificationForm" class="hidden">
         <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
-        <noscript>
-            <p class="text-red-500 text-sm">Please enable JavaScript in your browser to continue.</p>
-        </noscript>
     </form>
 
     <script>
         // Render reCAPTCHA v3 and attach the token to the form
         grecaptcha.ready(function() {
-            grecaptcha.execute('6Le4MJEqAAAAAMr4sxXT8ib-_SSSq2iEY-r2-Faq', { action: 'submit' }).then(function(token) {
+            grecaptcha.execute('6Le4MJEqAAAAAMr4sxXT8ib-_SSSq2iEY-r2-Faq', { action: 'verify' }).then(function(token) {
                 // Attach the token to the hidden input field
                 document.getElementById('g-recaptcha-response').value = token;
 
