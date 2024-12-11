@@ -43,7 +43,7 @@ $result = mysqli_query($conn, $query);
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Bantayan List</h1>
+        <h1>Madridejos List</h1>
     </div>
 
     <section class="sections">
