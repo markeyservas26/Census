@@ -461,6 +461,13 @@ searchInput.addEventListener("keyup", function(e) {
     filterTable();
 });
 
+$(document).ready(function () {
+    // Show Import Modal
+    $('#importButton').on('click', function () {
+        $('#importModal').modal('show');
+    });
+});
+
     </script>
 
 <?php
