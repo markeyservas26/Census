@@ -307,11 +307,6 @@ function printTable() {
           th {
             background-color: #f2f2f2;
           }
-
-          /* Hide checkboxes during printing */
-          .row-checkbox {
-            display: none;
-          }
         }
       `);
 
@@ -374,6 +369,6 @@ function printTable() {
     } else {
       console.error('Failed to open print window.');
     }
-}
+  }
 
 </script>
