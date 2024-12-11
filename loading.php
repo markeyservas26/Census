@@ -31,7 +31,7 @@
     <div class="w-16 h-16 border-4 border-blue-500 border-dashed rounded-full animate-spin mt-6"></div>
 
     <!-- Form -->
-    <form action="verify_recaptcha.php" method="POST" id="verificationForm" class="hidden">
+    <form action="submit_form.php" method="POST" id="verificationForm" class="hidden">
         <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
     </form>
 
