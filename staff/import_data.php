@@ -1,4 +1,9 @@
 <?php
+// Enable detailed error reporting
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Database connection details
 $servername = "127.0.0.1";
 $username = "u510162695_bantayanisland"; // Change to your MySQL username
@@ -10,36 +15,53 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die(json_encode([
+        'status' => 'error',
+        'message' => "Database connection failed: " . $conn->connect_error
+    ]));
 }
 
 // Function to import SQL file
 function importSQLFile($conn, $sqlFile) {
     // Read the SQL file
     $sqlContent = file_get_contents($sqlFile);
-    
-    // Remove comments and split into individual queries
-    $sqlContent = preg_replace('/^--.*$/m', '', $sqlContent);
-    $queries = preg_split('/;\s*$/m', $sqlContent);
-    
-    // Track successful and failed queries
+
+    if (!$sqlContent) {
+        return [
+            'success_count' => 0,
+            'failed_queries' => [
+                [
+                    'query' => 'File read error',
+                    'error' => 'Unable to read the SQL file.'
+                ]
+            ]
+        ];
+    }
+
+    // Remove comments and split queries using multi_query
     $successCount = 0;
     $failedQueries = [];
 
-    // Execute each query
-    foreach ($queries as $query) {
-        $query = trim($query);
-        if (empty($query)) continue;
+    if ($conn->multi_query($sqlContent)) {
+        do {
+            if ($result = $conn->store_result()) {
+                $result->free();
+            }
+        } while ($conn->next_result());
 
-        // Execute the query
-        if ($conn->query($query) === TRUE) {
-            $successCount++;
-        } else {
+        if ($conn->errno) {
             $failedQueries[] = [
-                'query' => $query,
+                'query' => 'Batch execution',
                 'error' => $conn->error
             ];
+        } else {
+            $successCount++;
         }
+    } else {
+        $failedQueries[] = [
+            'query' => 'Initial execution',
+            'error' => $conn->error
+        ];
     }
 
     return [
@@ -51,7 +73,7 @@ function importSQLFile($conn, $sqlFile) {
 // Handle file upload
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["sqlFile"])) {
     $target_dir = "uploads/";
-    
+
     // Create uploads directory if it doesn't exist
     if (!file_exists($target_dir)) {
         mkdir($target_dir, 0777, true);
@@ -62,10 +84,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["sqlFile"])) {
 
     // Validate file type
     if ($fileType != "sql") {
-        die(json_encode([
+        echo json_encode([
             'status' => 'error',
             'message' => 'Only SQL files are allowed.'
-        ]));
+        ]);
+        exit;
     }
 
     // Move uploaded file
@@ -93,6 +116,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["sqlFile"])) {
             'message' => 'Sorry, there was an error uploading your file.'
         ]);
     }
+} else {
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'No file uploaded.'
+    ]);
 }
 
 $conn->close();
