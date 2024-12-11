@@ -1,36 +1,35 @@
 <?php
-// The secret key you received from Google reCAPTCHA
-$recaptcha_secret = '6Le4MJEqAAAAAOC7zz5GE-9l3se0icE4d7jXaCHC'; // Your v3 secret key
+// Start a session to track visits
+session_start();
 
-// The reCAPTCHA response from the user's form submission
-$recaptcha_response = $_POST['g-recaptcha-response'];
+// reCAPTCHA secret key
+$secretKey = '6Le4MJEqAAAAAOC7zz5GE-9l3se0icE4d7jXaCHC'; // Replace with your actual secret key
 
-// Verify the reCAPTCHA response with Google's API
-$url = 'https://www.google.com/recaptcha/api/siteverify';
-$data = [
-    'secret' => $recaptcha_secret,
-    'response' => $recaptcha_response,
-];
+// Get the reCAPTCHA token from the request
+$token = $_POST['g-recaptcha-response'];
 
-$options = [
-    'http' => [
-        'header' => "Content-type: application/x-www-form-urlencoded\r\n",
-        'method' => 'POST',
-        'content' => http_build_query($data),
-    ],
-];
+// Verify the token with Google
+$verifyUrl = "https://www.google.com/recaptcha/api/siteverify";
+$response = file_get_contents($verifyUrl . "?secret=" . $secretKey . "&response=" . $token);
+$responseKeys = json_decode($response, true);
 
-$context = stream_context_create($options);
-$response = file_get_contents($url, false, $context);
-$response_keys = json_decode($response, true);
+// Check if verification was successful
+if ($responseKeys["success"] && $responseKeys["score"] >= 0.5) {
+    // Token is valid, check if this is a new visit
+    if (!isset($_SESSION['verified'])) {
+        // Mark as verified
+        $_SESSION['verified'] = true;
 
-// Check if the reCAPTCHA was successful and the score meets your threshold
-if ($response_keys["success"] && $response_keys["score"] >= 0.5) {
-    // If reCAPTCHA passed, redirect to the main website page
-    header('Location: ../index'); // Replace with your actual website or page
-    exit;
+        // Redirect to the main page
+        header("Location: index.php");
+        exit();
+    } else {
+        // Already verified in this session
+        header("Location: index.php");
+        exit();
+    }
 } else {
-    // If reCAPTCHA failed, show an error message
-    echo 'Verification failed. Please try again.';
+    // Verification failed
+    echo "<h1>Access Denied</h1>";
+    echo "<p>Your browser could not be verified. Please try again later.</p>";
 }
-?>
