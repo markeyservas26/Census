@@ -282,6 +282,10 @@ function safe_array_value($array, $key, $default = '') {
     <input type="text" id="municipality" name="municipality_hl" class="form-control" value="<?php echo $house_leader['municipality']; ?>" readonly>
 </div>
 <div class="col-12 col-sm-6 col-lg-3">
+    <label for="barangay" class="form-label">Barangay<span class="required-asterisk">*</span></label>
+    <input type="text" id="barangay" name="Barangay_hl" class="form-control" value="<?php echo $house_leader['barangay']; ?>" readonly>
+</div>
+<div class="col-12 col-sm-6 col-lg-3">
                     <label for="status" class="form-label">Barangay<span class="required-asterisk">*</span></label>
                     <select class="form-select" name="Barangay_hl" id="barangay" value="<?php echo $house_leader['barangay']; ?>"  required>
                         <!-- Options will be populated based on selected municipality -->
