@@ -122,9 +122,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </button>
         </form>
 
-        <div class="text-gray-600 text-sm font-semibold mt-4">
-            <a href="../admin/login" class="text-gray-600 hover:text-gray-800">Back to Login</a>
-        </div>
     </div>
 
     <script>

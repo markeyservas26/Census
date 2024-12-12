@@ -73,11 +73,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="text-gray-600 text-sm mb-4">
             <p>The OTP was sent to your phone/email. Please enter it above to proceed.</p>
         </div>
-
-        <!-- Back to Login Link -->
-        <div class="text-gray-600 text-sm font-semibold mt-4">
-            <a href="../admin/login" class="text-gray-600 hover:text-gray-800">Back to Login</a>
-        </div>
     </div>
 
 </body>

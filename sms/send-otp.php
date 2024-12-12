@@ -152,11 +152,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="text-gray-600 text-sm mb-4">
             <p>Please enter your 11-digit phone number. An OTP will be sent to this number.</p>
         </div>
-        
-        <!-- Login Link -->
-        <div class="text-gray-600 text-sm font-semibold mt-4">
-            <a href="../admin/login" class="text-gray-600 hover:text-gray-800">Back to Login</a>
-        </div>
     </div>
 
     <script>
