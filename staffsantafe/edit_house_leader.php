@@ -1474,6 +1474,49 @@ function safe_array_value($array, $key, $default = '') {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script>
+    function getLocation() {
+        // Ensure that location services are ready in the app (Mobile App Only)
+        if (typeof median_geolocation_ready === 'function') {
+            median_geolocation_ready(function() {
+                if (navigator.geolocation) {
+                    // Get current position
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var lat = position.coords.latitude;   // Get latitude
+                        var lng = position.coords.longitude;  // Get longitude
+
+                        // Update the input field with the user's current location
+                        document.getElementById("coordinates").value = lat + ", " + lng;
+                    }, function(error) {
+                        // Handle errors if geolocation fails (denied or unavailable)
+                        alert("Geolocation failed or was denied. Please enable location access.");
+                    });
+                } else {
+                    // Handle if geolocation is not supported by the browser
+                    alert("Geolocation is not supported by this browser.");
+                }
+            });
+        } else {
+            // If median_geolocation_ready() is not available (for non-mobile environments)
+            if (navigator.geolocation) {
+                // Get current position
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var lat = position.coords.latitude;   // Get latitude
+                    var lng = position.coords.longitude;  // Get longitude
+
+                    // Update the input field with the user's current location
+                    document.getElementById("coordinates").value = lat + ", " + lng;
+                }, function(error) {
+                    // Handle errors if geolocation fails (denied or unavailable)
+                    alert("Geolocation failed or was denied. Please enable location access.");
+                });
+            } else {
+                // Handle if geolocation is not supported by the browser
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+    }
+</script>
+<script>
     // Assuming the form uses AJAX to submit the data
 $(document).ready(function() {
     $('#demographicForm').on('submit', function(e) {
