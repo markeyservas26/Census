@@ -93,7 +93,7 @@
                         confirmButtonText: 'OK'
                     }).then(() => {
                         // Redirect to index.php after alert is closed
-                        window.location.href = 'index';
+                        window.location.href = 'myaccount';
                     });
                 } else {
                     // Display error message
