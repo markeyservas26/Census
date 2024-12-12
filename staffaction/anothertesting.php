@@ -52,6 +52,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $religion = sanitize_input('religion');
     $location = sanitize_input('location');
 
+    try {
+        // Begin transaction
+        $conn->begin_transaction();
+
         $sql_house_leader = "INSERT INTO house_leader (house_number, lastname, firstname, middlename, exname, 
                             province, municipality, barangay, purok, dob, sex, age, occupation, lcro, 
                             marital_status, contact_number, religion, coordinates, staff_id) 
