@@ -1289,11 +1289,7 @@ function safe_array_value($array, $key, $default = '') {
                         </div>
                     </div>
                     <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
-                    <div class="form-check">
-  <h4>Click the button to get your location:</h4>
-  <!-- Set type="button" to avoid form submission -->
-  <button type="button" onclick="getLocation()" class="location-btn" readonly>Get Location</button>
-</div>
+
 
 <!-- Input field for Latitude and Longitude -->
 <div style="margin-top: 10px;">
