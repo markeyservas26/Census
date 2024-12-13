@@ -615,16 +615,16 @@ margin-left:13%;
             </div>
 
             <div class="col-xl-3 col-lg-6 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
-                <div class="card-box bg-red">
-                    <div class="inner">
-                        <h3 class="total-residence"><?php echo array_sum($totalCombinedCounts); ?></h3>
-                        <p><b>Total Residence</b></p>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-users"></i>
-                    </div>
-                </div>
-            </div>
+    <div class="card-box bg-red">
+        <div class="inner">
+            <h3 class="total-residence"></h3>
+            <p><b>Total Residence</b></p>
+        </div>
+        <div class="icon">
+            <i class="fa fa-users"></i>
+        </div>
+    </div>
+</div>
         </div>
     </div>
 </section>
@@ -807,6 +807,9 @@ margin-left:13%;
                 }]
             }
         });
+         // Set the total number of residents in the card
+    const totalResidents = <?php echo $totalResidents; ?>;
+    document.querySelector('.total-residence').textContent = totalResidents;
     });
 </script>
 <script>
