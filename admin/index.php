@@ -233,6 +233,10 @@ $residenceData = getResidenceData($conn, $municipalities);
 // Prepare data for Chart.js
 $chartLabels = array_keys($residenceData);
 $chartValues = array_column($residenceData, 'total_members');
+
+// Calculate the total number of residents across all municipalities
+$totalResidents = array_sum(array_column($residenceData, 'total_members'));
+
 ?>
 <main id="main" class="main">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
@@ -615,16 +619,17 @@ margin-left:13%;
             </div>
 
             <div class="col-xl-3 col-lg-6 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
-                <div class="card-box bg-red">
-                    <div class="inner">
-                        <h3 class="total-residence"></h3>
-                        <p><b>Total Residence</b></p>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-users"></i>
-                    </div>
-                </div>
-            </div>
+    <div class="card-box bg-red">
+        <div class="inner">
+            <h3 class="total-residence"><?php echo $totalResidents; ?></h3>
+            <p><b>Total Residence</b></p>
+        </div>
+        <div class="icon">
+            <i class="fa fa-users"></i>
+        </div>
+    </div>
+</div>
+
         </div>
     </div>
 </section>
