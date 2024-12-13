@@ -59,9 +59,6 @@ $result = mysqli_query($conn, $query);
                         </div>
                         <button type="button" class="btn btn-success" id="exportButton">
             Export Data <i class="fas fa-download"></i>
-        </button>
-        <button type="button" class="btn btn-primary" id="importButton">
-    Import Data <i class="fas fa-upload"></i>
 </button>
                     </div>
                     <div class="table-responsive">
