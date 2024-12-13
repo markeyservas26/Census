@@ -1,4 +1,6 @@
-
+<?php
+include 'block_server';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
