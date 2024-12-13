@@ -1,7 +1,5 @@
 <?php
 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST");
 // Database connection details
 $servername = "127.0.0.1";
 $username = "u510162695_bantayanisland"; // Change to your MySQL username

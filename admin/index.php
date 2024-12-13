@@ -157,6 +157,82 @@ if ($resultSexCounts->num_rows > 0) {
 echo "Male: " . $sexData['Male'] . "<br>";
 echo "Female: " . $sexData['Female'] . "<br>";
 
+$municipalities = ['Madridejos', 'Bantayan', 'Santafe'];
+// Function to get comprehensive residence data
+function getResidenceData($conn, $municipalities) {
+    $residenceData = [];
+
+    foreach ($municipalities as $municipality) {
+        // House Leaders
+        $sqlHouseLeaders = "SELECT COUNT(*) as house_leader_count FROM house_leader 
+                            WHERE municipality = ?";
+        $stmtHouseLeaders = $conn->prepare($sqlHouseLeaders);
+        $stmtHouseLeaders->bind_param("s", $municipality);
+        $stmtHouseLeaders->execute();
+        $resultHouseLeaders = $stmtHouseLeaders->get_result();
+        $houseLeadersCount = $resultHouseLeaders->fetch_assoc()['house_leader_count'];
+
+        // Spouses
+        $sqlSpouses = "SELECT COUNT(*) as spouse_count FROM spouse 
+                       WHERE municipality_spouse = ?";
+        $stmtSpouses = $conn->prepare($sqlSpouses);
+        $stmtSpouses->bind_param("s", $municipality);
+        $stmtSpouses->execute();
+        $resultSpouses = $stmtSpouses->get_result();
+        $spousesCount = $resultSpouses->fetch_assoc()['spouse_count'];
+
+        // Younger Household Members
+        $sqlYounger = "SELECT COUNT(*) as younger_count 
+                       FROM younger_household_members yhm
+                       JOIN house_leader hl ON yhm.house_leader_id = hl.id
+                       WHERE hl.municipality = ?";
+        $stmtYounger = $conn->prepare($sqlYounger);
+        $stmtYounger->bind_param("s", $municipality);
+        $stmtYounger->execute();
+        $resultYounger = $stmtYounger->get_result();
+        $youngerCount = $resultYounger->fetch_assoc()['younger_count'];
+
+        // Older Household Members
+        $sqlOlder = "SELECT COUNT(*) as older_count 
+                     FROM older_household_members ohm
+                     JOIN house_leader hl ON ohm.house_leader_id = hl.id
+                     WHERE hl.municipality = ?";
+        $stmtOlder = $conn->prepare($sqlOlder);
+        $stmtOlder->bind_param("s", $municipality);
+        $stmtOlder->execute();
+        $resultOlder = $stmtOlder->get_result();
+        $olderCount = $resultOlder->fetch_assoc()['older_count'];
+
+        // Total Unique Households (Distinct House Numbers)
+        $sqlHouseNumbers = "SELECT COUNT(DISTINCT house_number) as unique_houses 
+                            FROM house_leader 
+                            WHERE municipality = ?";
+        $stmtHouseNumbers = $conn->prepare($sqlHouseNumbers);
+        $stmtHouseNumbers->bind_param("s", $municipality);
+        $stmtHouseNumbers->execute();
+        $resultHouseNumbers = $stmtHouseNumbers->get_result();
+        $uniqueHouses = $resultHouseNumbers->fetch_assoc()['unique_houses'];
+
+        // Compile data for this municipality
+        $residenceData[$municipality] = [
+            'house_leaders' => $houseLeadersCount,
+            'spouses' => $spousesCount,
+            'younger_members' => $youngerCount,
+            'older_members' => $olderCount,
+            'unique_houses' => $uniqueHouses,
+            'total_members' => $houseLeadersCount + $spousesCount + $youngerCount + $olderCount
+        ];
+    }
+
+    return $residenceData;
+}
+
+// Get comprehensive residence data
+$residenceData = getResidenceData($conn, $municipalities);
+
+// Prepare data for Chart.js
+$chartLabels = array_keys($residenceData);
+$chartValues = array_column($residenceData, 'total_members');
 ?>
 <main id="main" class="main">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
@@ -708,15 +784,14 @@ margin-left:13%;
         });
     });
 
-    // Doughnut chart for Residence Count
     document.addEventListener("DOMContentLoaded", () => {
         new Chart(document.querySelector('#residenceChart'), {
             type: 'doughnut',
             data: {
-                labels: <?php echo json_encode(array_keys($totalCombinedCounts)); ?>,
+                labels: <?php echo json_encode($chartLabels); ?>,
                 datasets: [{
-                    label: 'Residences',
-                    data: <?php echo json_encode(array_values($totalCombinedCounts)); ?>,
+                    label: 'Total Residents',
+                    data: <?php echo json_encode($chartValues); ?>,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.5)',
                         'rgba(75, 192, 192, 0.5)',
@@ -730,6 +805,18 @@ margin-left:13%;
                     borderWidth: 1,
                     hoverOffset: 4
                 }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Total Residents by Municipality'
+                    }
+                }
             }
         });
     });
