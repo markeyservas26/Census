@@ -1376,14 +1376,6 @@ function safe_array_value($array, $key, $default = '') {
 
 
 </div>
-               
-                  
-<div class="text-center mt-4">
-    <form id="myForm" onsubmit="return false;"> <!-- Prevent default form submission -->
-        <!-- Your form fields here -->
-        <button type="button" class="btn btn-primary" onclick="goToPrintForm()">View Print Form</button>
-    </form>
-</div>
 
             </form>
         </div>
