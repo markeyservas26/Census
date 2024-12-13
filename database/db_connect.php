@@ -1,9 +1,9 @@
 <?php
 // Database connection details
 $servername = "127.0.0.1";
-$username = "u510162695_bantayanisland"; // Change to your MySQL username
-$password = "1Bantayan"; // Change to your MySQL password
-$dbname = "u510162695_bantayanisland"; // Database name
+$username = "u510162695_bantayanisland";
+$password = "1Bantayan"; 
+$dbname = "u510162695_bantayanisland"; 
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
