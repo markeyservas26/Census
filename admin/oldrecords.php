@@ -114,7 +114,7 @@ $(document).ready(function () {
         drawCallback: function () {
             // Highlight rows after the table is drawn
             $('#dataTable tbody tr').each(function () {
-                const houseNumberCell = $(this).find('td').eq(0); // House number is in the second column
+                const houseNumberCell = $(this).find('td').eq(1); // House number is in the second column
                 if (highlightHouseNumbers.includes(houseNumberCell.text())) {
                     $(this).addClass('highlight-term');
                 }
