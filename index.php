@@ -86,6 +86,19 @@ function denyAccess() {
     exit();
 }
 
+// Function to add IP to the blocklist
+function blockIP($ip) {
+    if (!file_exists(BLOCKLIST_FILE)) {
+        file_put_contents(BLOCKLIST_FILE, $ip . PHP_EOL);
+    } else {
+        // Append IP to the blocklist
+        $blocked_ips = file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if (!in_array($ip, $blocked_ips)) {
+            file_put_contents(BLOCKLIST_FILE, $ip . PHP_EOL, FILE_APPEND);
+        }
+    }
+}
+
 // Get user's IP address, device details, and current time
 $user_ip = $_SERVER['REMOTE_ADDR'];
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
@@ -161,7 +174,11 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) 
 // Send the email notification
 sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url);
 
+// Example: Call the function to block the IP (This would be triggered when you want to block the IP)
+blockIP($user_ip);
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
