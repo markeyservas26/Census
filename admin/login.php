@@ -1,4 +1,6 @@
-
+<?php
+include '../block_check.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
