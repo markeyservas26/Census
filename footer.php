@@ -322,8 +322,8 @@ h1, h2, h3, h4, h5, h6 {
         
         <!-- Added Contact Info Above Icons -->
         <div class="contact-info" data-aos="fade-up" data-aos-delay="200">
-            <p><b>Email:</b> <a href="mailto:youremail@example.com">youremail@example.com</a></p>
-            <p><b>Phone:</b> <a href="tel:+1234567890">+1 234 567 890</a></p>
+            <p><b>Email:</b> <a href="mailto:bantayanislandcensus@gmail.com">bantayanislandcensus@gmail.com</a></p>
+            <p><b>Phone:</b> <a href="tel:09382296605">09382296605</a></p>
         </div>
 
         <div class="f_social_icon">
