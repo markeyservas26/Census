@@ -56,6 +56,26 @@ if ($resultOccupants->num_rows > 0) {
     }
 }
 
+// Combine house numbers and occupant names
+$totalCombinedCounts = [];
+foreach ($houseLabels as $key => $municipality) {
+    $totalCombinedCounts[$municipality] = $houseValues[$key] + $occupantValues[$key];
+}
+
+// Fetch total count of house number records (for Residence)
+$sqlTotalHouseNumbers = "SELECT municipality, COUNT(DISTINCT house_number) as count FROM house_leader  
+                         WHERE municipality IN ('Madridejos', 'Bantayan', 'Santafe')
+                         GROUP BY municipality";
+
+$resultTotalHouseNumbers = $conn->query($sqlTotalHouseNumbers);
+
+$totalHouseNumbers = [];
+if ($resultTotalHouseNumbers->num_rows > 0) {
+    while ($row = $resultTotalHouseNumbers->fetch_assoc()) {
+        $totalHouseNumbers[$row['municipality']] = $row['count'];
+    }
+}
+
 $data = [
     'labels' => $labels,
     'values' => $values,
