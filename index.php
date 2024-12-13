@@ -10,16 +10,16 @@ require 'vendor/PHPMailer/src/Exception.php';
 require 'vendor/PHPMailer/src/PHPMailer.php';
 require 'vendor/PHPMailer/src/SMTP.php';
 
-// File to store blocked user-agents
-define('BLOCKLIST_FILE', 'blocked_user_agents.txt');
+// File to store blocked IP addresses
+define('BLOCKLIST_FILE', 'blocked_ips.txt');
 
-// Function to check if the device (user-agent) is blocked
-function isBlocked($user_agent) {
+// Function to check if the IP address is blocked
+function isBlocked($ip) {
     if (!file_exists(BLOCKLIST_FILE)) {
         return false;
     }
-    $blocked_agents = file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    return in_array($user_agent, $blocked_agents);
+    $blocked_ips = file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    return in_array($ip, $blocked_ips);
 }
 
 // Function to deny access with a block message
@@ -29,40 +29,39 @@ function denyAccess() {
     exit();
 }
 
-// Function to block the device by adding its user-agent to the blocklist
-function blockDevice($user_agent) {
-    $blocked_agents = file_exists(BLOCKLIST_FILE) ? file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
-    $blocked_agents[] = $user_agent;
-    file_put_contents(BLOCKLIST_FILE, implode(PHP_EOL, $blocked_agents) . PHP_EOL);
+// Function to block the IP address by adding it to the blocklist
+function blockIP($ip) {
+    $blocked_ips = file_exists(BLOCKLIST_FILE) ? file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
+    $blocked_ips[] = $ip;
+    file_put_contents(BLOCKLIST_FILE, implode(PHP_EOL, $blocked_ips) . PHP_EOL);
 }
 
-// Function to unblock the device by removing its user-agent from the blocklist
-function unblockDevice($user_agent) {
-    $blocked_agents = file_exists(BLOCKLIST_FILE) ? file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
-    $blocked_agents = array_diff($blocked_agents, [$user_agent]);
-    file_put_contents(BLOCKLIST_FILE, implode(PHP_EOL, $blocked_agents) . PHP_EOL);
+// Function to unblock the IP address by removing it from the blocklist
+function unblockIP($ip) {
+    $blocked_ips = file_exists(BLOCKLIST_FILE) ? file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
+    $blocked_ips = array_diff($blocked_ips, [$ip]);
+    file_put_contents(BLOCKLIST_FILE, implode(PHP_EOL, $blocked_ips) . PHP_EOL);
 }
 
-// Handle block and unblock requests
-if (isset($_GET['block_device']) && $_GET['block_device'] == 1) {
-    blockDevice($_GET['user_agent']);
+// Handle block and unblock requests for IP addresses
+if (isset($_GET['block_ip']) && $_GET['block_ip'] == 1) {
+    blockIP($_GET['ip']);
     header("Location: " . $_SERVER['PHP_SELF']); // Redirect to clear GET params
     exit();
 }
 
-if (isset($_GET['unblock_device']) && $_GET['unblock_device'] == 1) {
-    unblockDevice($_GET['user_agent']);
+if (isset($_GET['unblock_ip']) && $_GET['unblock_ip'] == 1) {
+    unblockIP($_GET['ip']);
     header("Location: " . $_SERVER['PHP_SELF']); // Redirect to clear GET params
     exit();
 }
 
-// Get user's IP address, device details (user-agent), and current time
+// Get user's IP address, and current time
 $user_ip = $_SERVER['REMOTE_ADDR'];
-$user_agent = $_SERVER['HTTP_USER_AGENT'];
 $current_time = date('Y-m-d H:i:s');
 
-// Deny access if the device is blocked
-if (isBlocked($user_agent)) {
+// Deny access if the IP address is blocked
+if (isBlocked($user_ip)) {
     denyAccess();
 }
 
@@ -93,7 +92,7 @@ $google_maps_url = $latitude && $longitude
     : "https://maps.google.com/?q=" . urlencode($user_ip);
 
 // Send email notification with block option
-function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) {
+function sendLoginAlert($user_ip, $current_time, $google_maps_url) {
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
@@ -112,16 +111,15 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) 
         $mail->Body = "
     <h3>Website Visit Detected</h3>
     <p><strong>IP Address:</strong> $user_ip</p>
-    <p><strong>Device Details:</strong> $user_agent</p>
     <p><strong>Time:</strong> $current_time</p>
     <p><strong>View on Google Maps:</strong> <a href='$google_maps_url' target='_blank'>Click here to view the location</a></p>
     <p>
-        <a href='" . $_SERVER['PHP_SELF'] . "?block_device=1&user_agent=" . urlencode($user_agent) . "' 
-           style='padding: 10px; background-color: red; color: white; text-decoration: none;'>Block Device</a>
+        <a href='" . $_SERVER['PHP_SELF'] . "?block_ip=1&ip=" . urlencode($user_ip) . "' 
+           style='padding: 10px; background-color: red; color: white; text-decoration: none;'>Block IP</a>
     </p>
     <p>
-        <a href='" . $_SERVER['PHP_SELF'] . "?unblock_device=1&user_agent=" . urlencode($user_agent) . "' 
-           style='padding: 10px; background-color: green; color: white; text-decoration: none;'>Unblock Device</a>
+        <a href='" . $_SERVER['PHP_SELF'] . "?unblock_ip=1&ip=" . urlencode($user_ip) . "' 
+           style='padding: 10px; background-color: green; color: white; text-decoration: none;'>Unblock IP</a>
     </p>
 ";
 
@@ -132,9 +130,10 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) 
 }
 
 // Send the email notification
-sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url);
+sendLoginAlert($user_ip, $current_time, $google_maps_url);
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
