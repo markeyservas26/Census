@@ -790,7 +790,7 @@ margin-left:13%;
             data: {
                 labels: <?php echo json_encode($chartLabels); ?>,
                 datasets: [{
-                    label: 'Total Residents',
+                    label: 'Houses',
                     data: <?php echo json_encode($chartValues); ?>,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.5)',
@@ -805,18 +805,6 @@ margin-left:13%;
                     borderWidth: 1,
                     hoverOffset: 4
                 }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: ''
-                    }
-                }
             }
         });
     });
