@@ -79,7 +79,7 @@ include 'header.php';
 
         const icons = {
             bantayan: L.icon({
-                iconUrl: '../admin/assets/img/yellow.png',
+                iconUrl: '../admin/assets/img/yellowicon.png',
                 iconSize: [25, 41],
                 iconAnchor: [12, 41],
                 popupAnchor: [1, -34],
@@ -91,7 +91,7 @@ include 'header.php';
                 popupAnchor: [1, -34],
             }),
             santafe: L.icon({
-                iconUrl: '../admin/assets/img/red.png',
+                iconUrl: '../admin/assets/img/redicon.png',
                 iconSize: [25, 41],
                 iconAnchor: [12, 41],
                 popupAnchor: [1, -34],
