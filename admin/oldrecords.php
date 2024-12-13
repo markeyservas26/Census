@@ -154,7 +154,7 @@ function printTable() {
                 <br>
                 <h5>BANTAYAN ISLAND CENSUS REPORTS</h5>
             </div>
-            <img src="../assets/img/bantayan.jpg" style="position: absolute; right: 20px; top: 0;">
+            <img src="assets/img/censusformlogo2.png" style="position: absolute; right: 20px; top: 0;">
         </div>
     `);
 
