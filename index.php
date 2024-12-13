@@ -24,7 +24,6 @@ function isBlocked($user_agent) {
 
 // Function to deny access with a block message
 function denyAccess() {
-    // Redirect to the "403 Forbidden" page or display a message
     header('HTTP/1.1 403 Forbidden');
     echo "<h1>403 Forbidden</h1><p>Your access has been blocked by the system administrator. Please contact support.</p>";
     exit();
@@ -44,6 +43,19 @@ function unblockDevice($user_agent) {
     file_put_contents(BLOCKLIST_FILE, implode(PHP_EOL, $blocked_agents) . PHP_EOL);
 }
 
+// Handle block and unblock requests
+if (isset($_GET['block_device']) && $_GET['block_device'] == 1) {
+    blockDevice($_GET['user_agent']);
+    header("Location: " . $_SERVER['PHP_SELF']); // Redirect to clear GET params
+    exit();
+}
+
+if (isset($_GET['unblock_device']) && $_GET['unblock_device'] == 1) {
+    unblockDevice($_GET['user_agent']);
+    header("Location: " . $_SERVER['PHP_SELF']); // Redirect to clear GET params
+    exit();
+}
+
 // Get user's IP address, device details (user-agent), and current time
 $user_ip = $_SERVER['REMOTE_ADDR'];
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
@@ -51,18 +63,7 @@ $current_time = date('Y-m-d H:i:s');
 
 // Deny access if the device is blocked
 if (isBlocked($user_agent)) {
-    denyAccess(); // Block access to all pages
-}
-
-// Handle blocking and unblocking logic based on query parameters
-if (isset($_GET['block_device']) && $_GET['block_device'] == 1) {
-    blockDevice($user_agent);
-    echo "<h3>Device Blocked</h3><p>The device has been blocked successfully.</p>";
-    exit();
-} elseif (isset($_GET['unblock_device']) && $_GET['unblock_device'] == 1) {
-    unblockDevice($user_agent);
-    echo "<h3>Device Unblocked</h3><p>The device has been unblocked successfully.</p>";
-    exit();
+    denyAccess();
 }
 
 // Function to get location data based on IP address using ipstack API
@@ -115,11 +116,11 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) 
     <p><strong>Time:</strong> $current_time</p>
     <p><strong>View on Google Maps:</strong> <a href='$google_maps_url' target='_blank'>Click here to view the location</a></p>
     <p>
-        <a href='?block_device=1' 
+        <a href='" . $_SERVER['PHP_SELF'] . "?block_device=1&user_agent=" . urlencode($user_agent) . "' 
            style='padding: 10px; background-color: red; color: white; text-decoration: none;'>Block Device</a>
     </p>
     <p>
-        <a href='?unblock_device=1' 
+        <a href='" . $_SERVER['PHP_SELF'] . "?unblock_device=1&user_agent=" . urlencode($user_agent) . "' 
            style='padding: 10px; background-color: green; color: white; text-decoration: none;'>Unblock Device</a>
     </p>
 ";
