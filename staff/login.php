@@ -39,7 +39,6 @@ if (isset($_SESSION['user_id'])) {
   <script src="https://cdn.tailwindcss.com"></script>
 
   <script src="https://www.google.com/recaptcha/api.js?render=6Le4MJEqAAAAAMr4sxXT8ib-_SSSq2iEY-r2-Faq"></script>
-
 </head>
 
 <body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen p-0 m-0">
@@ -125,105 +124,6 @@ if (isset($_SESSION['user_id'])) {
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script>
-     // reCAPTCHA ready function
-// Generate the reCAPTCHA token and attach it to the form
-grecaptcha.ready(function() {
-    grecaptcha.execute('6Le4MJEqAAAAAMr4sxXT8ib-_SSSq2iEY-r2-Faq', { action: 'login' }).then(function(token) {
-        const recaptchaInput = document.createElement('input');
-        recaptchaInput.type = 'hidden';
-        recaptchaInput.name = 'g-recaptcha-response';
-        recaptchaInput.value = token;
-        document.getElementById('loginForm').appendChild(recaptchaInput);
-    });
-});
-
-// Login form submission logic
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const formData = new FormData(this);
-
-    fetch('../staffaction/login', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.icon === 'error') {
-            if (data.title === "Account Locked") {
-                let remainingTime = parseInt(data.text.match(/\d+/)[0]);
-
-                if (localStorage.getItem('countdownTime')) {
-                    remainingTime = parseInt(localStorage.getItem('countdownTime'));
-                }
-
-                const countdownMessage = document.getElementById('countdownMessage');
-                countdownMessage.classList.remove('hidden');
-                countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
-
-                let countdownInterval = setInterval(function() {
-                    remainingTime--;
-                    countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
-
-                    localStorage.setItem('countdownTime', remainingTime);
-
-                    if (remainingTime <= 0) {
-                        clearInterval(countdownInterval);
-                        countdownMessage.textContent = "The countdown has ended. Please try logging in again.";
-                        localStorage.removeItem('countdownTime');
-                    }
-                }, 1000);
-            } else {
-                Swal.fire(data.title, data.text, data.icon);
-            }
-        } else if (data.icon === 'success') {
-            Swal.fire({
-                icon: 'success',
-                title: 'Login Successful',
-                text: 'You will be redirected shortly.',
-                showConfirmButton: false,
-                timer: 2000
-            }).then(() => {
-                window.location.href = data.redirect;
-            });
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        Swal.fire({
-            title: 'Error',
-            text: 'An error occurred during login.',
-            icon: 'error',
-            showConfirmButton: false,
-            timer: 3000
-        });
-    });
-});
-
-// Countdown logic for locked accounts
-window.addEventListener('load', function() {
-    let remainingTime = localStorage.getItem('countdownTime');
-    if (remainingTime && remainingTime > 0) {
-        const countdownMessage = document.getElementById('countdownMessage');
-        countdownMessage.classList.remove('hidden');
-        countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
-
-        let countdownInterval = setInterval(function() {
-            remainingTime--;
-            countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
-
-            localStorage.setItem('countdownTime', remainingTime);
-
-            if (remainingTime <= 0) {
-                clearInterval(countdownInterval);
-                countdownMessage.textContent = "The countdown has ended. Please try logging in again.";
-                localStorage.removeItem('countdownTime');
-            }
-        }, 1000);
-    }
-});
-
-
 document.addEventListener('DOMContentLoaded', function () {
     const togglePassword = document.querySelector('#togglePassword');
     const passwordField = document.querySelector('#yourPassword');
@@ -247,6 +147,97 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+    // Initialize login attempt counter
+let loginAttempts = parseInt(localStorage.getItem('loginAttempts')) || 0;
+
+// Add event listener for form submission
+loginForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const formData = new FormData(loginForm);
+
+    fetch('../staffaction/login.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Response:', data); // Log the response for debugging
+
+        if (data.success) {
+            // Reset login attempts on successful login
+            localStorage.removeItem('loginAttempts');
+            loginAttempts = 0;
+
+            Swal.fire({
+                title: 'Login Successful',
+                text: 'You are being redirected...',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500 // Time in milliseconds (1.5 seconds)
+            }).then(() => {
+                window.location.href = data.redirect; // Redirect based on the server response
+            });
+        } else {
+            // Increment login attempts on failure
+            loginAttempts++;
+            localStorage.setItem('loginAttempts', loginAttempts);
+
+            let warningMessage = `Login Failed. You have ${3 - loginAttempts} attempt(s) left.`;
+
+            if (loginAttempts >= 3) {
+                warningMessage = 'Your account is temporarily locked due to multiple failed login attempts.';
+                // Optionally disable the login button
+                document.querySelector('button[type="submit"]').disabled = true;
+
+                // Set a timeout to enable the button again after some time
+                setTimeout(() => {
+                    document.querySelector('button[type="submit"]').disabled = false;
+                    localStorage.removeItem('loginAttempts'); // Reset attempts after lockout period
+                }, 30000); // 30 seconds lockout
+            }
+
+            Swal.fire({
+                title: 'Login Failed',
+                text: warningMessage,
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 3000 // Time in milliseconds (3 seconds)
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Fetch error:', error); // Log fetch errors
+        Swal.fire({
+            title: 'Error',
+            text: 'An error occurred during login.',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 3000 // Time in milliseconds (3 seconds)
+        });
+    });
+});
+
+// On page load, display warning if the user is locked out
+window.addEventListener('load', () => {
+    if (loginAttempts >= 3) {
+        document.querySelector('button[type="submit"]').disabled = true;
+        Swal.fire({
+            title: 'Account Locked',
+            text: 'Your account is temporarily locked due to multiple failed login attempts. Please try again later.',
+            icon: 'warning',
+            showConfirmButton: false,
+            timer: 3000 // Time in milliseconds
+        });
+    }
+});
+
 </script>
 
 
