@@ -180,8 +180,8 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) 
         $mail->setFrom('johnreyjubay315@gmail.com', 'Access ALert');
         $mail->addAddress('johnreyjubay315@gmail.com');
 
-        $block_url = "https://www.bantayanislandcensus.com/admin/block_ipadd.php?action=block&ip=" . urlencode($user_ip);
-        $unblock_url = "https://www.bantayanislandcensus.com/admin/unblock_ip.php?action=unblock&ip=" . urlencode($user_ip);
+        $block_url = "https://www.bantayanislandcensus.com/admin/block_device.php?action=block&ip=" . urlencode($user_ip);
+        $unblock_url = "https://www.bantayanislandcensus.com/admin/block_device.php?action=unblock&ip=" . urlencode($user_ip);
 
         $mail->isHTML(true);
         $mail->Subject = 'Access Attempt Alert';
