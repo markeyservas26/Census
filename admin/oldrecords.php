@@ -109,20 +109,22 @@ $(document).ready(function () {
     const table = $('#dataTable').DataTable({
         pageLength: 10,
         lengthMenu: [5, 10, 25, 50, 100],
-        order: [[1, 'asc']], // Sort by House Number
+        order: [[0, 'asc']], // Sort by House Number
         responsive: true,
         drawCallback: function () {
             // Highlight rows after the table is drawn
             $('#dataTable tbody tr').each(function () {
-                const houseNumberCell = $(this).find('td').eq(1); // House number is in the second column
-                if (highlightHouseNumbers.includes(houseNumberCell.text())) {
+                const houseNumberCell = $(this).find('td').eq(0); // House number is in the first column
+                const houseNumber = houseNumberCell.text().trim(); // Trim to remove spaces
+                if (highlightHouseNumbers.includes(houseNumber)) {
                     $(this).addClass('highlight-term');
                 }
             });
         },
     });
 
-    // Check all checkboxes
+    // Trigger table redraw to apply highlights on load
+    table.draw();
 });
 
 function printTable() {
