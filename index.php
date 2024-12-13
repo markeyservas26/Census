@@ -13,7 +13,7 @@ require 'vendor/PHPMailer/src/SMTP.php';
 // File to store blocked IPs
 define('BLOCKLIST_FILE', 'blocked_ips.txt');
 
-// Function to check if the IP is blocked
+// Function to check if IP is blocked
 function isBlocked($ip) {
     if (!file_exists(BLOCKLIST_FILE)) {
         return false;
@@ -24,6 +24,7 @@ function isBlocked($ip) {
 
 // Function to deny access with a block message
 function denyAccess() {
+    // Redirect to the "403 Forbidden" page or display a message
     header('HTTP/1.1 403 Forbidden');
     echo "<h1>403 Forbidden</h1><p>Your access has been blocked by the system administrator. Please contact support.</p>";
     exit();
@@ -36,7 +37,7 @@ $current_time = date('Y-m-d H:i:s');
 
 // Deny access if the IP is blocked
 if (isBlocked($user_ip)) {
-    denyAccess();
+    denyAccess(); // Block access to all pages
 }
 
 // Function to get location data based on IP address using ipstack API
@@ -80,8 +81,8 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) 
         $mail->setFrom('johnreyjubay315@gmail.com', 'Website Visit');
         $mail->addAddress('johnreyjubay315@gmail.com');
 
-        $block_url = "https://www.bantayanislandcensus.com?action=block&ip=" . urlencode($user_ip);
-        $unblock_url = "https://www.bantayanislandcensus.com?action=unblock&ip=" . urlencode($user_ip);
+        $block_url = "https://www.bantayanislandcensus.com/block_device.php?action=block&ip=" . urlencode($user_ip);
+        $unblock_url = "https://www.bantayanislandcensus.com/block_device.php?action=unblock&ip=" . urlencode($user_ip);
 
         $mail->isHTML(true);
         $mail->Subject = 'Website Visit Notification';
@@ -101,47 +102,10 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) 
     }
 }
 
-// Send the email notification for login attempt
+// Send the email notification
 sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url);
 
-// Block or Unblock IP based on query string
-if (isset($_GET['action']) && isset($_GET['ip'])) {
-    $action = $_GET['action'];
-    $ip = $_GET['ip'];
-
-    // Block the IP
-    if ($action == 'block') {
-        blockIP($ip);
-    }
-
-    // Unblock the IP
-    if ($action == 'unblock') {
-        unblockIP($ip);
-    }
-
-    // Redirect to avoid repeated query strings
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit();
-}
-
-// Function to block the IP address by adding it to the blocklist
-function blockIP($ip) {
-    $blocked_ips = file_exists(BLOCKLIST_FILE) ? file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
-    $blocked_ips[] = $ip;
-    file_put_contents(BLOCKLIST_FILE, implode(PHP_EOL, $blocked_ips) . PHP_EOL);
-}
-
-// Function to unblock the IP address by removing it from the blocklist
-function unblockIP($ip) {
-    $blocked_ips = file_exists(BLOCKLIST_FILE) ? file(BLOCKLIST_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
-    $blocked_ips = array_diff($blocked_ips, [$ip]);
-    file_put_contents(BLOCKLIST_FILE, implode(PHP_EOL, $blocked_ips) . PHP_EOL);
-}
-
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
