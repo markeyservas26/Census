@@ -68,7 +68,7 @@ include '../block_check.php';
               <input type="password" name="password" id="yourPassword" required
                 class="w-full px-4 py-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
               <span class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" id="togglePassword">
-                <i class="fas fa-eye"></i>
+                <i class="fas fa-eye-slash'"></i>
               </span>
             </div>
         <div class="text-sm text-red-500 mt-1" id="passwordError"></div>
