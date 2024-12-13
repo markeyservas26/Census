@@ -68,7 +68,7 @@ include '../block_check.php';
               <input type="password" name="password" id="yourPassword" required
                 class="w-full px-4 py-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
               <span class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" id="togglePassword">
-                <i class="fas fa-eye-slash'"></i>
+              <i class="fas"></i>
               </span>
             </div>
         <div class="text-sm text-red-500 mt-1" id="passwordError"></div>
@@ -210,13 +210,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const togglePassword = document.querySelector('#togglePassword');
     const passwordField = document.querySelector('#yourPassword');
 
+    // Set initial state
+    const icon = togglePassword.querySelector('i');
+    icon.classList.add('fa-eye-slash'); // Ensure it starts with the "eye slash"
+
     togglePassword.addEventListener('click', function () {
         // Toggle the type attribute
         const isPasswordVisible = passwordField.getAttribute('type') === 'text';
         passwordField.setAttribute('type', isPasswordVisible ? 'password' : 'text');
 
         // Set the eye icon based on visibility
-        const icon = this.querySelector('i');
         if (isPasswordVisible) {
             icon.classList.remove('fa-eye');
             icon.classList.add('fa-eye-slash');
@@ -226,6 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
 
 
   // Validation for the login form
