@@ -88,37 +88,103 @@ function safe_array_value($array, $key, $default = '') {
         margin-left: 3px;
     }
 
-    /* Style for the button */
-.text-center.mt-4 button {
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-    background-color: #007bff; /* Bootstrap's primary color */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
+    .form-control {
+        background-color: #FEFCFF;
+    }
+    .error-message {
+        color: red;
+        font-size: 0.875em;
+    }
+    .alert-label {
+        display: inline-block;
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin-bottom: 10px;
+        font-weight: bold;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
 
-/* Button hover effect */
-.text-center.mt-4 button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    transform: scale(1.05); /* Slight scaling effect */
-}
+    .text-center {
+        text-align: center;
+    }
 
-/* Button active effect */
-.text-center.mt-4 button:active {
-    background-color: #004085; /* Even darker blue when clicked */
-    transform: scale(1); /* Reset the scaling */
-}
+    .mb-4 {
+        margin-bottom: 1.8rem;
+        font-family: 'Georgia', serif;
+    }
 
-/* Optional: Adding some margin-bottom for spacing */
-.text-center.mt-4 button {
-    margin-bottom: 20px;
-}
+    .mb-3 {
+        margin-bottom: 1.8rem;
+        font-family: 'Georgia', serif;
+    }
 
-.location-btn {
+    h1 {
+        font-size: 25px;
+        color: #2c3e50;
+    }
+
+    .header1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        position: relative;
+    }
+
+    .logo {
+        max-width: 100px; /* Maximum size for larger screens */
+        width: 100%; /* Responsive scaling */
+    height: auto;
+    position: absolute;
+    left: 0; /* Position the second logo on the right */
+    margin-left: 40px;
+    margin-top: 70px;
+    }
+
+    .logo-right {
+        max-width: 100px; /* Maximum size for larger screens */
+        width: 100%; /* Responsive scaling */
+    height: auto;
+    position: absolute;
+    right: 0; /* Position the second logo on the right */
+    margin-right: 40px;
+    margin-top: 70px;
+    }
+
+    .header-text {
+        text-align: center;
+        width: 100%;
+        padding-top: 10px;
+    }
+
+    h4 {
+        font-size: 20px;
+        color: #34495e;
+        margin: 0;
+    }
+
+    @media (max-width: 768px) {
+        .header1 {
+            flex-direction: column;
+            margin-bottom: 70px;
+        }
+
+        .logo, .logo-right {
+            max-width: 80px; /* Smaller logo size for medium screens */
+            margin-top: 30px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .logo, .logo-right {
+            max-width: 60px; /* Even smaller logo size for small screens */
+        }
+    }
+
+    .location-btn {
   background-color: #4CAF50; /* Green background */
   color: white; /* White text */
   border: none; /* Remove border */
@@ -144,12 +210,23 @@ function safe_array_value($array, $key, $default = '') {
     </style>
 </head>
 <body>
-    <main id="main" class="main">
-        <div class="container">
-            <h1 class="text-center mb-4">Bantayan Island Census Form</h1>
-            <p>
-            Please fill up completely and correctly the required information before each item below.  For items that are not associated to you, leave it blank.  Required items are also marked with an asterisk (*) so please fill it up correctly.  Your honest response will help the National Commission of Senior Citizens (NCSC) come up with a good information system of the senior citizens in the country as the basis of designing its programs and activities that will help improve the lives of Filipino older persons.</p>
-            <em style="color:red;">* Items with an asterisk (*) are required.</em>
+<main id="main" class="main">
+    <div class="container">
+    <div class="header1">
+        <img src="assets/img/censusformlogo.png" alt="Census Logo" class="logo">
+        <img src="assets/img/censusformlogo2.png" alt="Census Logo 2" class="logo-right">
+    </div>
+    <h1 class="text-center mb-3">REPUBLIC OF THE PHILIPPINES</h1>
+    <h1 class="text-center mb-3">PHILIPPINE STATISTICS AUTHORITY</h1>
+    <div class="form-header"></div>
+    <div class="header-text">
+        <h4>BANTAYAN ISLAND CENSUS FORM</h4>
+    </div>
+    <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
+        <p>
+        Please complete the required information for each item below. Items marked with an asterisk (*) are mandatory. Your honest and accurate responses will assist in gathering comprehensive data for the Bantayan Island Census. This information will serve as a foundation for designing programs and activities aimed at improving the lives of residents in Bantayan Island.
+        </p>
+        <em style="color:red;">* Items with an asterisk (*) are required.</em>
         
             <form id="demographicForm" method="post" action="../action/update_record.php">
             <input type="hidden" name="house_leader" value="<?php echo $house_leader['id']; ?>">
@@ -1289,7 +1366,7 @@ function safe_array_value($array, $key, $default = '') {
                         </div>
                     </div>
                     <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
-                    
+
 <!-- Input field for Latitude and Longitude -->
 <div style="margin-top: 10px;">
   <label for="coordinates">Coordinates (Latitude, Longitude):</label>
@@ -1301,6 +1378,12 @@ function safe_array_value($array, $key, $default = '') {
 </div>
                
                   
+<div class="text-center mt-4">
+    <form id="myForm" onsubmit="return false;"> <!-- Prevent default form submission -->
+        <!-- Your form fields here -->
+        <button type="button" class="btn btn-primary" onclick="goToPrintForm()">View Print Form</button>
+    </form>
+</div>
 
             </form>
         </div>
