@@ -124,6 +124,108 @@ if (isset($_SESSION['user_id'])) {
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Ensure reCAPTCHA is executed before submitting
+    grecaptcha.execute('6Le4MJEqAAAAAMr4sxXT8ib-_SSSq2iEY-r2-Faq', { action: 'login' })
+    .then(function(token) {
+        // Add the reCAPTCHA token to the form
+        const recaptchaInput = document.createElement('input');
+        recaptchaInput.type = 'hidden';
+        recaptchaInput.name = 'g-recaptcha-response';
+        recaptchaInput.value = token;
+        document.getElementById('loginForm').appendChild(recaptchaInput);
+
+        // Get the form data
+        let formData = new FormData(document.getElementById('loginForm'));
+
+        // Submit the form data via fetch
+        fetch('../staffaction/login', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.icon === 'error') {
+                if (data.title === "Account Locked") {
+                    let remainingTime = parseInt(data.text.match(/\d+/)[0]);
+
+                    // If there's a stored countdown time, use it
+                    if (localStorage.getItem('countdownTime')) {
+                        remainingTime = parseInt(localStorage.getItem('countdownTime'));
+                    }
+
+                    let countdownMessage = document.getElementById('countdownMessage');
+                    countdownMessage.classList.remove('hidden');
+                    countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
+
+                    // Start the countdown
+                    let countdownInterval = setInterval(function() {
+                        remainingTime--;
+                        countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
+
+                        // Save the remaining time in localStorage
+                        localStorage.setItem('countdownTime', remainingTime);
+
+                        if (remainingTime <= 0) {
+                            clearInterval(countdownInterval);
+                            countdownMessage.textContent = "The countdown has ended. Please try logging in again.";
+                            // Clear the countdown from localStorage after it's finished
+                            localStorage.removeItem('countdownTime');
+                        }
+                    }, 1000);
+                } else {
+                    // Show SweetAlert for other errors
+                    Swal.fire(data.title, data.text, data.icon);
+                }
+            } else if (data.icon === 'success') {
+                // Show SweetAlert for successful login
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login Successful',
+                    text: 'You will be redirected shortly.',
+                    showConfirmButton: false,
+                    timer: 2000 // 2 seconds delay before redirect
+                }).then(() => {
+                    // Redirect after the SweetAlert closes
+                    window.location.href = data.redirect;
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+});
+
+// On page load, check if there's a stored countdown and display it
+window.addEventListener('load', function() {
+    let remainingTime = localStorage.getItem('countdownTime');
+    if (remainingTime && remainingTime > 0) {
+        let countdownMessage = document.getElementById('countdownMessage');
+        countdownMessage.classList.remove('hidden');
+        countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
+
+        // Start the countdown if there's a stored value
+        let countdownInterval = setInterval(function() {
+            remainingTime--;
+            countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
+
+            // Save the remaining time in localStorage
+            localStorage.setItem('countdownTime', remainingTime);
+
+            if (remainingTime <= 0) {
+                clearInterval(countdownInterval);
+                countdownMessage.textContent = "The countdown has ended. Please try logging in again.";
+                // Clear the countdown from localStorage after it's finished
+                localStorage.removeItem('countdownTime');
+            }
+        }, 1000);
+    }
+});
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const togglePassword = document.querySelector('#togglePassword');
     const passwordField = document.querySelector('#yourPassword');
