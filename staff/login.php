@@ -73,7 +73,7 @@ if (isset($_SESSION['user_id'])) {
               <input type="password" name="password" id="yourPassword" required
                 class="w-full px-4 py-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
               <span class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" id="togglePassword">
-                <i class="fas fa-eye"></i>
+              <i class="fas"></i>
               </span>
             </div>
             <div class="text-sm text-red-500 mt-1" id="passwordError"></div>
@@ -124,70 +124,133 @@ if (isset($_SESSION['user_id'])) {
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script>
-document.addEventListener('DOMContentLoaded', function() {
-      const togglePassword = document.querySelector('#togglePassword');
-      const passwordField = document.querySelector('#yourPassword');
-      const loginForm = document.querySelector('form.needs-validation');
-
-      togglePassword.addEventListener('click', function() {
-        // Toggle the type attribute
-        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordField.setAttribute('type', type);
-
-        // Toggle the eye icon
-        this.querySelector('i').classList.toggle('fa-eye-slash');
-      });
+     grecaptcha.ready(function() {
+    // Execute reCAPTCHA and get the token
+    grecaptcha.execute('6Le4MJEqAAAAAMr4sxXT8ib-_SSSq2iEY-r2-Faq', { action: 'login' }).then(function(token) {
+      // Add the token to the form before submission
+      const recaptchaInput = document.createElement('input');
+      recaptchaInput.type = 'hidden';
+      recaptchaInput.name = 'g-recaptcha-response';
+      recaptchaInput.value = token;
+      document.getElementById('loginForm').appendChild(recaptchaInput);
     });
+  });
 
-    loginForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-        const formData = new FormData(loginForm);
+    // Assuming you have other form validation here
+    let formData = new FormData(this);
 
-        fetch('../staffaction/login.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Response:', data); // Log the response for debugging
+    // Submit the form data with the reCAPTCHA token
+    fetch('../staffaction/login', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.icon === 'error') {
+            if (data.title === "Account Locked") {
+                // Extract remaining time from the response
+                let remainingTime = parseInt(data.text.match(/\d+/)[0]);
+                
+                // Check if there's a stored countdown in localStorage
+                if (localStorage.getItem('countdownTime')) {
+                    remainingTime = parseInt(localStorage.getItem('countdownTime'));
+                }
 
-            if (data.success) {
-                Swal.fire({
-                    title: 'Login Successful',
-                    text: 'You are being redirected...',
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 1500 // Time in milliseconds (1.5 seconds)
-                }).then(() => {
-                    window.location.href = data.redirect; // Redirect based on the server response
-                });
+                let countdownMessage = document.getElementById('countdownMessage');
+                countdownMessage.classList.remove('hidden');
+                countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
+
+                // Start the countdown
+                let countdownInterval = setInterval(function() {
+                    remainingTime--;
+                    countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
+
+                    // Save the remaining time in localStorage
+                    localStorage.setItem('countdownTime', remainingTime);
+
+                    if (remainingTime <= 0) {
+                        clearInterval(countdownInterval);
+                        countdownMessage.textContent = "The countdown has ended. Please try logging in again.";
+                        // Clear the countdown from localStorage after it's finished
+                        localStorage.removeItem('countdownTime');
+                    }
+                }, 1000);
             } else {
-                Swal.fire({
-                    title: 'Login Failed',
-                    text: data.message || 'An error occurred during login.',
-                    icon: 'error',
-                    showConfirmButton: false,
-                    timer: 1000 // Time in milliseconds (3 seconds)
-                });
+                // Show SweetAlert for other errors
+                Swal.fire(data.title, data.text, data.icon);
             }
-        })
-        .catch(error => {
-            console.error('Fetch error:', error); // Log fetch errors
+        } else if (data.icon === 'success') {
+            // Show SweetAlert for successful login
             Swal.fire({
-                title: 'Error',
-                text: 'An error occurred during login.',
-                icon: 'error',
+                icon: 'success',
+                title: 'Login Successful',
+                text: 'You will be redirected shortly.',
                 showConfirmButton: false,
-                timer: 3000 // Time in milliseconds (3 seconds)
+                timer: 2000 // 2 seconds delay before redirect
+            }).then(() => {
+                // Redirect after the SweetAlert closes
+                window.location.href = data.redirect;
             });
-        });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
     });
+});
+
+// On page load, check if there's a stored countdown and display it
+window.addEventListener('load', function() {
+    let remainingTime = localStorage.getItem('countdownTime');
+    if (remainingTime && remainingTime > 0) {
+        let countdownMessage = document.getElementById('countdownMessage');
+        countdownMessage.classList.remove('hidden');
+        countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
+
+        // Start the countdown if there's a stored value
+        let countdownInterval = setInterval(function() {
+            remainingTime--;
+            countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
+
+            // Save the remaining time in localStorage
+            localStorage.setItem('countdownTime', remainingTime);
+
+            if (remainingTime <= 0) {
+                clearInterval(countdownInterval);
+                countdownMessage.textContent = "The countdown has ended. Please try logging in again.";
+                // Clear the countdown from localStorage after it's finished
+                localStorage.removeItem('countdownTime');
+            }
+        }, 1000);
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const togglePassword = document.querySelector('#togglePassword');
+    const passwordField = document.querySelector('#yourPassword');
+
+    // Set initial state
+    const icon = togglePassword.querySelector('i');
+    icon.classList.add('fa-eye-slash'); // Ensure it starts with the "eye slash"
+
+    togglePassword.addEventListener('click', function () {
+        // Toggle the type attribute
+        const isPasswordVisible = passwordField.getAttribute('type') === 'text';
+        passwordField.setAttribute('type', isPasswordVisible ? 'password' : 'text');
+
+        // Set the eye icon based on visibility
+        if (isPasswordVisible) {
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    });
+});
+
 </script>
 
 
