@@ -579,11 +579,6 @@ margin-left:13%;
         height: auto !important;
     }
 }
-#residenceChart {
-    max-width: 500px;
-    max-height: 500px;
-    margin: 0 auto; /* Centers the chart */
-}
 
     </style>
 
@@ -790,42 +785,41 @@ margin-left:13%;
     });
 
     document.addEventListener("DOMContentLoaded", () => {
-    new Chart(document.querySelector('#residenceChart'), {
-        type: 'doughnut',
-        data: {
-            labels: <?php echo json_encode($chartLabels); ?>,
-            datasets: [{
-                label: 'Total Residents',
-                data: <?php echo json_encode($chartValues); ?>,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.5)',
-                    'rgba(75, 192, 192, 0.5)',
-                    'rgba(255, 205, 86, 0.5)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(255, 205, 86, 1)'
-                ],
-                borderWidth: 1,
-                hoverOffset: 4
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false, // Disable aspect ratio to allow custom dimensions
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: ''
+        new Chart(document.querySelector('#residenceChart'), {
+            type: 'doughnut',
+            data: {
+                labels: <?php echo json_encode($chartLabels); ?>,
+                datasets: [{
+                    label: 'Total Residents',
+                    data: <?php echo json_encode($chartValues); ?>,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(255, 205, 86, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 205, 86, 1)'
+                    ],
+                    borderWidth: 1,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: ''
+                    }
                 }
             }
-        }
+        });
     });
-});
 </script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
