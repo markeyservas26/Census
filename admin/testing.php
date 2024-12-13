@@ -653,7 +653,6 @@ while ($row = $result->fetch_assoc()) {
         </div>
         <div class="button-container">
     <button class="print-btn" onclick="printForm()">Print Form</button>
-    <a href="view_household.php" class="back-btn">Back</a>
 </div>
         <script>
         function printForm() {
