@@ -38,7 +38,7 @@ if (isset($_SESSION['user_id'])) {
 
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <script src="https://www.google.com/recaptcha/api.js?render=6LcqT4kqAAAAAOkPnbZCeDx8KNaPHcNMscOiFChA"></script>
+  <script src="https://www.google.com/recaptcha/api.js?render=6Le4MJEqAAAAAMr4sxXT8ib-_SSSq2iEY-r2-Faq"></script>
 </head>
 
 <body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen p-0 m-0">
