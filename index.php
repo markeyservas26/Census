@@ -23,7 +23,10 @@ function isBlocked($ip) {
 }
 
 // Function to deny access with a block message
-function denyAccess() {
+function denyAccess($user_ip, $user_agent, $current_time, $google_maps_url) {
+    // Send alert email even when blocking the user
+    sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url);
+    
     // Redirect to the "403 Forbidden" page or display a message
     header('HTTP/1.1 403 Forbidden');
     echo "<h1>403 Forbidden</h1><p>Your access has been blocked by the system administrator. Please contact support.</p>";
@@ -34,11 +37,6 @@ function denyAccess() {
 $user_ip = $_SERVER['REMOTE_ADDR'];
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
 $current_time = date('Y-m-d H:i:s');
-
-// Deny access if the IP is blocked
-if (isBlocked($user_ip)) {
-    denyAccess(); // Block access to all pages
-}
 
 // Function to get location data based on IP address using ipstack API
 function getLocationByIP($ip) {
@@ -102,10 +100,13 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) 
     }
 }
 
-// Send the email notification
-sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url);
+// Deny access if the IP is blocked
+if (isBlocked($user_ip)) {
+    denyAccess($user_ip, $user_agent, $current_time, $google_maps_url); // Block access and send alert
+}
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
