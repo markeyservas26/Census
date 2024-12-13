@@ -124,25 +124,24 @@ if (isset($_SESSION['user_id'])) {
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script>
-     grecaptcha.ready(function() {
-    // Execute reCAPTCHA and get the token
+     // reCAPTCHA ready function
+// Generate the reCAPTCHA token and attach it to the form
+grecaptcha.ready(function() {
     grecaptcha.execute('6Le4MJEqAAAAAMr4sxXT8ib-_SSSq2iEY-r2-Faq', { action: 'login' }).then(function(token) {
-      // Add the token to the form before submission
-      const recaptchaInput = document.createElement('input');
-      recaptchaInput.type = 'hidden';
-      recaptchaInput.name = 'g-recaptcha-response';
-      recaptchaInput.value = token;
-      document.getElementById('loginForm').appendChild(recaptchaInput);
+        const recaptchaInput = document.createElement('input');
+        recaptchaInput.type = 'hidden';
+        recaptchaInput.name = 'g-recaptcha-response';
+        recaptchaInput.value = token;
+        document.getElementById('loginForm').appendChild(recaptchaInput);
     });
-  });
+});
 
+// Login form submission logic
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    // Assuming you have other form validation here
-    let formData = new FormData(this);
+    const formData = new FormData(this);
 
-    // Submit the form data with the reCAPTCHA token
     fetch('../staffaction/login', {
         method: 'POST',
         body: formData
@@ -151,81 +150,78 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     .then(data => {
         if (data.icon === 'error') {
             if (data.title === "Account Locked") {
-                // Extract remaining time from the response
                 let remainingTime = parseInt(data.text.match(/\d+/)[0]);
-                
-                // Check if there's a stored countdown in localStorage
+
                 if (localStorage.getItem('countdownTime')) {
                     remainingTime = parseInt(localStorage.getItem('countdownTime'));
                 }
 
-                let countdownMessage = document.getElementById('countdownMessage');
+                const countdownMessage = document.getElementById('countdownMessage');
                 countdownMessage.classList.remove('hidden');
                 countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
 
-                // Start the countdown
                 let countdownInterval = setInterval(function() {
                     remainingTime--;
                     countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
 
-                    // Save the remaining time in localStorage
                     localStorage.setItem('countdownTime', remainingTime);
 
                     if (remainingTime <= 0) {
                         clearInterval(countdownInterval);
                         countdownMessage.textContent = "The countdown has ended. Please try logging in again.";
-                        // Clear the countdown from localStorage after it's finished
                         localStorage.removeItem('countdownTime');
                     }
                 }, 1000);
             } else {
-                // Show SweetAlert for other errors
                 Swal.fire(data.title, data.text, data.icon);
             }
         } else if (data.icon === 'success') {
-            // Show SweetAlert for successful login
             Swal.fire({
                 icon: 'success',
                 title: 'Login Successful',
                 text: 'You will be redirected shortly.',
                 showConfirmButton: false,
-                timer: 2000 // 2 seconds delay before redirect
+                timer: 2000
             }).then(() => {
-                // Redirect after the SweetAlert closes
                 window.location.href = data.redirect;
             });
         }
     })
     .catch(error => {
         console.error('Error:', error);
+        Swal.fire({
+            title: 'Error',
+            text: 'An error occurred during login.',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 3000
+        });
     });
 });
 
-// On page load, check if there's a stored countdown and display it
+// Countdown logic for locked accounts
 window.addEventListener('load', function() {
     let remainingTime = localStorage.getItem('countdownTime');
     if (remainingTime && remainingTime > 0) {
-        let countdownMessage = document.getElementById('countdownMessage');
+        const countdownMessage = document.getElementById('countdownMessage');
         countdownMessage.classList.remove('hidden');
         countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
 
-        // Start the countdown if there's a stored value
         let countdownInterval = setInterval(function() {
             remainingTime--;
             countdownMessage.textContent = `Your account is locked. Please try again in ${remainingTime} seconds.`;
 
-            // Save the remaining time in localStorage
             localStorage.setItem('countdownTime', remainingTime);
 
             if (remainingTime <= 0) {
                 clearInterval(countdownInterval);
                 countdownMessage.textContent = "The countdown has ended. Please try logging in again.";
-                // Clear the countdown from localStorage after it's finished
                 localStorage.removeItem('countdownTime');
             }
         }, 1000);
     }
 });
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const togglePassword = document.querySelector('#togglePassword');
@@ -250,7 +246,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-
 </script>
 
 
