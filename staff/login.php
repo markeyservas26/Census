@@ -38,7 +38,8 @@ if (isset($_SESSION['user_id'])) {
 
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <script src="https://www.google.com/recaptcha/api.js?render=6LcqT4kqAAAAAOkPnbZCeDx8KNaPHcNMscOiFChA"></script>
+  <script src="https://www.google.com/recaptcha/api.js?render=6Le4MJEqAAAAAMr4sxXT8ib-_SSSq2iEY-r2-Faq"></script>
+
 </head>
 
 <body class="bg-gray-100 font-serif flex justify-center items-center min-h-screen p-0 m-0">
@@ -59,7 +60,7 @@ if (isset($_SESSION['user_id'])) {
           <div>
             <label for="yourEmail" class="block text-left text-gray-600 text-lg font-semibold mb-2">Email</label>
             <div class="relative">
-              <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">@</span>
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500"></span>
               <input type="email" name="email" id="yourEmail" required
                 class="w-full px-4 py-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
             </div>
