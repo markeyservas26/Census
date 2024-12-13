@@ -790,7 +790,7 @@ margin-left:13%;
             data: {
                 labels: <?php echo json_encode($chartLabels); ?>,
                 datasets: [{
-                    label: 'Houses',
+                    label: 'Total Residents',
                     data: <?php echo json_encode($chartValues); ?>,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.5)',
