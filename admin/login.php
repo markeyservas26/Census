@@ -206,19 +206,27 @@ window.addEventListener('load', function() {
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
-      const togglePassword = document.querySelector('#togglePassword');
-      const passwordField = document.querySelector('#yourPassword');
+document.addEventListener('DOMContentLoaded', function () {
+    const togglePassword = document.querySelector('#togglePassword');
+    const passwordField = document.querySelector('#yourPassword');
 
-      togglePassword.addEventListener('click', function() {
+    togglePassword.addEventListener('click', function () {
         // Toggle the type attribute
-        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordField.setAttribute('type', type);
+        const isPasswordVisible = passwordField.getAttribute('type') === 'text';
+        passwordField.setAttribute('type', isPasswordVisible ? 'password' : 'text');
 
-        // Toggle the eye icon
-        this.querySelector('i').classList.toggle('fa-eye-slash');
-      });
+        // Set the eye icon based on visibility
+        const icon = this.querySelector('i');
+        if (isPasswordVisible) {
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
     });
+});
+
 
   // Validation for the login form
   document.getElementById('loginForm').addEventListener('submit', function(event) {
