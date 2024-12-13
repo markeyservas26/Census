@@ -22,11 +22,6 @@
         We’re checking your browser to ensure secure access. This process is automatic. Your browser will redirect to your requested content shortly.
     </p>
 
-    <!-- Subtext -->
-    <p class="text-gray-500 text-sm md:text-base max-w-lg">
-        Please allow up to 5 seconds. If you are not redirected, <a href="index.php" class="text-blue-500 hover:underline">click here</a>.
-    </p>
-
     <!-- Spinner -->
     <div class="w-16 h-16 border-4 border-blue-500 border-dashed rounded-full animate-spin mt-6"></div>
 
