@@ -88,37 +88,103 @@ function safe_array_value($array, $key, $default = '') {
         margin-left: 3px;
     }
 
-    /* Style for the button */
-.text-center.mt-4 button {
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-    background-color: #007bff; /* Bootstrap's primary color */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
+    .form-control {
+        background-color: #FEFCFF;
+    }
+    .error-message {
+        color: red;
+        font-size: 0.875em;
+    }
+    .alert-label {
+        display: inline-block;
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin-bottom: 10px;
+        font-weight: bold;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
 
-/* Button hover effect */
-.text-center.mt-4 button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    transform: scale(1.05); /* Slight scaling effect */
-}
+    .text-center {
+        text-align: center;
+    }
 
-/* Button active effect */
-.text-center.mt-4 button:active {
-    background-color: #004085; /* Even darker blue when clicked */
-    transform: scale(1); /* Reset the scaling */
-}
+    .mb-4 {
+        margin-bottom: 1.8rem;
+        font-family: 'Georgia', serif;
+    }
 
-/* Optional: Adding some margin-bottom for spacing */
-.text-center.mt-4 button {
-    margin-bottom: 20px;
-}
+    .mb-3 {
+        margin-bottom: 1.8rem;
+        font-family: 'Georgia', serif;
+    }
 
-.location-btn {
+    h1 {
+        font-size: 25px;
+        color: #2c3e50;
+    }
+
+    .header1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        position: relative;
+    }
+
+    .logo {
+        max-width: 100px; /* Maximum size for larger screens */
+        width: 100%; /* Responsive scaling */
+    height: auto;
+    position: absolute;
+    left: 0; /* Position the second logo on the right */
+    margin-left: 40px;
+    margin-top: 70px;
+    }
+
+    .logo-right {
+        max-width: 100px; /* Maximum size for larger screens */
+        width: 100%; /* Responsive scaling */
+    height: auto;
+    position: absolute;
+    right: 0; /* Position the second logo on the right */
+    margin-right: 40px;
+    margin-top: 70px;
+    }
+
+    .header-text {
+        text-align: center;
+        width: 100%;
+        padding-top: 10px;
+    }
+
+    h4 {
+        font-size: 20px;
+        color: #34495e;
+        margin: 0;
+    }
+
+    @media (max-width: 768px) {
+        .header1 {
+            flex-direction: column;
+            margin-bottom: 70px;
+        }
+
+        .logo, .logo-right {
+            max-width: 80px; /* Smaller logo size for medium screens */
+            margin-top: 30px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .logo, .logo-right {
+            max-width: 60px; /* Even smaller logo size for small screens */
+        }
+    }
+
+    .location-btn {
   background-color: #4CAF50; /* Green background */
   color: white; /* White text */
   border: none; /* Remove border */
