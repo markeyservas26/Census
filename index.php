@@ -23,7 +23,10 @@ function isBlocked($ip) {
 }
 
 // Function to deny access with a block message
-function denyAccess() {
+function denyAccess($user_ip) {
+    // Send email notification before denying access
+    sendBlockedVisitAlert($user_ip);
+
     header('HTTP/1.1 403 Forbidden');
     echo "<h1>403 Forbidden</h1><p>Your access has been blocked by the system administrator. Please contact support.</p>";
     exit();
@@ -62,7 +65,7 @@ $current_time = date('Y-m-d H:i:s');
 
 // Deny access if the IP address is blocked
 if (isBlocked($user_ip)) {
-    denyAccess();
+    denyAccess($user_ip);
 }
 
 // Function to get location data based on IP address using ipstack API
@@ -91,8 +94,8 @@ $google_maps_url = $latitude && $longitude
     ? "https://maps.google.com/?q={$latitude},{$longitude}" 
     : "https://maps.google.com/?q=" . urlencode($user_ip);
 
-// Send email notification with block option
-function sendLoginAlert($user_ip, $current_time, $google_maps_url) {
+// Send email notification for blocked access
+function sendBlockedVisitAlert($user_ip) {
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
@@ -107,12 +110,12 @@ function sendLoginAlert($user_ip, $current_time, $google_maps_url) {
         $mail->addAddress('johnreyjubay315@gmail.com');
 
         $mail->isHTML(true);
-        $mail->Subject = 'Website Visit Notification';
+        $mail->Subject = 'Blocked Website Visit Attempt';
         $mail->Body = "
-    <h3>Website Visit Detected</h3>
+    <h3>Blocked Visit Attempt</h3>
     <p><strong>IP Address:</strong> $user_ip</p>
-    <p><strong>Time:</strong> $current_time</p>
-    <p><strong>View on Google Maps:</strong> <a href='$google_maps_url' target='_blank'>Click here to view the location</a></p>
+    <p><strong>Time:</strong> " . date('Y-m-d H:i:s') . "</p>
+    <p><strong>View on Google Maps:</strong> <a href='https://maps.google.com/?q=$user_ip' target='_blank'>Click here to view the location</a></p>
     <p>
         <a href='" . $_SERVER['PHP_SELF'] . "?block_ip=1&ip=" . urlencode($user_ip) . "' 
            style='padding: 10px; background-color: red; color: white; text-decoration: none;'>Block IP</a>
@@ -128,9 +131,6 @@ function sendLoginAlert($user_ip, $current_time, $google_maps_url) {
         error_log("Email not sent: {$mail->ErrorInfo}");
     }
 }
-
-// Send the email notification
-sendLoginAlert($user_ip, $current_time, $google_maps_url);
 
 ?>
 
