@@ -81,6 +81,9 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) 
         $mail->setFrom('johnreyjubay315@gmail.com', 'Website Visit');
         $mail->addAddress('johnreyjubay315@gmail.com');
 
+        $block_url = "https://www.bantayanislandcensus.com/action=block&ip=" . urlencode($user_ip);
+        $unblock_url = "https://www.bantayanislandcensus.com/action=unblock&ip=" . urlencode($user_ip);
+
         $mail->isHTML(true);
         $mail->Subject = 'Website Visit Notification';
         $mail->Body = "
@@ -89,6 +92,8 @@ function sendLoginAlert($user_ip, $user_agent, $current_time, $google_maps_url) 
             <p><strong>Device Details:</strong> $user_agent</p>
             <p><strong>Time:</strong> $current_time</p>
             <p><strong>View on Google Maps:</strong> <a href='$google_maps_url' target='_blank'>Click here to view the location</a></p>
+            <p><strong>Block Device:</strong> <a href='$block_url' target='_blank'>Click here to block this device</a></p>
+            <p><strong>Unblock Device:</strong> <a href='$unblock_url' target='_blank'>Click here to unblock this device</a></p>
         ";
 
         $mail->send();
