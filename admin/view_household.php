@@ -144,12 +144,23 @@ function safe_array_value($array, $key, $default = '') {
     </style>
 </head>
 <body>
-    <main id="main" class="main">
-        <div class="container">
-            <h1 class="text-center mb-4">Bantayan Island Census Form</h1>
-            <p>
-            Please fill up completely and correctly the required information before each item below.  For items that are not associated to you, leave it blank.  Required items are also marked with an asterisk (*) so please fill it up correctly.  Your honest response will help the National Commission of Senior Citizens (NCSC) come up with a good information system of the senior citizens in the country as the basis of designing its programs and activities that will help improve the lives of Filipino older persons.</p>
-            <em style="color:red;">* Items with an asterisk (*) are required.</em>
+<main id="main" class="main">
+    <div class="container">
+    <div class="header1">
+        <img src="assets/img/censusformlogo.png" alt="Census Logo" class="logo">
+        <img src="assets/img/censusformlogo2.png" alt="Census Logo 2" class="logo-right">
+    </div>
+    <h1 class="text-center mb-3">REPUBLIC OF THE PHILIPPINES</h1>
+    <h1 class="text-center mb-3">PHILIPPINE STATISTICS AUTHORITY</h1>
+    <div class="form-header"></div>
+    <div class="header-text">
+        <h4>BANTAYAN ISLAND CENSUS FORM</h4>
+    </div>
+    <hr style="height: 2px; border-width: 0; color: black; background-color: black; text-decoration: underline; margin-top: 2rem; margin-bottom: 2rem;">
+        <p>
+        Please complete the required information for each item below. Items marked with an asterisk (*) are mandatory. Your honest and accurate responses will assist in gathering comprehensive data for the Bantayan Island Census. This information will serve as a foundation for designing programs and activities aimed at improving the lives of residents in Bantayan Island.
+        </p>
+        <em style="color:red;">* Items with an asterisk (*) are required.</em>
         
             <form id="demographicForm" method="post" action="../action/update_record.php">
             <input type="hidden" name="house_leader" value="<?php echo $house_leader['id']; ?>">
