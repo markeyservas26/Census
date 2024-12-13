@@ -21,11 +21,11 @@ if ($responseKeys["success"] && $responseKeys["score"] >= 0.5) {
         $_SESSION['verified'] = true;
 
         // Redirect to the main page
-        header("Location: index.php");
+        header("Location: index");
         exit();
     } else {
         // Already verified in this session
-        header("Location: index.php");
+        header("Location: index");
         exit();
     }
 } else {
