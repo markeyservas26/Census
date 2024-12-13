@@ -56,6 +56,26 @@ if ($resultOccupants->num_rows > 0) {
     }
 }
 
+// Combine house numbers and occupant names
+$totalCombinedCounts = [];
+foreach ($houseLabels as $key => $municipality) {
+    $totalCombinedCounts[$municipality] = $houseValues[$key] + $occupantValues[$key];
+}
+
+// Fetch total count of house number records (for Residence)
+$sqlTotalHouseNumbers = "SELECT municipality, COUNT(DISTINCT house_number) as count FROM house_leader  
+                         WHERE municipality IN ('Madridejos', 'Bantayan', 'Santafe')
+                         GROUP BY municipality";
+
+$resultTotalHouseNumbers = $conn->query($sqlTotalHouseNumbers);
+
+$totalHouseNumbers = [];
+if ($resultTotalHouseNumbers->num_rows > 0) {
+    while ($row = $resultTotalHouseNumbers->fetch_assoc()) {
+        $totalHouseNumbers[$row['municipality']] = $row['count'];
+    }
+}
+
 $data = [
     'labels' => $labels,
     'values' => $values,
@@ -235,20 +255,442 @@ main{
 }
 
         /* Adjusting the card container to center the cards */
+.card-container {
+    display: flex;
+    justify-content: center; /* Center the cards horizontally */
+    gap: 20px; /* Add space between cards */
+    flex-wrap: wrap; /* Ensure that cards wrap if the screen is too narrow */
+    width: 100%; /* Full width to ensure centering */
+    margin: 0 auto; /* Ensure the cards are centered in the viewport */
+}
 
+     /* Card box styling */
+.card-box {
+    width: 230px;
+    height: 220px;
+    padding: 20px 0px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    text-align: center; /* Center align text and icons */
+    position: relative; /* Ensure all elements are positioned relative to the card */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* Container for the section */
+.section .container {
+    display: flex;
+    justify-content: center; /* Center the cards section */
+    width: 100%;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Media queries for mobile devices */
+@media screen and (max-width: 767px) {
+    .section .container {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .card-container {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: visible;
+        padding: 0 5px;
+        gap: 5px; /* Reduced gap between cards */
+        margin-bottom: 15px;
+    }
+
+    .card-box {
+        width: 103px;  /* Further reduced width */
+        min-width: 103px;
+        height: 90px;  /* Further reduced height */
+        padding: 8px 0px;
+        margin-right: 5px;
+    }
+
+    .card-box .inner {
+        padding: 2px 2px 0 2px;
+    }
+
+    .card-box h3 {
+        font-size: 16px !important;
+        margin: 0 0 2px 0 !important;
+        text-align: left !important;
+        line-height: 1.2 !important;
+    }
+
+    .card-box p {
+        font-size: 8px !important;
+        margin-top: 30px !important;
+        white-space: normal !important;
+        line-height: 1.1 !important;
+        padding: 0 2px !important;
+    }
+
+    .card-box .icon {
+        margin-bottom: 20px;
+        right: 2px;
+    }
+
+    .card-box .icon i {
+        font-size: 30px;
+    }
+
+    .card-box:hover .icon i {
+        font-size: 30px !important; /* Disable hover effect by resetting size */
+        color: inherit !important; /* Remove hover color change */
+        transition: none !important; /* Remove hover transition */
+    }
+
+    .col-xl-3.col-lg-6.col-md-6.mb-4 {
+        flex: 0 0 auto;
+        width: auto;
+        max-width: none;
+        padding: 0 2px; /* Reduced padding */
+        margin-bottom: 0 !important;
+    }
+}
+
+/* Extra small devices */
+@media screen and (max-width: 375px) {
+    .card-box {
+        width: 90px !important;
+        min-width: 90px !important;
+        height: 90px !important;
+    }
+
+    .card-box h3 {
+        font-size: 14px !important;
+        margin: 0 0 2px 0 !important;
+    }
+
+    .card-box p {
+        font-size: 8px !important;
+        line-height: 1 !important;
+    }
+
+    .card-box .icon i {
+        font-size: 16px !important;
+    }
+}
+
+/* Very small devices */
+@media screen and (max-width: 320px) {
+    .card-box {
+        width: 80px !important;
+        min-width: 80px !important;
+        height: 80px !important;
+    }
+
+    .card-box h3 {
+        font-size: 12px !important;
+    }
+
+    .card-box p {
+        font-size: 7px !important;
+    }
+
+    .card-box .icon i {
+        font-size: 14px !important;
+    }
+}
+
+/* Hide scrollbar but keep functionality */
+.card-container::-webkit-scrollbar {
+    display: none;
+}
+
+.card-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+
+
+        .card-box:hover {
+            text-decoration: none;
+            color: #333333;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-box:hover .icon i {
+            font-size: 100px;
+            transition: 1s;
+            -webkit-transition: 1s;
+            color: #468189;
+        }
+
+        .card-box .inner {
+            padding: 5px 10px 0 10px;
+        }
+
+        .card-box h3 {
+    font-size: 35px;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+    white-space: nowrap;
+    padding: 0;
+    text-align: left;
+}
+
+.card-box p {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+        .card-box .icon {
+            position: absolute;
+            top: auto;
+            bottom: 5px;
+            right: 5px;
+            z-index: 0;
+            font-size: 72px;
+            color: rgba(0, 0, 0, 0.15);
+        }
+
+        .card-box .card-box-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            padding: 8px 0;
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(0, 0, 0, 0.1);
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            transition: background 0.3s ease;
+            text-decoration: none;
+        }
+
+        .card-box:hover .card-box-footer {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .bg-blue {
+            background-color: #EDEDED !important;
+        }
+
+        .bg-green {
+            background-color: #EDEDED !important;
+        }
+
+        .bg-orange {
+            background-color: #EDEDED !important;
+        }
+
+        .bg-red {
+            background-color: #EDEDED !important;
+        }
+
+       
+
+        .dashboard-content {
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    width: 100%;
+    padding: 20px; 
+    margin-left: 0; /* Remove the left margin */
+}
+
+.chart-container {
+    display: flex;
+    justify-content: center; /* Center all charts horizontally */
+    align-items: center; /* Align the charts at the top */
+    gap: 30px; /* Add a gap between each chart */
+   width: 200%;
+   margin-left: 33px;
+}
+.doughnut-chart {
+  width: 50%;
+  height: auto;
+  margin-left:27%;
+}
+.container{
+margin-left:13%;
+}
+.chart-box {
+    width: 100%;
+        max-width: 800px;
+        padding: 0 15px;
+    flex: 1; /* Allow each chart to take equal space */
+    text-align: center;
+}
+
+.chart-box-container {
+    background-color: #ffffff; /* Background color for the box */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    padding: 20px; /* Inner padding */
+    margin: 10px 0; /* Margin above and below the box */
+    text-align: center; /* Center align text inside the box */
+}
+
+.chart-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        height: 400px; /* Default height */
+    }
+    @media screen and (max-width: 768px) {
+    .chart-wrapper {
+        height: 300px; /* Adjust height on smaller devices */
+        margin-right: 50px;
+        width: 85%;
+    }
+
+    /* Adjust the size of the h5 title and ensure it's centered */
+    .card-title.text-center {
+        margin-top: -50px !important;
+        font-size: 14px !important;  /* Adjust the font size */
+        text-align: center !important; /* Ensure the text is centered */
+        margin-right: 20px !important;
+    }
+}
+    @media screen and (max-width: 576px) {
+        .chart-wrapper {
+            height: 200px; /* Further adjust for very small devices */
+        }
+    }
+
+    /* Ensure centering on small screens */
+@media (max-width: 767px) {
+    .chart-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center the entire chart container */
+    }
+    .chart-box-container {
+        margin: 0 auto;
+        text-align: center;
+        margin-right: 59%;
+    }
+    .responsive-chart {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
 
     </style>
 
-    <div class="pagetitle" data-aos="fade-up">
+<div class="pagetitle" data-aos="fade-up">
   <h1 style="margin-top:-20px;">Dashboard</h1>
 </div><!-- End Page Title -->
 <br>
 <br>
 <section class="section dashboard" data-aos="fade-up">
+    <div class="container">
+        <div class="row card-container" data-aos="fade-up">
+            <div class="col-xl-3 col-lg-6 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="100">
+                <div class="card-box bg-blue">
+                    <div class="inner">
+                        <h3 class="total-barangay"><?php echo $totalBarangayCount; ?></h3>
+                        <p><b>Total Barangay</b></p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-university" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="200">
+                <div class="card-box bg-green">
+                    <div class="inner">
+                        <h3 class="total-houses"><?php echo array_sum($data['totalHouseNumbers']); ?></h3>
+                        <p><b>Total Houses</b></p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-house" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
+                <div class="card-box bg-red">
+                    <div class="inner">
+                        <h3 class="total-residence"><?php echo array_sum($totalCombinedCounts); ?></h3>
+                        <p><b>Total Residence</b></p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-users"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <br>
 <hr>
-
+<div class="dashboard-content mt-5" data-aos="fade-up">
+    <div class="chart-container">
+        <div class="chart-box">
+        <h5 class="card-title text-center">Gender Distribution Bar Chart</h5>
+            <div class="chart-wrapper">
+                <canvas id="sexChart"></canvas>
+            </div>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    const ctx = document.getElementById('sexChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Male', 'Female'],
+                            datasets: [{
+                                label: 'Number of People',
+                                data: [
+                                    <?php echo $sexData['Male']; ?>,  // Male count
+                                    <?php echo $sexData['Female']; ?>  // Female count
+                                ],
+                                backgroundColor: [
+                                    'rgba(54, 162, 235, 0.6)',  // Blue for Male
+                                    'rgba(255, 99, 132, 0.6)'   // Red for Female
+                                ],
+                                borderColor: [
+                                    'rgba(54, 162, 235, 1)',  // Blue for Male
+                                    'rgba(255, 99, 132, 1)'   // Red for Female
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(tooltipItem) {
+                                            return `${tooltipItem.label}: ${tooltipItem.raw}`;
+                                        }
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    beginAtZero: true
+                                },
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                });
+            </script>
+        </div>
+    </div>
+</div>
 
 <hr>
 <div class="dashboard-content" data-aos="fade-up">
@@ -256,6 +698,20 @@ main{
         <div class="col-lg-6 mb-4">
             <div class="chart-container">
                 <div class="row justify-content-center">
+                    <div class="col-12 col-md-4 d-flex justify-content-center mb-4" data-aos="flip-left" data-aos-delay="100">
+                        <div class="chart-box-container text-center">
+                            <h5 class="card-title">Barangay Count Per Municipality</h5>
+                            <canvas id="barangayChart" style="max-width: 265px; max-height: 265px;" class="responsive-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4 d-flex justify-content-center mb-4" data-aos="flip-left" data-aos-delay="200">
+                        <div class="chart-box-container text-center">
+                            <h5 class="card-title">House Count Per Municipality</h5>
+                            <canvas id="houseCountChart" style="max-width: 265px; max-height: 265px;" class="responsive-chart"></canvas>
+                        </div>
+                    </div>
+
                     <div class="col-12 col-md-4 d-flex justify-content-center mb-4" data-aos="flip-left" data-aos-delay="300">
                         <div class="chart-box-container text-center">
                             <h5 class="card-title">Residence Count Per Municipality</h5>
@@ -277,6 +733,56 @@ main{
 
 <script>
     // Doughnut chart for Barangay Count
+    document.addEventListener("DOMContentLoaded", () => {
+        new Chart(document.querySelector('#barangayChart'), {
+            type: 'doughnut',
+            data: {
+                labels: <?php echo json_encode(array_keys($totalBarangays)); ?>,
+                datasets: [{
+                    label: 'Barangays',
+                    data: <?php echo json_encode(array_values($totalBarangays)); ?>,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(255, 205, 86, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 205, 86, 1)'
+                    ],
+                    borderWidth: 1,
+                    hoverOffset: 4
+                }]
+            }
+        });
+    });
+
+    // Doughnut chart for House Count
+    document.addEventListener("DOMContentLoaded", () => {
+        new Chart(document.querySelector('#houseCountChart'), {
+            type: 'doughnut',
+            data: {
+                labels: <?php echo json_encode($houseLabels); ?>,
+                datasets: [{
+                    label: 'Houses',
+                    data: <?php echo json_encode($houseValues); ?>,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(255, 205, 86, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 205, 86, 1)'
+                    ],
+                    borderWidth: 1,
+                    hoverOffset: 4
+                }]
+            }
+        });
+    });
 
     document.addEventListener("DOMContentLoaded", () => {
         new Chart(document.querySelector('#residenceChart'), {
@@ -308,13 +814,12 @@ main{
                     },
                     title: {
                         display: true,
-                        text: 'Total Residents by Municipality'
+                        text: ''
                     }
                 }
             }
         });
     });
-
 </script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
