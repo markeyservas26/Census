@@ -37,7 +37,7 @@
   width: 100%; /* Ensure header takes full width */
 }
 .header img {
-    height: 80px; /* Adjust the height as needed */
+    height: 80%; /* Adjust the height as needed */
     margin-left: 30px; /* Adjust the margin as needed */
 }
 
