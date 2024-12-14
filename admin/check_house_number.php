@@ -12,7 +12,7 @@ if (isset($_POST['house_number'])) {
     $stmt->fetch();
     $stmt->close();
 
-    // Return result as JSON
-    echo json_encode(['exists' => $count > 0]);
+    // Return result as plain text
+    echo $count > 0 ? 'exists' : 'available';
 }
 ?>
