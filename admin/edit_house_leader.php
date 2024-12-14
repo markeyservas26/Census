@@ -398,7 +398,7 @@ function safe_array_value($array, $key, $default = '') {
     </div>
     <div class="col-12 col-sm-6 col-lg-3">
                 <label for="spouse_sex" class="form-label">Sex at Birth</label>
-                <select id="spouse_sex" name="sex_spouse" class="form-select" required>
+                <select id="spouse_sex" name="sex_spouse" class="form-select">
                     <option value="" <?php echo $spouse['spouse_sex'] == '' ? 'selected' : ''; ?>>Select an option</option>
                     <option value="Male" <?php echo $spouse['spouse_sex'] == 'Male' ? 'selected' : ''; ?>>Male</option>
                     <option value="Female" <?php echo $spouse['spouse_sex'] == 'Female' ? 'selected' : ''; ?>>Female</option>
