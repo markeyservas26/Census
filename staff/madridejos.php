@@ -57,8 +57,8 @@ $result = mysqli_query($conn, $query);
                             <input type="checkbox" id="checkAll" />
                             <label for="checkAll">Select All</label>
                         </div>
-                        <button type="button" class="btn btn-success" id="exportButton">
-            Export Data <i class="fas fa-download"></i>
+                        <button type="button" class="btn btn-primary" id="importButton">
+    Import Data <i class="fas fa-upload"></i>
 </button>
                     </div>
                     <div class="table-responsive">
