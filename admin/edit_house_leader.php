@@ -1516,6 +1516,7 @@ function safe_array_value($array, $key, $default = '') {
         }
     }
 </script>
+
 <script>
     // Assuming the form uses AJAX to submit the data
 $(document).ready(function() {
