@@ -965,8 +965,6 @@ if (isBlocked($user_ip)) {
                             </div>
                         </div>
                     </div>
-                <!-- Remove the Right Column with Image -->
-                <script src="//code.tidio.co/xjhnpy1s8nfzl3muds8u7acrmf1p3jkc.js" async></script>
 
                 </div>
             </div>
