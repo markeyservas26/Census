@@ -1960,7 +1960,7 @@ $(document).ready(function () {
     $('#house_number').on('input', function () {
         const houseNumber = $(this).val();
         const houseNumberAlert = $('#house_number_alert');
-        const submitButton = $('#submit_button');
+        const submitButton = $('#submit_btn');
 
         if (houseNumber !== '') {
             $.ajax({
