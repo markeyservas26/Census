@@ -1961,38 +1961,32 @@ function validateForm() {
 }
 </script>
 <script>
-   $(document).ready(function () {
-    $('#house_number').on('input', function () {
-        const houseNumber = $(this).val();
-        const houseNumberAlert = $('#house_number_alert');
-        const submitButton = $('#submit_btn');
+    $(document).ready(function() {
+        $('#house_number').on('blur', function() {
+            const houseNumber = $(this).val();
 
-        if (houseNumber !== '') {
-            $.ajax({
-                url: 'check_house_number.php',
-                method: 'POST',
-                data: { house_number: houseNumber },
-                success: function (response) {
-                    const result = JSON.parse(response);
-                    if (result.exists) {
-                        houseNumberAlert.show();
-                        submitButton.prop('disabled', true); // Disable the submit button
-                    } else {
-                        houseNumberAlert.hide();
-                        submitButton.prop('disabled', false); // Enable the submit button
+            if (houseNumber) {
+                $.ajax({
+                    url: 'check_house_number.php',
+                    method: 'POST',
+                    data: { house_number: houseNumber },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.exists) {
+                            $('#house_number_alert').show(); // Show the alert
+                        } else {
+                            $('#house_number_alert').hide(); // Hide the alert if no match
+                        }
+                    },
+                    error: function() {
+                        console.error("An error occurred while checking the house number.");
                     }
-                },
-                error: function () {
-                    console.error('Error checking house number.');
-                }
-            });
-        } else {
-            houseNumberAlert.hide();
-            submitButton.prop('disabled', false); // Enable the submit button if input is empty
-        }
+                });
+            } else {
+                $('#house_number_alert').hide(); // Hide the alert if the input is empty
+            }
+        });
     });
-});
-
 </script>
 <?php 
 include 'footer.php';
