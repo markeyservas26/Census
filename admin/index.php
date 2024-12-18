@@ -271,7 +271,7 @@ main{
      /* Card box styling */
 .card-box {
     width: 230px;
-    height: 220px;
+    height: 150px;
     padding: 20px 0px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -496,7 +496,10 @@ main{
             background-color: #EDEDED !important;
         }
 
-       
+        .custom-card-width {
+        max-width: 300px; /* Adjust the width as needed */
+        margin: 0 auto; /* Center the card horizontally */
+    }
 
         .dashboard-content {
     display: flex;
@@ -585,50 +588,122 @@ margin-left:13%;
 }
 
     </style>
+<style>
+    /* Set a fixed height for all cards */
+.fixed-card-height {
+    min-height: 50px; /* Adjust this value to your preference */
+}
 
+/* Optional: Flexbox to ensure the content is evenly spaced */
+.card .inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 50%;
+}
+
+
+    .icon i {
+    font-size: 2rem; /* Adjust icon size */
+    line-height: 1;
+    margin-right: 80%;
+}
+
+  .inner p {
+    margin-left: 45%;
+    margin-top: -30%;
+  }
+
+  .inner h4 {
+    margin-left: 45%;
+    margin-top: -25%;
+  }
+</style>
+<!-- Add Custom Media Queries for Smaller Devices -->
+<style>
+    @media (max-width: 768px) {
+        .card-container {
+            flex-direction: column; /* Stack cards vertically */
+        }
+        .col-lg-6 {
+            width: 100%; /* Full width for the charts on smaller screens */
+            margin-left: 0;
+        }
+        .dashboard-content .row {
+            flex-direction: column; /* Stack charts vertically on smaller screens */
+        }
+        .col-md-4 {
+            width: 100%; /* Full width for individual chart cards */
+            margin-top: 20px;
+        }
+        .chart-box-container {
+            margin-bottom: 20px; /* Ensure space between chart cards */
+        }
+    }
+</style>
+<!-- Custom CSS for small screens -->
+<style>
+    @media (max-width: 767px) {
+        .col-lg-3, .col-lg-9 {
+            width: 300% !important; /* Make columns take full width */
+        }
+        .box-container {
+            margin-left: -40px !important; /* Remove the margin left on small screens */
+            width: 100% !important; /* Set the box to full width */
+        }
+        .chart-wrapper{
+            margin-top: 50px;
+        }
+        .chart-box-container {
+            margin-left: 0 !important; /* Adjust the margin to center it */
+            width: 90% !important; /* Adjust the width of the chart box */
+            height: auto !important; /* Adjust the height to auto to fit the content */
+            max-width: 350px; /* Optional: limit the width */
+            margin: 0 auto; /* Center the chart box container */
+        }
+    }
+</style>
 <div class="pagetitle" data-aos="fade-up">
   <h1 style="margin-top:-20px;">Dashboard</h1>
 </div><!-- End Page Title -->
-<br>
-<br>
 <section class="section dashboard" data-aos="fade-up">
     <div class="container">
-        <div class="row card-container" data-aos="fade-up">
+        <div class="row justify-content-center card-container d-flex flex-nowrap" data-aos="fade-up">
             <!-- Total Barangay Card -->
-            <div class="col-xl-3 col-lg-6 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="100">
-                <div class="card border-0 shadow-sm rounded-lg text-center p-4 bg-white">
+            <div class="col-12 col-md-4 flex-grow-0" data-aos="zoom-in" data-aos-delay="100">
+                <div class="card custom-card-width border-0 shadow-sm rounded-lg text-center p-4 bg-light">
                     <div class="icon mb-3">
-                        <i class="fa fa-university text-primary bg-light rounded-circle p-3"></i>
+                        <i class="fa fa-university text-primary bg-white rounded-circle p-3"></i>
                     </div>
                     <div class="inner">
+                        <p class="text-secondary mb-0" style="font-size: 14px;"><b>Total Barangay</b></p>
                         <h4 class="text-dark mb-2"><?php echo $totalBarangayCount; ?></h4>
-                        <p class="text-secondary mb-0"><b>Total Barangay</b></p>
                     </div>
                 </div>
             </div>
 
             <!-- Total Houses Card -->
-            <div class="col-xl-3 col-lg-6 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="200">
-                <div class="card border-0 shadow-sm rounded-lg text-center p-4 bg-white">
+            <div class="col-12 col-md-4 flex-grow-0" data-aos="zoom-in" data-aos-delay="200">
+                <div class="card custom-card-width border-0 shadow-sm rounded-lg text-center p-4 bg-light">
                     <div class="icon mb-3">
-                        <i class="fa fa-house text-success bg-light rounded-circle p-3"></i>
+                        <i class="fa fa-house text-success bg-white rounded-circle p-3"></i>
                     </div>
                     <div class="inner">
+                        <p class="text-secondary mb-0" style="font-size: 14px;"><b>Total Houses</b></p>
                         <h4 class="text-dark mb-2"><?php echo array_sum($data['totalHouseNumbers']); ?></h4>
-                        <p class="text-secondary mb-0"><b>Total Houses</b></p>
                     </div>
                 </div>
             </div>
 
             <!-- Total Residence Card -->
-            <div class="col-xl-3 col-lg-6 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
-                <div class="card border-0 shadow-sm rounded-lg text-center p-4 bg-white">
+            <div class="col-12 col-md-4 flex-grow-0" data-aos="zoom-in" data-aos-delay="300">
+                <div class="card custom-card-width border-0 shadow-sm rounded-lg text-center p-4 bg-light">
                     <div class="icon mb-3">
-                        <i class="fa fa-users text-danger bg-light rounded-circle p-3"></i>
+                        <i class="fa fa-users text-danger bg-white rounded-circle p-3"></i>
                     </div>
                     <div class="inner">
+                        <p class="text-secondary mb-0" style="font-size: 14px;"><b>Total Residence</b></p>
                         <h4 class="text-dark mb-2"><?php echo $totalResidents; ?></h4>
-                        <p class="text-secondary mb-0"><b>Total Residence</b></p>
                     </div>
                 </div>
             </div>
@@ -637,94 +712,42 @@ margin-left:13%;
 </section>
 
 <br>
-<hr>
-<div class="dashboard-content mt-5" data-aos="fade-up">
-    <div class="chart-container">
-        <div class="chart-box">
-        <h5 class="card-title text-center">Gender Distribution Bar Chart</h5>
-            <div class="chart-wrapper">
-                <canvas id="sexChart"></canvas>
-            </div>
-            <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                    const ctx = document.getElementById('sexChart').getContext('2d');
-                    new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: ['Male', 'Female'],
-                            datasets: [{
-                                label: 'Number of People',
-                                data: [
-                                    <?php echo $sexData['Male']; ?>,  // Male count
-                                    <?php echo $sexData['Female']; ?>  // Female count
-                                ],
-                                backgroundColor: [
-                                    'rgba(54, 162, 235, 0.6)',  // Blue for Male
-                                    'rgba(255, 99, 132, 0.6)'   // Red for Female
-                                ],
-                                borderColor: [
-                                    'rgba(54, 162, 235, 1)',  // Blue for Male
-                                    'rgba(255, 99, 132, 1)'   // Red for Female
-                                ],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    position: 'top',
-                                },
-                                tooltip: {
-                                    callbacks: {
-                                        label: function(tooltipItem) {
-                                            return `${tooltipItem.label}: ${tooltipItem.raw}`;
-                                        }
-                                    }
-                                }
-                            },
-                            scales: {
-                                x: {
-                                    beginAtZero: true
-                                },
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
-                });
-            </script>
-        </div>
-    </div>
-</div>
-
-<hr>
-<div class="dashboard-content" data-aos="fade-up">
+<div class="container mt-3" data-aos="fade-up">
     <div class="row">
-        <div class="col-lg-6 mb-4">
-            <div class="chart-container">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-md-4 d-flex justify-content-center mb-4" data-aos="flip-left" data-aos-delay="100">
-                        <div class="chart-box-container text-center">
-                            <h5 class="card-title">Barangay Count Per Municipality</h5>
-                            <canvas id="barangayChart" style="max-width: 265px; max-height: 265px;" class="responsive-chart"></canvas>
-                        </div>
-                    </div>
+        <!-- Gender Distribution Bar Chart -->
+        <div class="col-lg-3 col-md-6">
+        <div class="box-container p-3 bg-light" style="margin-left: -72%; height: 300px; width: 130%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <h5 class="card-title text-center" style="font-size: 16px;">Gender Distribution Bar Chart</h5>
+                <div class="chart-wrapper" style="height: 200px; width: 100%; position: relative;">
+                    <canvas id="sexChart"></canvas>
+                </div>
+            </div>
+        </div>
 
-                    <div class="col-12 col-md-4 d-flex justify-content-center mb-4" data-aos="flip-left" data-aos-delay="200">
-                        <div class="chart-box-container text-center">
-                            <h5 class="card-title">House Count Per Municipality</h5>
-                            <canvas id="houseCountChart" style="max-width: 265px; max-height: 265px;" class="responsive-chart"></canvas>
-                        </div>
+        <!-- Three Cards on the Right Side -->
+        <div class="col-lg-9 col-md-4" style="margin-left: -9.5%;  margin-top: -1%;">
+            <div class="row">
+                <!-- First Card -->
+                <div class="col-12 col-md-4 d-flex justify-content-center mb-2">
+                    <div class="chart-box-container text-center bg-light">
+                        <h5 class="card-title" style="font-size: 14px;">Barangay Count Per Municipality</h5>
+                        <canvas id="barangayChart" style="max-width: 180px; max-height: 200px;" class="responsive-chart"></canvas>
                     </div>
+                </div>
 
-                    <div class="col-12 col-md-4 d-flex justify-content-center mb-4" data-aos="flip-left" data-aos-delay="300">
-                        <div class="chart-box-container text-center">
-                            <h5 class="card-title">Residence Count Per Municipality</h5>
-                            <canvas id="residenceChart" style="max-width: 265px; max-height: 265px;" class="responsive-chart"></canvas>
-                        </div>
+                <!-- Second Card -->
+                <div class="col-12 col-md-4 d-flex justify-content-center mb-2" style="height: 320px;">
+                    <div class="chart-box-container text-center bg-light">
+                        <h5 class="card-title" style="font-size: 14px;">House Count Per Municipality</h5>
+                        <canvas id="houseCountChart" style="max-width: 180px; max-height: 200px;" class="responsive-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Third Card -->
+                <div class="col-12 col-md-4 d-flex justify-content-center mb-2">
+                    <div class="chart-box-container text-center bg-light">
+                        <h5 class="card-title" style="font-size: 14px;">Residence Count Per Municipality</h5>
+                        <canvas id="residenceChart" style="max-width: 180px; max-height: 200px;" class="responsive-chart"></canvas>
                     </div>
                 </div>
             </div>
@@ -733,11 +756,63 @@ margin-left:13%;
 </div>
 
 
+
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const ctx = document.getElementById('sexChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Male', 'Female'],
+                datasets: [{
+                    label: 'Number of People',
+                    data: [
+                        <?php echo $sexData['Male']; ?>,  // Male count
+                        <?php echo $sexData['Female']; ?>  // Female count
+                    ],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.6)',  // Blue for Male
+                        'rgba(255, 99, 132, 0.6)'   // Red for Female
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',  // Blue for Male
+                        'rgba(255, 99, 132, 1)'   // Red for Female
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return `${tooltipItem.label}: ${tooltipItem.raw}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
 
 <script>
     // Doughnut chart for Barangay Count
