@@ -803,6 +803,7 @@ if (isBlocked($user_ip)) {
 <style>
     #searchInput::placeholder {
         color: white;
+        font-family: 'Merriweather', serif;
     }
 </style>
 </head>
