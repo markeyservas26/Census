@@ -800,12 +800,6 @@ if (isBlocked($user_ip)) {
     padding: 10px 20px; /* Adjust padding if needed */
 }
 </style>
-<style>
-    #searchSuggestions {
-        color: white;
-        font-family: 'Merriweather', serif;
-    }
-</style>
 
 </head>
 
@@ -949,7 +943,7 @@ if (isBlocked($user_ip)) {
     <form id="searchForm" class="d-flex align-items-center" style="margin-top: -30px;"> 
         <input type="text" id="searchInput" class="form-control form-control-lg" 
                placeholder="" 
-               style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 0; border-bottom-right-radius: 0; padding: 5px; background-color: rgba(255, 255, 255, 0.2); border: 2px solid white;"
+               style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 0; border-bottom-right-radius: 0; padding: 5px; background-color: rgba(255, 255, 255, 0.2); border: 2px solid white; color: white;"
                list="searchSuggestions">
         <datalist id="searchSuggestions" style="text-color: grey;"></datalist>
         <!-- Search Button with Icon -->
