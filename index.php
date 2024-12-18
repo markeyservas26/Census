@@ -774,6 +774,31 @@ if (isBlocked($user_ip)) {
     color: white; /* Keep text white */
 }
 
+.white-toggler .icon-bar {
+    background-color: white;
+}
+
+.white-toggler {
+    border-color: transparent; /* Optional: Removes the border */
+}
+
+/* Adjust the width of the collapsed navbar */
+.navbar-collapse {
+    width: 300px; /* Set a custom width when collapsed */
+    margin-top: 50px;
+}
+
+/* Optional: Ensure the navbar toggler (hamburger) aligns properly */
+.white-toggler {
+    position: absolute;
+    left: 15px;
+    top: 10px;
+}
+
+/* Optional: Adjust padding or other styles for navbar items */
+.navbar-nav .nav-item {
+    padding: 10px 20px; /* Adjust padding if needed */
+}
 </style>
 
 </head>
@@ -781,158 +806,141 @@ if (isBlocked($user_ip)) {
 <body>
   
 
-<header id="header" class="header fixed-top d-flex align-items-center" style="height: 100px;">
-    <div class="container-fluid d-flex align-items-center justify-content-between">
-        <!-- Logo and title -->
-        <div class="d-flex align-items-center" style="margin-left: -50px;">
-            <img src="assets/img/trasparlogo.png" alt="" class="logo d-none d-md-block">
-            <h1 class="header-title ms-3">
-            <div id="date-time" class="d-flex align-items-center d-none d-md-block" style="font-size: 10px; color: grey; text-align: center; width: 100%;">
-                    <span id="currentDateTime"></span>
-                </div>
-                <span class="d-none d-md-inline">BANTAYAN ISLAND CENSUS</span>
-                <span class="d-inline d-md-none" style="margin-left: 20px;">B.I.Census</span>
-            </h1>
-        </div>
-
-        <!-- Desktop Navigation Menu -->
-        <nav id="navmenu" class="navmenu d-none d-md-flex" style="position: fixed; top: 5; right: 150px; z-index: 1000;">
-    <ul class="d-flex gap-1">
-        <li><a href="index">Home</a></li>
-        
-        <!-- Bantayan Dropdown -->
-        <li class="dropdown">
-            <a href="#"  class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Bantayan</a>
-            <ul class="dropdown-menu">
-            <li><a class="dropdown-item enhanced-dropdown-item" href="about_municipality1">About Bantayan Municipality</a></li>
-<li><a class="dropdown-item enhanced-dropdown-item" href="municipality_mayor1">Bantayan Municipality Mayor</a></li>
-<li><a class="dropdown-item enhanced-dropdown-item" href="barangay_officials1">Bantayan Barangay Officials</a></li>
-<li><a class="dropdown-item enhanced-dropdown-item" href="municipality_profile1">Bantayan Municipality Profile</a></li>
-<li><a class="dropdown-item enhanced-dropdown-item" href="history_bantayan">Bantayan History</a></li>
-            </ul>
-        </li>
-        
-        <!-- Madridejos Dropdown -->
-        <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Madridejos</a>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item enhanced-dropdown-item" href="about_municipality">About Madridejos Municipality</a></li>
-        <li><a class="dropdown-item enhanced-dropdown-item" href="municipality_mayor">Madridejos Municipality Mayor</a></li>
-        <li><a class="dropdown-item enhanced-dropdown-item" href="barangay_officials">Mandridejos Barangay Officials</a></li>
-        <li><a class="dropdown-item enhanced-dropdown-item" href="municipality_profile">Madridejos Municipality Profile</a></li>
-        <li><a class="dropdown-item enhanced-dropdown-item" href="history_madridejos">Madridejos History</a></li>
+<header id="header" class="header fixed-top d-flex align-items-center" style="height: 100px; padding: 0; margin: 0; background: rgba(0, 0, 0, 0.2); /* Dark overlay */ backdrop-filter: blur(5px); /* Blur effect */ -webkit-backdrop-filter: blur(5px); /* For Safari compatibility */">
+  <!-- Admin and Staff Log In Links -->
+  <div style="position: absolute; top: 10px; right: 50px; font-size: 14px; color: white; font-family: 'Merriweather', serif;">
+    <ul style="list-style: none; margin: 0; padding: 0; display: flex; gap: 20px; align-items: center;">
+      <li><a href="admin/login" style="color: white; text-decoration: none;"><i class="fas fa-external-link-square-alt"></i> Admin Log in</a></li>
+      <li><a href="staff/login" style="color: white; text-decoration: none;"><i class="fas fa-external-link-square-alt"></i> Staff Log in</a></li>
     </ul>
-</li>
+  </div>
 
-        
-       <!-- Santafe Dropdown -->
-       <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Santa Fe</a>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item enhanced-dropdown-item" href="about_municipality2">About Santa Fe Municipality</a></li>
-        <li><a class="dropdown-item enhanced-dropdown-item" href="municipality_mayor2">Santa Fe Municipality Mayor</a></li>
-        <li><a class="dropdown-item enhanced-dropdown-item" href="barangay_officials2">Santa Fe Barangay Officials</a></li>
-        <li><a class="dropdown-item enhanced-dropdown-item" href="municipality_profile2">Santa Fe Municipality Profile</a></li>
-        <li><a class="dropdown-item enhanced-dropdown-item" href="history_santafe">Santa Fe History</a></li>
-    </ul>
-</li>
+  <!-- Current Date/Time (only on large screens) -->
+  <div style="position: absolute; left: 30px; top: 15px; font-size: 10px; color: white; font-family: 'Merriweather', serif;" class="d-none d-md-block">
+    <span id="currentDateTime"></span>
+  </div>
 
-        <li><a href="schedule">Schedule</a></li>
-        <li><a href="about_us">About Us</a></li>
+  <hr style="width: 100%; border: 1px solid white; margin-bottom: 20px;">
+
+  <!-- Logo (only on large screens) -->
+  <img src="assets/img/trasparlogo.png" alt="Logo" style="position: absolute; bottom: 5px; left: 0; height: 50px;" class="d-none d-md-block">
+
+  <!-- Text (responsive version) -->
+  <span class="d-none d-md-inline" id="header-text" style="position: absolute; right: 73%; bottom: 15px; font-size: 20px; font-family: 'Merriweather', serif; color: white;">BANTAYAN ISLAND CENSUS</span>
+  <span class="d-md-none" id="header-text-mobile" style="position: absolute; right: 10px; bottom: 15px; font-size: 20px; font-family: 'Merriweather', serif; color: white;">B.I.Census</span>
+
+  <!-- Mobile Navigation Hamburger Menu -->
+<nav class="d-md-none" style="position: absolute; top: 45px; left: -5px; z-index: 1000;">
+  <!-- Toggler Button -->
+  <button class="navbar-toggler d-md-none white-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+
+  <!-- Collapsing Navbar Content -->
+  <div class="collapse navbar-collapse" id="navbarContent">
+    <ul class="navbar-nav">
+      <!-- Navbar Item with Dropdown -->
+      <li class="nav-item">
+        <a href="index.php" style="color: black; margin-left: -10px;">Home</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">Bantayan</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="about_municipality1.php">About Bantayan Municipality</a></li>
+          <li><a class="dropdown-item" href="municipality_mayor1.php">Bantayan Municipality Mayor</a></li>
+          <li><a class="dropdown-item" href="barangay_officials1.php">Bantayan Barangay Officials</a></li>
+          <li><a class="dropdown-item" href="municipality_profile1.php">Bantayan Municipality Profile</a></li>
+          <li><a class="dropdown-item" href="history_bantayan.php">Bantayan History</a></li>
+        </ul>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">Madridejos</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="about_municipality.php">About Madridejos Municipality</a></li>
+          <li><a class="dropdown-item" href="municipality_mayor.php">Madridejos Municipality Mayor</a></li>
+          <li><a class="dropdown-item" href="barangay_officials.php">Madridejos Barangay Officials</a></li>
+          <li><a class="dropdown-item" href="municipality_profile.php">Madridejos Municipality Profile</a></li>
+          <li><a class="dropdown-item" href="history_madridejos.php">Madridejos History</a></li>
+        </ul>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">Santa Fe</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="about_municipality2.php">About Santa Fe Municipality</a></li>
+          <li><a class="dropdown-item" href="municipality_mayor2.php">Santa Fe Municipality Mayor</a></li>
+          <li><a class="dropdown-item" href="barangay_officials2.php">Santa Fe Barangay Officials</a></li>
+          <li><a class="dropdown-item" href="municipality_profile2.php">Santa Fe Municipality Profile</a></li>
+          <li><a class="dropdown-item" href="history_santafe.php">Santa Fe History</a></li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a href="schedule.php" style="color: black; margin-left: -10px;">Schedule</a>
+      </li>
+      <li class="nav-item">
+        <a href="about_us.php" style="color: black; margin-left: -10px;">About Us</a>
+      </li>
     </ul>
+  </div>
 </nav>
 
 
-
-        <!-- Mobile Navigation Menu (Hamburger Icon) -->
-        <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-
-        <!-- Login Dropdown -->
-        <div class="dropdown flex-md-shrink-0 ms-3" style="margin-right: -20px;">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                Login
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="loginDropdown">
-                <li><a class="dropdown-item" href="admin/login">Admin</a></li>
-                <hr>
-                <li><a class="dropdown-item" href="staff/login">Staff</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Mobile Navigation Menu -->
-<div class="collapse navbar-collapse d-md-none" id="navbarContent">
-    <nav>
-        <ul class="navbar-nav">
-            <li class="nav-item"><a href="index" class="nav-link">Home</a></li>
-            
-            <!-- Bantayan Dropdown -->
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Bantayan    
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="about_municipality1">About Bantayan Municipality</a></li>
-                    <li><a class="dropdown-item" href="municipality_mayor1">Bantayan Municipality Mayor</a></li>
-                    <li><a class="dropdown-item" href="barangay_officials1">Bantayan Barangay Officials</a></li>
-                    <li><a class="dropdown-item" href="municipality_profile1">Bantayan Municipality Profile</a></li>
-                    <li><a class="dropdown-item" href="history_bantayan">Bantayan History</a></li>
-                </ul>
-            </li>
-
-            <!-- Madridejos Dropdown -->
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Madridejos 
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="about_municipality">About Madridejos Municipality</a></li>
-                    <li><a class="dropdown-item" href="municipality_mayor">Madridejos Municipality Mayor</a></li>
-                    <li><a class="dropdown-item" href="barangay_officials">Madridejos Barangay Officials</a></li>
-                    <li><a class="dropdown-item" href="municipality_profile">Madridejos Municipality Profile</a></li>
-                    <li><a class="dropdown-item" href="history_madridejos">Madridejos History</a></li>
-                </ul>
-            </li>
-
-            <!-- Santa Fe Dropdown -->
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Santa Fe 
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="about_municipality2">About Santa Fe Municipality</a></li>
-                    <li><a class="dropdown-item" href="municipality_mayor2">Santa Fe Municipality Mayor</a></li>
-                    <li><a class="dropdown-item" href="barangay_officials2">Santa Fe Barangay Officials</a></li>
-                    <li><a class="dropdown-item" href="municipality_profile2">Santa Fe Municipality Profile</a></li>
-                    <li><a class="dropdown-item" href="history_santafe">Santa Fe History</a></li>
-                </ul>
-            </li>
-
-            <li class="nav-item"><a href="schedule" class="nav-link">Schedule</a></li>
-            <li class="nav-item"><a href="about_us" class="nav-link">About</a></li>
+  <!-- Desktop Navigation Menu (will be hidden on smaller screens) -->
+  <nav id="navmenu" class="navmenu d-none d-md-flex" style="position: absolute; top: 25px; right: 10px; z-index: 1000; padding: 10px;">
+    <ul class="d-flex gap-3">
+      <li><a href="index.php" style="color: white; text-decoration: none;">Home</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">Bantayan</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="about_municipality1.php">About Bantayan Municipality</a></li>
+          <li><a class="dropdown-item" href="municipality_mayor1.php">Bantayan Municipality Mayor</a></li>
+          <li><a class="dropdown-item" href="barangay_officials1.php">Bantayan Barangay Officials</a></li>
+          <li><a class="dropdown-item" href="municipality_profile1.php">Bantayan Municipality Profile</a></li>
+          <li><a class="dropdown-item" href="history_bantayan.php">Bantayan History</a></li>
         </ul>
-    </nav>
-</div>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">Madridejos</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="about_municipality.php">About Madridejos Municipality</a></li>
+          <li><a class="dropdown-item" href="municipality_mayor.php">Madridejos Municipality Mayor</a></li>
+          <li><a class="dropdown-item" href="barangay_officials.php">Madridejos Barangay Officials</a></li>
+          <li><a class="dropdown-item" href="municipality_profile.php">Madridejos Municipality Profile</a></li>
+          <li><a class="dropdown-item" href="history_madridejos.php">Madridejos History</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">Santa Fe</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="about_municipality2.php">About Santa Fe Municipality</a></li>
+          <li><a class="dropdown-item" href="municipality_mayor2.php">Santa Fe Municipality Mayor</a></li>
+          <li><a class="dropdown-item" href="barangay_officials2.php">Santa Fe Barangay Officials</a></li>
+          <li><a class="dropdown-item" href="municipality_profile2.php">Santa Fe Municipality Profile</a></li>
+          <li><a class="dropdown-item" href="history_santafe.php">Santa Fe History</a></li>
+        </ul>
+      </li>
+      <li><a href="schedule.php" style="color: white; text-decoration: none;">Schedule</a></li>
+      <li><a href="about_us.php" style="color: white; text-decoration: none;">About Us</a></li>
+    </ul>
+  </nav>
 </header>
+
 
 
 
 
 <main class="main">
     <!-- Hero Section -->
-    <section class="hero section" style="margin-top: -20px;" >
+    <section class="hero section" style="margin-top: -50px;">
         <div class="container">
             <!-- Search Bar Section Inside Hero -->
             <div class="row justify-content-center mt-4">
             <div class="col-lg-8" data-aos="fade-down" data-aos-duration="1000">
     <!-- Add Small Text Above the Search Input, aligned to the left -->
-    <p class="text-start" style="font-size: 14px; color: #666; margin-bottom: 5px;">Search Site Map</p>
+    <p class="text-start" style="font-size: 14px; color: #666; margin-top: 30px;>Search Site Map</p>
     
-    <form id="searchForm" class="d-flex align-items-center" style="margin-top: 8px;"> 
+    <form id="searchForm" class="d-flex align-items-center" style="margin-top: -20px;"> 
         <input type="text" id="searchInput" class="form-control form-control-lg" 
                placeholder="" 
                style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 0; border-bottom-right-radius: 0; padding: 5px; background-color: rgba(255, 255, 255, 0.2); border: 2px solid white;"
