@@ -938,9 +938,9 @@ if (isBlocked($user_ip)) {
             <div class="row justify-content-center mt-4">
             <div class="col-lg-8" data-aos="fade-down" data-aos-duration="1000">
     <!-- Add Small Text Above the Search Input, aligned to the left -->
-    <p class="text-start" style="font-size: 14px; color: #666; margin-top: 30px;>Search Site Map</p>
+    <p class="text-start" style="font-size: 14px; color: #666; margin-bottom: 5px;">Search Site Map</p>
     
-    <form id="searchForm" class="d-flex align-items-center" style="margin-top: -20px;"> 
+    <form id="searchForm" class="d-flex align-items-center" style="margin-top: 8px;"> 
         <input type="text" id="searchInput" class="form-control form-control-lg" 
                placeholder="" 
                style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 0; border-bottom-right-radius: 0; padding: 5px; background-color: rgba(255, 255, 255, 0.2); border: 2px solid white;"
