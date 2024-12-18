@@ -859,6 +859,7 @@ if (isBlocked($user_ip)) {
         </ul>
     </nav>
 </div>
+</div>
 
 
 
