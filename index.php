@@ -937,7 +937,7 @@ if (isBlocked($user_ip)) {
                placeholder="" 
                style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 0; border-bottom-right-radius: 0; padding: 5px; background-color: rgba(255, 255, 255, 0.2); border: 2px solid white;"
                list="searchSuggestions">
-        <datalist id="searchSuggestions"></datalist>
+        <datalist id="searchSuggestions" style="text-color: grey;"></datalist>
         <!-- Search Button with Icon -->
         <button type="button" id="searchButton" class="btn btn-lg ms-0" 
         style="border-top-right-radius: 20px; border-bottom-right-radius: 20px; border-top-left-radius: 0; border-bottom-left-radius: 0; padding: 10px 15px; background-color: #007bff; border: none;">
@@ -952,7 +952,7 @@ if (isBlocked($user_ip)) {
                 <!-- Left Column: Welcome Text and Paragraph -->
                 <div class="col-lg-6" data-aos="fade-up" data-aos-duration="1000">
                     <div class="hero-content" style="margin-top: 50px;">
-                        <h3>Welcome to the Bantayan Island Census!</h3>
+                        <h3 style="font-size: 24px;">Welcome to the Bantayan Island Census!</h3>
                         <br>
                         <p class="text-justify" id="census-paragraph" style="margin-top: 30px;">Help us shape the future of our community by participating in the census. Your input is crucial for better planning and services. Thank you for being involved!</p>
                     </div>
