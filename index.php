@@ -940,7 +940,7 @@ if (isBlocked($user_ip)) {
             <datalist id="searchSuggestions"></datalist>
             <!-- Search Button with Icon -->
             <button type="button" id="searchButton" class="btn btn-lg ms-2" 
-            style="border-top-right-radius: 20px; border-bottom-right-radius: 20px; border-top-left-radius: 0; border-bottom-left-radius: 0; padding: 5px; background-color: #007bff; border: none; margin-left:-20px;">
+            style="border-top-right-radius: 20px; border-bottom-right-radius: 20px; border-top-left-radius: 0; border-bottom-left-radius: 0; padding: 10px 15px; background-color: #007bff; border: none; margin-left:-20px;">
                 <i class="fas fa-search" style="color: white;"></i>
             </button>
         </form>
