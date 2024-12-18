@@ -952,9 +952,9 @@ if (isBlocked($user_ip)) {
                 <!-- Left Column: Welcome Text and Paragraph -->
                 <div class="col-lg-6" data-aos="fade-up" data-aos-duration="1000">
                     <div class="hero-content" style="margin-top: 50px;">
-                        <h3 style="font-size: 26px;">Welcome to the Bantayan Island Census!</h3>
+                        <h3>Welcome to the Bantayan Island Census!</h3>
                         <br>
-                        <p class="text-justify" id="census-paragraph" style="margin-top: 20px;">Help us shape the future of our community by participating in the census. Your input is crucial for better planning and services. Thank you for being involved!</p>
+                        <p class="text-justify" id="census-paragraph" style="margin-top: 10px;">Help us shape the future of our community by participating in the census. Your input is crucial for better planning and services. Thank you for being involved!</p>
                     </div>
                 </div>
                 <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
