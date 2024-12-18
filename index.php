@@ -945,7 +945,7 @@ if (isBlocked($user_ip)) {
                placeholder="" 
                style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 0; border-bottom-right-radius: 0; padding: 5px; background-color: rgba(255, 255, 255, 0.2); border: 2px solid white;"
                list="searchSuggestions">
-        <datalist id="searchSuggestions" style="text-color: grey;"></datalist>
+        <datalist id="searchSuggestions" style="text-color: white; font-family: 'Merriweather', serif;"></datalist>
         <!-- Search Button with Icon -->
         <button type="button" id="searchButton" class="btn btn-lg ms-0" 
         style="border-top-right-radius: 20px; border-bottom-right-radius: 20px; border-top-left-radius: 0; border-bottom-left-radius: 0; padding: 10px 15px; background-color: #007bff; border: none;">
