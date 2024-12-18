@@ -782,6 +782,8 @@ if (isBlocked($user_ip)) {
   
 
 <header id="header" class="header fixed-top d-flex align-items-center" style="height: 100px;">
+    <!-- Horizontal Line -->
+    <hr style="width: 100%; border: 1px solid #ccc; margin: 10px 0;">
 <div class="container-fluid d-flex align-items-center justify-content-between flex-column">
     <!-- Top Section with Logo and Title -->
     <div class="d-flex align-items-center justify-content-between w-100">
@@ -810,8 +812,7 @@ if (isBlocked($user_ip)) {
         </div>
     </div>
 
-    <!-- Horizontal Line -->
-    <hr style="width: 100%; border: 1px solid #ccc; margin: 10px 0;">
+    
 
     <!-- Navigation Menu -->
     <nav id="navmenu" class="navmenu d-none d-md-flex w-100 justify-content-center">
