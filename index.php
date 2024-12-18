@@ -954,7 +954,7 @@ if (isBlocked($user_ip)) {
                     <div class="hero-content" style="margin-top: 50px;">
                         <h3 style="font-size: 28px;">Welcome to the Bantayan Island Census!</h3>
                         <br>
-                        <p class="text-justify" id="census-paragraph" style="margin-top: 30px;">Help us shape the future of our community by participating in the census. Your input is crucial for better planning and services. Thank you for being involved!</p>
+                        <p class="text-justify" id="census-paragraph" style="margin-top: 20px;">Help us shape the future of our community by participating in the census. Your input is crucial for better planning and services. Thank you for being involved!</p>
                     </div>
                 </div>
                 <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
