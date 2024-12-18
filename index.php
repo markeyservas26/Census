@@ -940,7 +940,7 @@ if (isBlocked($user_ip)) {
     <!-- Add Small Text Above the Search Input, aligned to the left -->
     <p class="text-start" style="font-size: 14px; color: #666; margin-top: 50px;">Search Site Map</p>
     
-    <form id="searchForm" class="d-flex align-items-center"> 
+    <form id="searchForm" class="d-flex align-items-center" style="margin-top: -20px;"> 
         <input type="text" id="searchInput" class="form-control form-control-lg" 
                placeholder="" 
                style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 0; border-bottom-right-radius: 0; padding: 5px; background-color: rgba(255, 255, 255, 0.2); border: 2px solid white;"
