@@ -594,45 +594,48 @@ margin-left:13%;
 <section class="section dashboard" data-aos="fade-up">
     <div class="container">
         <div class="row card-container" data-aos="fade-up">
+            <!-- Total Barangay Card -->
             <div class="col-xl-3 col-lg-6 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="100">
-                <div class="card-box bg-blue">
-                    <div class="inner">
-                        <h3 class="total-barangay"><?php echo $totalBarangayCount; ?></h3>
-                        <p><b>Total Barangay</b></p>
+                <div class="card border-0 shadow-sm rounded-lg text-center p-4 bg-white">
+                    <div class="icon mb-3">
+                        <i class="fa fa-university text-primary bg-light rounded-circle p-3"></i>
                     </div>
-                    <div class="icon">
-                        <i class="fa fa-university" aria-hidden="true"></i>
+                    <div class="inner">
+                        <h4 class="text-dark mb-2"><?php echo $totalBarangayCount; ?></h4>
+                        <p class="text-secondary mb-0"><b>Total Barangay</b></p>
                     </div>
                 </div>
             </div>
 
+            <!-- Total Houses Card -->
             <div class="col-xl-3 col-lg-6 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="200">
-                <div class="card-box bg-green">
-                    <div class="inner">
-                        <h3 class="total-houses"><?php echo array_sum($data['totalHouseNumbers']); ?></h3>
-                        <p><b>Total Houses</b></p>
+                <div class="card border-0 shadow-sm rounded-lg text-center p-4 bg-white">
+                    <div class="icon mb-3">
+                        <i class="fa fa-house text-success bg-light rounded-circle p-3"></i>
                     </div>
-                    <div class="icon">
-                        <i class="fa fa-house" aria-hidden="true"></i>
+                    <div class="inner">
+                        <h4 class="text-dark mb-2"><?php echo array_sum($data['totalHouseNumbers']); ?></h4>
+                        <p class="text-secondary mb-0"><b>Total Houses</b></p>
                     </div>
                 </div>
             </div>
 
+            <!-- Total Residence Card -->
             <div class="col-xl-3 col-lg-6 col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
-    <div class="card-box bg-red">
-        <div class="inner">
-            <h3 class="total-residence"><?php echo $totalResidents; ?></h3>
-            <p><b>Total Residence</b></p>
-        </div>
-        <div class="icon">
-            <i class="fa fa-users"></i>
-        </div>
-    </div>
-</div>
-
+                <div class="card border-0 shadow-sm rounded-lg text-center p-4 bg-white">
+                    <div class="icon mb-3">
+                        <i class="fa fa-users text-danger bg-light rounded-circle p-3"></i>
+                    </div>
+                    <div class="inner">
+                        <h4 class="text-dark mb-2"><?php echo $totalResidents; ?></h4>
+                        <p class="text-secondary mb-0"><b>Total Residence</b></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
+
 <br>
 <hr>
 <div class="dashboard-content mt-5" data-aos="fade-up">
