@@ -782,26 +782,42 @@ if (isBlocked($user_ip)) {
   
 
 <header id="header" class="header fixed-top d-flex align-items-center" style="height: 100px;">
-<div class="container-fluid d-flex align-items-center justify-content-between">
-    <!-- Logo and title -->
-    <div class="d-flex align-items-center" style="margin-left: -50px;">
-        <img src="assets/img/trasparlogo.png" alt="" class="logo d-none d-md-block">
-        <h1 class="header-title ms-3">
-            <div id="date-time" class="d-flex align-items-center d-none d-md-block" style="font-size: 10px; color: grey; text-align: center; width: 100%;">
-                <span id="currentDateTime"></span>
-            </div>
-            <span class="d-none d-md-inline">BANTAYAN ISLAND CENSUS</span>
-            <span class="d-inline d-md-none" style="margin-left: 20px;">B.I.Census</span>
-        </h1>
+<div class="container-fluid d-flex align-items-center justify-content-between flex-column">
+    <!-- Top Section with Logo and Title -->
+    <div class="d-flex align-items-center justify-content-between w-100">
+        <!-- Logo and title -->
+        <div class="d-flex align-items-center" style="margin-left: -50px;">
+            <img src="assets/img/trasparlogo.png" alt="" class="logo d-none d-md-block">
+            <h1 class="header-title ms-3">
+                <div id="date-time" class="d-flex align-items-center d-none d-md-block" style="font-size: 10px; color: grey; text-align: center; width: 100%;">
+                    <span id="currentDateTime"></span>
+                </div>
+                <span class="d-none d-md-inline">BANTAYAN ISLAND CENSUS</span>
+                <span class="d-inline d-md-none" style="margin-left: 20px;">B.I.Census</span>
+            </h1>
+        </div>
+
+        <!-- Login Dropdown -->
+        <div class="dropdown flex-md-shrink-0 ms-3" style="margin-right: -20px;">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                Login
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="loginDropdown">
+                <li><a class="dropdown-item" href="admin/login">Admin</a></li>
+                <hr>
+                <li><a class="dropdown-item" href="staff/login">Staff</a></li>
+            </ul>
+        </div>
     </div>
 
-    <!-- Divider Line -->
-    <div style="height: 60px; width: 1px; background-color: grey; margin: 0 20px;"></div>
+    <!-- Horizontal Line -->
+    <hr style="width: 100%; border: 1px solid #ccc; margin: 10px 0;">
 
-    <!-- Desktop Navigation Menu -->
-    <nav id="navmenu" class="navmenu d-none d-md-flex" style="position: fixed; top: 5; right: 150px; z-index: 1000;">
+    <!-- Navigation Menu -->
+    <nav id="navmenu" class="navmenu d-none d-md-flex w-100 justify-content-center">
         <ul class="d-flex gap-1">
             <li><a href="index">Home</a></li>
+            
             <!-- Bantayan Dropdown -->
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Bantayan</a>
@@ -813,19 +829,19 @@ if (isBlocked($user_ip)) {
                     <li><a class="dropdown-item enhanced-dropdown-item" href="history_bantayan">Bantayan History</a></li>
                 </ul>
             </li>
-
+            
             <!-- Madridejos Dropdown -->
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Madridejos</a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item enhanced-dropdown-item" href="about_municipality">About Madridejos Municipality</a></li>
                     <li><a class="dropdown-item enhanced-dropdown-item" href="municipality_mayor">Madridejos Municipality Mayor</a></li>
-                    <li><a class="dropdown-item enhanced-dropdown-item" href="barangay_officials">Mandridejos Barangay Officials</a></li>
+                    <li><a class="dropdown-item enhanced-dropdown-item" href="barangay_officials">Madridejos Barangay Officials</a></li>
                     <li><a class="dropdown-item enhanced-dropdown-item" href="municipality_profile">Madridejos Municipality Profile</a></li>
                     <li><a class="dropdown-item enhanced-dropdown-item" href="history_madridejos">Madridejos History</a></li>
                 </ul>
             </li>
-
+            
             <!-- Santa Fe Dropdown -->
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Santa Fe</a>
@@ -842,26 +858,8 @@ if (isBlocked($user_ip)) {
             <li><a href="about_us">About Us</a></li>
         </ul>
     </nav>
-
-    <!-- Mobile Navigation Menu (Hamburger Icon) -->
-    <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-    </button>
-
-    <!-- Login Dropdown -->
-    <div class="dropdown flex-md-shrink-0 ms-3" style="margin-right: -20px;">
-        <button class="btn btn-primary dropdown-toggle" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            Login
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="loginDropdown">
-            <li><a class="dropdown-item" href="admin/login">Admin</a></li>
-            <hr>
-            <li><a class="dropdown-item" href="staff/login">Staff</a></li>
-        </ul>
-    </div>
 </div>
+
 
 
     <!-- Mobile Navigation Menu -->
