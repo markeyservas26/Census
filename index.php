@@ -941,17 +941,18 @@ if (isBlocked($user_ip)) {
     <p class="text-start" style="font-size: 14px; color: #666; margin-top: 30px;">Search Site Map</p>
     
     <form id="searchForm" class="d-flex align-items-center" style="margin-top: -30px;"> 
-        <input type="text" id="searchInput" class="form-control form-control-lg" 
-               placeholder="" 
-               style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 0; border-bottom-right-radius: 0; padding: 5px; background-color: rgba(255, 255, 255, 0.2); border: 2px solid white; color: white;"
-               list="searchSuggestions">
-        <datalist id="searchSuggestions" style="text-color: grey;"></datalist>
-        <!-- Search Button with Icon -->
-        <button type="button" id="searchButton" class="btn btn-lg ms-0" 
-        style="border-top-right-radius: 20px; border-bottom-right-radius: 20px; border-top-left-radius: 0; border-bottom-left-radius: 0; padding: 10px 15px; background-color: #007bff; border: none;">
-            <i class="fas fa-search" style="color: white;"></i>
-        </button>
-    </form>
+    <input type="text" id="searchInput" class="form-control form-control-lg" 
+           placeholder="" 
+           style="border-radius: 20px; padding: 5px; background-color: rgba(255, 255, 255, 0.7); border: 2px solid white; color: white;" 
+           list="searchSuggestions">
+    <datalist id="searchSuggestions"></datalist>
+    <!-- Search Button with Icon -->
+    <button type="button" id="searchButton" class="btn btn-lg ms-2" 
+            style="border-radius: 20px; padding: 10px 15px; background-color: #007bff; border: none;">
+        <i class="fas fa-search" style="color: white;"></i>
+    </button>
+</form>
+
 </div>
 </div>
 
