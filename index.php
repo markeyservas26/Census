@@ -787,7 +787,6 @@ if (isBlocked($user_ip)) {
     width: 350px; /* Set a custom width when collapsed */
     margin-top: 50px;
     margin-left: -30px;
-    max-height: 300px;
 }
 
 /* Optional: Ensure the navbar toggler (hamburger) aligns properly */
