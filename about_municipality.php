@@ -819,7 +819,7 @@
 <br>
 <br>
 <!-- Madridejos Section -->
-<section class="madridejos-content section" style="margin: 0; padding: 0; height: 100vh; overflow: hidden;">
+<section class="madridejos-content section" style="margin: 0; padding: 0; height: 100vh; overflow: hidden; margin-top: -50px;">
     <div class="image-container" style="width: 100%; height: 100%; position: relative;">
         <video autoplay muted loop controls 
                style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
