@@ -784,8 +784,9 @@ if (isBlocked($user_ip)) {
 
 /* Adjust the width of the collapsed navbar */
 .navbar-collapse {
-    width: 300px; /* Set a custom width when collapsed */
+    width: 350px; /* Set a custom width when collapsed */
     margin-top: 50px;
+    height: 300px;
 }
 
 /* Optional: Ensure the navbar toggler (hamburger) aligns properly */
