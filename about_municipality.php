@@ -661,7 +661,15 @@
     color: white; /* Keep text white */
 }
 
-.white-toggler .icon-bar {
+
+</style>
+<style>
+    #searchInput::placeholder {
+        color: white;
+        font-family: 'Merriweather', serif;
+    }
+
+    .white-toggler .icon-bar {
     background-color: white;
 }
 
@@ -687,12 +695,6 @@
 .navbar-nav .nav-item {
     padding: 10px 20px; /* Adjust padding if needed */
 }
-</style>
-<style>
-    #searchInput::placeholder {
-        color: white;
-        font-family: 'Merriweather', serif;
-    }
 </style>
 </head>
 <body>
