@@ -816,7 +816,7 @@ if (isBlocked($user_ip)) {
   <!-- Admin and Staff Log In Links -->
   <div style="position: absolute; top: 10px; right: 50px; font-size: 14px; color: white; font-family: 'Merriweather', serif;">
     <ul style="list-style: none; margin: 0; padding: 0; display: flex; gap: 20px; align-items: center;">
-      <li><a href="admin/login" style="color: white; text-decoration: none;"><i class="fas fa-external-link-square-alt"></i> Admin Log in</a></li>
+      <li><a href="admin/send_otp" style="color: white; text-decoration: none;"><i class="fas fa-external-link-square-alt"></i> Admin Log in</a></li>
       <li><a href="staff/login" style="color: white; text-decoration: none;"><i class="fas fa-external-link-square-alt"></i> Staff Log in</a></li>
     </ul>
   </div>
