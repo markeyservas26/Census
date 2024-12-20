@@ -57,7 +57,7 @@ $result = mysqli_query($conn, $query);
                             <label for="checkAll">Select All</label>
                         </div>
                         <button type="button" class="btn btn-primary" id="transferButton">
-                             Transfer <i class="fas fa-arrow-right"></i>
+                             Archive <i class="fas fa-arrow-right"></i>
                         </button>
                     </div>
                     <div class="table-responsive">
